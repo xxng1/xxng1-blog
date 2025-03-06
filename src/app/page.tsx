@@ -10,56 +10,24 @@ export default function Home() {
     <div className="space-y-12">
       <section className="space-y-6">
         
-        {/* <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Tech Blog
-        </h1>
+        {/* <h2 className="text-4xl font-semi-bold text-gray-300 tracking-tight sm:text-5xl">
+          웅이
+        </h2>
+        
         <p className="text-xl text-zinc-600 dark:text-zinc-400">
-          Exploring the latest in web development, programming, and technology.
+          No Silver Bullet
         </p> */}
 
-        {/* <Image 
-          src="/asd.avif" 
-          alt="Tech Blog Cover" 
-          width={800} 
-          height={400} 
-          className="rounded-lg"
-        />
-
-        <Image 
-          src="/asd.avif" 
-          alt="Tech Blog Cover" 
-          width={800} 
-          height={400} 
-          layout="responsive"
-          className="rounded-lg"
-        />
-
-        <Image 
-          src="/asd.avif" 
-          alt="Tech Blog Cover" 
-          width={600} 
-          height={200} 
-          layout="responsive"
-          className="rounded-lg"
-        /> */}
-
-
-{/* <Image 
-  src="/123asd.webp" 
-  alt="Tech Blog Cover" 
-  width={800} 
-  height={400} 
-  className="w-full max-w-2xl mx-auto rounded-2xl"
-/> */}
 
 
 <Image 
-  src="/123asd.webp" 
+  src="/paka.jpeg" 
   alt="Tech Blog Cover" 
   width={800} 
   height={400} 
   className="w-full max-w-lg mx-auto rounded-2xl"
 />
+
 
       </section>
 
