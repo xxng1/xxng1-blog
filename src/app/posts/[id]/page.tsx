@@ -1,47 +1,50 @@
-import { getAllPostIds, getPostData } from '@/lib/posts';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { getAllPostIds, getPostData } from "@/lib/posts";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface PostPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
+// 메타데이터 생성
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { id } = await params; // 🔹 params를 await 처리
   try {
-    const postData = await getPostData(params.id);
+    const postData = await getPostData(id);
     return {
       title: postData.title,
       description: postData.excerpt,
     };
-  } catch (error) {
+  } catch {
     return {
-      title: 'Post Not Found',
-      description: 'The requested post could not be found.',
+      title: "Post Not Found",
+      description: "The requested post could not be found.",
     };
   }
 }
 
+// 정적 경로 생성
 export async function generateStaticParams() {
   const paths = getAllPostIds();
   return paths;
 }
 
-export default async function Post({ params }: PostPageProps) {
+// 게시글 페이지 컴포넌트
+export default async function Post({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params; // 🔹 params를 await 처리
   try {
-    const postData = await getPostData(params.id);
+    const postData = await getPostData(id);
 
     return (
       <article className="prose prose-zinc dark:prose-invert max-w-none">
         <header className="mb-8 not-prose">
           <time className="text-sm text-zinc-500 dark:text-zinc-400">
-            {new Date(postData.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
+            {new Date(postData.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })}
           </time>
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -51,12 +54,11 @@ export default async function Post({ params }: PostPageProps) {
             {postData.excerpt}
           </p>
         </header>
-        
+
         <ReactMarkdown 
           remarkPlugins={[remarkGfm]}
           components={{
-            code(props) {
-              const {children, className, node, ...rest} = props;
+            code({ children, className, ...rest }) {
               return (
                 <code className={className} {...rest}>
                   {children}
@@ -96,7 +98,7 @@ export default async function Post({ params }: PostPageProps) {
         </ReactMarkdown>
       </article>
     );
-  } catch (error) {
+  } catch {
     notFound();
   }
 }
