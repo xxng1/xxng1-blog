@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { Analytics } from "@vercel/analytics/react"; // Analytics 임포트
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,6 +66,7 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
+        <Analytics /> {/* Analytics 컴포넌트를 여기 추가 */}
       </body>
     </html>
   );
