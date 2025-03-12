@@ -92,6 +92,18 @@ export default async function Post({ params }: { params: Promise<{ id: string }>
             blockquote({ children }) {
               return <blockquote className="border-l-4 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4">{children}</blockquote>;
             },
+
+            // ✅ 이미지 크기 조절 추가
+            img({ src, alt }) {
+              return (
+                <img
+                src={src || ""}
+                alt={alt || ""}
+                className="w-[650px] h-[66%] object-cover rounded-lg block mx-auto"
+                />
+              );
+            },
+
           }}
         >
           {postData.content}

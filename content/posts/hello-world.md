@@ -4,6 +4,8 @@ date: '2025-05-01'
 excerpt: 'Welcome to my markdown blog built with Next.js!'
 ---
 
+![Paka Image](/paka.jpeg)
+
 # Hello World
 
 Welcome to my new blog! This is a simple markdown blog built with Next.js.
