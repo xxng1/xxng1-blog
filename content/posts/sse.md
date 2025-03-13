@@ -2,7 +2,7 @@
 layout:       post
 title:        "SSE 방식을 이용한 알림 구현"
 date: '2024-06-15'
-excerpt: 'asdcasdcasdcasdc.'
+excerpt: ''
 ---
 
 > 프로젝트에서 사용했던 SSE 방식에 대해

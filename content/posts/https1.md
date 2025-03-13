@@ -2,7 +2,7 @@
 layout:       post
 title:        "WS(Web Server)에서의 직접 SSL 인증서 발급/적용"
 date: '2024-01-08'
-excerpt: 'asdcasdcasdcasdc.'
+excerpt: ''
 ---
 (Docker-Compose❌) 
 

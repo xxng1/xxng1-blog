@@ -2,7 +2,7 @@
 layout:       post
 title:        "WAS - DB connect"
 date: '2023-06-15'
-excerpt: 'asdcasdcasdcasdc.'
+excerpt: ''
 ---
 
 ## Docker 컨테이너를 활용한 3-Tier Architecture 구성

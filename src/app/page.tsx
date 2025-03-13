@@ -28,8 +28,12 @@ export default function Home() {
   className="w-full max-w-lg mx-auto rounded-2xl"
 />
 
+<p style={{ textAlign: "center", color: "gray", fontStyle: "italic" }}>squirrel in seattle</p>
 
       </section>
+
+
+<div style={{ width: "100%", height: "0.8px", backgroundColor: "gray", margin: "15px auto" }}></div>
 
       <section className="space-y-8">
         <h2 className="text-2xl font-bold tracking-tight">

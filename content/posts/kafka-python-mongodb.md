@@ -1,7 +1,7 @@
 ---
 title: "Kafka와 Python Script를 통한 데이터 마이그레이션 ( MySQL ➡️ MongoDB )"
 date: '2024-06-15'
-excerpt: 'asdcasdcasdcasdc.'
+excerpt: ''
 ---
 
 # MySQL ➡️ Kafka ➡️ MongoDB
