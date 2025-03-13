@@ -39,7 +39,7 @@ export default function RootLayout({
               <Link href="https://www.linkedin.com/in/sangwoong-park/" className="text-sm font-medium hover:text-zinc-600 dark:hover:text-zinc-300 transition">
                 LinkedIn
               </Link>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:text-zinc-600 dark:hover:text-zinc-300 transition">
+              <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:text-zinc-600 dark:hover:text-zinc-300 transition">
                 GitHub
               </a>
             </nav>
