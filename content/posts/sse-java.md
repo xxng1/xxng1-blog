@@ -2,7 +2,7 @@
 layout:       post
 title:        "SSE 방식을 이용한 알림 구현"
 date: '2024-06-15'
-excerpt: ''
+excerpt: '#Springboot'
 ---
 
 > 프로젝트에서 사용했던 SSE 방식에 대해
@@ -77,7 +77,7 @@ public class SseEmitters {
 - 이벤트를 관리하는 SseEmitter, ConcurrentHashMap을 통해서 여러 스레드에서 동시에 접근해도 데이터를 처리할 수 있도록 함
 
 ### 2. NotificationController 클래스
-```
+```java
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -109,7 +109,7 @@ public class NotificationController {
 - MediaType.TEXT_EVENT_STREAM_VALUE는 SSE를 지원하는 텍스트 형식을 나타낸다.
 
 ### 3. NotificationService 클래스
-```
+```java
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -208,7 +208,7 @@ public class NotificationService {
 추가적으로, 읽지 않은 알림 및 전체 알림 조회/삭제 기능을 위해서 알림에 대한 Entity와 Repository를 생성해줬다.
 
 ### (+) 클라이언트에서 구독 요청 & 응답 읽기
-```
+```java
 	// sse 연결 선언
     useEffect(() => {
         // 마운트 시 로그인 상태 + sse 연결이 안 된 상태면 연결
@@ -258,7 +258,7 @@ public class NotificationService {
 ## Trouble Shooting
 - 프로젝트에서 WebServer로 nginx를 사용했는데, nginx는 WAS로 HTTP/1.0을 사용하고 Connection: close 헤더를 사용하기 때문에 지속적으로 연결이 안돼서 SSE가 작동하지 않는다.
 이에 대한 설정으로 nginx.conf에 추가해준다.
-```
+```yaml
 proxy_set_header Connection '';
 proxy_http_version 1.1;
 ```

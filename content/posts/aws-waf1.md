@@ -2,11 +2,11 @@
 layout:       post
 title:        "웹 공격 방어 ( feat. AWS )"
 date: '2024-08-15'
-excerpt: ''
+excerpt: '#WAF'
 ---
 ### SQL injection?
 논리적 오류를 포함한 SQL 문을 임의로 주입하여 데이터베이스를 공격하는 행위
-```
+```sql
 SELECT user FROM user_table WHERE 
 id='admin' AND password=' ' OR '1' = '1';
 ```
@@ -18,7 +18,7 @@ id='admin' AND password=' ' OR '1' = '1';
 공격자가 상대방의 브라우저에 스크립트가 실행되도록 해 사 공격하는 방식,
 
 웹사이트에서 
-```
+```js
 <script> alert(1) </script>
 ``` 
 와 같이 스크립트를 삽입해서 alert창을 띄우는 기법이다.
@@ -60,7 +60,7 @@ ALB가 있는 AWS WAF 규칙은 리전에서 실행된다.
 
 ### 국가 IP 기반 차단
 한국IP 에서 요청이 들어온 경우 차단하는 규칙
-```
+```json
 {
   "Name": "BLOCK_KOREA",
   "Priority": 0,
@@ -84,7 +84,7 @@ ALB가 있는 AWS WAF 규칙은 리전에서 실행된다.
 ### 속도 기반 IP 차단 [DDos]
 특정IP 요청이 5분 동안 1000번 이상 웹 요청시 차단하는 규칙
 
-```
+```json
 {
   "Name": "MAX_REQUEST_1000",
   "Priority": 0,
@@ -107,7 +107,7 @@ ALB가 있는 AWS WAF 규칙은 리전에서 실행된다.
 
 ### HTTP Header 기반의 요청 차단 [SQL injection]
 "User-Agent" 헤더로 매칭해서 문자열에 대소문자 구별없이(LOWERCASE) "python" 문자열이 포함되어 있을 시 차단하는 규칙
-```
+```json
 {
   "Name": "USERAGENT_BLOCK_PYTHON",
   "Priority": 0,
@@ -142,5 +142,3 @@ ALB가 있는 AWS WAF 규칙은 리전에서 실행된다.
 3.`Configure metrics` 에서, CloudWatch를 통한 메트릭 설정을 할 수 있다.
 
 
-
-참고: https://velog.io/@woodonggyu/Getting-started-with-AWS-WAF

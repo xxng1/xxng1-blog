@@ -1,7 +1,7 @@
 ---
-title: "Kafka와 Python Script를 통한 데이터 마이그레이션 ( MySQL ➡️ MongoDB )"
+title: "Kafka와 Python을 통한 Data Migration"
 date: '2024-06-15'
-excerpt: ''
+excerpt: '#kafka'
 ---
 
 # MySQL ➡️ Kafka ➡️ MongoDB
@@ -49,7 +49,7 @@ MongoDB Compass에서 작업에 사용할 데이터베이스와 컬렉션을 생
 작업에 진행할 테스트 데이터를 생성해줍니다.
 
 ### 데이터베이스 이름: kafka
-```
+```sql
 CREATE TABLE post_tags (
     id INT AUTO_INCREMENT PRIMARY KEY,
     count INT,
@@ -70,7 +70,7 @@ CREATE TABLE post (
 
 ```
 
-```
+```sql
 INSERT INTO post_tags (count, info, item_name, price, todaycount) VALUES
 (10, 'Sample post tags info 1', 'Sample item 1', 100.0, 5),
 (20, 'Sample post tags info 2', 'Sample item 2', 200.0, 8),
@@ -92,7 +92,7 @@ kafka는 docker-compose를 통해서 설치해주겠습니다.
 
 
 ### docker-compose.yml
-```
+```yaml
 version: '3.8'
 services:
   zookeeper:
@@ -130,7 +130,7 @@ producer.py에서 host, user, password, database를 설정해주고, 사용할 k
 `kafka_producer_post_tags = KafkaProducerWrapper(topic='MongoMysql')`
 
 ### producer.py
-```
+```python
 from kafka import KafkaProducer
 from json import dumps
 import mysql.connector
@@ -228,7 +228,7 @@ MongoDB Compass를 통해서 만들었던 이름을 사용합니다. 10~11번째
 ### consumer.py
 
 
-```
+```python
 from kafka import KafkaConsumer
 from json import loads
 import datetime
@@ -310,7 +310,7 @@ document가 6개 마이그레이션 된 모습을 확인할 수 있습니다.
 먼저 중복된 데이터를 확인하는 절차를 추가해보겠습니다.
 함수를 수정해줍니다.
 
-```
+```python
     def insert(self, message):
         # 중복 체크
         if not self.collection.find_one({'id': message['id']}):
@@ -320,7 +320,7 @@ document가 6개 마이그레이션 된 모습을 확인할 수 있습니다.
             print("Duplicate data found. Skipping insertion.")
 ```
 
-수정된 코드로 consumer를 작동시키니, document 삽입을 스킵하는 모습입니다.
+(결과) 수정된 코드로 consumer를 작동시키니, document 삽입을 스킵하는 모습입니다.
 ```
 Topic:MongoMysql, partition:0, offset:55, datetimeobj:2024-05-15 23:20:51.555000
 Duplicate data found. Skipping insertion.
@@ -328,7 +328,7 @@ Duplicate data found. Skipping insertion.
 
 이번에는 업데이트를 감지해보겠습니다. 코드를 수정합니다.
 
-```
+```python
     def insert(self, message):
         existing_document = self.collection.find_one({'id': message['id']})
         
@@ -347,6 +347,7 @@ Duplicate data found. Skipping insertion.
 
 mysql에서 post id값이 1인데이터의 count를 100으로 수정해주고 producer를 실행시켜줍니다.
 
+(결과)
 ```
 Data updated in MongoDB: {'id': 1, 'count': 100, 'info': 'Sample post info 1', 'item_name': 'Sample item 4', 'price': 150.0, 'todaycount': 3}
 ```
@@ -358,7 +359,7 @@ document가 늘어나지 않으며, 업데이트 된 데이터가 올바르게 �
 여기까지 Python Script를 사용해서 데이터 마이그레이션을 진행해 보았는데, 해당 프로세스는 주기적으로 파일을 실행시키는 bash 파일을 만들어서도 사용 가능하고, 삭제 등의 로직 또한 추가할 수 있습니다.
 
 (5초에 한 번씩 producer.py를 실행하는 run.sh 파일)
-```
+```python
 while true
 do
     python kafka_producer.py

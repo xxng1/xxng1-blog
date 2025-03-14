@@ -1,7 +1,7 @@
 ---
-title:        "minikube?"
+title: "minikube?"
 date: '2023-02-15'
-excerpt: ''
+excerpt: '#kubernetes'
 ---
 
 ## minikube?

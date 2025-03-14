@@ -2,7 +2,7 @@
 layout:       post
 title:        "우리 팀에서 사용한 Git Branch 전략"
 date: '2024-02-15'
-excerpt: ''
+excerpt: '#Issues'
 ---
 
 > Github로 협업하는 과정에서 사용한 우리 팀의 Git-Branch 전략
