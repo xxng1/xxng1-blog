@@ -59,12 +59,25 @@ export default async function Post({ params }: { params: Promise<{ id: string }>
           remarkPlugins={[remarkGfm]}
           components={{
             code({ children, className, ...rest }) {
+            //   return (
+            //     <code className={className} {...rest}>
+            //       {children}
+            //     </code>
+            //   );
+            // },
+
+              // 마크다운 코드 블럭에서의 스타일 처리
               return (
-                <code className={className} {...rest}>
+                <code
+                  className={`bg-zinc-100 dark:bg-zinc-800 text-gray-300 rounded p-1 ${className}`}
+                  {...rest}
+                >
                   {children}
                 </code>
               );
             },
+
+
             pre({ children }) {
               return <pre className="overflow-auto p-4 rounded bg-zinc-100 dark:bg-zinc-800">{children}</pre>;
             },
