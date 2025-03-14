@@ -45,7 +45,7 @@ token을 사용할 때: `EventSourcePolyfill`
 우리는 사용자 인증/인가를 JWT를 사용하여 구현하였기 때문에 `EventSourcePolyfill`을 사용하게 되었다.
 
 ### 1. SseEmitters 클래스
-```
+```java
 @Slf4j
 @Getter
 @Component
