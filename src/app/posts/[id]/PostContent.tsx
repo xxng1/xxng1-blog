@@ -10,6 +10,16 @@ import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-yaml';
+import 'prismjs/components/prism-markdown';
+import 'prismjs/components/prism-sql';
+import 'prismjs/components/prism-go';
+import 'prismjs/components/prism-rust';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-cpp';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import { useEffect } from 'react';
@@ -56,17 +66,60 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
 
             return (
               <code
-                className={`${className} line-numbers language-${language}`}
+                className={language ? `language-${language}` : ''}
                 {...rest}
+                data-prismjs-copy="Copy"
               >
-                {children}
+                {code}
               </code>
             );
           },
 
           pre({ children }) {
+            const handleCopy = async (event: React.MouseEvent) => {
+              const button = event.currentTarget as HTMLButtonElement;
+              const preElement = button.closest('pre');
+              const codeElement = preElement?.querySelector('code');
+
+              if (codeElement) {
+                const text = codeElement.textContent || '';
+                try {
+                  if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(text);
+                  } else {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.left = '-999999px';
+                    textArea.style.top = '-999999px';
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    textArea.remove();
+                  }
+                  button.textContent = 'Copied!';
+                  setTimeout(() => {
+                    button.textContent = 'Copy';
+                  }, 2000);
+                } catch (err) {
+                  console.error('Failed to copy:', err);
+                  button.textContent = 'Failed!';
+                  setTimeout(() => {
+                    button.textContent = 'Copy';
+                  }, 2000);
+                }
+              }
+            };
+
             return (
-              <pre className="overflow-auto p-4 rounded bg-zinc-100 dark:bg-zinc-800 line-numbers">
+              <pre className="overflow-auto p-4 rounded bg-zinc-100 dark:bg-zinc-800 line-numbers relative">
+                <button
+                  onClick={handleCopy}
+                  className="copy-button absolute top-0 right-0 px-4 py-2 rounded-bl bg-zinc-200 dark:bg-zinc-700 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-300 dark:hover:bg-zinc-600 transition-colors"
+                >
+                  Copy
+                </button>
                 {children}
               </pre>
             );
