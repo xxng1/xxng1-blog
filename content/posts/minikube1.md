@@ -1,7 +1,7 @@
 ---
 title: "minikube?"
-date: '2023-02-15'
-excerpt: '#kubernetes'
+date: '2024-04-25'
+excerpt: ''
 ---
 
 ## minikube?

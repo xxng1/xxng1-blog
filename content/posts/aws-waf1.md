@@ -2,7 +2,7 @@
 layout:       post
 title:        "웹 공격 방어 ( feat. AWS )"
 date: '2024-08-15'
-excerpt: '#WAF'
+excerpt: ''
 ---
 ### SQL injection?
 논리적 오류를 포함한 SQL 문을 임의로 주입하여 데이터베이스를 공격하는 행위
