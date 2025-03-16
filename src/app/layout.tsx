@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <header className="flex justify-between items-center py-6 border-b border-zinc-200 dark:border-zinc-800">
-            <Link href="/" className="text-xl font-bold tracking-tight hover:text-zinc-600 dark:hover:text-zinc-300 transition">
+          <Link href="/" className="text-xl font-bold italic tracking-tight hover:text-zinc-600 dark:hover:text-zinc-400 transition">
               xxng1
             </Link>
             <nav className="flex space-x-6">

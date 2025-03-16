@@ -153,7 +153,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
               <img
                 src={src || ""}
                 alt={alt || ""}
-                className="w-[650px] h-[66%] object-cover rounded-lg block mx-auto mt-4"
+                className="w-[650px] h-[66%] object-cover rounded-lg block mx-auto mt-4 mb-4"
               />
             );
           },
