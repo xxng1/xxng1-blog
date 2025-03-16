@@ -67,7 +67,7 @@ Labels: 작업의 특징에 대해 설정한다. ( Labels -> New Labels 로 새�
 릴리즈 태그를 통해서 배포할 것이기 때문에,
 우리 팀에서 CI/CD에 사용한 Jenkins에서
 ![](https://velog.velcdn.com/images/woongaa1/post/62e9a085-3c34-4729-b835-b40e43693354/image.png) Brnach Specifier (blank for 'any') 부분을
-`*/master` 에서 `tags/v1.0.0` 으로 적어주도록 한다.
+***/master*** 에서 ***tags/v1.0.0*** 으로 적어주도록 한다.
 
 
 

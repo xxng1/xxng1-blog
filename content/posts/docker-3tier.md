@@ -37,7 +37,7 @@ excerpt: ''
             
     - Tomcat서버에서 받아오기위한 시작페이지를 수정한다.
         
-        ```java
+        ```jsp
         <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
         <%@ page import = "java.sql.*" %>
         <html>

@@ -9,11 +9,11 @@ excerpt: ''
 # Network
 >**Application load balancer(ALB)**
 - Http, Https통신에 사용
-- <span style="color:yellowgreen"> 리스너 규칙으로 HTTP트래픽을 HTTPS로 리디랙션 가능 </span>
+- ***리스너 규칙으로 HTTP트래픽을 HTTPS로 리디랙션 가능***
 
 >**Network load balancer(NLB)**
 - TCP, UDP통신에 사용
-- <span style="color:yellowgreen"> TLS(SSL) listener를 구성하여 보안⬆️ </span>
+- ***TLS(SSL) listener를 구성하여 보안⬆️***
 
 >**Gateway load balancer(GLB)**
 - VPC간의 통신에 사용
@@ -21,7 +21,7 @@ excerpt: ''
 >**NAT Gateway**
 - 네트워크 트래픽을 패킷을 수정함으로써 포트 및 주소 등을 기록
 - 프라이빗 서브넷에 대한 인터넷 엑세스를 활성화하는 등에 사용
-- <span style="color:yellowgreen"> 퍼블릭 서브넷에 배치 </span>
+- ***퍼블릭 서브넷에 배치***
 
 >**SFTP(SSH File Transfer Protocol)**
 - AWS Transfer Family를 사용하여 반복되는 B2B 파일 전송을 AWS 스토리지 서비스로 안전하게 확장
@@ -37,7 +37,7 @@ excerpt: ''
 
 >**Availabilty Zone**
 - 리전들이 모여 구성하는 데이터 센터
-- <span style="color:yellowgreen"> 가용성을 담당</span>
+- ***가용성을 담당***
 
 >**Edge Location**
 - CDN(Content Delivery Network)을 이루는 캐시 서버
@@ -64,7 +64,7 @@ excerpt: ''
 
 >**Elastic Beanstalk**
 - EC2의 설정을 쉽게 돕는 서비스
-- <span style="color:yellowgreen"> 사이트 자주 테스트 가능 / 운영 오버헤드 낮음</span>
+- ***사이트 자주 테스트 가능 / 운영 오버헤드 낮음***
 
 >**S3**
 - 서비스 운영시 생성되는 이미지, 동영상, 오디오 파일등을 저장하는 스토리지 서비스
@@ -75,7 +75,7 @@ excerpt: ''
 
 >**Storage Gateway**
 - 기존의 on-premise 환경과 AWS를 연결해주는 게이트웨이 서비스
-- <span style="color:yellowgreen"> SMB 지원</span>
+- ***SMB 지원***
 
 >**EBS(Elastic Block Storage)**
 - EC2와 연결할 수 있는 저장장치 서비스
@@ -96,7 +96,7 @@ excerpt: ''
 
 >**Elasticcache**
 - 메모리에 데이터를 저장하여 빠르게 입출력이 가능한 데이터베이
-- <span style="color:yellowgreen"> 세션 데이터 관리 등에 사용 </span>
+- ***세션 데이터 관리 등에 사용***
 - 지속되어야 하는 데이터 -> Amazon ElastiCache for Redis 
 
 >**Red Shift**
@@ -105,7 +105,7 @@ excerpt: ''
 >**VPC(Virtual Private Cloud)**
 - 가상 네트워크망 구축 지원 서비스
 - 서비스 보안 수준을 결정하거나 적합한 권한이 있는 사용자들만 접속할 수 있도록 관리
-- <span style="color:yellowgreen"> VPC 피어링으로 VPC간 연결, 다른 리전에 있는 경우에도 연결 가능하나, **CIDR**을 참조해야 함 </span>
+- ***VPC 피어링으로 VPC간 연결, 다른 리전에 있는 경우에도 연결 가능하나, **CIDR**을 참조해야 함***
 
 
 >**Route53**
@@ -155,7 +155,7 @@ excerpt: ''
 
 >**Amazon FSx**
 - Windows Server에 구축되는 완전관리형 파일 스토리지
-- <span style="color:yellowgreen"> SMB 지원</span>
+- ***SMB 지원***
 
 >**DataSync**
 - 온프레미스(On-premise)와 AWS 스토리지 서비스 사이 데이터 마이그레이션을 자동화/가속화하는 서비스
@@ -182,7 +182,4 @@ excerpt: ''
 - 완전관리형 Kafka를 통한 실시간 스트리밍 데이터 처리 서비스
 
 ![](https://velog.velcdn.com/images/woongaa1/post/eb0ad643-aba9-4930-921f-d30dd1df062e/image.png)
-
----
-
 

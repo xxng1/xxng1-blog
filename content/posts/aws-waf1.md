@@ -139,6 +139,6 @@ ALB가 있는 AWS WAF 규칙은 리전에서 실행된다.
 }
 ```
 
-3.`Configure metrics` 에서, CloudWatch를 통한 메트릭 설정을 할 수 있다.
+### 3.***Configure metrics*** 에서, CloudWatch를 통한 메트릭 설정을 할 수 있다.
 
 

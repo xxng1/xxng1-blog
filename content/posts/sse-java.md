@@ -256,7 +256,7 @@ public class NotificationService {
 연결 이펙트에 대한 함수를 선언하고, Server에서 보내는 알림에 대해 setNotifications useState에 인자로 넣어준다.
 
 ## Trouble Shooting
-- 프로젝트에서 WebServer로 nginx를 사용했는데, nginx는 WAS로 HTTP/1.0을 사용하고 Connection: close 헤더를 사용하기 때문에 지속적으로 연결이 안돼서 SSE가 작동하지 않는다.
+- 프로젝트에서 WebServer로 nginx를 사용했는데, nginx는 WAS로 HTTP/1.0을 사용하고 ***Connection: close*** 헤더를 사용하기 때문에 지속적으로 연결이 안돼서 SSE가 작동하지 않는다.
 이에 대한 설정으로 nginx.conf에 추가해준다.
 ```yaml
 proxy_set_header Connection '';
