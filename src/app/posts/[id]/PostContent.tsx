@@ -125,7 +125,11 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             );
           },
           h1({ children }) {
-            return <h1 className="text-3xl font-bold mt-8 mb-4">{children}</h1>;
+            return (
+              <div>
+                <h1 className="text-3xl font-bold mt-8 mb-2">{children}</h1>
+                <hr className="border-t border-zinc-200 dark:border-zinc-700 mb-4 opacity-50" />              </div>
+            );
           },
           h2({ children }) {
             return <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>;
@@ -146,7 +150,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             return <li className="my-1">{children}</li>;
           },
           blockquote({ children }) {
-            return <blockquote className="border-l-4 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4">{children}</blockquote>;
+            return <blockquote className="border-l-6 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4">{children}</blockquote>;
           },
           img({ src, alt }) {
             return (
@@ -157,6 +161,22 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
               />
             );
           },
+
+
+          em ({ children }) {
+            return (
+              <strong className="font-semibold">
+                <span className="bg-gray-200 dark:bg-gray-600 p-1 rounded">{children}</span>
+              </strong>
+            );
+          },
+
+
+
+          
+
+
+
         }}
       >
         {content}
