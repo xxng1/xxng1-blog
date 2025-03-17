@@ -5,12 +5,12 @@ date: '2025-03-17'
 excerpt: ''
 ---
 
-> WEB기반 미디어 스트리밍 서비스 개발기 
+> WEB 기반 미디어 스트리밍 서비스 구축기
 
 
 
 
-# 요구사항
+# 도전 과제
 - 다양한 **서비스**를 사용해볼 것.
 - 다양한 **솔루션**을 사용해볼 것.
 - **성능** & **운영**에서 최적화를 진행할 것.
@@ -37,6 +37,8 @@ S3, CloudFront를 사용하여 React로 구성한 프론트엔드 애플리케�
 ![](https://velog.velcdn.com/images/xxng1/post/4778d7b8-f574-4250-b1aa-5d95488ba269/image.png)
 
 
+ㅤ
+
 > ### Route53
 네임서버 호스팅으로 Route53을 사용했습니다.
 
@@ -53,6 +55,7 @@ ArgoCD로 애플리케이션을 구성하면 *CLB(Classic Load Balancer)* 타입
 ㅤ
 
 > *AWS Load Balancer Controller* 를 통해서 ingress 구성. **(CLB ➡️ ALB)**
+* Public Subnet에 *kubernetes.io/role/elb* 태그 지정하여 ALB를 배포.
 
 
 ![](https://velog.velcdn.com/images/xxng1/post/4f81a088-5684-4808-bdf0-1a478ae4c300/image.png)
@@ -69,16 +72,16 @@ ArgoCD로 애플리케이션을 구성하면 *CLB(Classic Load Balancer)* 타입
 
 # EKS
 
-- 원격 접속을 위한 목적의 노드 1개 (t3.medium)
-- 애플리케이션 배포를 위한 노드 (m5.large)
-  - 최소 노드: 2, 최대 노드: 6
+- 원격 접속을 위한 목적의 노드 1개 **(t3.medium)**
+- 애플리케이션 배포를 위한 노드 **(m5.large)**
+  - 최소 노드: **2**, 최대 노드: **6**
 
 ![](https://velog.velcdn.com/images/xxng1/post/723f1897-f460-471d-afa4-be62d223a12b/image.png)
 
 
 ### Backend
 
-FastAPI로 구축한 백엔드를 Kubernetes Deployment 리소스로 배포했습니다.
+**FastAPI**로 구축한 백엔드를 Kubernetes **Deployment** 리소스로 배포했습니다.
 
 주요 설정
 1. *replicas: 2*
@@ -90,7 +93,7 @@ FastAPI로 구축한 백엔드를 Kubernetes Deployment 리소스로 배포했�
 4. *IAM Role Service Account 선언*
     - **S3, DynamoDB 접근 권한**
 5. *priorityClassName: high-priority*
-    - **우선순위 부여(Cluster Over-Privisioning)**
+    - **우선순위 부여(Cluster Over-Provisioning)**
 
 
 ### ArgoCD
@@ -100,12 +103,14 @@ FastAPI로 구축한 백엔드를 Kubernetes Deployment 리소스로 배포했�
 ![](https://velog.velcdn.com/images/xxng1/post/d0c78493-8b5c-4422-8838-032cff69c3f2/image.png)
 
 
+ㅤ
+
 
 # Autoscaling
 
 > ### Cluster Over-Provisioning
 
-Auto Scaling간 미리 Over-Provisioning을 설정함으로써 급격한 트래픽 증가에 즉각적으로 대응이 가능하게 하고 클러스터의 안전성 확보와 서비스 중단을 최소화하여 오토스케일링이 완료될 때까지의 시간 확보를 통해 성능을 최적화할 수 있습니다.
+Auto Scaling간 미리 Over-Provisioning을 설정함으로써 급격한 트래픽 증가에 즉각적으로 대응이 가능하게 하고 서비스 중단을 최소화하여 오토스케일링이 완료될 때까지의 시간 확보를 통해 성능을 최적화할 수 있습니다.
 
 ㅤ
 
@@ -117,24 +122,28 @@ Auto Scaling간 미리 Over-Provisioning을 설정함으로써 급격한 트래�
 
 Node는 2 vCPU로 설정되어 있는데, pause pods를 생성하고 우선순위를 마지막으로(*value: -1*) 설정하였습니다.
 
-2코어 보다 작은 1.7(*1700m*)코어를 할당 함으로써 Over-Provisioning을 구현했습니다.
+2코어 보다 작은 1.7(*1700m*)코어를 할당 함으로써 Over-Provisioning을 구축했습니다.
 
 ㅤ
 ㅤ
 
 ![](https://velog.velcdn.com/images/xxng1/post/3e717fee-16a9-4b27-a215-ea054879fb3b/image.png)
 
-Autoscaling으로 리소스가 부족하면 우선순위에 따라 application pod가 스케줄링(Running)되고
+Autoscaling으로 리소스가 부족하면 우선순위에 따라 application pod가 스케줄링(**Running**)되고
 
-pause pod는 다시 pending 상태가 되면서 추가로 1개의 인스턴스가 생성됩니다.
+**pause pod**는 다시 **pending** 상태가 되면서 추가로 1개의 인스턴스가 생성됩니다.
+
+ㅤ
 
 
 > ### HPA(Horizontal Pod Autoscaler)
 
 ![](https://velog.velcdn.com/images/xxng1/post/9880bc40-1ecd-46f5-9d55-00272338f3de/image.png)
 
-HPA(Horizontal Pod Autoscaler)은 쿠버네티스에서 제공하는 오토스케일링 기능으로 파드 수를 자동으로 조정하여 애플리케이션 성능과 자원 사용을 최적화해줍니다.
+HPA(Horizontal Pod Autoscaler)은 파드 수를 조정하여 애플리케이션 성능과 자원 사용을 최적화해줍니다.
 
+
+ㅤ
 
 주요 설정
 1. Pod resources.request.cpu = 800m (**Deployment**)
@@ -144,6 +153,8 @@ HPA(Horizontal Pod Autoscaler)은 쿠버네티스에서 제공하는 오토스�
 
 Deployment로 배포한 비디오 application pod가 CPU를 50%이상 사용시 *Scale Out* (pod 증가)
 
+
+ㅤ
 
 
 # Media
@@ -184,7 +195,7 @@ HLS 변환은 아래 과정을 따릅니다.
 > ### IVS(Interactive Video Service)
 ![](https://velog.velcdn.com/images/xxng1/post/befcea24-d759-4c49-bc28-46811e91dbd0/image.png)
 
-실시간 스트리밍으로는 대규모 스트리밍 서비스인 IVS를 사용했으며, *amazon-ivs-chat-web-demo*을 프로젝트 환경에 바꾸어 사용했습니다.
+실시간 스트리밍으로는 대규모 스트리밍 서비스인 IVS를 사용했으며, *amazon-ivs-chat-web-demo*를 프로젝트 환경에 바꾸어 사용했습니다.
 
 Lambda와 API Gateway를 사용해서 만든 백엔드 URL을 IVS 채널과 IVS 채팅방과 연결해서 구현했습니다.
 
@@ -248,9 +259,9 @@ def validate_token(token: str):
 > ### webhook 암호화
 ![](https://velog.velcdn.com/images/xxng1/post/217c8bae-e9fd-4040-a88b-4f0d4cd401ef/image.png)
 
-알림으로써 Slack Webhook을 사용한 알림을 구현.
+알림으로써 Slack Webhook을 사용한 알림을 구현했습니다. 이를 KMS로 암호화해주었습니다.
 
-slack webhook URL을 KMS로 암호화해주었습니다.
+ㅤ
 
 
 > ### IRSA(IAM Roles for Service Accounts)
@@ -274,6 +285,10 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 ![](https://velog.velcdn.com/images/xxng1/post/b1fc6a51-e328-440f-aa4e-8638aacfd6fa/image.png)
 
 노드 별 CPU, 메모리 사용량, 네임스페이스 파드별 CPU, 메모리 사용량, 총 실행 중인 파드 수를 모니터링 했습니다.
+
+ㅤ
+
+ㅤ
 
 
 
