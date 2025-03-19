@@ -150,7 +150,10 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             return <li className="my-1">{children}</li>;
           },
           blockquote({ children }) {
-            return <blockquote className="border-l-6 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4">{children}</blockquote>;
+            //bg-zinc-200 dark:bg-zinc-800 p-4 italic my-4 rounded-lg flex items-center justify-center
+            return <blockquote className="
+            border-l-6 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4 dark:bg-zinc-800 p-2 rounded-lg flex items-center"
+            >{children}</blockquote>;
           },
           img({ src, alt }) {
             return (

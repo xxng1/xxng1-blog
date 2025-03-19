@@ -10,60 +10,87 @@ excerpt: ''
 
 
 
-# 도전 과제
+# 🚀 도전 과제
 - 다양한 **서비스**를 사용해볼 것.
 - 다양한 **솔루션**을 사용해볼 것.
 - **성능** & **운영**에서 최적화를 진행할 것.
 
 
 
-# 시스템 아키텍처
+# ⚙️ 시스템 아키텍처
 ![](https://velog.velcdn.com/images/xxng1/post/1a1ffb5c-68c7-43d4-b280-57774f6a9480/image.png)
 
-## 체크 포인트
+## ✅ 체크 포인트
 
-> *WEB*, *EKS*, *Media*, *Security*, *Observability*
+1. *WEB*  
+
+2. *EKS*  
+
+3. *Media*  
+
+4. *Security*  
+
+5. *Observability*  
+
 
 
 ㅤ
 
 
 # WEB
-> ### S3, Cloudfront
+> *S3*, *CloudFront*
+
+
 S3, CloudFront를 사용하여 React로 구성한 프론트엔드 애플리케이션을 CDN 배포했습니다.
 
-**Github Actions를 통한 배포 자동화/캐싱 무효화**
+**📷 Github Actions를 통한 배포 자동화/캐싱 무효화**
 
 ![](https://velog.velcdn.com/images/xxng1/post/4778d7b8-f574-4250-b1aa-5d95488ba269/image.png)
 
 
 ㅤ
 
-> ### Route53
-네임서버 호스팅으로 Route53을 사용했습니다.
+> *Route53*
+
+네임서버 호스팅으로 *Route53*을 사용했습니다.
 
 
-프론트엔드 ↔️ 백엔드 통신을 위한 HTTPS 구성에서, *Route53* 서브도메인을 이용했습니다.
+프론트엔드 ↔️ 백엔드 통신을 위한 HTTPS 구성에서, *Route53* **서브도메인**을 이용했습니다.
 
 ArgoCD로 애플리케이션을 구성하면 *CLB(Classic Load Balancer)* 타입으로 배포가 되는데,
 
 아래 두 가지 이유 때문에 **CLB ➡️ ALB** 로의 로드밸런서 타입을 전환했습니다.
 
-1. CLB는 Latency문제가 있기 때문.
+1. CLB(Classic Load Balancer)는 Latency문제가 있기 때문.
 2. Route53에서 네임서버에 대한 인증서를 서브도메인(api)에도 사용(운영 효율 증가).
 
 ㅤ
+ㅤ
 
-> *AWS Load Balancer Controller* 를 통해서 ingress 구성. **(CLB ➡️ ALB)**
-* Public Subnet에 *kubernetes.io/role/elb* 태그 지정하여 ALB를 배포.
+> *AWS Load Balancer Controller*
+
+LoadBalcner 타입 교체를 위해 ingress 구성.
+
+**📷 *AWS Load Balancer Controller*: Kubernetes 클러스터에서 AWS의 Elastic Load Balancer(ELB)를 관리하는 컨트롤러**
+![](https://velog.velcdn.com/images/xxng1/post/4288f52a-1970-404d-b807-f67ccdf070ae/image.png)
+
+
+ㅤ
+ㅤ
+
+**📷 Public Subnet에 *kubernetes.io/role/elb: 1* 태그 지정하여 ALB를 배포**
 
 
 ![](https://velog.velcdn.com/images/xxng1/post/4f81a088-5684-4808-bdf0-1a478ae4c300/image.png)
 
+
+*k get ing -n video*: Ingress 조회
+
+**backend ingress** 의 ADDRESS(k8s-video-chunobac-71d4...)를 Route53 유형A로 호스팅. 
+
 ㅤ
 
-> *backend ingress* 의 address를 Route53 유형A로 호스팅. **(서브도메인 - api.chuno.store)**
-
+**📷 서브도메인 - api.chuno.store (Type: A)**
 ![](https://velog.velcdn.com/images/xxng1/post/2f5befde-0d1c-463f-8f02-9f9163f5e357/image.png)
 
 
@@ -79,26 +106,43 @@ ArgoCD로 애플리케이션을 구성하면 *CLB(Classic Load Balancer)* 타입
 ![](https://velog.velcdn.com/images/xxng1/post/723f1897-f460-471d-afa4-be62d223a12b/image.png)
 
 
-### Backend
+> *Backend(FastAPI)*
 
 **FastAPI**로 구축한 백엔드를 Kubernetes **Deployment** 리소스로 배포했습니다.
 
-주요 설정
-1. *replicas: 2*
-    - **고가용성**
-2. *revisionHistoryLimit: 2*
-    - **배포 이력 관리**
-3. *podAntiaffinity: preferredDuringSchedulingIgnoredDuringExecution*
-    - **파드를 스케줄링하는 동안 최대한 다른 노드에 배포하도록 설정**
-4. *IAM Role Service Account 선언*
-    - **S3, DynamoDB 접근 권한**
-5. *priorityClassName: high-priority*
-    - **우선순위 부여(Cluster Over-Provisioning)**
+
+1. *replicas*: **2**
+    - 고가용성을 위해 최소 두 개의 복제 파드 유지.
+2. *revisionHistoryLimit*: **2**
+    - 배포 이력 관리로 이전 버전의 Deployment 기록을 두 개까지만 유지.
+3. *podAntiaffinity*: **preferredDuringSchedulingIgnoredDuringExecution**
+    - 파드를 최대한 다른 노드에 분산 배포하려고 시도, 강제하지는 않도록 설정.
+ 4. *IAM Role Service Account* **선언**
+    - **S3**, **DynamoDB** 접근 권한 부여.
+5. *priorityClassName*: **high-priority**
+    - 이후 **Cluster Over-Provisioning** 구현을 고려한 높은 우선순위 부여.
 
 
-### ArgoCD
+> *ArgoCD*
 
-이 과정을 ArgoCD GitOps방식 Workflow로 구성했습니다.
+EKS 배포 자동화 파이프라인 구성.
+
+1.	FastAPI 코드 GitHub 푸시 트리거
+
+2.	Python 패키지 설치
+
+3.	Docker 이미지 빌드
+
+4.	ECR 로그인 및 이미지 푸시
+
+5.  deployment.yaml에서 새로 빌드한 Docker 이미지로 업데이트 및 푸시
+
+6.	ArgoCD가 GitOps 방식으로 변경 사항을 가져와서 업데이트
+
+
+
+
+**📷 ArgoCD Application 배포**
 
 ![](https://velog.velcdn.com/images/xxng1/post/d0c78493-8b5c-4422-8838-032cff69c3f2/image.png)
 
@@ -108,7 +152,7 @@ ArgoCD로 애플리케이션을 구성하면 *CLB(Classic Load Balancer)* 타입
 
 # Autoscaling
 
-> ### Cluster Over-Provisioning
+> *Cluster Over-Provisioning*
 
 Auto Scaling간 미리 Over-Provisioning을 설정함으로써 급격한 트래픽 증가에 즉각적으로 대응이 가능하게 하고 서비스 중단을 최소화하여 오토스케일링이 완료될 때까지의 시간 확보를 통해 성능을 최적화할 수 있습니다.
 
@@ -136,7 +180,7 @@ Autoscaling으로 리소스가 부족하면 우선순위에 따라 application p
 ㅤ
 
 
-> ### HPA(Horizontal Pod Autoscaler)
+> *HPA(Horizontal Pod Autoscaler)*
 
 ![](https://velog.velcdn.com/images/xxng1/post/9880bc40-1ecd-46f5-9d55-00272338f3de/image.png)
 
@@ -156,10 +200,10 @@ Deployment로 배포한 비디오 application pod가 CPU를 50%이상 사용시 
 
 ㅤ
 
-
 # Media
 
-> ### MediaConvert
+> *AWS MediaConvert*
+
 영상 업로드 프로토콜로는 HLS를 사용했습니다. 
 
 HLS는 HTTP 기반 전송 스트리밍 프로토콜로, 영상을 업로드하면 파일을 세그먼트로 나누고 이를 **.ts** 파일에 저장합니다.
@@ -176,13 +220,21 @@ HLS는 HTTP 기반 전송 스트리밍 프로토콜로, 영상을 업로드하�
 ![](https://velog.velcdn.com/images/xxng1/post/aec76703-ffad-4863-afc4-6e35049c69de/image.png)
 
 HLS 변환은 아래 과정을 따릅니다.
-1. 사용자가 업로드를 하면 백엔드 API에서 *Source Bucket*과 *DynamoDB*에 metadata로 저장
-2. 파일이 업로드 되면 *Lambda*가 트리거
-3. *MediaConvert* 에서 파일을 변환하여
-4. *Destination Bucket* 에 저장.
-5. 저장된 영상을 *CloudFront* 로 배포하여 재생.
+1. 사용자가 업로드를 하면 백엔드 API에서 *Source Bucket*과 *DynamoDB*에 metadata로 저장  
 
-> ### HLS 구현 아키텍처
+2. 파일이 업로드 되면 *Lambda*가 트리거  
+
+3. *MediaConvert* 에서 HLS 변환 수행  
+
+4. *Destination Bucket* 에 저장.  
+
+5. 저장된 영상을 *CloudFront* 로 배포하여 재생.  
+
+
+ㅤ
+ㅤ
+
+**📷 HLS 구현 아키텍처**
 
 ![](https://velog.velcdn.com/images/xxng1/post/446eb19c-6fc0-438c-bb27-5cc5aeb88ddd/image.png)
 
@@ -192,7 +244,8 @@ HLS 변환은 아래 과정을 따릅니다.
 네트워크 환경에 맞게 화질을 조정할 수 있도록 각각의 해상도를 설정해 주었습니다.
 
  ㅤ
-> ### IVS(Interactive Video Service)
+> *AWS IVS(Interactive Video Service)*
+
 ![](https://velog.velcdn.com/images/xxng1/post/befcea24-d759-4c49-bc28-46811e91dbd0/image.png)
 
 실시간 스트리밍으로는 대규모 스트리밍 서비스인 IVS를 사용했으며, *amazon-ivs-chat-web-demo*를 프로젝트 환경에 바꾸어 사용했습니다.
@@ -202,15 +255,21 @@ Lambda와 API Gateway를 사용해서 만든 백엔드 URL을 IVS 채널과 IVS 
 이를 통해 촬영중인 실시간 방송 화면을 볼 수 있고, 채팅도 가능하게 구현했습니다.
 
 
+ㅤ
+ㅤ
 
 
 # Security
 
 
-> ### 사용자 인증/인가
+> *AWS Cognito*
+
 ![](https://velog.velcdn.com/images/xxng1/post/27428625-623a-4835-bdef-ddd2a6e71fc2/image.png)
 
 Cognito를 사용해서 JWT 토큰 기반 사용자 인증/인가를 관리했습니다.
+
+ㅤ
+
 
 - Client(React): *amazon-cognito-identity-js*
 
@@ -235,6 +294,7 @@ onSuccess: (result) => {
  })
 ```
 
+ㅤ
 
 - Server(FastAPI): *Boto3*
 
@@ -251,12 +311,13 @@ def validate_token(token: str):
 ```
 
 
+ㅤㅤ
+ㅤㅤ
 
+ㅤㅤ
+ㅤㅤ
+> *AWS KMS(Key Management Service)*
 
-
-
-
-> ### webhook 암호화
 ![](https://velog.velcdn.com/images/xxng1/post/217c8bae-e9fd-4040-a88b-4f0d4cd401ef/image.png)
 
 알림으로써 Slack Webhook을 사용한 알림을 구현했습니다. 이를 KMS로 암호화해주었습니다.
@@ -264,7 +325,8 @@ def validate_token(token: str):
 ㅤ
 
 
-> ### IRSA(IAM Roles for Service Accounts)
+> *IRSA(IAM Roles for Service Accounts)*
+
 ![](https://velog.velcdn.com/images/xxng1/post/2cc9c789-cab4-40e4-81d6-601ab742b8e0/image.png)
 
 IRSA는 쿠버네티스 사용자에 AWS 역할을 부여하여 사용하는 기능입니다.
@@ -278,7 +340,7 @@ deployment에 service account를 선언하여 클러스터에서도 IAM 역할�
 
 # Observability
 
-> ### Monitoring
+> *Grafana/Prometheus*
 
 helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 시스템을 구축했습니다.
 
@@ -292,7 +354,7 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 
 
 
-> ### service mesh
+> *Istio/Kiali*
 
 
 
@@ -315,7 +377,10 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 
 ㅤ
 ㅤ
-ㅤ
+
+
+---
+
 > *github repo*
 ```
 https://github.com/AWS2-Chuno
