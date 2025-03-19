@@ -85,9 +85,9 @@ LoadBalcner 타입 교체를 위해 ingress 구성.
 
 ![](https://velog.velcdn.com/images/xxng1/post/4f81a088-5684-4808-bdf0-1a478ae4c300/image.png)
 
-
-*k get ing -n video*: Ingress 조회
-
+```
+$ k get ing -n video # Ingress 조회
+```
 **backend ingress** 의 ADDRESS(k8s-video-chunobac-71d4...)를 Route53 유형A로 호스팅. 
 
 ㅤ
@@ -374,7 +374,7 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 
 ![](https://velog.velcdn.com/images/xxng1/post/3a94f05d-5519-4c0f-a5ae-95968f08e0aa/image.png)
 
-*istio*, *kiali*를 사용하여 네트워크 관리 및 성능 모니터링하고, 요청 흐름을 추적했습니다.
+*Istio*, *Kiali*를 사용하여 네트워크 관리 및 성능 모니터링하고, 요청 흐름을 추적했습니다.
 
 
 
