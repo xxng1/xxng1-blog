@@ -22,17 +22,17 @@ excerpt: ''
 
 ## ✅ 체크 포인트
 
-1. *WEB*  
+### 1. ☑️ WEB
 
-2. *EKS*  
+### 2. ☑️ EKS 
 
-3. *AutoScaling*  
+### 3. ☑️ AutoScaling
 
-4. *Media*  
+### 4. ☑️ Media
 
-5. *Security*  
+### 5. ☑️ Security
 
-6. *Observability*  
+### 6. ☑️ Observability  
 
 
 
