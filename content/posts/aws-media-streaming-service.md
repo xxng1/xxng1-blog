@@ -85,7 +85,7 @@ LoadBalcner 타입 교체를 위해 ingress 구성.
 
 ![](https://velog.velcdn.com/images/xxng1/post/4f81a088-5684-4808-bdf0-1a478ae4c300/image.png)
 
-```
+```shell
 $ k get ing -n video # Ingress 조회
 ```
 **backend ingress** 의 ADDRESS(k8s-video-chunobac-71d4...)를 Route53 유형A로 호스팅. 

@@ -359,7 +359,7 @@ document가 늘어나지 않으며, 업데이트 된 데이터가 올바르게 �
 여기까지 Python Script를 사용해서 데이터 마이그레이션을 진행해 보았는데, 해당 프로세스는 주기적으로 파일을 실행시키는 bash 파일을 만들어서도 사용 가능하고, 삭제 등의 로직 또한 추가할 수 있습니다.
 
 (5초에 한 번씩 producer.py를 실행하는 스크립트)
-```python
+```shell
 while true
 do
     python kafka_producer.py
