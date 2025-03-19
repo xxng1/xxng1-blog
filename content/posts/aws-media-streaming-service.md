@@ -26,18 +26,20 @@ excerpt: ''
 
 2. *EKS*  
 
-3. *Media*  
+3. *AutoScaling*  
 
-4. *Security*  
+4. *Media*  
 
-5. *Observability*  
+5. *Security*  
+
+6. *Observability*  
 
 
 
 ㅤ
 
 
-# WEB
+# ☑️ WEB
 > *S3*, *CloudFront*
 
 
@@ -93,11 +95,10 @@ LoadBalcner 타입 교체를 위해 ingress 구성.
 **📷 서브도메인 - api.chuno.store (Type: A)**
 ![](https://velog.velcdn.com/images/xxng1/post/2f5befde-0d1c-463f-8f02-9f9163f5e357/image.png)
 
+ㅤ
+ㅤ
 
-
-
-
-# EKS
+# ☑️ EKS
 
 - 원격 접속을 위한 목적의 노드 1개 **(t3.medium)**
 - 애플리케이션 배포를 위한 노드 **(m5.large)**
@@ -123,6 +124,11 @@ LoadBalcner 타입 교체를 위해 ingress 구성.
     - 이후 **Cluster Over-Provisioning** 구현을 고려한 높은 우선순위 부여.
 
 
+
+ㅤ
+ㅤ
+
+
 > *ArgoCD*
 
 EKS 배포 자동화 파이프라인 구성.
@@ -140,6 +146,9 @@ EKS 배포 자동화 파이프라인 구성.
 6.	ArgoCD가 GitOps 방식으로 변경 사항을 가져와서 업데이트
 
 
+ㅤ
+ㅤ
+
 
 
 **📷 ArgoCD Application 배포**
@@ -150,7 +159,7 @@ EKS 배포 자동화 파이프라인 구성.
 ㅤ
 
 
-# Autoscaling
+# ☑️ Autoscaling
 
 > *Cluster Over-Provisioning*
 
@@ -200,7 +209,7 @@ Deployment로 배포한 비디오 application pod가 CPU를 50%이상 사용시 
 
 ㅤ
 
-# Media
+# ☑️ Media
 
 > *AWS MediaConvert*
 
@@ -259,7 +268,7 @@ Lambda와 API Gateway를 사용해서 만든 백엔드 URL을 IVS 채널과 IVS 
 ㅤ
 
 
-# Security
+# ☑️ Security
 
 
 > *AWS Cognito*
@@ -336,9 +345,12 @@ IRSA는 OIDC(OpenID Connect) 프로바이더의 신뢰가 필요합니다. EKS�
 kubernetes 내부에서는 service account를 생성하여 생성한 역할을 부여하고, 
 deployment에 service account를 선언하여 클러스터에서도 IAM 역할에 접근할 수 있도록 설정했습니다.
 
+ㅤ
+ㅤ
 
 
-# Observability
+
+# ☑️ Observability
 
 > *Grafana/Prometheus*
 
