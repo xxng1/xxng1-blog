@@ -152,7 +152,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           blockquote({ children }) {
             //bg-zinc-200 dark:bg-zinc-800 p-4 italic my-4 rounded-lg flex items-center justify-center
             return <blockquote className="
-            border-l-6 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4 dark:bg-zinc-800 p-2 rounded-lg flex items-center"
+            border-l-6 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4 dark:bg-zinc-800 bg-zinc-200 p-2 rounded-lg flex items-center"
             >{children}</blockquote>;
           },
           img({ src, alt }) {
