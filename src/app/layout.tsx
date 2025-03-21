@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "xxng1's log",
+  title: "xxng1 (Sangwoong)",
   description: "with Next.js",
 };
 
