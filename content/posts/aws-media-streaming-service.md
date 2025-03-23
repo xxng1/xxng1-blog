@@ -393,7 +393,6 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 
 ---
 
-> *github repo*
-```
-https://github.com/AWS2-Chuno
-```
+> [*github repo*](https://github.com/AWS2-Chuno)
+
+[![GitHub 로고](/image.png)](https://github.com/AWS2-Chuno)
