@@ -32,8 +32,6 @@ excerpt: ''
 
 ### 5. ☑️ Security
 
-### 6. ☑️ Observability  
-
 
 
 ㅤ
@@ -152,6 +150,13 @@ EKS 배포 자동화 파이프라인 구성.
 
 
 **📷 ArgoCD Application 배포**
+
+argocd-server의 TYPE은 *ClusterIP*로 생성, 외부 접속할수있게 *LoadBalancer*로 변경해줍니다.
+
+```shell
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
 
 ![](https://velog.velcdn.com/images/xxng1/post/d0c78493-8b5c-4422-8838-032cff69c3f2/image.png)
 
@@ -331,8 +336,37 @@ def validate_token(token: str):
 
 알림으로써 Slack Webhook을 사용한 알림을 구현했습니다. 이를 KMS로 암호화해주었습니다.
 
-ㅤ
+**인코딩**
 
+```shell
+aws kms encrypt \
+    --key-id <KEY_ID> \
+    --plaintext fileb://<(echo -n "<TEXT>") \
+    --output text \
+    --query CiphertextBlob
+```
+
+- KMS key id 지정
+- 암호화 데이터 입력(평문)
+
+**디코딩**
+
+```shell
+aws kms decrypt \
+--ciphertext-blob fileb://<(echo "<INCODED_TEXT>" | base64 --decode) \
+--output text \
+--query Plaintext | base64 --decode
+```
+
+- FastAPI 내에서 AWS SDK *boto3* 활용하여 decrypted_value 추출
+
+
+ㅤㅤ
+ㅤㅤ
+
+
+ㅤㅤ
+ㅤㅤ
 
 > *IRSA(IAM Roles for Service Accounts)*
 
@@ -350,7 +384,7 @@ deployment에 service account를 선언하여 클러스터에서도 IAM 역할�
 
 
 
-# ☑️ Observability
+ ### + Observability
 
 > *Grafana/Prometheus*
 
@@ -362,22 +396,6 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 
 ㅤ
 
-ㅤ
-
-
-
-> *Istio/Kiali*
-
-
-
-![](https://velog.velcdn.com/images/xxng1/post/dadcb113-95dc-4c59-8516-c0a02e1d2a71/image.png)
-
-![](https://velog.velcdn.com/images/xxng1/post/3a94f05d-5519-4c0f-a5ae-95968f08e0aa/image.png)
-
-*Istio*, *Kiali*를 사용하여 네트워크 관리 및 성능 모니터링하고, 요청 흐름을 추적했습니다.
-
-
-
 
 ㅤ
 ㅤ
@@ -391,8 +409,57 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 ㅤ
 
 
+## 개선점
+
+- 프로젝트에서 *CloudFront*로 CDN배포를 할 때, 캐싱 무효화를 위해서
+```
+aws cloudfront create-invalidation --distribution-id ECDYLDP4DEWXU --paths "/*"
+```
+
+위의 **(/*)** 경로의 모든 캐싱을 무효화했는데, 더 좋은 방법으로 캐싱을 무효화 할 수 있었던 것 같다.
+
+예를 들어, SWR(Stale-While-Revalidate) 패턴을 적용해서 캐시 효율성을 높일 수 있다.
+
+
+ㅤㅤ
+ㅤㅤ
+
+
+*SWR*: 캐시 TTL이 만료된 데이터라도, 일정 기간(stale-while-revalidate 시간) 동안 사용자에게 제공.
+
+
+
+```
+예시 설정:
+- 기본 TTL (Default TTL): 60초
+- Stale-While-Revalidate TTL: 300초
+```
+- **동작 방식**:
+    - 60초 동안은 최신 데이터 제공.
+    - 60초가 지난 후 300초(5분) 동안은 만료된 데이터를 제공하면서 원본 서버에 재검증 요청을 비동기로 수행합니다.
+    - 재검증 성공 시 캐시 갱신, 실패 시 기존 데이터 계속 사용.
+ㅤㅤ
+ㅤㅤ
+ㅤㅤ
+ㅤㅤ
+ㅤㅤ
+ㅤㅤ
+
+
+
+
+ㅤㅤ
+
+ㅤㅤ
+ㅤㅤ
+
+ㅤㅤ
+ㅤㅤ
+
+ㅤㅤ
+### ☑️ Github Repository
 ---
 
-> [*github repo*](https://github.com/AWS2-Chuno)
+
 
 [![GitHub 로고](/image.png)](https://github.com/AWS2-Chuno)
