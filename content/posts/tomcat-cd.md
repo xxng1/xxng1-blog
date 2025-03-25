@@ -9,7 +9,6 @@ excerpt: ''
 - 현재 상황
     - 실습자료에서의 CI(지속적 통합) 구축은 완료한 상태이다
     - VM은 2개 있는 상황에서, 1개(was)를 추가 생성하였다.
-    - 30-psw-Gitlab, 31-psw-Jenkins, 32-psw-was(추가생성)로 구축하였다.
 
 ## 시스템 구현 과정
 
@@ -26,7 +25,7 @@ docker run -d -i -t --restart=always --name was_tomcat
 Tomcat 내에는 배포된 프로젝트를 관리할 수 있는 페이지가 있는데, 이를 확인함과 동시에 Jenkins의 Credentials설정에서 ID와 PASSWD가 필요하므로 이를 설정해주도록 한다.
 우선 컨테이너 셸에 이동해서, 루트 url에서의 404 오류를 먼저 없애주었다.
 
-```bash
+```shell
 docker exec -it was_tomcat /bin/bash
 mv webapps webapps2
 mv webapps.dist/ webapps
@@ -34,11 +33,11 @@ mv webapps.dist/ webapps
 
 후에는 “http://172.16.212.32:8080/manager/html/”(관리자 페이지)에 접속하기 위한 설정을 해주었다. 
 
-***(*ID, PASSWORD 및 권한 설정)**
+**(ID, PASSWORD 및 권한 설정)**
 
 `/usr/local/tomcat/conf/tomcat-users.xml` 에 추가
 
-```bash
+```jsp
 <role rolename="admin"/>
 <role rolename="admin-gui"/>
 <role rolename="admin-script"/>
@@ -54,7 +53,7 @@ mv webapps.dist/ webapps
 
 `webapps/manager/META-INF/context.xml and /webapps/host-manager/META-INF/context.xml` 에 처리
 
-```
+```jsp
 <Context antiResourceLocking="false" privileged="true" >
   <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
                    sameSiteCookies="strict" />
@@ -67,17 +66,18 @@ mv webapps.dist/ webapps
 
 후에 접속하여 로그인한다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3d55a4ef-0757-4da2-b3ab-756df0263ba3/612c75dd-a6c1-4b92-98f4-a38958022f81/Untitled.png)
+![](https://velog.velcdn.com/images/xxng1/post/4e022a98-8785-4080-8b25-313941362608/image.png)
 
 설정한 id, password로 로그인한다.
 
 후에는 GitLab과 연결해놓았던 Jenkins Item 설정을 할 수 있도록 했다.
 
-우선 나는 SpringBoot(Gradle) Project를 GitLab에 Push할 예정이므로 “**Add built step**”에서 “**Invoke Gradle script”**를 추가했다. 후에 Use Gradle Wrapper, Make Gradlew executable을 설정했다.
+우선 나는 SpringBoot(Gradle) Project를 GitLab에 Push할 예정이므로 “**Add built step**”에서 **“Invoke Gradle script”** 를 추가했다. 후에 Use Gradle Wrapper, Make Gradlew executable을 설정했다.
 
  
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3d55a4ef-0757-4da2-b3ab-756df0263ba3/7430555e-1acc-4b9d-9e97-3f87636db8d9/Untitled.png)
+![](https://velog.velcdn.com/images/xxng1/post/878b1e79-7728-45ed-9c04-e7a64d3bc7eb/image.png)
+
 
 후에는 “**Deploy war/ear to a container**” 설정을 했다.
 
@@ -85,7 +85,7 @@ SpringBoot로 war파일을 빌드해서 /demo로 베포한다는 내용 및,
 
 Tomcat 8버전 Container 연결을 위한 Credentials도 추가해주었다( ID, PASSWORD 는 `tomcat-users.xml` 에서 설정한 값 )
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3d55a4ef-0757-4da2-b3ab-756df0263ba3/76a83aa3-26a5-43c4-ad31-43266796d69a/Untitled.png)
+![](https://velog.velcdn.com/images/xxng1/post/ce7cf08d-73f8-4749-b9f9-fcc0db009c0e/image.png)
 
 후에는 GitLab에 파일을 Push하여 빌드/베포가 되는지 확인한다.
 
@@ -125,7 +125,7 @@ public class TestApplication {
 
 변경사항 저장 후 gitLab에 push 하면
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3d55a4ef-0757-4da2-b3ab-756df0263ba3/fda89128-53db-4e74-ab43-15e0cfc70e9a/Untitled.png)
+![](https://velog.velcdn.com/images/xxng1/post/bbdd35be-9c57-4a03-b873-b82c8d10a7a2/image.png
 
 실습해서 구현한 CI를 Jenkins 에서 CD할 준비를 하는 것을 볼 수 있다.
 
@@ -133,14 +133,14 @@ public class TestApplication {
 
 “**Deploy war/ear to a container**”에서의 “**Context path**”에서 작성했던 /demo 경로가 추가되어 있는것을 볼 수 있다
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3d55a4ef-0757-4da2-b3ab-756df0263ba3/4832349a-9ea3-4cfc-9c44-1d2f4a4d437c/Untitled.png)
+![](https://velog.velcdn.com/images/xxng1/post/b7f206f7-de31-46cc-b675-8098110d9a65/image.png)
 
 ## 결론(구축결과 및 느낀점)
 
 - **구축결과**
     - 해당 /demo 경로로 접속해보면 SpringBoot Application 파일에서 경로설정했던 내용을 볼 수 있다.
         
-        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3d55a4ef-0757-4da2-b3ab-756df0263ba3/1d64f304-ded3-4a0a-8600-5853fd6bef14/Untitled.png)
+        ![](https://velog.velcdn.com/images/xxng1/post/5fc40d7c-000d-42f3-ab77-812e998beb49/image.png)
         
 - **Trouble Shooting**
     - .gitignore
