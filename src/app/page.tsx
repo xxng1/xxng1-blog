@@ -44,7 +44,7 @@ export default function Home() {
   className="w-full max-w-lg mx-auto rounded-2xl"
 />
 
-<p style={{ textAlign: "center", color: "gray", fontStyle: "italic" }}>squirrel in seattle 🐿️</p> 
+<p style={{ textAlign: "center", color: "gray", fontStyle: "italic" }}>squirrel in seattle</p> 
 
 
 

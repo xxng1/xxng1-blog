@@ -53,7 +53,7 @@ export default function AboutPage() {
                     </p>
                     <p>
                         이러한 자세로 Well-Architected Framework의 관점에서 지속적으로 개선을 고민합니다. <br></br>
-                        서비스의 장점을 발견하고 더 나은 해결 방안을 찾아내며, 동료들과 함께 성장하는 분위기를 좋아합니다.
+                        서비스의 장점을 발견하고 더 나은 해결 방안을 찾아내며, 동료들과 함께 성장합니다.
                     </p>
                 </div>
 
