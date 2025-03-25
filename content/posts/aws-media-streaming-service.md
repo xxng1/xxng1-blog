@@ -409,7 +409,9 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 ㅤ
 
 
-## 개선점
+# ☑️ 프로젝트 아쉬웠던 부분
+
+### 개선점 1
 
 - 프로젝트에서 *CloudFront*로 CDN배포를 할 때, 캐싱 무효화를 위해서
 ```
@@ -438,6 +440,54 @@ aws cloudfront create-invalidation --distribution-id ECDYLDP4DEWXU --paths "/*"
     - 60초 동안은 최신 데이터 제공.
     - 60초가 지난 후 300초(5분) 동안은 만료된 데이터를 제공하면서 원본 서버에 재검증 요청을 비동기로 수행합니다.
     - 재검증 성공 시 캐시 갱신, 실패 시 기존 데이터 계속 사용.
+
+
+
+ㅤㅤ
+
+ㅤㅤ
+ㅤㅤ
+
+### 개선점 2
+
+*AWS Cognito* 를 사용해서 JWT 토큰 기반 사용자 인증/인가를 관리했다.
+
+이 때, **Client(React)** 에서 *amazon-cognito-identity-js*를 사용하여 토큰을 검증했는데,
+local storage에 accesstoken을 저장했었다.
+
+```javascript
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken'); // 이 부분
+    if (token) {
+      setIsAuthenticated(true);
+      setUsername(localStorage.getItem('username') || 'User');
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+```
+
+하지만, localStorage는 XSS(크로스 사이트 스크립팅) 공격에 취약하다는 문제가 있다.
+
+sessionStorage 또는 httpOnly 쿠키에 저장하는 방법을 사용했으면 보안 효율을 높일 수 있었던 것 같다.
+
+- sessionStorage: 사용자가 브라우저를 닫으면 자동 삭제되므로, 일회성 로그인 세션 유지에 적합하다.
+- httpOnly 쿠키: JavaScript에서 접근할 수 없도록 설정할 수 있어 XSS 공격으로부터 보호할 수 있는 더 안전한 방법이다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ㅤㅤ
 ㅤㅤ
 ㅤㅤ

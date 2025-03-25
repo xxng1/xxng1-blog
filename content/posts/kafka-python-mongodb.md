@@ -29,9 +29,9 @@ https://www.mongodb.com/try/download/compass
 # MongoDB 설치(Docker)
 docker mongodb container or mongodb atlas 중 mongodb를 실행할 타입을 선택합니다. 저는 docker를 통해서 연결해보겠습니다.
 
-`docker pull mongo`
+*docker pull mongo*
 
-`docker run --name mongodb -dp 27017:27017 mongo`
+*docker run --name mongodb -dp 27017:27017 mongo*
 
 docker container를 통해서 실행한 mongoDB에 connect해줍니다.
 ![](https://velog.velcdn.com/images/woongaa1/post/a1a432c3-8d7f-44e2-bdb9-0d45f3b30ce5/image.png)
@@ -88,7 +88,7 @@ INSERT INTO post (count, info, item_name, price, todaycount) VALUES
 kafka는 docker-compose를 통해서 설치해주겠습니다.
 해당 내용으로 docker-compose를 백그라운드로 실행합니다. 
 
-`docker-compose up -d`
+*docker-compose up -d*
 
 
 ### docker-compose.yml
@@ -112,11 +112,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-생성한 컨테이너 bash에 접속해서, 'MongoMysql' 이란 이름의 토픽을 생성해줍니다.
+생성한 컨테이너 bash에 접속해서, **'MongoMysql'** 이란 이름의 토픽을 생성해줍니다.
 
-`docker exec -it kafka /bin/bash `
+*docker exec -it kafka /bin/bash*
 
-`kafka-topics.sh --create --topic MongoMysql -- bootstrap-server localhost:9092 --replication-factor 1` 
+*kafka-topics.sh --create --topic MongoMysql -- bootstrap-server localhost:9092 --replication-factor 1*
 
  
  
@@ -212,18 +212,18 @@ if __name__ == "__main__":
 consumer.py코드에서는 사용할 db와 collection이름을 지정해주어야 합니다.
 MongoDB Compass를 통해서 만들었던 이름을 사용합니다. 10~11번째 줄에서 지정해줍니다.
 
-`self.db = self.client['mongotest']`
+*self.db = self.client['mongotest']*
 
-`self.collection = self.db['mongotestcollection']`
+*self.collection = self.db['mongotestcollection']*
 
 또한 컨슈머에서 어떤 토픽을 사용할지 지정해주어야 합니다. 18번째 줄에서 지정해줍니다. 
 
-`self.consumer = KafkaConsumer('MongoMysql',`
+*self.consumer = KafkaConsumer('MongoMysql',*
      
      
 (+) 추가적으로 MongoDB를 컨테이너가 아닌 atlas를 통해 사용하고 있다면, connect url을 입력해줍니다. 
 
-`self.client = pymongo.MongoClient("mongodb+srv://atlas_user:atlas123@mycluster.p0ytpkn.mongodb.net/?retryWrites=true&w=majority")`
+*self.client = pymongo.MongoClient("mongodb+srv://atlas_user:atlas123@mycluster.p0ytpkn.mongodb.net/?retryWrites=true&w=majority")*
      
 ### consumer.py
 
