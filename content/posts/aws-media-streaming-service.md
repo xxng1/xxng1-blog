@@ -32,6 +32,8 @@ excerpt: ''
 
 ### 5. ☑️ Security
 
+### 6. ☑️ Future Improvements
+
 
 
 ㅤ
@@ -409,7 +411,7 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 ㅤ
 
 
-# ☑️ 프로젝트 아쉬웠던 부분
+# ☑️ Future Improvements
 
 ### 개선점 1
 
