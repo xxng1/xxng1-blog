@@ -49,10 +49,10 @@ export default function AboutPage() {
                     <p>
                         <span className="font-semibold">No Silver Bullet</span> 이라는 말을 좋아합니다. 
                         <span className="font-semibold"> Silver Bullet</span> 이란 만능 해결책이라는 의미로, <br></br>
-                        <span className="font-bold">한 번에 완벽하게 문제를 해결할 수 있는 솔루션은 없다</span>는 뜻입니다. <br></br>
+                        <span className="font-bold">한 번에 완벽하게 문제를 해결할 수 있는 솔루션은 없다</span>라는 말입니다. <br></br>
                     </p>
                     <p>
-                        이러한 자세로 Well-Architected Framework의 관점에서 지속적으로 개선을 고민합니다. <br></br>
+                        이러한 자세로 <i>Well-Architected Framework</i> 의 관점에서 지속적으로 개선을 고민합니다. <br></br>
                         서비스의 장점을 발견하고 더 나은 해결 방안을 찾아내며, 동료들과 함께 성장합니다.
                     </p>
                 </div>
