@@ -58,34 +58,29 @@ export default function Home() {
         <h2 className="text-2xl font-bold tracking-tight">
           Posts
         </h2>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
-          {allPostsData.map(({ id, date, title, excerpt }) => (
-            <article key={id} className="group relative flex flex-col space-y-2 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition">
-              <div className="space-y-3">
-                <time className="text-sm text-zinc-500 dark:text-zinc-400">
-                  {new Date(date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </time>
-                <h3 className="text-xl font-bold">
-                  <Link href={`/posts/${id}`} className="hover:underline">
-                    {title}
-                  </Link>
-                </h3>
-                <p className="text-zinc-600 dark:text-zinc-400">{excerpt}</p>
-              </div>
-              <div className="mt-4">
-                <Link 
-                  href={`/posts/${id}`}
-                  className="text-sm font-medium text-zinc-900 dark:text-zinc-100 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-                >
-                  Read more →
-                </Link>
-              </div>
-            </article>
-          ))}
+        <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-1">
+        {allPostsData.map(({ id, date, title, excerpt }) => (
+  <Link key={id} href={`/posts/${id}`} className="block group">
+    <article className="relative flex flex-col space-y-2 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition cursor-pointer">
+      <div className="space-y-3">
+        <time className="text-sm text-zinc-500 dark:text-zinc-400">
+          {new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+        <h3 className="text-xl font-bold group-hover:underline">
+          {title}
+        </h3>
+        <p className="text-zinc-600 dark:text-zinc-400">{excerpt}</p>
+      </div>
+      <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
+        Read more →
+      </div>
+    </article>
+  </Link>
+))}
         </div>
       </section>
     </div>
