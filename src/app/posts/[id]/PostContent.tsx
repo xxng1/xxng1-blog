@@ -138,13 +138,13 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             return <h3 className="text-xl font-bold mt-6 mb-4">{children}</h3>;
           },
           p({ children }) {
-            return <p className="my-4">{children}</p>;
+            return <p className="my-4 mt-6 mb-4">{children}</p>;
           },
           ul({ children }) {
-            return <ul className="my-4 list-disc pl-6">{children}</ul>;
+            return <ul className="my-4 mt-6 mb-4 list-disc pl-6">{children}</ul>;
           },
           ol({ children }) {
-            return <ol className="my-4 list-decimal pl-6">{children}</ol>;
+            return <ol className="my-4 mt-6 mb-4 list-decimal pl-6">{children}</ol>;
           },
           li({ children }) {
             return <li className="my-1">{children}</li>;
