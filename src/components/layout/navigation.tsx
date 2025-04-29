@@ -2,8 +2,15 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function Navigation() {
+interface NavigationProps {
+  showTitle?: boolean;
+}
+
+export default function Navigation({ showTitle = false }: NavigationProps) {
   const pathname = usePathname();
+  
+  // about 페이지에서는 네비게이션을 표시하지 않음
+  if (pathname.includes('/about')) return null;
   
   // 현재 경로에 따라 활성화된 메뉴 항목 스타일 적용
   const isActive = (path: string) => {
@@ -13,7 +20,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="flex items-center space-x-8 py-4">
+    <nav className="flex items-center space-x-8">
       <Link 
         href="/" 
         className={`text-base font-medium ${isActive('/') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
