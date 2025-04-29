@@ -3,6 +3,7 @@ layout:       post
 title:        "AWS Services(feat. network)"
 date: '2024-04-11'
 excerpt: ''
+categories: ['AWS']
 ---
 
 

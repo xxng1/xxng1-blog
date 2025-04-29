@@ -3,6 +3,7 @@ layout:       post
 title:        "웹기반 미디어 스트리밍 서비스"
 date: '2025-03-17'
 excerpt: ''
+categories: ['AWS/Media']
 ---
 
 > WEB 기반 미디어 스트리밍 서비스 구축기

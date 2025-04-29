@@ -3,6 +3,7 @@ layout:       post
 title:        "SSE 방식을 이용한 알림 구현"
 date: '2024-06-15'
 excerpt: ''
+categories: ['Java/Spring']
 ---
 
 > 프로젝트에서 사용했던 SSE 방식에 대해
@@ -264,4 +265,4 @@ proxy_http_version 1.1;
 ```
 
 
-- open-in-view를 false로 설정하여 요청이 트랜잭션이 처리되는 동안에만 데이터베이스 연결을 열어준다. 
+- open-in-view를 false로 설정하여 요청이 트랜잭션이 처리되는 동안에만 데이터베이스 연결을 열어준다.

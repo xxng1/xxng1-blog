@@ -43,6 +43,9 @@ export default function RootLayout({
     </Link>
   </div>
   <nav className="flex items-center space-x-4 mr-2">
+    <Link href="/categories" className="text-base font-bold tracking-tight hover:text-zinc-400 transition">
+      카테고리
+    </Link>
     <Link href="/about" className="text-base font-bold tracking-tight hover:text-zinc-400 transition">
       About
     </Link>
