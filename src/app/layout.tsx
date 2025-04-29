@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { Analytics } from "@vercel/analytics/react"; // Analytics 임포트
+import { Analytics } from "@vercel/analytics/react";
+import Navigation from "@/components/layout/navigation";
 
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 
@@ -36,20 +37,20 @@ export default function RootLayout({
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
 
-<header className="flex justify-between items-center py-6 border-b border-zinc-800">
-  <div className="flex items-center space-x-4 ml-2">
-    <Link href="/" className="text-xl font-bold italic tracking-tight hover:text-zinc-400 transition">
-      xxng1
-    </Link>
+<header className="flex flex-col py-6 border-b border-zinc-800">
+  <div className="flex justify-between items-center mb-4">
+    <div className="flex items-center space-x-4 ml-2">
+      <Link href="/" className="text-xl font-bold italic tracking-tight hover:text-zinc-400 transition">
+        xxng1
+      </Link>
+    </div>
+    <nav className="flex items-center space-x-4 mr-2">
+      <Link href="/about" className="text-base font-bold tracking-tight hover:text-zinc-400 transition">
+        About
+      </Link>
+    </nav>
   </div>
-  <nav className="flex items-center space-x-4 mr-2">
-    <Link href="/categories" className="text-base font-bold tracking-tight hover:text-zinc-400 transition">
-      카테고리
-    </Link>
-    <Link href="/about" className="text-base font-bold tracking-tight hover:text-zinc-400 transition">
-      About
-    </Link>
-  </nav>
+  <Navigation />
 </header>
 
 

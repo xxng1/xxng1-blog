@@ -11,6 +11,8 @@ export interface PostData {
   excerpt: string;
   content: string;
   categories?: string[];
+  section?: string;
+  tags?: string[];
 }
 
 export interface Category {
@@ -38,6 +40,8 @@ export function getSortedPostsData(): PostData[] {
       id,
       content: matterResult.content,
       categories: matterResult.data.categories || [],
+      section: matterResult.data.section || '',
+      tags: matterResult.data.tags || [],
       ...(matterResult.data as { title: string; date: string; excerpt: string }),
     };
   });
@@ -75,6 +79,8 @@ export async function getPostData(id: string): Promise<PostData> {
     id,
     content: matterResult.content,
     categories: matterResult.data.categories || [],
+    section: matterResult.data.section || '',
+    tags: matterResult.data.tags || [],
     ...(matterResult.data as { title: string; date: string; excerpt: string }),
   };
 }
@@ -138,4 +144,47 @@ export function getPostsByCategory(category: string, subcategory?: string): Post
       }
     });
   });
+}
+
+// 특정 섹션에 속하는 게시물 가져오기
+export function getPostsBySection(section: string): PostData[] {
+  const allPosts = getSortedPostsData();
+  
+  if (section === '') {
+    return allPosts; // 빈 섹션이면 모든 포스트 반환
+  }
+  
+  return allPosts.filter(post => post.section === section);
+}
+
+// 특정 태그를 가진 게시물 가져오기
+export function getPostsByTags(tags: string[]): PostData[] {
+  const allPosts = getSortedPostsData();
+  
+  if (!tags || tags.length === 0) {
+    return allPosts;
+  }
+  
+  return allPosts.filter(post => {
+    if (!post.tags || post.tags.length === 0) return false;
+    
+    // 지정된 태그 중 하나라도 포스트의 태그에 포함되어 있으면 반환
+    return tags.some(tag => post.tags?.includes(tag));
+  });
+}
+
+// 모든 태그 가져오기
+export function getAllTags(): { [tag: string]: number } {
+  const allPosts = getSortedPostsData();
+  const tagCounts: { [tag: string]: number } = {};
+  
+  allPosts.forEach(post => {
+    if (!post.tags || post.tags.length === 0) return;
+    
+    post.tags.forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+  
+  return tagCounts;
 }

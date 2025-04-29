@@ -2,8 +2,10 @@
 layout:       post
 title:        "WAS - DB connect ( feat. docker )"
 date: '2023-06-15'
-excerpt: ''
+excerpt: 'Docker 컨테이너를 활용한 3-Tier 아키텍처 구성 및 WAS-DB 연결 방법'
 categories: ['Database/mariadb']
+section: 'tech'
+tags: ['Docker', 'Database', 'MariaDB', 'WAS', 'Tomcat']
 ---
 
 ## Docker 컨테이너를 활용한 3-Tier Architecture 구성
