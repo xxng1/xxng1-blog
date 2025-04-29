@@ -29,21 +29,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-900 text-zinc-100`}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
 
-<header className="flex justify-between items-center py-6 border-b border-zinc-200 dark:border-zinc-800">
+<header className="flex justify-between items-center py-6 border-b border-zinc-800">
   <div className="flex items-center space-x-4 ml-2">
-    <Link href="/" className="text-xl font-bold italic tracking-tight hover:text-zinc-600 dark:hover:text-zinc-400 transition">
+    <Link href="/" className="text-xl font-bold italic tracking-tight hover:text-zinc-400 transition">
       xxng1
     </Link>
   </div>
   <nav className="flex items-center space-x-4 mr-2">
-    <Link href="/about" className="text-base font-bold tracking-tight hover:text-zinc-600 dark:hover:text-zinc-400 transition">
+    <Link href="/about" className="text-base font-bold tracking-tight hover:text-zinc-400 transition">
       About
     </Link>
   </nav>
@@ -52,21 +52,21 @@ export default function RootLayout({
 
 
           <main className="py-10">{children}</main>
-          <footer className="py-6 border-t border-zinc-200 dark:border-zinc-800 text-sm text-zinc-500 dark:text-zinc-400">
+          <footer className="py-6 border-t border-zinc-800 text-sm text-zinc-400">
             <div className="flex justify-between items-center">
               <p>© {new Date().getFullYear()}. xxng1 All rights reserved.</p>
               <div className="flex space-x-4">
                 {/* <a href="mailto:woongaaaaa1@gmail.com" className="hover:text-zinc-800 dark:hover:text-zinc-200 transition">
                   Contact
                 </a> */}
-                <a href="mailto:woongaaaaa1@gmail.com" className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-800 dark:hover:text-zinc-200 transition">
+                <a href="mailto:woongaaaaa1@gmail.com" className="text-zinc-300 hover:text-zinc-200 transition">
                 <FaEnvelope size={20} /> 
                 </a>
 
-                <a href="https://www.linkedin.com/in/sangwoong-park/" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-800 dark:hover:text-zinc-200 transition">
+                <a href="https://www.linkedin.com/in/sangwoong-park/" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-zinc-200 transition">
         <FaLinkedin size={20} />
       </a>
-      <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-800 dark:hover:text-zinc-200 transition">
+      <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-zinc-200 transition">
         <FaGithub size={20} />
       </a>
 
