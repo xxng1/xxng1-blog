@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { getSortedPostsData, getAllTags } from '@/lib/posts';
 import Image from 'next/image';
 import ClientTagFilter from '@/components/client-tag-filter';
-// import { Suspense } from 'react';
+import { Suspense } from 'react';
 
 
 export default function Home() {
@@ -95,7 +95,9 @@ export default function Home() {
           </span>
         </div>
         
-        <ClientTagFilter tags={allTags} baseUrl="/" />
+        <Suspense fallback={<div>태그 로딩 중...</div>}>
+          <ClientTagFilter tags={allTags} baseUrl="/" />
+        </Suspense>
         
         <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-1">
           {allPostsData.map(({ id, date, title, excerpt, tags }) => (
