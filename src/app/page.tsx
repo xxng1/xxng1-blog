@@ -10,8 +10,37 @@ export default function Home() {
   const allTags = getAllTags();
   
   return (
-    <div className="space-y-12">
-      <section className="space-y-6">
+    <div className="space-y-8">
+
+
+<div className="space-y-12">
+  <section className="space-y-6">
+    <Image 
+      src="/paka.jpeg" 
+      alt="Tech Blog Cover" 
+      width={800} 
+      height={400} 
+      className="w-full max-w-lg mx-auto rounded-2xl"
+    />
+    <p style={{ textAlign: "center", color: "gray", fontStyle: "italic" }}>
+      squirrel in Seattle
+    </p>
+  </section>
+</div>
+
+
+<div style={{ width: "100%", height: "0.8px", backgroundColor: "gray", margin: "15px auto" }}></div>
+
+
+
+
+
+
+
+
+
+
+      {/* <section className="space-y-6"> */}
         
         {/* <h2 className="text-4xl font-semi-bold text-gray-300 tracking-tight sm:text-5xl">
           웅이
@@ -39,7 +68,7 @@ export default function Home() {
 </Link> */}
 
 
-<Image 
+{/* <Image 
   src="/paka.jpeg" 
   alt="Tech Blog Cover" 
   width={800} 
@@ -52,10 +81,11 @@ export default function Home() {
 
 
 
-      </section>
+      </section> */}
 
 
-      <div style={{ width: "100%", height: "0.8px", backgroundColor: "gray", margin: "15px auto" }}></div>
+      {/* <div style={{ width: "100%", height: "0.8px", backgroundColor: "gray", margin: "15px auto" }}></div> */}
+      
 
       <section className="space-y-8">
         <div className="flex justify-between items-center">
