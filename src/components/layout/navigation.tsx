@@ -6,7 +6,7 @@ interface NavigationProps {
   showTitle?: boolean;
 }
 
-export default function Navigation({ showTitle = false }: NavigationProps) {
+export default function Navigation({ }: NavigationProps) {
   const pathname = usePathname();
   
   // about 페이지에서는 네비게이션을 표시하지 않음

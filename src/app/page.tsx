@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { getSortedPostsData, getAllTags, getPostsByTags } from '@/lib/posts';
+import { getSortedPostsData, getAllTags } from '@/lib/posts';
 import Image from 'next/image';
 import ClientTagFilter from '@/components/client-tag-filter';
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 
 
 export default function Home() {

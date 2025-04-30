@@ -35,7 +35,7 @@ export default function ClientTagFilter({ tags, baseUrl }: TagFilterProps) {
   };
   
   // 현재 페이지 번호 유지
-  const currentPage = searchParams.get('page') || '1';
+  // const currentPage = searchParams.get('page') || '1';
   
   // 태그 정렬 (사용 빈도 순)
   const sortedTags = Object.entries(tags)
