@@ -64,7 +64,7 @@ export default async function SubCategoryPage({ params }: SubCategoryPageProps) 
 }
 
 // 정적 경로 생성을 위한 함수
-export function generateStaticParams() {
+export async function generateStaticParams() {
   const allPosts = getSortedPostsData();
   const categoryPairs: { category: string, subcategory: string }[] = [];
   
