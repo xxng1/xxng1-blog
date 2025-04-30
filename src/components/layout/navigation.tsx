@@ -20,7 +20,7 @@ export default function Navigation({ showTitle = false }: NavigationProps) {
   };
 
   return (
-    <nav className="flex items-center space-x-8 mt-[-2rem]">
+    <nav className="flex items-center space-x-8 mt-[-1rem]">
       <Link 
         href="/" 
         className={`text-base font-medium ${isActive('/') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
