@@ -2,19 +2,20 @@ import Link from 'next/link';
 import { getPostsBySection, getAllTags, getPostsByTags } from '@/lib/posts';
 import ClientTagFilter from '@/components/client-tag-filter';
 import Image from 'next/image';
+import { headers } from 'next/headers';
 
-export default function DesignPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
-  const tagParams = searchParams.tag ? 
-    Array.isArray(searchParams.tag) ? searchParams.tag : [searchParams.tag] : 
-    [];
-  
-  // 태그로 필터링된 포스트 가져오기
-  const filteredPosts = tagParams.length > 0 ?
-    getPostsByTags(tagParams).filter(post => post.section === 'etc') :
-    getPostsBySection('etc');
-    
+export default async function DesignPage() {
+  const headersList = await headers();
+  const search = headersList.get('x-invoke-query') || '';
+  const searchParams = new URLSearchParams(search);
+  const tagParams = searchParams.getAll('tag');
+
+  const filteredPosts = tagParams.length > 0
+    ? getPostsByTags(tagParams).filter(post => post.section === 'etc')
+    : getPostsBySection('etc');
+
   const allTags = getAllTags();
-  
+
   return (
     <div className="space-y-8">
 
