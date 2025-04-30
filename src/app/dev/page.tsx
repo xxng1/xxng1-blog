@@ -95,7 +95,7 @@ export default function TechPage({ searchParams }: { searchParams: { [key: strin
                   </div>
                 )}
               </div>
-              <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
+              <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
                 Read More →
               </div>
             </article>

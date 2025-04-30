@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getPostsBySection, getAllTags, getPostsByTags } from '@/lib/posts';
 import ClientTagFilter from '@/components/client-tag-filter';
+import Image from 'next/image';
 
 export default function DataPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const tagParams = searchParams.tag ? 
@@ -16,6 +17,33 @@ export default function DataPage({ searchParams }: { searchParams: { [key: strin
   
   return (
     <div className="space-y-8">
+
+
+<div className="space-y-12">
+  <section className="space-y-6">
+    <Image 
+      src="/paka.jpeg" 
+      alt="Tech Blog Cover" 
+      width={800} 
+      height={400} 
+      className="w-full max-w-lg mx-auto rounded-2xl"
+    />
+    <p style={{ textAlign: "center", color: "gray", fontStyle: "italic" }}>
+      squirrel in Seattle
+    </p>
+  </section>
+</div>
+
+
+<div style={{ width: "100%", height: "0.8px", backgroundColor: "gray", margin: "15px auto" }}></div>
+
+
+
+
+
+
+
+
       <div className="flex justify-between items-center">
         {/* <h1 className="text-3xl font-bold tracking-tight">데이터</h1> */}
         <span className="text-zinc-500 dark:text-zinc-400 text-sm">
@@ -51,8 +79,8 @@ export default function DataPage({ searchParams }: { searchParams: { [key: strin
                   </div>
                 )}
               </div>
-              <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
-                더 읽기 →
+              <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
+                Read More →
               </div>
             </article>
           </Link>
