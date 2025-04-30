@@ -2,8 +2,9 @@
 layout:       post
 title:        "jenkins - CD ( feat. tomcat )"
 date: '2023-07-02'
-excerpt: ''
-categories: ['Java/Tomcat']
+section: 'tech'
+# excerpt: ''
+# categories: ['Java/Tomcat']
 ---
 
 ## 서론

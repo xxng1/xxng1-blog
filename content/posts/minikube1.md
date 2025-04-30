@@ -1,8 +1,9 @@
 ---
 title: "minikube?"
 date: '2024-04-25'
-excerpt: ''
-categories: ['Database/mysql', 'Go']
+section: 'tech'
+# excerpt: ''
+# categories: ['Database/mysql', 'Go']
 ---
 
 ## minikube?

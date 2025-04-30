@@ -59,7 +59,7 @@ export default function Home() {
 
       <section className="space-y-8">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold tracking-tight">전체 글</h2>
+          {/* <h2 className="text-2xl font-bold tracking-tight">전체 글</h2> */}
           <span className="text-zinc-500 dark:text-zinc-400 text-sm">
             총 {allPostsData.length}개의 글
           </span>
@@ -93,8 +93,8 @@ export default function Home() {
                     </div>
                   )}
                 </div>
-                <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
-                  더 읽기 →
+                <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
+                  Read More →
                 </div>
               </article>
             </Link>

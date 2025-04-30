@@ -1,8 +1,9 @@
 ---
 title: "Kafka와 Python을 통한 Data Migration"
 date: '2024-06-15'
-excerpt: ''
-categories: ['Database/mongodb', 'Go']
+section: 'tech'
+# excerpt: ''
+# categories: ['Database/mongodb', 'Go']
 ---
 
 # MySQL ➡️ Kafka ➡️ MongoDB

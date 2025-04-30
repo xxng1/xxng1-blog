@@ -28,22 +28,22 @@ export default function Navigation({ showTitle = false }: NavigationProps) {
         전체
       </Link>
       <Link 
-        href="/tech" 
-        className={`text-base font-medium ${isActive('/tech') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
+        href="/dev" 
+        className={`text-base font-medium ${isActive('/dev') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
       >
         개발
       </Link>
       <Link 
-        href="/data" 
-        className={`text-base font-medium ${isActive('/data') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
+        href="/infra" 
+        className={`text-base font-medium ${isActive('/infra') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
       >
-        데이터
+        인프라
       </Link>
       <Link 
-        href="/design" 
-        className={`text-base font-medium ${isActive('/design') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
+        href="/etc" 
+        className={`text-base font-medium ${isActive('/etc') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
       >
-        디자인
+        etc
       </Link>
     </nav>
   );

@@ -2,8 +2,9 @@
 layout:       post
 title:        "WS에서의 직접 SSL 인증서 발급/적용"
 date: '2024-01-08'
-excerpt: ''
-categories: ['Java/Spring', 'Database/mariadb']
+section: 'tech'
+# excerpt: ''
+# categories: ['Java/Spring', 'Database/mariadb']
 ---
 (Docker-Compose❌) 
 

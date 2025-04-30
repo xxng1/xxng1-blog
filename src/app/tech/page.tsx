@@ -17,7 +17,7 @@ export default function TechPage({ searchParams }: { searchParams: { [key: strin
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold tracking-tight">개발</h1>
+        {/* <h1 className="text-3xl font-bold tracking-tight">개발</h1> */}
         <span className="text-zinc-500 dark:text-zinc-400 text-sm">
           총 {filteredPosts.length}개의 글
         </span>

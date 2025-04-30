@@ -2,10 +2,10 @@
 layout:       post
 title:        "웹기반 미디어 스트리밍 서비스"
 date: '2025-03-17'
-excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
-categories: ['AWS/Media']
 section: 'tech'
-tags: ['AWS', 'Media', 'Streaming', 'Cloud']
+# excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
+# categories: ['AWS/Media']
+# tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
 > WEB 기반 미디어 스트리밍 서비스 구축기

@@ -54,7 +54,7 @@ export default function RootLayout({
 
           <main className="py-10">
             <div className="sticky top-[72px] bg-zinc-900 z-10 border-b border-zinc-800 mb-6 pb-4">
-              <h2 className="text-2xl font-bold mb-4">전체 글</h2>
+              {/* <h2 className="text-2xl font-bold mb-4">전체 ㄴㅇ글</h2> */}
               <Navigation />
             </div>
             {children}
