@@ -2,7 +2,14 @@ import { getPostsByCategory, getSortedPostsData, PostData } from '@/lib/posts';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export default function SubCategoryPage({ params }: { params: { category: string, subcategory: string } }) {
+interface SubCategoryPageProps {
+  params: {
+    category: string;
+    subcategory: string;
+  };
+}
+
+export default async function SubCategoryPage({ params }: SubCategoryPageProps) {
   const { category, subcategory } = params;
   const decodedCategory = decodeURIComponent(category);
   const decodedSubcategory = decodeURIComponent(subcategory);
