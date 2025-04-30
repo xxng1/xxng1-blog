@@ -1,8 +1,8 @@
 ---
 layout:       post
-title:        "우리 팀에서 사용한 Git Branch 전략"
+title:        "[회고] 우리 팀에서 사용한 Git Branch 전략"
 date: '2024-02-15'
-section: 'tech'
+section: 'etc'
 # excerpt: ''
 # categories: ['Database/redis', 'Go']
 ---

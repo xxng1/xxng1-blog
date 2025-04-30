@@ -1,10 +1,11 @@
 ---
 layout:       post
-title:        "AWS Services(feat. network)"
+title:        "[Cloud] AWS Services(feat. network)"
 date: '2024-04-11'
+section: 'infra'
 # excerpt: 'AWS 네트워크 서비스 소개 및 활용 방법'
 # categories: ['AWS']
-section: 'tech'
+
 # tags: ['AWS', 'Network', 'Cloud', 'Infrastructure']
 ---
 

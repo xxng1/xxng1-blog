@@ -1,8 +1,8 @@
 ---
 layout:       post
-title:        "웹 공격 방어 ( feat. AWS )"
+title:        "[Cloud] 웹 공격 방어 ( feat. AWS )"
 date: '2024-08-15'
-section: 'tech'
+section: 'infra'
 # excerpt: ''
 # categories: ['AWS', 'Database/mysql', 'Database/oracle']
 ---

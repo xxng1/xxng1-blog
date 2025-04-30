@@ -1,7 +1,8 @@
 ---
-title: "Kafka와 Python을 통한 Data Migration"
+layout: post
+title: "[Data] Kafka와 Python을 통한 Data Migration"
 date: '2024-06-15'
-section: 'tech'
+section: 'infra'
 # excerpt: ''
 # categories: ['Database/mongodb', 'Go']
 ---

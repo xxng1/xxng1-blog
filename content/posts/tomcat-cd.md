@@ -1,8 +1,8 @@
 ---
 layout:       post
-title:        "jenkins - CD ( feat. tomcat )"
+title:        "[DevOps] jenkins - CD ( feat. tomcat )"
 date: '2023-07-02'
-section: 'tech'
+section: 'infra'
 # excerpt: ''
 # categories: ['Java/Tomcat']
 ---

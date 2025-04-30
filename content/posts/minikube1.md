@@ -1,7 +1,7 @@
 ---
-title: "minikube?"
+title: "[Kubernetes] minikube?"
 date: '2024-04-25'
-section: 'tech'
+section: 'infra'
 # excerpt: ''
 # categories: ['Database/mysql', 'Go']
 ---

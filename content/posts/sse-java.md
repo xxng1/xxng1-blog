@@ -1,8 +1,8 @@
 ---
 layout:       post
-title:        "SSE 방식을 이용한 알림 구현"
+title:        "[Backend] SSE 방식을 이용한 알림 구현"
 date: '2024-06-15'
-section: 'tech'
+section: 'dev'
 # excerpt: ''
 # categories: ['Java/Spring']
 ---

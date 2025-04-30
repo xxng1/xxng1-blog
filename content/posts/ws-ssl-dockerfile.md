@@ -1,8 +1,8 @@
 ---
 layout:       post
-title:        "WS에서의 직접 SSL 인증서 발급/적용"
+title:        "[DevOps] WS에서의 직접 SSL 인증서 발급/적용"
 date: '2024-01-08'
-section: 'tech'
+section: 'infra'
 # excerpt: ''
 # categories: ['Java/Spring', 'Database/mariadb']
 ---

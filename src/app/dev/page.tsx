@@ -2,28 +2,28 @@ import Link from 'next/link';
 import { getPostsBySection, getAllTags, getPostsByTags } from '@/lib/posts';
 import ClientTagFilter from '@/components/client-tag-filter';
 
-export default function DataPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+export default function TechPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const tagParams = searchParams.tag ? 
     Array.isArray(searchParams.tag) ? searchParams.tag : [searchParams.tag] : 
     [];
   
   // 태그로 필터링된 포스트 가져오기
   const filteredPosts = tagParams.length > 0 ?
-    getPostsByTags(tagParams).filter(post => post.section === 'data') :
-    getPostsBySection('data');
+    getPostsByTags(tagParams).filter(post => post.section === 'dev') :
+    getPostsBySection('dev');
     
   const allTags = getAllTags();
   
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
-        {/* <h1 className="text-3xl font-bold tracking-tight">데이터</h1> */}
+        {/* <h1 className="text-3xl font-bold tracking-tight">개발</h1> */}
         <span className="text-zinc-500 dark:text-zinc-400 text-sm">
           총 {filteredPosts.length}개의 글
         </span>
       </div>
       
-      <ClientTagFilter tags={allTags} baseUrl="/data" />
+      <ClientTagFilter tags={allTags} baseUrl="/dev" />
       
       <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-1">
         {filteredPosts.map(({ id, date, title, excerpt, tags }) => (
