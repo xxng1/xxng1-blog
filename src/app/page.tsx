@@ -51,19 +51,19 @@ export default function Home() {
         </p> */}
 
 
-{/* <Link href="/about" className="text-xl font-bold italic text-gray-400 tracking-tight hover:text-zinc-600 dark:hover:text-zinc-400 transition">
+{/* <Link href="/about" className="text-xl font-bold italic text-gray-400 tracking-tight hover:text-zinc-400 transition">
   ✏️ About ME
 </Link> */}
 
 {/* <Link
   href="/about"
-  className="text-xl font-bold italic text-gray-400 tracking-tight hover:text-zinc-600 dark:hover:text-zinc-400 transition border-2 border-gray-400 rounded-lg px-4 py-2 hover:border-zinc-600 dark:hover:border-zinc-400"
+  className="text-xl font-bold italic text-gray-400 tracking-tight hover:text-zinc-400 transition border-2 border-gray-400 rounded-lg px-4 py-2 hover:border-zinc-400"
 > About  Me →
 </Link> */}
 
 {/* <Link
   href="/about"
-  className="text-xl font-bold text-gray-300 tracking-tight hover:text-zinc-600 dark:hover:text-zinc-400 transition border-1 border-gray-300 rounded-lg px-3 py-2 hover:border-zinc-600 dark:hover:border-zinc-400"
+  className="text-xl font-bold text-gray-300 tracking-tight hover:text-zinc-400 transition border-1 border-gray-300 rounded-lg px-3 py-2 hover:border-zinc-400"
 > About
 </Link> */}
 
