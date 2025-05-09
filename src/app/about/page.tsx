@@ -12,7 +12,7 @@ export default function AboutPage() {
                 <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent">
                     About Sangwoong
                 </h1>
-                <p className="text-lg text-gray-600 dark:text-gray-300">
+                <p className="text-lg text-gray-300">
                     Cloud Engineer & Continuous Improver
                 </p>
             </div> */}
@@ -23,12 +23,12 @@ export default function AboutPage() {
                         src="/mypicture.jpeg"
                         alt="Sangwoong Park"
                         fill
-                        className="rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-lg"
+                        className="rounded-full object-cover border-4 border-gray-800 shadow-lg"
                     />
                 </div>
                 <div className="text-center text-left">
                     <h2 className="text-2xl font-semibold mb-2">@xxng1</h2>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    <p className="text-gray-300 mb-4">
                         박상웅 | Sangwoong Park
                     </p>
                     
@@ -42,10 +42,10 @@ export default function AboutPage() {
             </div>
 
             <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
+                <h2 className="text-3xl font-bold mb-6 text-white">
                     About Me
                 </h2>
-                <div className="space-y-4 text-gray-600 dark:text-gray-300">
+                <div className="space-y-4 text-gray-300">
                     <p>
                         <span className="font-semibold">No Silver Bullet</span> 이라는 말을 좋아합니다. 
                         <span className="font-semibold"> Silver Bullet</span> 이란 만능 해결책이라는 의미로, <br></br>
@@ -74,19 +74,19 @@ export default function AboutPage() {
             </section>
 
             {/* <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
+                <h2 className="text-3xl font-bold mb-6 text-white">
                     Career Highlights
                 </h2>
                 <div className="grid md:grid-cols-2 gap-8">
-                    <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                    <div className="p-6 bg-gray-800 rounded-xl shadow-md">
                         <h3 className="text-xl font-semibold mb-3">Cloud Engineering</h3>
-                        <p className="text-gray-600 dark:text-gray-300">
+                        <p className="text-gray-300">
                             AWS 기반 아키텍처 설계 및 최적화 경험
                         </p>
                     </div>
-                    <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                    <div className="p-6 bg-gray-800 rounded-xl shadow-md">
                         <h3 className="text-xl font-semibold mb-3">Collaboration</h3>
-                        <p className="text-gray-600 dark:text-gray-300">
+                        <p className="text-gray-300">
                             Cross-functional 팀과의 협업을 통한 문제 해결
                         </p>
                     </div>
@@ -102,7 +102,7 @@ export default function AboutPage() {
                         className="object-cover"
                     />
                 </div>
-                <figcaption className="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">
+                <figcaption className="mt-2 text-sm text-gray-400 text-center">
                     The Spheres - Amazon
                 </figcaption>
             </figure>
@@ -117,7 +117,7 @@ export default function AboutPage() {
                         className="object-cover"
                     />
                 </div>
-                <figcaption className="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">
+                <figcaption className="mt-2 text-sm text-gray-400 text-center">
                     아마존 The Spheres in Seattle (맨 오른쪽)
                 </figcaption>
             </figure> */}
@@ -126,20 +126,20 @@ export default function AboutPage() {
 
 
             {/* <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
+                <h2 className="text-3xl font-bold mb-6 text-white">
                     Technical Skills
                 </h2>
                 <div className="flex flex-wrap gap-3">
-                    <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">
+                    <span className="px-4 py-2 bg-blue-900 text-blue-300 rounded-full">
                         AWS
                     </span>
-                    <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-full">
+                    <span className="px-4 py-2 bg-purple-900 text-purple-300 rounded-full">
                         Cloud Architecture
                     </span>
-                    <span className="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-full">
+                    <span className="px-4 py-2 bg-green-900 text-green-300 rounded-full">
                         DevOps
                     </span>
-                    <span className="px-4 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 rounded-full">
+                    <span className="px-4 py-2 bg-yellow-900 text-yellow-300 rounded-full">
                         CI/CD
                     </span>
                 </div>

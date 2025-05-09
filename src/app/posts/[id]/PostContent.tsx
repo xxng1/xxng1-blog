@@ -39,9 +39,9 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
   }, []);
 
   return (
-    <article className="prose prose-zinc dark:prose-invert max-w-none">
+    <article className="prose prose-invert max-w-none">
       <header className="mb-8 not-prose">
-        <time className="text-sm text-zinc-500 dark:text-zinc-400">
+        <time className="text-sm text-zinc-400">
           {new Date(date).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
@@ -51,7 +51,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
         <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
           {title}
         </h1>
-        <p className="mt-3 text-xl text-zinc-600 dark:text-zinc-400">
+        <p className="mt-3 text-xl text-zinc-400">
           {excerpt}
         </p>
       </header>
@@ -113,10 +113,10 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             };
 
             return (
-              <pre className="overflow-auto p-4 rounded bg-zinc-100 dark:bg-zinc-800 line-numbers relative">
+              <pre className="overflow-auto p-4 rounded bg-zinc-800 line-numbers relative">
                 <button
                   onClick={handleCopy}
-                  className="copy-button absolute top-0 right-0 px-4 py-2 rounded-bl bg-zinc-200 dark:bg-zinc-700 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-300 dark:hover:bg-zinc-600 transition-colors"
+                  className="copy-button absolute top-0 right-0 px-4 py-2 rounded-bl bg-zinc-700 text-sm text-zinc-300 hover:bg-zinc-600 transition-colors"
                 >
                   Copy
                 </button>
@@ -128,7 +128,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             return (
               <div>
                 <h1 className="text-3xl font-bold mt-8 mb-2">{children}</h1>
-                <hr className="border-t border-zinc-200 dark:border-zinc-700 mb-4 opacity-50" />              </div>
+                <hr className="border-t border-zinc-700 mb-4 opacity-50" />              </div>
             );
           },
           h2({ children }) {
@@ -152,7 +152,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           blockquote({ children }) {
             //bg-zinc-200 dark:bg-zinc-800 p-4 italic my-4 rounded-lg flex items-center justify-center
             return <blockquote className="
-            border-l-6 border-zinc-300 dark:border-zinc-700 pl-4 italic my-4 dark:bg-zinc-800 bg-zinc-200 p-2 rounded-lg flex items-center"
+            border-l-6 border-zinc-700 pl-4 italic my-4 bg-zinc-800 p-2 rounded-lg flex items-center"
             >{children}</blockquote>;
           },
           img({ src, alt }) {
@@ -169,7 +169,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           em ({ children }) {
             return (
               <strong className="font-semibold">
-                <span className="bg-gray-200 dark:bg-gray-600 p-1 rounded">{children}</span>
+                <span className="bg-gray-600 p-1 rounded">{children}</span>
               </strong>
             );
           },

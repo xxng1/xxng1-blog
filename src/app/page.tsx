@@ -90,7 +90,7 @@ export default function Home() {
       <section className="space-y-8">
         <div className="flex justify-between items-center">
           {/* <h2 className="text-2xl font-bold tracking-tight">전체 글</h2> */}
-          <span className="text-zinc-500 dark:text-zinc-400 text-sm">
+          <span className="text-zinc-400 text-sm">
             총 {allPostsData.length}개의 글
           </span>
         </div>
@@ -102,9 +102,9 @@ export default function Home() {
         <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-1">
           {allPostsData.map(({ id, date, title, excerpt, tags }) => (
             <Link key={id} href={`/posts/${id}`} className="block group">
-              <article className="relative flex flex-col space-y-2 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition cursor-pointer">
+              <article className="relative flex flex-col space-y-2 border border-zinc-800 rounded-lg p-6 hover:bg-zinc-800/50 transition cursor-pointer">
                 <div className="space-y-3">
-                  <time className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <time className="text-sm text-zinc-400">
                     {new Date(date).toLocaleDateString('ko-KR', {
                       year: 'numeric',
                       month: 'long',
@@ -114,7 +114,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold group-hover:underline">
                     {title}
                   </h3>
-                  <p className="text-zinc-600 dark:text-zinc-400">{excerpt}</p>
+                  <p className="text-zinc-400">{excerpt}</p>
                   {tags && tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
                       {tags.map(tag => (
@@ -125,7 +125,7 @@ export default function Home() {
                     </div>
                   )}
                 </div>
-                <div className="mt-4 text-sm font-medium text-zinc-900 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
+                <div className="mt-4 text-sm font-medium text-zinc-400 group-hover:text-zinc-300 transition">
                   Read More →
                 </div>
               </article>
