@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "[DevOps] k8s(Azure) + Gitlab(helm)"
+title:        "[DevOps] Kubernetes Executor 기반 GitLab CI/CD"
 date: '2025-05-12'
 section: 'infra'
 # excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
