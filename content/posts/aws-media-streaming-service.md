@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "[회고] 웹기반 미디어 스트리밍 서비스"
+title:        "[Project] 웹기반 미디어 스트리밍 서비스"
 date: '2025-03-17'
 section: 'etc'
 # excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'

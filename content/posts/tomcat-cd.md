@@ -137,7 +137,7 @@ public class TestApplication {
 
 ![](https://velog.velcdn.com/images/xxng1/post/b7f206f7-de31-46cc-b675-8098110d9a65/image.png)
 
-## 결론(구축결과 및 느낀점)
+## 결론
 
 - **구축결과**
     - 해당 /demo 경로로 접속해보면 SpringBoot Application 파일에서 경로설정했던 내용을 볼 수 있다.

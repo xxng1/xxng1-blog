@@ -1,5 +1,5 @@
 ---
-title: "[Kubernetes] minikube?"
+title: "[DevOps] minikube?"
 date: '2024-04-25'
 section: 'infra'
 # excerpt: ''
