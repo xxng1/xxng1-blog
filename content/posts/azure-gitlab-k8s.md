@@ -8,9 +8,9 @@ section: 'infra'
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
-Gitlab CI/CD를 K8S 클러스터에 통합하는 과정
+Gitlab CI/CD를 K8S 클러스터에 통합하는 과정, AKS(Azure Kubernetes Service) 사용.
 
-AKS(Azure Kubernetes Service) 사용
+CI Job 실행 시 Pod 동적 생성 확인.
 
 # ⚙️ Architecture
 
@@ -19,7 +19,7 @@ AKS(Azure Kubernetes Service) 사용
      ↓
 [GitLab Runner (AKS 내 설치)]
      ↓
-[Runner는 실행 중이며 GitLab과 연결 완료]
+[Runner는 실행 중, GitLab과 연동]
 ```
 
 # 목차
