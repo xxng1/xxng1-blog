@@ -174,6 +174,10 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             );
           },
 
+          hr() {
+            return <hr className="border-t border-zinc-400 my-8 opacity-50" />;
+          },
+
 
 
           
