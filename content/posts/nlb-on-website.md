@@ -12,9 +12,9 @@ section: 'etc'
 
 이 글에서는, 웹사이트에서 NLB를 사용하는 구성과 Azure NLB 동작 알고리즘을 알아보고, 성능 테스트를 진행한다.
 
-# Azure NLB의 Load Balancing 일고리즘 & NLB 성능 테스트
+# ✔️ Azure NLB의 Load Balancing 일고리즘 & NLB 성능 테스트
 
-### Azure NLB 기준 동작 알고리즘?
+### ✔️ Azure NLB 기준 동작 알고리즘?
 *5-tuple hash* 에 의해 해시값 → 백엔드 풀의 특정 VM으로 매핑됨
 
 ### 5-tuple hash
@@ -266,7 +266,7 @@ VM2 -> VM1 -> VM0 -> VM2 ... 순서대로 작동하는데? *seq* 명령어로 �
 
 
 
-지금 tcpdump 결과를 보면 curl 요청을 보낼 때마다 Source Port **(64315, 64352, 64353, 64354)**가 계속 자동으로 증가하면서 바뀌고 있다는 걸 확인할 수 있다.
+지금 tcpdump 결과를 보면 curl 요청을 보낼 때마다 Source Port **(64315, 64352, 64353, 64354)** 가 계속 자동으로 증가하면서 바뀌고 있다는 걸 확인할 수 있다.
 
 이 때문에 5-tuple Hash 결과가 계속 달라지고, Azure NLB가 다른 백엔드 VM으로 요청을 보내는 것이다.
 
