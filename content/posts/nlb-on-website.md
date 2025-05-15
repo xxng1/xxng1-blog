@@ -8,16 +8,34 @@ section: 'etc'
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
+웹사이트에서는 주로 ALB(Application Load Balancer)를 사용하는데, NLB(Network Load Balancer)를 사용하면 안될까?
+
+이 글에서는, 웹사이트에서 NLB를 사용하는 구성과 Azure NLB 동작 알고리즘을 알아보고, 성능 테스트를 진행한다.
+
 # Azure NLB의 Load Balancing 일고리즘 & NLB 성능 테스트
 
-Azure NLB 기준 동작: *5-tuple hash* 에 의해 해시값 → 백엔드 풀의 특정 VM으로 매핑됨
+### Azure NLB 기준 동작 알고리즘?
+*5-tuple hash* 에 의해 해시값 → 백엔드 풀의 특정 VM으로 매핑됨
 
 ### 5-tuple hash
 -> (Source IP, Source Port, Destination IP, Destination Port, Protocol)
 
-즉, 이 값들의 조합을 해시하여 백엔드 풀 중 하나를 결정.
+이 5개의 값들의 조합을 해시하여 백엔드 풀 중 하나를 결정.
 
 
+# 목차
+### 1. 현재 상태 (구성)
+- Azure NLB 알고리즘을 알아보기 위한 리소스 구성
+
+### 2. Curl 테스트 
+- Curl, tcpdump 를 통한 알고리즘 테스트
+
+### 3. 성능 테스트
+  - Smoke, Load, Stress 테스트
+
+### 4. 결론
+
+---
 
 # 1. 현재 상태
 
@@ -209,14 +227,14 @@ output "lb_public_ip" {
 ```
 
 
-# 2. curl 테스트
+# 2. Curl 테스트
 ![](https://velog.velcdn.com/images/xxng1/post/1f615888-86f9-404a-ad0b-206df1cd93ed/image.png)
 
-public ip에 curl로 요청을 보내본다.
+public ip에 Curl로 요청을 보내본다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/d0690776-259f-4de9-9c77-ac4a630073f9/image.png)
 
-VM2 -> VM1 -> VM0 -> VM2 ... 순서대로 작동하는데 우연일까? *seq* 명령어로 다시 요청을 보내봤다.
+VM2 -> VM1 -> VM0 -> VM2 ... 순서대로 작동하는데? *seq* 명령어로 다시 요청을 보내봤다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/b289264b-3ca3-4a87-b821-5c54643a1500/image.png)
 
@@ -228,8 +246,8 @@ VM2 -> VM1 -> VM0 -> VM2 ... 순서대로 작동하는데 우연일까? *seq* �
 ## ❌ Azure NLB는 Round-Robin 방식이 아니다.
 
 아래 조건을 만족할 경우 Round-Robin처럼 보일 수 있다.
+- **☑️ curl 요청의 Source Port가 매번 다르게 랜덤으로 바뀌는 경우**
 - curl을 여러 번 실행할 때 매번 새로운 TCP 커넥션을 생성하는 경우
-- curl 요청의 Source Port가 매번 다르게 랜덤으로 바뀌는 경우
 - Destination은 동일 (4.218.19.35:80), Protocol은 TCP, Source IP는 동일
 
 결국 5-튜플 중 source port만 계속 바뀌면, 해시 결과도 달라져서 VM2 → VM1 → VM0 처럼 Round-Robin 효과가 나는 것처럼 보이는 것이다.
@@ -248,9 +266,9 @@ VM2 -> VM1 -> VM0 -> VM2 ... 순서대로 작동하는데 우연일까? *seq* �
 
 
 
-지금 tcpdump 결과를 보면 curl 요청을 보낼 때마다 Source Port (64315, 64316, 64317, 64318)가 계속 자동으로 증가하면서 바뀌고 있다는 걸 확인할 수 있다.
+지금 tcpdump 결과를 보면 curl 요청을 보낼 때마다 Source Port **(64315, 64352, 64353, 64354)**가 계속 자동으로 증가하면서 바뀌고 있다는 걸 확인할 수 있다.
 
-이 때문에 5-tuple 해시 결과가 계속 달라지고, Azure NLB가 다른 백엔드 VM으로 요청을 보내는 것이다.
+이 때문에 5-tuple Hash 결과가 계속 달라지고, Azure NLB가 다른 백엔드 VM으로 요청을 보내는 것이다.
 
 
 ---
