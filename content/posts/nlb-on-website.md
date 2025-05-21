@@ -2,7 +2,7 @@
 layout:       post
 title:        "[Cloud] website 에서의 NLB?"
 date: '2025-05-14'
-section: 'etc'
+section: 'infra'
 # excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
 # categories: ['AWS/Media']
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
