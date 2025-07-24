@@ -175,7 +175,7 @@ curl -I https://<your-cloudfront-url>/index.html
 | 70초 이후  | TTL + SWR 만료        | 오리진에서 새로 가져옴           | `Miss from cloudfront` |
 
 
-
+<!-- 
 # SWR Pattern VS 무효화
 
 | 항목        | **SWR (stale-while-revalidate)**  | **CloudFront 캐시 무효화**              |
@@ -197,4 +197,4 @@ curl -I https://<your-cloudfront-url>/index.html
 | 운영 자동화 | 좋음 (build 시 header만 잘 설정) | ❌ 배포 자동화에 추가 작업 필요       |
 | 유저 경험  | 아주 부드럽게 최신화               | 강제 새로고침 또는 잠깐 이전 버전 보임   |
 | 비용     | 요청 기준 (일반적)               | 무효화 요청 1,000건 초과 시 유료    |
-
+ -->
