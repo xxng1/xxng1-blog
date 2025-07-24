@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Deployment
 
-## Getting Started
+- ###  [xxng1.com](https://xxng1.com) 
+  - hosted by Vercel [![Vercel](https://img.shields.io/badge/Vercel-%23000000.svg?logo=vercel&logoColor=white)](#)
+ 
+- ###  [xxng1.site](https://xxng1.site)
+  -  hosted by Azure [![Microsoft Azure](https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?logo=msazure&logoColor=white)](#)
 
-First, run the development server:
+
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+ubuntu@ip-172-31-40-89:~$ nslookup xxng1.com
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   xxng1.com
+Address: 76.76.21.21
+
+ubuntu@ip-172-31-40-89:~$ nslookup xxng1.site
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+xxng1.site      canonical name = orange-pond-0913bdd10.1.azurestaticapps.net.
+orange-pond-0913bdd10.1.azurestaticapps.net     canonical name = azurestaticapps1.trafficmanager.net.
+azurestaticapps1.trafficmanager.net     canonical name = msha-slice-1-hk1-0.msha-slice-1-hk1-0-ase.p.azurewebsites.net.
+msha-slice-1-hk1-0.msha-slice-1-hk1-0-ase.p.azurewebsites.net   canonical name = waws-prod-hk1-9687de8d.sip.p.azurewebsites.windows.net.
+Name:   waws-prod-hk1-9687de8d.sip.p.azurewebsites.windows.net
+Address: 52.175.64.109
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
