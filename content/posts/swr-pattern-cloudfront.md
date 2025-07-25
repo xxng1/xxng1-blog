@@ -8,9 +8,7 @@ section: 'infra'
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
-CloudFront의 기본 캐시 정책 때문에,
-
-S3 등으로 웹페이지를 배포했을때, 수정사항이 생기면 일반적으로 무효화를 해줄 필요가 생긴다.
+CloudFront의 기본 캐시 정책 때문에, S3 등으로 웹페이지를 배포했을때, 수정사항이 생기면 일반적으로 무효화를 해줄 필요가 생긴다.
 
 그런데, 무효화는 조건부 비용이 붙는다.
 
@@ -19,60 +17,39 @@ S3 등으로 웹페이지를 배포했을때, 수정사항이 생기면 일반�
 그래서 SWR Pattern을 CloudFront에 적용하는 과정을 알아보려고 한다.
 
 
+### SWR Pattern?
+
+SWR(Stale-While-Revalidate)는 사용자에게 빠른 응답을 제공하며, 복구 방식으로 최신 데이터를 검사하고 자동 갱신하는 캐시 옵션이다.
+
+현재 사용중인 파일이 존재하면, TTL(max-age) 기간이 지나도 웹서버는 stale 데이터를 여전히 보내고, 뒤장에서 자동으로 조건부 요청 (If-Modified-Since / ETag) 을 사용해 최신화한다.
+
+CloudFront에서 SWR을 적용하면, 사용자는 느리지 않고, 최신 컴퓨터 데이터가 나오면 자동으로 업데이티를 받게 된다.
+
+SWR은 정상적인 Cache-Control 헤더 값 (ex. max-age=10, stale-while-revalidate=60)과, CloudFront 캐시 정체에서 해당 헤더를 유효하게 하는 설정이 업데이티 조건이 된다.
+
+이를 통해 내 배포 프로젝트에서 무효화 없이, 자동 최신화가 되는 모든 형태의 정적 캐시 구조를 구축할 수 있다.
+
 ### 사용 기술
 - React - 웹페이지 생성
 - AWS S3 - 웹페이지 배포용
 - AWS CloudFront - CDN 배포
 - AWS CLI & GUI - 버킷 업로드 & 정책 생성
 
-### SWR Pattern?
-
-SWR(Stale-While-Revalidate)는 사용자에게 빠른 응답을 제공하며, 복구 방식으로 최신 데이터를 검사하고 자동 갱신하는 캐시 옵션이다.
-
-현재 사용중인 파일이 존재하면:
-
-TTL(max-age) 기간이 지나도
-
-웹서버는 stale 데이터를 여전히 보내고,
-
-뒤장에서 자동으로 조건부 요청 (If-Modified-Since / ETag) 을 사용해 최신화한다.
-
-CloudFront에서 SWR을 적용하면,
-
-사용자는 느리지 않고,
-
-최신 컴퓨터 데이터가 나오면 자동으로 업데이티를 받게 된다.
-
-SWR은 정상적인 Cache-Control 헤더 값 (ex. max-age=10, stale-while-revalidate=60)과,
-CloudFront 캐시 정체에서 해당 헤더를 유효하게 하는 설정이 업데이티 조건이 된다.
-
-이를 통해 내 배포 프로젝트에서 무효화 없이, 자동 최신화가 되는 모든 형태의 정적 캐시 시대를 구현할 수 있다.
-
-
-
-
-
-
 
 ### 웹페이지 구성
 
-react로 웹페이지 생성, 빌드.
-
-s3 생성, 정책 생성, 정적 사이트 호스팅.
-
-CloudFront와 연결. 초기 Cache 정책은 Default.
-
-빌드파일 업로드
+- react로 웹페이지 생성, 빌드.
+- s3 생성, 정책 생성, 정적 사이트 호스팅.
+- CloudFront와 연결. 초기 Cache 정책은 Default.
+- 빌드파일 업로드
 
 `aws s3 sync build/ s3://<bucket-name> --acl public-read`
 
 
-빌드파일을 새로 업로드해도, s3의 웹사이트에만 반영이 될 뿐 CloudFront에는 변화가 없다.
-기본적으로 캐싱을 하기 때문.
+빌드파일을 새로 업로드해도, s3의 웹사이트에만 반영이 될 뿐 CloudFront에는 변화가 없다. 기본적으로 캐싱을 하기 때문.
 
 
-이제는 Cache-control 헤더를 포함해서 업로드를 해서 테스트한다.
-캐시 헤더 변경이 필요하기때문에, `cp` 명령어를 사용한다.
+이제는 Cache-control 헤더를 포함해서 업로드를 해서 테스트한다. 캐시 헤더 변경이 필요하기때문에, `cp` 명령어를 사용한다.
 
 
 | 항목       | `sync`                              | `cp --recursive`    |
@@ -164,4 +141,22 @@ curl -I https://<your-cloudfront-url>/index.html
 `Hit from cloudfront` 상태에서, s3에 수정사항을 적용하면 age 값이 10에서 다시 1로 돌아간다. (Min TTL)
 
 
-### 정리
+# 정리
+
+### 시간 순
+
+| 시간      | 상태                  | 동작                     | x-cache                |
+| ------- | ------------------- | ---------------------- | ---------------------- |
+| 0\~10초  | Fresh TTL           | 캐시에서 응답, 오리진 무시        | `Hit from cloudfront`  |
+| 10\~70초 | SWR (stale allowed) | stale 응답 + 오리진에 조건부 요청 | `Hit` 또는 `RefreshHit`  |
+| 70초 이후  | TTL + SWR 만료        | 오리진에서 새로 가져옴           | `Miss from cloudfront` |
+
+
+### SWR Pattern VS 무효화
+
+| 관점     | SWR                       | 무효화                      |
+| ------ | ------------------------- | ------------------------ |
+| 응답속도   | 매우 빠름                     | 느릴 수 있음 (무효화 후 첫 요청은 S3) |
+| 운영 자동화 | 좋음 (build 시 header만 잘 설정) | ❌ 배포 자동화에 추가 작업 필요       |
+| 유저 경험  | 아주 부드럽게 최신화               | 강제 새로고침 또는 잠깐 이전 버전 보임   |
+| 비용     | 요청 기준 (일반적)               | 무효화 요청 1,000건 초과 시 유료    |
