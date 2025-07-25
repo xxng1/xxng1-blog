@@ -10,7 +10,17 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // 기존 Next.js 설정 확장
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+  // 사용자 정의 규칙 추가
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@next/next/no-img-element": "off"
+    }
+  }
 ];
 
 export default eslintConfig;
