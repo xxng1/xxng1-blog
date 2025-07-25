@@ -39,7 +39,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
   }, []);
 
   return (
-    <article className="prose prose-invert max-w-none">
+    <article className="prose prose-invert mx-auto">
       <header className="mb-8 not-prose">
         <time className="text-sm text-zinc-400">
           {new Date(date).toLocaleDateString("en-US", {
@@ -61,16 +61,27 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
         components={{
           code({ children, className, ...rest }) {
             const match = /language-(.+)/.exec(className || '');
-            const language = match ? match[1] : '';
-            const code = String(children).trim();
-
+            // It's a fenced code block if a language is specified
+            if (match) {
+              const language = match[1];
+              const code = String(children).trim();
+              return (
+                <code
+                  className={`language-${language}`}
+                  {...rest}
+                  data-prismjs-copy="Copy"
+                >
+                  {code}
+                </code>
+              );
+            }
+            // It's an inline code block
             return (
               <code
-                className={language ? `language-${language}` : ''}
+                className="bg-zinc-700 text-amber-400 font-mono text-sm px-1.5 py-1 rounded"
                 {...rest}
-                data-prismjs-copy="Copy"
               >
-                {code}
+                {children}
               </code>
             );
           },
@@ -113,7 +124,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             };
 
             return (
-              <pre className="overflow-auto p-4 rounded bg-zinc-800 line-numbers relative">
+              <pre className="overflow-auto my-6 p-4 rounded-lg bg-zinc-900 border border-zinc-700 line-numbers relative">
                 <button
                   onClick={handleCopy}
                   className="copy-button absolute top-0 right-0 px-4 py-2 rounded-bl bg-zinc-700 text-sm text-zinc-300 hover:bg-zinc-600 transition-colors"
