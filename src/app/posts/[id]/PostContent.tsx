@@ -215,7 +215,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
              if (isInline) {
                return (
                  <code
-                   className="bg-zinc-700 text-amber-400 font-mono text-sm px-1.5 py-1 rounded"
+                   className="bg-zinc-700 	text-zinc-200 font-mono text-sm px-1.5 py-1 rounded"
                    {...props}
                  >
                    {children}
@@ -290,13 +290,32 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             );
           },
           // 강조 텍스트 스타일링
+          // em({ children, ...props }: any) {
+          //   return (
+          //     <strong className="font-semibold">
+          //       <span className="bg-gray-600 p-1 rounded">{children}</span>
+          //     </strong>
+          //   );
+          // },
           em({ children, ...props }: any) {
             return (
-              <strong className="font-semibold">
-                <span className="bg-gray-600 p-1 rounded">{children}</span>
+              <em className="italic text-zinc-300" {...props}>
+                {children}
+              </em>
+            );
+          },
+          
+          
+
+          strong({ children, ...props }: any) {
+            return (
+              <strong className="font-bold text-zinc-100" {...props}>
+                {children}
               </strong>
             );
           },
+
+
           // 구분선 스타일링
           hr(props: any) {
             return <hr className="border-t border-zinc-400 my-8 opacity-50" />;
