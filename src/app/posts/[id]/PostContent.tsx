@@ -301,6 +301,31 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           hr(props: any) {
             return <hr className="border-t border-zinc-400 my-8 opacity-50" />;
           },
+          // 테이블 스타일링
+          table({ children, ...props }: any) {
+            return (
+              <div className="overflow-x-auto my-6">
+                <table className="min-w-full border border-zinc-700 rounded-lg" {...props}>
+                  {children}
+                </table>
+              </div>
+            );
+          },
+          thead({ children, ...props }: any) {
+            return <thead className="bg-zinc-800" {...props}>{children}</thead>;
+          },
+          tbody({ children, ...props }: any) {
+            return <tbody className="divide-y divide-zinc-700" {...props}>{children}</tbody>;
+          },
+          tr({ children, ...props }: any) {
+            return <tr className="border-b border-zinc-700" {...props}>{children}</tr>;
+          },
+          th({ children, ...props }: any) {
+            return <th className="px-4 py-3 text-left text-sm font-semibold text-zinc-300 uppercase tracking-wider" {...props}>{children}</th>;
+          },
+          td({ children, ...props }: any) {
+            return <td className="px-4 py-3 text-sm" {...props}>{children}</td>;
+          },
         }}
       >
         {content}
