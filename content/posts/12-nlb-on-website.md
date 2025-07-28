@@ -1,12 +1,15 @@
 ---
 layout:       post
-title:        "[Cloud] website 에서의 NLB?"
+title:        "[Cloud] 웹사이트에서의 NLB"
 date: '2025-05-14'
 section: 'infra'
 # excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
 # categories: ['AWS/Media']
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
+
+> 웹사이트에서 NLB를 사용하는 구성
+
 
 웹사이트에서는 주로 ALB(Application Load Balancer)를 사용하는데, NLB(Network Load Balancer)를 사용하면 안될까?
 

@@ -8,7 +8,9 @@ section: 'infra'
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
-Gitlab Runner 를 K8S 클러스터에 통합하는 과정, AKS(Azure Kubernetes Service) 사용.
+> Gitlab Runner 를 K8S 클러스터에 통합하는 과정
+
+AKS(Azure Kubernetes Service) 사용.
 
 CI Job 실행 시 Pod 동적 생성 확인.
 

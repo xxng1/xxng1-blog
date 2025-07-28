@@ -8,6 +8,8 @@ section: 'infra'
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
+> CloudFront에 SWR Pattern 적용
+
 CloudFront의 기본 캐시 정책 때문에, S3 등으로 웹페이지를 배포했을때, 수정사항이 생기면 일반적으로 무효화를 해줄 필요가 생긴다.
 
 그런데, 무효화는 조건부 비용이 붙는다.
