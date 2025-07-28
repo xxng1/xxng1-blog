@@ -6,11 +6,14 @@ section: 'etc'
 # excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
 # categories: ['AWS/Media']
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
+# <br />
 ---
+
+<br />
 
 > WEB 기반 미디어 스트리밍 서비스 구축기
 
- 
+<br /><br />
 
 
 # 🚀 도전 과제
@@ -18,10 +21,12 @@ section: 'etc'
 - 다양한 **솔루션**을 사용해볼 것.
 - **성능** & **운영**에서 최적화를 진행할 것.
 
-
+<br /><br />
 
 # ⚙️ 시스템 아키텍처
 ![](https://velog.velcdn.com/images/xxng1/post/1a1ffb5c-68c7-43d4-b280-57774f6a9480/image.png)
+
+<br />
 
 ## ✅ 체크 포인트
 
@@ -37,7 +42,7 @@ section: 'etc'
 
 ### 6. ☑️ Future Improvements
 
-<br />
+<br /><br />
 
 # ☑️ WEB
 > `S3`, `CloudFront`
@@ -90,7 +95,7 @@ $ k get ing -n video # Ingress 조회
 **📷 서브도메인 - api.chuno.store (Type: A)**
 ![](https://velog.velcdn.com/images/xxng1/post/2f5befde-0d1c-463f-8f02-9f9163f5e357/image.png)
 
-<br />
+<br /><br />
 
 # ☑️ EKS
 
@@ -148,7 +153,7 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}
 
 ![](https://velog.velcdn.com/images/xxng1/post/d0c78493-8b5c-4422-8838-032cff69c3f2/image.png)
 
-<br />
+<br /><br />
 
 # ☑️ Autoscaling
 
@@ -190,7 +195,7 @@ HPA(Horizontal Pod Autoscaler)은 파드 수를 조정하여 애플리케이션 
 
 Deployment로 배포한 비디오 application pod가 CPU를 50%이상 사용시 *Scale Out* (pod 증가)
 
-<br />
+<br /><br />
 
 # ☑️ Media
 
