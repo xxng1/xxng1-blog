@@ -274,7 +274,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             );
           },
           hr(props: any) {
-            return <hr className="border-t border-zinc-400 my-8 opacity-50" />;
+            return <hr className="border-t border-zinc-700 my-8 opacity-50" />;
           },
           table({ children, ...props }: any) {
             return (

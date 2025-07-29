@@ -29,7 +29,14 @@ export default function Home() {
 </div>
 
 
-<div style={{ width: "100%", height: "0.8px", backgroundColor: "gray", margin: "15px auto" }}></div>
+<div style={{
+  width: "100%",
+  height: "1px", // 실제 border와 유사하게 조정
+  backgroundColor: "#3f3f46", // Tailwind의 zinc-700 → #3f3f46
+  opacity: 0.5,
+  marginBottom: "1rem" // mb-4 → 1rem
+}}></div>
+
 
 
 

@@ -93,7 +93,7 @@ export default function AboutPage() {
                 </div>
             </section> */}
 
-            <figure className="mb-12">
+            {/* <figure className="mb-12">
                 <div className="relative w-full h-64 md:h-110 rounded-xl overflow-hidden shadow-xl">
                     <Image
                         src="/thespehers.JPG"
@@ -105,7 +105,29 @@ export default function AboutPage() {
                 <figcaption className="mt-2 text-sm text-gray-400 text-center">
                     The Spheres - Amazon
                 </figcaption>
-            </figure>
+            </figure> */}
+
+<figure className="mb-12">
+    <div className="relative w-full h-64 md:h-110 rounded-xl overflow-hidden shadow-xl">
+        <Image
+            src="/thespehers.JPG"
+            alt="Amazon The Spheres in Seattle"
+            fill
+            className="object-cover"
+        />
+    </div>
+    <figcaption className="mt-2 text-sm text-gray-400 text-center">
+        <a
+            href="https://www.google.com/maps/place/The+Spheres/@47.615728,-122.3420854,17z/data=!3m1!4b1!4m6!3m5!1s0x5490154bca117fb1:0x7f39ceca621d130c!8m2!3d47.615728!4d-122.3395105!16s%2Fg%2F11f3xqwt6t?hl=en&entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline hover:text-white transition"
+        >
+            The Spheres - Amazon
+        </a>
+    </figcaption>
+</figure>
+
 
 
             {/* <figure className="mb-12">
