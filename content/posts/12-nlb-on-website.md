@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "[Cloud] 웹사이트에서의 NLB"
+title:        "[Cloud] 웹사이트에서의 NLB(Network Load Balancer)"
 date: '2025-05-14'
 section: 'infra'
 # excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'

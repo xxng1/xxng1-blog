@@ -17,8 +17,8 @@ section: 'etc'
 
 
 # 🚀 도전 과제
-- 다양한 **서비스**를 사용해볼 것.
-- 다양한 **솔루션**을 사용해볼 것.
+- 다양한 **서비스**를 사용할 것.
+- 다양한 **솔루션**을 사용할 것.
 - **성능** & **운영**에서 최적화를 진행할 것.
 
 <br /><br />
@@ -30,17 +30,24 @@ section: 'etc'
 
 ## ✅ 체크 포인트
 
-### 1. ☑️ WEB 
+### 1. ☑️ WEB
+- 웹 프론트엔드 배포와 ALB를 사용한 백엔드 서브도메인 배포
 
 ### 2. ☑️ EKS 
+- EKS 주요 설정과 ArgoCD GitOps 워크플로우 구성
 
 ### 3. ☑️ AutoScaling
+- Cluster Over-Provisioning과 HPA(Horizontal Pod Autoscaler)를 통한 자동 확장
 
 ### 4. ☑️ Media
+- AWS MediaConvert를 사용한 동영상 제공과 AWS IVS를 사용한 실시간 스트리밍 구성
 
 ### 5. ☑️ Security
+- AWS Cognito를 사용한 JWT 토큰 활용과 KMS 키 암호화 구성
 
 ### 6. ☑️ Future Improvements
+- 개선점1: CDN 배포에서의 캐싱 무효화
+- 개선점2: JWT 토큰의 활용
 
 <br /><br />
 
@@ -85,14 +92,16 @@ LoadBalcner 타입 교체를 위해 ingress 구성.
 
 ![](https://velog.velcdn.com/images/xxng1/post/4f81a088-5684-4808-bdf0-1a478ae4c300/image.png)
 
+<br />
+
 ```shell
-$ k get ing -n video # Ingress 조회
+$ kubectl get ingress -n video # Ingress 조회
 ```
-**backend server** 의 ADDRESS(k8s-video-chunobac-71d4...)를 Route53 유형A로 호스팅. 
+**backend server**의 `ADDRESS(k8s-video-chunobac-71d4...)`를 Route53 유형`A`로 호스팅. 
 
 <br />
 
-**📷 서브도메인 - api.chuno.store (Type: A)**
+**📷 서브도메인 - api.chuno.store `(Type: A)`**
 ![](https://velog.velcdn.com/images/xxng1/post/2f5befde-0d1c-463f-8f02-9f9163f5e357/image.png)
 
 <br /><br />
@@ -108,7 +117,7 @@ $ k get ing -n video # Ingress 조회
 
 > *Backend(FastAPI)*
 
-**FastAPI**로 구축한 백엔드를 Kubernetes **Deployment** 리소스로 배포했습니다.
+**FastAPI**로 구축한 백엔드 서버를 Kubernetes **Deployment** 리소스로 배포했습니다.
 
 
 1. `replicas`: **2**
@@ -242,7 +251,8 @@ HLS 변환은 아래 과정을 따릅니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/befcea24-d759-4c49-bc28-46811e91dbd0/image.png)
 
-실시간 스트리밍으로는 대규모 스트리밍 서비스인 IVS를 사용했으며, `amazon-ivs-chat-web-demo`를 프로젝트 환경에 바꾸어 사용했습니다.
+실시간 스트리밍으로는 대규모 스트리밍 서비스인 IVS를 사용했으며, [amazon-ivs-chat-web-demo](https://github.com/aws-samples/amazon-ivs-chat-web-demo)
+를 프로젝트 환경으로 맞추어 사용했습니다.
 
 Lambda와 API Gateway를 사용해서 만든 백엔드 URL을 IVS 채널과 IVS 채팅방과 연결해서 구현했습니다.
 
@@ -364,7 +374,7 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 ### 개선점 1
 
 - 프로젝트에서 *CloudFront*로 CDN배포를 할 때, 캐싱 무효화를 위해서
-```
+```shell
 aws cloudfront create-invalidation --distribution-id ECDYLDP4DEWXU --paths "/*"
 ```
 
@@ -390,7 +400,7 @@ aws cloudfront create-invalidation --distribution-id ECDYLDP4DEWXU --paths "/*"
 
 *AWS Cognito* 를 사용해서 JWT 토큰 기반 사용자 인증/인가를 관리했다.
 
-이 때, **Client(React)** 에서 *amazon-cognito-identity-js*를 사용하여 토큰을 검증했는데,
+이 때, **Client(React)** 에서 `amazon-cognito-identity-js`를 사용하여 토큰을 검증했는데,
 local storage에 accesstoken을 저장했었다.
 
 ```javascript
@@ -407,14 +417,17 @@ local storage에 accesstoken을 저장했었다.
 
 하지만, localStorage는 XSS(크로스 사이트 스크립팅) 공격에 취약하다는 문제가 있다.
 
-sessionStorage 또는 httpOnly 쿠키에 저장하는 방법을 사용했으면 보안 효율을 높일 수 있었던 것 같다.
+`sessionStorage` 또는 `httpOnly` 쿠키에 저장하는 방법을 사용했으면 보안 효율을 높일 수 있었던 것 같다.
 
-- sessionStorage: 사용자가 브라우저를 닫으면 자동 삭제되므로, 일회성 로그인 세션 유지에 적합하다.
-- httpOnly 쿠키: JavaScript에서 접근할 수 없도록 설정할 수 있어 XSS 공격으로부터 보호할 수 있는 더 안전한 방법이다.
+- `sessionStorage`: 사용자가 브라우저를 닫으면 자동 삭제되므로, 일회성 로그인 세션 유지에 적합하다.
+- `httpOnly 쿠키`: JavaScript에서 접근할 수 없도록 설정할 수 있어 XSS 공격으로부터 보호할 수 있는 더 안전한 방법이다.
 
 <br /><br />
 
-### ☑️ Github Repository
----
+<!-- [![GitHub 로고](/image.png)](https://github.com/AWS2-Chuno) -->
 
-[![GitHub 로고](/image.png)](https://github.com/AWS2-Chuno)
+### ➕ IaC(Infrastructure as Code) - Terraform 구성
+---
+AWS 인프라를 코드로 관리하여 일관성 있고 재현 가능한 환경을 구축했습니다.
+
+[Terraform Source Code Github Link](https://github.com/AWS2-Chuno/tf)

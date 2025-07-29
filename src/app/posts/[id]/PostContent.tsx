@@ -300,6 +300,29 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           td({ children, ...props }: any) {
             return <td className="px-4 py-3 text-sm" {...props}>{children}</td>;
           },
+
+          a({ children, href, ...props }: any) {
+            // 헤딩 안의 자동 생성된 앵커 링크는 기본 스타일 유지
+            if (href && href.startsWith('#')) {
+              return <a href={href} {...props}>{children}</a>;
+            }
+            // 외부 링크에만 파란색 스타일 적용
+            if (href && !href.startsWith('#')) {
+              return (
+                <a 
+                  href={href} 
+                  className="text-blue-400 hover:text-blue-300 underline transition-colors duration-200" 
+                  {...props}
+                >
+                  {children}
+                </a>
+              );
+            }
+            // href가 없으면 기본 a 태그
+            return <a {...props}>{children}</a>;
+          },
+
+
         }}
       >
         {content}
