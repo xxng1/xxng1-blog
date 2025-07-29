@@ -7,6 +7,13 @@ section: 'infra'
 # categories: ['Database/mongodb', 'Go']
 ---
 
+<br />
+
+> python 스크립팅으로 Kafka 환경 구축하기
+
+<br /><br />
+
+
 # MySQL ➡️ Kafka ➡️ MongoDB
 
 

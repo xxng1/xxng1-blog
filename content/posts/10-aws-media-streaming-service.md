@@ -115,7 +115,7 @@ $ kubectl get ingress -n video # Ingress 조회
 ![](https://velog.velcdn.com/images/xxng1/post/723f1897-f460-471d-afa4-be62d223a12b/image.png)
 
 
-> *Backend(FastAPI)*
+> `Backend(FastAPI)`
 
 **FastAPI**로 구축한 백엔드 서버를 Kubernetes **Deployment** 리소스로 배포했습니다.
 
@@ -126,7 +126,7 @@ $ kubectl get ingress -n video # Ingress 조회
     - 배포 이력 관리로 이전 버전의 Deployment 기록을 두 개까지만 유지.
 3. `podAntiaffinity`: **preferredDuringSchedulingIgnoredDuringExecution**
     - 파드를 최대한 다른 노드에 분산 배포하려고 시도, 강제하지는 않도록 설정.
- 4. `IAM Role Service Account` **선언**
+ 4. `IRSA(IAM Role Service Account)` **선언**
     - **S3**, **DynamoDB** 접근 권한 부여.
 5. `priorityClassName`: **high-priority**
     - 이후 **Cluster Over-Provisioning** 구현을 고려한 높은 우선순위 부여.
@@ -135,7 +135,7 @@ $ kubectl get ingress -n video # Ingress 조회
 
 > `ArgoCD`
 
-EKS 배포 자동화 파이프라인 구성.
+EKS 배포 자동화 워크플로우 구성.
 
 1.	FastAPI 코드 GitHub 푸시 트리거
 
@@ -147,13 +147,13 @@ EKS 배포 자동화 파이프라인 구성.
 
 5.  deployment.yaml에서 새로 빌드한 Docker 이미지로 업데이트 및 푸시
 
-6.	ArgoCD가 GitOps 방식으로 변경 사항을 가져와서 업데이트
+6.	ArgoCD가 `GitOps` 방식으로 변경 사항을 가져와서 업데이트
 
 <br />
 
 **📷 ArgoCD Application 배포**
 
-argocd-server의 TYPE은 *ClusterIP*로 생성, 외부 접속할수있게 *LoadBalancer*로 변경해줍니다.
+argocd-server의 TYPE은 *ClusterIP*로 생성, 외부 접속을 위해 `LoadBalancer`로 변경해줍니다.
 
 ```shell
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
@@ -174,9 +174,9 @@ Auto Scaling간 미리 Over-Provisioning을 설정함으로써 급격한 트래�
 
 ![](https://velog.velcdn.com/images/xxng1/post/9a678f0f-09af-47a2-a6b4-3ad4f0ced79f/image.png)
 
-Node는 2 vCPU로 설정되어 있는데, pause pods를 생성하고 우선순위를 마지막으로(*value: -1*) 설정하였습니다.
+Node는 2 vCPU로 설정되어 있는데, `pause pods`를 생성하고 우선순위를 마지막으로(`value: -1`) 설정하였습니다.
 
-2코어 보다 작은 1.7(*1700m*)코어를 할당 함으로써 Over-Provisioning을 구축했습니다.
+2코어 보다 작은 1.7(`1700m`)코어를 할당 함으로써 Over-Provisioning을 구축했습니다.
 
 <br />
 
@@ -184,7 +184,7 @@ Node는 2 vCPU로 설정되어 있는데, pause pods를 생성하고 우선순�
 
 Autoscaling으로 리소스가 부족하면 우선순위에 따라 application pod가 스케줄링(**Running**)되고
 
-**pause pod**는 다시 **pending** 상태가 되면서 추가로 1개의 인스턴스가 생성됩니다.
+`pause pod`는 다시 `pending` 상태가 되면서 추가로 1개의 인스턴스가 생성됩니다.
 
 <br />
 
@@ -197,12 +197,12 @@ HPA(Horizontal Pod Autoscaler)은 파드 수를 조정하여 애플리케이션 
 <br />
 
 주요 설정
-1. Pod resources.request.cpu = 800m (**Deployment**)
-2. targetCPUUtilizationPercentage: 50 (**50%**)
+1. `Pod resources.request.cpu` = `800m` (**Deployment**)
+2. `targetCPUUtilizationPercentage`: `50` (**50%**)
 
 ![](https://velog.velcdn.com/images/xxng1/post/a603e027-3029-4055-b84a-b9a5116273c8/image.png)
 
-Deployment로 배포한 비디오 application pod가 CPU를 50%이상 사용시 *Scale Out* (pod 증가)
+Deployment로 배포한 비디오 application pod가 CPU를 50%이상 사용시 `Scale Out` (pod 증가)
 
 <br /><br />
 
@@ -212,7 +212,7 @@ Deployment로 배포한 비디오 application pod가 CPU를 50%이상 사용시 
 
 영상 업로드 프로토콜로는 HLS를 사용했습니다. 
 
-HLS는 HTTP 기반 전송 스트리밍 프로토콜로, 영상을 업로드하면 파일을 세그먼트로 나누고 이를 **.ts** 파일에 저장합니다.
+HLS는 HTTP 기반 전송 스트리밍 프로토콜로, 영상을 업로드하면 파일을 세그먼트로 나누고 이를 `.ts` 파일에 저장합니다.
 
 적응형 비트 레이트 지원으로 네트워크 환경에 따른 화질 조정이 자동으로 이뤄지고 대부분의 웹 브라우저와 모바일에 지원하여 광범위한 지원을 해줍니다.
 
@@ -348,20 +348,20 @@ aws kms decrypt \
 
 ![](https://velog.velcdn.com/images/xxng1/post/2cc9c789-cab4-40e4-81d6-601ab742b8e0/image.png)
 
-IRSA는 쿠버네티스 사용자에 AWS 역할을 부여하여 사용하는 기능입니다.
+`IRSA`는 쿠버네티스 사용자에 AWS 역할을 부여하여 사용하는 기능입니다.
 
-IRSA는 OIDC(OpenID Connect) 프로바이더의 신뢰가 필요합니다. EKS는 IAM 역할을 Kubernetes 서비스 계정과 연결하기 위해 OIDC를 사용하며 클러스터에서 IAM 역할에 접근할 수 있는 안전한 연결을 제공합니다.
+IRSA는 `OIDC(OpenID Connect)` 프로바이더의 신뢰가 필요합니다. EKS는 IAM 역할을 Kubernetes 서비스 계정과 연결하기 위해 OIDC를 사용하며 클러스터에서 IAM 역할에 접근할 수 있는 안전한 연결을 제공합니다.
 
-kubernetes 내부에서는 service account를 생성하여 생성한 역할을 부여하고, 
-deployment에 service account를 선언하여 클러스터에서도 IAM 역할에 접근할 수 있도록 설정했습니다.
+kubernetes 내부에서는 `Service Account`를 생성하여 생성한 역할을 부여하고, 
+deployment에 Service Account를 선언하여 클러스터에서도 IAM 역할에 접근할 수 있도록 설정했습니다.
 
 <br /><br />
 
  ### + Observability
 
-> *Grafana/Prometheus*
+> `Grafana/Prometheus`
 
-helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 시스템을 구축했습니다.
+`helm`을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 시스템을 구축했습니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/b1fc6a51-e328-440f-aa4e-8638aacfd6fa/image.png)
 
@@ -373,16 +373,18 @@ helm을 통한 Grafana(대시보드)/prometheus(메트릭 수집) 모니터링 �
 
 ### 개선점 1
 
-- 프로젝트에서 *CloudFront*로 CDN배포를 할 때, 캐싱 무효화를 위해서
+- 프로젝트에서 `CloudFront`로 CDN배포를 할 때, 캐싱 무효화를 위해서
 ```shell
 aws cloudfront create-invalidation --distribution-id ECDYLDP4DEWXU --paths "/*"
 ```
 
-위의 **(/*)** 경로의 모든 캐싱을 무효화했는데, 더 좋은 방법으로 캐싱을 무효화 할 수 있었던 것 같다.
+위의 `(/*)` 경로의 모든 캐싱을 무효화했는데, 더 좋은 방법으로 캐싱을 무효화 할 수 있었던 것 같다.
 
-예를 들어, SWR(Stale-While-Revalidate) 패턴을 적용해서 캐시 효율성을 높일 수 있다.
+예를 들어, `SWR(Stale-While-Revalidate)` 패턴을 적용해서 캐시 효율성을 높일 수 있다.
 
 *SWR*: 캐시 TTL이 만료된 데이터라도, 일정 기간(stale-while-revalidate 시간) 동안 사용자에게 제공.
+
+[SWR Pattern 구현 포스팅](https://www.xxng1.com/posts/13-swr-pattern-cloudfront)
 
 ```
 예시 설정:
@@ -398,7 +400,7 @@ aws cloudfront create-invalidation --distribution-id ECDYLDP4DEWXU --paths "/*"
 
 ### 개선점 2
 
-*AWS Cognito* 를 사용해서 JWT 토큰 기반 사용자 인증/인가를 관리했다.
+`AWS Cognito` 를 사용해서 JWT 토큰 기반 사용자 인증/인가를 관리했다.
 
 이 때, **Client(React)** 에서 `amazon-cognito-identity-js`를 사용하여 토큰을 검증했는데,
 local storage에 accesstoken을 저장했었다.

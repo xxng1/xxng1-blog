@@ -8,7 +8,11 @@ section: 'infra'
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
+<br />
+
 > Gitlab Runner 를 K8S 클러스터에 통합하는 과정
+
+<br /><br />
 
 AKS(Azure Kubernetes Service) 사용.
 

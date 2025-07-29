@@ -8,7 +8,13 @@ section: 'infra'
 # tags: ['AWS', 'Media', 'Streaming', 'Cloud']
 ---
 
+<br />
+
 > 웹사이트에서 NLB를 사용하는 구성
+
+<br /><br />
+
+
 
 
 웹사이트에서는 주로 ALB(Application Load Balancer)를 사용하는데, NLB(Network Load Balancer)를 사용하면 안될까?

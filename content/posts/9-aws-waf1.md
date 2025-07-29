@@ -6,6 +6,14 @@ section: 'infra'
 # excerpt: ''
 # categories: ['AWS', 'Database/mysql', 'Database/oracle']
 ---
+
+<br />
+
+> AWS WAF를 사용한 공격 방어
+
+<br /><br />
+
+
 ### SQL injection?
 논리적 오류를 포함한 SQL 문을 임의로 주입하여 데이터베이스를 공격하는 행위
 ```sql

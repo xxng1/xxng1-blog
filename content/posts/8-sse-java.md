@@ -7,7 +7,11 @@ section: 'dev'
 # categories: ['Java/Spring']
 ---
 
+<br />
+
 > 프로젝트에서 사용했던 SSE 방식에 대해
+
+<br /><br />
 
 ## 개요
 알림 구현에는 크게 4가지 방식이 있다.
