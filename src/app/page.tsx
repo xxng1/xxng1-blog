@@ -82,14 +82,14 @@ export default function Home() {
     ))}
   </div> */}
 
-  <Link
+  {/* <Link
     href="https://github.com/xxng1/xxng1-blog"
     className="text-blue-400 underline hover:opacity-80"
     target="_blank"
     rel="noopener noreferrer"
   >
     블로그 소스코드 Github →
-  </Link>
+  </Link> */}
 </section>
 
 

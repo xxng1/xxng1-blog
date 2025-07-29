@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata = {
     title: "About - xxng1",
@@ -55,7 +56,18 @@ export default function AboutPage() {
                         이러한 자세로 <i>Well-Architected Framework</i> 의 관점에서 지속적으로 개선을 고민합니다. <br></br>
                         서비스의 장점을 발견하고 더 나은 해결 방안을 찾아내며, 동료들과 함께 성장합니다.
                     </p>
+
                 </div>
+
+<br></br>
+                                      <Link
+    href="https://github.com/xxng1/xxng1-blog"
+    className="text-blue-400 underline hover:opacity-80"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    블로그 소스코드 Github →
+  </Link>
 
 
 {/* <br></br>
