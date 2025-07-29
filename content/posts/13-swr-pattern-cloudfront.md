@@ -25,7 +25,7 @@ CloudFront의 기본 캐시 정책 때문에, S3 등으로 웹페이지를 배�
 그래서 SWR Pattern을 CloudFront에 적용하는 과정을 알아보려고 한다.
 
 
-### SWR Pattern?
+# ✅ SWR Pattern?
 
 SWR(Stale-While-Revalidate)는 사용자에게 빠른 응답을 제공하며, 복구 방식으로 최신 데이터를 검사하고 자동 갱신하는 캐시 옵션이다.
 
@@ -35,20 +35,20 @@ CloudFront에서 SWR을 적용하면, 사용자는 느리지 않고, 최신 컴�
 
 SWR은 정상적인 Cache-Control 헤더 값 (ex. max-age=10, stale-while-revalidate=60)과, CloudFront 캐시 정체에서 해당 헤더를 유효하게 하는 설정이 업데이티 조건이 된다.
 
-이를 통해 내 배포 프로젝트에서 무효화 없이, 자동 최신화가 되는 모든 형태의 정적 캐시 구조를 구축할 수 있다.
+이를 통해 자동 최신화가 되는 모든 형태의 정적 캐시 구조를 구축할 수 있다.
 
-### 사용 기술
-- React - 웹페이지 생성
-- AWS S3 - 웹페이지 배포용
-- AWS CloudFront - CDN 배포
-- AWS CLI & GUI - 버킷 업로드 & 정책 생성
+### ✔️ 사용 기술
+- `React` - 웹페이지 생성
+- `AWS S3` - 웹페이지 배포용
+- `AWS CloudFront` - CDN 배포
+- `AWS CLI & GUI` - 버킷 업로드 & 정책 생성
 
 
-### 웹페이지 구성
+### ✔️ 웹페이지 구성
 
 - react로 웹페이지 생성, 빌드.
 - s3 생성, 정책 생성, 정적 사이트 호스팅.
-- CloudFront와 연결. 초기 Cache 정책은 Default.
+- CloudFront와 연결, 초기 Cache 정책은 Default.
 - 빌드파일 업로드
 
 `aws s3 sync build/ s3://<bucket-name> --acl public-read`
@@ -57,7 +57,7 @@ SWR은 정상적인 Cache-Control 헤더 값 (ex. max-age=10, stale-while-revali
 빌드파일을 새로 업로드해도, s3의 웹사이트에만 반영이 될 뿐 CloudFront에는 변화가 없다. 기본적으로 캐싱을 하기 때문.
 
 
-이제는 Cache-control 헤더를 포함해서 업로드를 해서 테스트한다. 캐시 헤더 변경이 필요하기때문에, `cp` 명령어를 사용한다.
+이제는 `Cache-control` 헤더를 포함해서 업로드를 해서 테스트한다. 캐시 헤더 변경이 필요하기때문에, `cp` 명령어를 사용한다.
 
 
 | 항목       | `sync`                              | `cp --recursive`    |
@@ -67,19 +67,20 @@ SWR은 정상적인 Cache-Control 헤더 값 (ex. max-age=10, stale-while-revali
 | 성능       | 빠름                                  | 느릴 수 있음 (항상 전체 업로드) |
 | 권장 용도    | 자주 배포할 때                            | **캐시 헤더 변경이 필요할 때** |
 
+
+<br /><br />
+
 ```bash
 aws s3 cp build/ s3://swr-pattern-bucket-s3/ \
   --recursive \
   --cache-control "max-age=10, stale-while-revalidate=60" \
   --acl public-read
 ```
-- 후에 10초, 60초를 적용하기 위해서 CloudFront에서 0 ~ 10 ~ 70 의 값을 설정함. 
-
-  - fresh 상태: 0~10초
-  - stale 상태 허용: 10~70초
 
 
-```bash
+### ✔️ 헤더 적용 확인
+
+```shell
 PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pattern-bucket-s3 --key index.html
 >>
 {
@@ -87,7 +88,7 @@ PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pat
     "LastModified": "2025-07-24T07:21:59+00:00",
     "ContentLength": 644,
     "ETag": "\"92ed791677aab7efc06ae542ecdb82f3\"",
-    "CacheControl": "max-age=10, stale-while-revalidate=60",
+    "CacheControl": "max-age=10, stale-while-revalidate=60", // ✅
     "ContentType": "text/html",
     "ServerSideEncryption": "AES256",
     "Metadata": {}
@@ -95,24 +96,35 @@ PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pat
 ```
 
 CloudFront의 default 캐시 값이 적용되어있어서,
-x-cache 값이 추출되지 않는다. Swr 정책을 만들어준다. (GUI환경)
+x-cache 값이 추출되지 않는다.
+
+헤더 적용 이후에 **TTL 10초, 60초**를 적용하기 위해서 `CloudFront`에서 `0` ~ `10` ~ `70` 의 SWR 정책을 생성해준다.
+
+  - `fresh 상태`: 0~10초
+  - `stale 상태 허용`: 10~70초
+
+### 캐시 정책 생성 (GUI)
 
 - TTL 설정
-  - 최솟값: 0
-  - 기본값: 10
-  - 최댓값: 70
+  - `최솟값`: 0
+  - `기본값`: 10
+  - `최댓값`: 70
 
 ![](https://velog.velcdn.com/images/xxng1/post/ed760744-433a-4b26-9dfb-e56c5163044a/image.png)
 
 custom header도 추가해주고,
 ![](https://velog.velcdn.com/images/xxng1/post/7a359d95-2f1b-4011-9818-9a19a5138d65/image.png)
 
-만들어준 헤더를 적용해준다.
+CloudFront에 만들어준 캐시 정책을 적용해준다.
 ![](https://velog.velcdn.com/images/xxng1/post/6e8b2ce5-956f-446c-9177-2dfe7a24bd99/image.png)
 
 
 
+다시 `cp`명령어로 s3 상태를 업데이트하고 `curl`명령어를 통해서 상태를 확인한다.
 
+```shell
+curl -I https://<your-cloudfront-url>/index.html
+```
 
 | x-cache 값                    | 의미                          |
 | ---------------------------- | --------------------------- |
@@ -121,37 +133,36 @@ custom header도 추가해주고,
 | `Miss from cloudfront`       | 캐시 없음 or 만료됨 → 오리진에서 새로 가져옴 |
 
 
-다시 `cp`명령어로 s3 상태를 업데이트하고 `curl`명령어를 통해서 상태를 확인한다.
-```
-curl -I https://<your-cloudfront-url>/index.html
-```
+초기상태는 아래와 같이 `x-cache` 값이 `Miss fron cloudfront`가 출력된다. 
 
-![](https://velog.velcdn.com/images/xxng1/post/e06eb37a-54f8-4486-a7eb-0ff0ad9f3a16/image.png)
+![](https://velog.velcdn.com/images/xxng1/post/36e247be-f972-4d52-aab7-aa0224b39fa0/image.png)
 
-초기상태는 x-cache 값이 `Miss fron cloudfront`가 출력된다. 
 
-![](https://velog.velcdn.com/images/xxng1/post/cb62df66-1f78-4629-9d7f-8b4cc00697ac/image.png)
 
-기본적으로 요청을 보내면 위와 같이 `Hit from cloudfront` 값이 출력되는데,
+---
+
+기본적으로 요청을 보내면 아래와 같이 `Hit from cloudfront` 값이 출력되는데,
+
+![](https://velog.velcdn.com/images/xxng1/post/c8b74eeb-8810-4fa0-a2c6-5baa1da7284a/image.png)
 
 ---
 
 아래처럼 요청을 70초 이상 ( Max TTL ) 보내지 않으면 `RefreshHit from cloudfront`, 후에 다시 요청하면 `Hit from cloudfront` 을 출력받을 수 있다.
 
-![](https://velog.velcdn.com/images/xxng1/post/c534ad07-5be7-4f2f-b3d1-79823d91ef44/image.png)
-
-
-
+![](https://velog.velcdn.com/images/xxng1/post/f3575934-7aa7-4073-b20b-92abce19b1ba/image.png)
 
 ---
-![](https://velog.velcdn.com/images/xxng1/post/34cd1931-5ceb-480a-afd3-87c52bb0689f/image.png)
 
 `Hit from cloudfront` 상태에서, s3에 수정사항을 적용하면 age 값이 10에서 다시 1로 돌아간다. (Min TTL)
 
 
-# 정리
+![](https://velog.velcdn.com/images/xxng1/post/34cc5d8b-e3cd-4d83-8820-a73c4875d614/image.png)
 
-### 시간 순
+
+
+# ✅ 정리
+
+### ✔️ 시간 순
 
 | 시간      | 상태                  | 동작                     | x-cache                |
 | ------- | ------------------- | ---------------------- | ---------------------- |
@@ -160,7 +171,7 @@ curl -I https://<your-cloudfront-url>/index.html
 | 70초 이후  | TTL + SWR 만료        | 오리진에서 새로 가져옴           | `Miss from cloudfront` |
 
 
-### SWR Pattern VS 무효화
+### ✔️ SWR Pattern VS 무효화
 
 | 관점     | SWR                       | 무효화                      |
 | ------ | ------------------------- | ------------------------ |
