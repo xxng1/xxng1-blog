@@ -4,6 +4,8 @@ import Image from 'next/image';
 import ClientTagFilter from '@/components/client-tag-filter';
 import { Suspense } from 'react';
 
+// import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
+
 
 export default function Home() {
   const allPostsData = getSortedPostsData();
@@ -13,7 +15,7 @@ export default function Home() {
     <div className="space-y-8">
 
 
-<div className="space-y-12">
+{/* <div className="space-y-12">
   <section className="space-y-6">
     <Image 
       src="/paka.jpeg" 
@@ -26,7 +28,90 @@ export default function Home() {
       squirrel in Seattle
     </p>
   </section>
-</div>
+</div> */}
+
+
+{/* <div className="space-y-12">
+  <section className="space-y-6">
+    <Image 
+      src="/paka.jpeg" 
+      alt="Tech Blog Cover" 
+      width={1200} 
+      height={200} 
+      className="w-full max-w-5xl h-[200px] object-cover mx-auto rounded-2xl"
+    />
+    <p style={{ textAlign: "center", color: "gray", fontStyle: "italic" }}>
+      squirrel in Seattle
+    </p>
+  </section>
+</div> */}
+
+
+      {/* 블로그 소개 섹션 */}
+      {/* <section className="space-y-4 text-left">
+        <h2 className="text-3xl italic font-bold text-white">Hello woong!</h2>
+        <p className="text-zinc-400 text-base">
+          Focused on Infrastructure, DevOps
+        </p>
+        <Link
+          href="https://github.com/xxng1/xxng1-blog"
+          className="text-blue-400 underline hover:opacity-80"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          블로그 소스코드 Github →
+        </Link>
+      </section> */}
+
+
+      <section className="space-y-4 text-left">
+  <h2 className="text-3xl italic font-bold text-white">Hello woong!👋</h2>
+  <p className="text-zinc-400 text-base">
+    Focused on Infrastructure, DevOps
+  </p>
+
+  {/* 기술 태그 */}
+  {/* <div className="flex flex-wrap gap-2">
+    {["#AWS", "#Kubernetes", "#CI/CD"].map((tag) => (
+      <span
+        key={tag}
+        className="bg-zinc-800 text-zinc-300 text-sm px-3 py-1 rounded-full"
+      >
+        {tag}
+      </span>
+    ))}
+  </div> */}
+
+  <Link
+    href="https://github.com/xxng1/xxng1-blog"
+    className="text-blue-400 underline hover:opacity-80"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    블로그 소스코드 Github →
+  </Link>
+</section>
+
+
+
+      {/* <section className="space-y-4 text-left">
+  <h2 className="text-3xl italic font-bold text-white">
+    Cloud & DevOps Engineering 실험실
+  </h2>
+  <p className="text-zinc-400 text-base">
+    Focused on Cloud, DevOps, and SRE.
+  </p>
+  <Link
+    href="https://github.com/xxng1/xxng1-blog"
+    className="text-blue-400 underline hover:opacity-80"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    블로그 소스코드 GitHub →
+  </Link>
+</section> */}
+
+
 
 
 <div style={{

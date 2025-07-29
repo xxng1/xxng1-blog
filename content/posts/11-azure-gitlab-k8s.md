@@ -124,6 +124,7 @@ az aks get-credentials --resource-group gitlab-aks-rg --name gitlab-aks-cluster
 
 ```
 
+- default: `Standard_DS2_v2` ( 2VCPU, 7GB )
 - 노드 2개 구성, kubeconfig 연결
 
 ```bash
