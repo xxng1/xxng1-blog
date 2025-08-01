@@ -67,7 +67,7 @@ export default function Home() {
       <section className="space-y-4 text-left">
   <h2 className="text-3xl italic font-bold text-white">hello woong!👋</h2>
   <p className="text-zinc-400 text-base">
-    Focused on Infrastructure & DevOps
+    Focused on Cloud Infrastructure & DevOps
   </p>
 
   {/* 기술 태그 */}
