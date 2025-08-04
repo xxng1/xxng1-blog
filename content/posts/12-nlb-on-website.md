@@ -19,7 +19,7 @@ section: 'infra'
 
 웹사이트에서는 주로 ALB(Application Load Balancer)를 사용하는데, NLB(Network Load Balancer)를 사용하면 안될까?
 
-이 글에서는, 웹사이트에서 NLB를 사용하는 구성과 Azure NLB 동작 알고리즘을 알아보고, 성능 테스트를 진행한다.
+이 글에서는, 웹사이트에서 NLB를 사용하는 구성과 `Azure NLB 동작 알고리즘`을 알아보고, `성능 테스트`를 진행한다.
 
 # ✔️ Azure NLB의 Load Balancing 일고리즘 & NLB 성능 테스트
 
