@@ -241,7 +241,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             return <ol className="my-6 list-decimal pl-6">{children}</ol>;
           },
           li({ children, ...props }: any) {
-            return <li className="my-1">{children}</li>;
+            return <li className="my-6">{children}</li>;
           },
           blockquote({ children, ...props }: any) {
             return (
@@ -255,10 +255,12 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
               <img
                 src={src || ""}
                 alt={alt || ""}
-                className="w-[650px] h-[66%] object-cover rounded-lg block mx-auto my-8"
+                // className="w-[100%] h-[100%] object-cover rounded-lg block mx-auto my-8"
+                className="w-full h-auto object-contain rounded-lg block mx-auto my-6"
               />
             );
           },
+
           em({ children, ...props }: any) {
             return (
               <em className="italic text-zinc-300" {...props}>

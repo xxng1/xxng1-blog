@@ -69,6 +69,9 @@ az vm open-port --port 443 --resource-group gitlab-rg --name gitlab-vm
 az vm open-port --port 22 --resource-group gitlab-rg --name gitlab-vm
 ```
 
+다른 group 과 충돌 문제 시 `priority` 지정
+`az vm open-port --port 443 --resource-group gitlab-rg --name gitlab-vm --priority 1100`
+
 - http,https,ssh 허용
 
 
@@ -90,6 +93,8 @@ curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.de
 # 설치
 sudo EXTERNAL_URL="http://<Public_IP>" apt install -y gitlab-ce
 ```
+
+설치 후,
 
 ```bash
 Thank you for installing GitLab!
