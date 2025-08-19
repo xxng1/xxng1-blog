@@ -132,6 +132,9 @@ az aks get-credentials --resource-group gitlab-aks-rg --name gitlab-aks-cluster
 - default: `Standard_DS2_v2` ( 2VCPU, 7GB )
 - 노드 2개 구성, kubeconfig 연결
 
+![](https://velog.velcdn.com/images/xxng1/post/50510be6-823d-4b79-8efe-5c5d3762358c/image.png)
+
+
 ```bash
 # 로컬에 helm 설치 필수
 helm repo add gitlab https://charts.gitlab.io
@@ -164,7 +167,7 @@ NAME                             READY   STATUS    RESTARTS   AGE
 gitlab-runner-56776bcccb-gzm2b   1/1     Running   0          2m
 ```
 
-![](https://velog.velcdn.com/images/xxng1/post/50510be6-823d-4b79-8efe-5c5d3762358c/image.png)
+
 
 
 # 2. 테스트
