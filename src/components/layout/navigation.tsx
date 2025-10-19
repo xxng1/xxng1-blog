@@ -20,28 +20,44 @@ export default function Navigation({ }: NavigationProps) {
   };
 
   return (
-    <nav className="flex items-center space-x-8 mt-[-1rem]">
+    <nav className="flex items-center space-x-1">
       <Link 
         href="/" 
-        className={`text-base font-medium ${isActive('/') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
+        className={`px-4 py-2 rounded-lg text-base font-medium transition-all ${
+          isActive('/') 
+            ? 'bg-accent text-white shadow-sm' 
+            : 'text-muted hover:text-foreground hover:bg-card-background'
+        }`}
       >
         전체
       </Link>
       <Link 
         href="/dev" 
-        className={`text-base font-medium ${isActive('/dev') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
+        className={`px-4 py-2 rounded-lg text-base font-medium transition-all ${
+          isActive('/dev') 
+            ? 'bg-accent text-white shadow-sm' 
+            : 'text-muted hover:text-foreground hover:bg-card-background'
+        }`}
       >
         개발
       </Link>
       <Link 
         href="/infra" 
-        className={`text-base font-medium ${isActive('/infra') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
+        className={`px-4 py-2 rounded-lg text-base font-medium transition-all ${
+          isActive('/infra') 
+            ? 'bg-accent text-white shadow-sm' 
+            : 'text-muted hover:text-foreground hover:bg-card-background'
+        }`}
       >
         인프라
       </Link>
       <Link 
         href="/etc" 
-        className={`text-base font-medium ${isActive('/etc') ? 'text-zinc-100' : 'text-zinc-400 hover:text-zinc-200'} transition`}
+        className={`px-4 py-2 rounded-lg text-base font-medium transition-all ${
+          isActive('/etc') 
+            ? 'bg-accent text-white shadow-sm' 
+            : 'text-muted hover:text-foreground hover:bg-card-background'
+        }`}
       >
         etc
       </Link>

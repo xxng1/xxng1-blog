@@ -47,16 +47,18 @@ export default function ClientTagFilter({ tags, baseUrl }: TagFilterProps) {
   }
   
   return (
-    <div className="flex flex-wrap gap-2 my-4">
+    <div className="flex flex-wrap gap-3 my-6">
       {sortedTags.map((tag) => (
         <Link
           key={tag}
           href={toggleTag(tag)}
-          className={`px-3 py-1 text-sm rounded-full border ${currentTags.includes(tag) 
-            ? 'bg-zinc-700 text-white border-zinc-600' 
-            : 'bg-transparent text-zinc-400 border-zinc-700 hover:border-zinc-500'}`}
+          className={`px-4 py-2 text-sm rounded-full border transition-all duration-200 ${
+            currentTags.includes(tag) 
+              ? 'bg-accent text-white border-accent shadow-sm' 
+              : 'bg-card-background text-muted border-card-border hover:border-accent/50 hover:text-accent hover:bg-accent/5'
+          }`}
         >
-          {tag} {tags[tag] > 0 && <span className="text-xs">({tags[tag]})</span>}
+          {tag} {tags[tag] > 0 && <span className="text-xs opacity-75">({tags[tag]})</span>}
         </Link>
       ))}
     </div>

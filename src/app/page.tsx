@@ -64,11 +64,23 @@ export default function Home() {
       </section> */}
 
 
-      <section className="space-y-4 text-left">
-  <h2 className="text-3xl italic font-bold text-white">hello woong!👋</h2>
-  <p className="text-zinc-400 text-base">
-    Focused on Cloud Infrastructure & DevOps
-  </p>
+      <section className="space-y-6 text-left mb-12">
+        <div className="bg-gradient-to-r from-accent/10 to-accent-hover/10 rounded-2xl p-8 border border-accent/20">
+          <h2 className="text-4xl font-bold text-foreground mb-4">hello woong! 👋</h2>
+          <p className="text-muted text-lg leading-relaxed">
+            Cloud Infrastructure & DevOps에 집중하는 개발자입니다
+          </p>
+          <div className="flex flex-wrap gap-3 mt-6">
+            {["AWS", "Kubernetes", "Docker", "CI/CD", "Terraform"].map((tech) => (
+              <span
+                key={tech}
+                className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium border border-accent/20"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
 
   {/* 기술 태그 */}
   {/* <div className="flex flex-wrap gap-2">
@@ -114,13 +126,6 @@ export default function Home() {
 
 
 
-<div style={{
-  width: "100%",
-  height: "1px", // 실제 border와 유사하게 조정
-  backgroundColor: "#3f3f46", // Tailwind의 zinc-700 → #3f3f46
-  opacity: 0.5,
-  marginBottom: "1rem" // mb-4 → 1rem
-}}></div>
 
 
 
@@ -181,44 +186,46 @@ export default function Home() {
 
       <section className="space-y-8">
         <div className="flex justify-between items-center">
-          {/* <h2 className="text-2xl font-bold tracking-tight">전체 글</h2> */}
-          <span className="text-zinc-400 text-sm">
+          <h2 className="text-2xl font-bold text-foreground">전체 글</h2>
+          <span className="text-muted-foreground text-sm bg-card-background px-3 py-1 rounded-full border border-card-border">
             총 {allPostsData.length}개의 글
           </span>
         </div>
         
-        <Suspense fallback={<div>태그 로딩 중...</div>}>
+        <Suspense fallback={<div className="text-muted">태그 로딩 중...</div>}>
           <ClientTagFilter tags={allTags} baseUrl="/" />
         </Suspense>
         
-        <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-1">
+        <div className="grid gap-6">
           {allPostsData.map(({ id, date, title, excerpt, tags }) => (
             <Link key={id} href={`/posts/${id}`} className="block group">
-              <article className="relative flex flex-col space-y-2 border border-zinc-800 rounded-lg p-6 hover:bg-zinc-800/50 transition cursor-pointer">
-                <div className="space-y-3">
-                  <time className="text-sm text-zinc-400">
-                    {new Date(date).toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </time>
-                  <h3 className="text-xl font-bold group-hover:underline">
+              <article className="relative bg-card-background border border-card-border rounded-xl p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-300 cursor-pointer group-hover:-translate-y-1">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <time className="text-sm text-muted-foreground">
+                      {new Date(date).toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </time>
+                    <div className="text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                      →
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors leading-tight">
                     {title}
                   </h3>
-                  <p className="text-zinc-400">{excerpt}</p>
+                  <p className="text-muted leading-relaxed">{excerpt}</p>
                   {tags && tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-2">
+                    <div className="flex flex-wrap gap-2">
                       {tags.map(tag => (
-                        <span key={tag} className="text-xs px-2 py-1 bg-zinc-800 text-zinc-400 rounded-full">
+                        <span key={tag} className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full border border-accent/20">
                           {tag}
                         </span>
                       ))}
                     </div>
                   )}
-                </div>
-                <div className="mt-4 text-sm font-medium text-zinc-400 group-hover:text-zinc-300 transition">
-                  Read More →
                 </div>
               </article>
             </Link>
