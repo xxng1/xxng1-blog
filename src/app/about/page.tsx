@@ -1,6 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import TechStackGroup from '@/components/tech-stack-hover';
+import ProjectsSection from '@/components/projects-section';
+import CertificationSection from '@/components/certification-section';
+import {
+  SiAmazon,
+  SiLinux,
+  SiApple,
+  SiKubernetes,
+  SiDocker,
+  SiGithubactions,
+  SiArgo,
+  SiJenkins,
+  SiHashicorp,
+  SiPrometheus,
+  SiGrafana,
+  SiElastic,
+  SiPython,
+  SiGnubash
+} from 'react-icons/si';
 
 export const metadata = {
     title: "About - xxng1",
@@ -96,29 +114,7 @@ export default function AboutPage() {
             </section>
 
             {/* Certification */}
-            <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold mb-6 text-foreground">Certification</h2>
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground">2025.07</div>
-                            <div className="font-semibold text-foreground">Certified Kubernetes Administrator (CKA)</div>
-                        </div>
-                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground">2025.05</div>
-                            <div className="font-semibold text-foreground">SnowPro Associate: Platform Certification</div>
-                        </div>
-                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground">2024.09</div>
-                            <div className="font-semibold text-foreground">AWS Certified Developer - Associate</div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="text-sm font-medium text-muted-foreground">2024.03</div>
-                            <div className="font-semibold text-foreground">AWS Certified Solutions Architect - Associate</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <CertificationSection />
 
             {/* Tech Stack */}
             <section className="mb-12">
@@ -131,49 +127,49 @@ export default function AboutPage() {
                         <TechStackGroup 
                             title="Cloud Platform"
                             items={[
-                                { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리, 배포 자동화, 스크립트 기반 인프라 운영을 할 수 있습니다' },
-                                { name: 'AWS EC2/EKS', description: 'EC2 인스턴스 구성 및 EKS 클러스터를 통해 컨테이너 오케스트레이션을 운영할 수 있습니다' },
-                                { name: 'AWS Lambda', description: '서버리스 아키텍처 구축 및 이벤트 기반 애플리케이션 개발을 할 수 있습니다' },
+                                { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리, 배포 자동화, 스크립트 기반 인프라 운영을 할 수 있습니다', icon: <SiAmazon /> },
+                                { name: 'AWS EC2/EKS', description: 'EC2 인스턴스 구성 및 EKS 클러스터를 통해 컨테이너 오케스트레이션을 운영할 수 있습니다', icon: <SiAmazon /> },
+                                { name: 'AWS Lambda', description: '서버리스 아키텍처 구축 및 이벤트 기반 애플리케이션 개발을 할 수 있습니다', icon: <SiAmazon /> },
                                 { name: 'Azure VM/AKS', description: 'Azure VM 구성 및 AKS를 활용한 Kubernetes 환경 구축과 운영을 할 수 있습니다' }
                             ]}
                         />
                         <TechStackGroup 
                             title="Operating System"
                             items={[
-                                { name: 'Linux', description: 'Linux 환경에서 서버 구성, 시스템 관리, 쉘 스크립팅을 할 수 있습니다' },
-                                { name: 'Mac', description: 'macOS 환경에서 개발 및 DevOps 작업을 효율적으로 수행할 수 있습니다' },
+                                { name: 'Linux', description: 'Linux 환경에서 서버 구성, 시스템 관리, 쉘 스크립팅을 할 수 있습니다', icon: <SiLinux /> },
+                                { name: 'Mac', description: 'macOS 환경에서 개발 및 DevOps 작업을 효율적으로 수행할 수 있습니다', icon: <SiApple /> },
                                 { name: 'Windows', description: 'Windows 서버 환경 구성 및 운영 경험이 있습니다' }
                             ]}
                         />
                         <TechStackGroup 
                             title="Container & Orchestration"
                             items={[
-                                { name: 'Kubernetes', description: 'Kubernetes 클러스터 구성, Pod 배포, HPA 설정, Service/Ingress 관리를 할 수 있습니다' },
-                                { name: 'Docker', description: 'Docker 이미지 빌드, 컨테이너 관리, Docker Compose를 활용한 멀티 컨테이너 환경 구축을 할 수 있습니다' }
+                                { name: 'Kubernetes', description: 'Kubernetes 클러스터 구성, Pod 배포, HPA 설정, Service/Ingress 관리를 할 수 있습니다', icon: <SiKubernetes /> },
+                                { name: 'Docker', description: 'Docker 이미지 빌드, 컨테이너 관리, Docker Compose를 활용한 멀티 컨테이너 환경 구축을 할 수 있습니다', icon: <SiDocker /> }
                             ]}
                         />
                         <TechStackGroup 
                             title="CI/CD & IaC"
                             items={[
-                                { name: 'Github Actions', description: 'GitHub Actions를 통해 CI/CD 파이프라인 구축 및 자동화를 할 수 있습니다' },
-                                { name: 'ArgoCD', description: 'ArgoCD를 활용한 GitOps 워크플로우 구성 및 자동 배포를 할 수 있습니다' },
-                                { name: 'Jenkins', description: 'Jenkins를 통한 CI/CD 파이프라인 구축 및 Blue/Green 배포 자동화를 할 수 있습니다' },
-                                { name: 'Terraform', description: 'Terraform을 통해 멀티클라우드 인프라 코드 작성 및 IaC 환경 구축을 할 수 있습니다' }
+                                { name: 'Github Actions', description: 'GitHub Actions를 통해 CI/CD 파이프라인 구축 및 자동화를 할 수 있습니다', icon: <SiGithubactions /> },
+                                { name: 'ArgoCD', description: 'ArgoCD를 활용한 GitOps 워크플로우 구성 및 자동 배포를 할 수 있습니다', icon: <SiArgo /> },
+                                { name: 'Jenkins', description: 'Jenkins를 통한 CI/CD 파이프라인 구축 및 Blue/Green 배포 자동화를 할 수 있습니다', icon: <SiJenkins /> },
+                                { name: 'Terraform', description: 'Terraform을 통해 멀티클라우드 인프라 코드 작성 및 IaC 환경 구축을 할 수 있습니다', icon: <SiHashicorp /> }
                             ]}
                         />
                         <TechStackGroup 
                             title="Observability"
                             items={[
-                                { name: 'Prometheus', description: 'Prometheus를 활용한 메트릭 수집 및 모니터링 시스템 구축을 할 수 있습니다' },
-                                { name: 'Grafana', description: 'Grafana 대시보드를 통한 모니터링 시각화 및 알림 설정을 할 수 있습니다' },
-                                { name: 'Elastic Stack', description: 'Elasticsearch, Logstash, Kibana를 활용한 로그 수집 및 분석 시스템 구축을 할 수 있습니다' }
+                                { name: 'Prometheus', description: 'Prometheus를 활용한 메트릭 수집 및 모니터링 시스템 구축을 할 수 있습니다', icon: <SiPrometheus /> },
+                                { name: 'Grafana', description: 'Grafana 대시보드를 통한 모니터링 시각화 및 알림 설정을 할 수 있습니다', icon: <SiGrafana /> },
+                                { name: 'Elastic Stack', description: 'Elasticsearch, Logstash, Kibana를 활용한 로그 수집 및 분석 시스템 구축을 할 수 있습니다', icon: <SiElastic /> }
                             ]}
                         />
                         <TechStackGroup 
                             title="Language"
                             items={[
-                                { name: 'Python', description: 'Python을 통해 데이터 마이그레이션, 자동화 스크립트 작성, AWS boto3 활용을 할 수 있습니다' },
-                                { name: 'Shell', description: 'Shell 스크립팅을 통해 시스템 자동화 및 배포 스크립트 작성을 할 수 있습니다' }
+                                { name: 'Python', description: 'Python을 통해 데이터 마이그레이션, 자동화 스크립트 작성, AWS boto3 활용을 할 수 있습니다', icon: <SiPython /> },
+                                { name: 'Shell', description: 'Shell 스크립팅을 통해 시스템 자동화 및 배포 스크립트 작성을 할 수 있습니다', icon: <SiGnubash /> }
                             ]}
                         />
                     </div>
@@ -181,84 +177,7 @@ export default function AboutPage() {
             </section>
 
             {/* Projects */}
-            <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold mb-6 text-foreground">Projects</h2>
-                    <div className="space-y-6">
-                        <div className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors">
-                            <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-xl font-semibold text-foreground">Chuno - 미디어 스트리밍 서비스</h3>
-                                <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">1등 수상</span>
-                            </div>
-                            <div className="text-sm text-muted-foreground mb-3">2024.09 - 2024.10 | NIPA-AWS Developer Bootcamp</div>
-                            <p className="text-muted leading-relaxed mb-4">
-                                AWS 서비스를 활용한 미디어 스트리밍 프로젝트. HLS 변환 및 실시간 스트리밍 기능 구현.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {['AWS', 'Kubernetes', 'React', 'FastAPI', 'Terraform', 'CloudFront', 'S3', 'ArgoCD'].map((tech) => (
-                                    <span key={tech} className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10">
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                            <div className="space-y-2 text-sm">
-                                <div className="flex items-center gap-2">
-                                    <span className="font-semibold text-foreground">주요 성과:</span>
-                                    <span className="text-muted">ALB 구성으로 CORS 이슈 해결, HPA 적용으로 응답시간 2초 → 500ms 개선</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors">
-                            <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-xl font-semibold text-foreground">DmarkeT - 쇼핑몰 플랫폼</h3>
-                                <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">기업 연계</span>
-                            </div>
-                            <div className="text-sm text-muted-foreground mb-3">2024.01 - 2024.02 | 카카오엔터프라이즈 SW아카데미</div>
-                            <p className="text-muted leading-relaxed mb-4">
-                                KakaoCloud 기반 하이브리드 클라우드 환경 구축 및 쇼핑몰 시스템 개발. 총 109개 요구사항 분석 및 최적화.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {['KakaoCloud', 'SpringBoot', 'Nginx', 'Jenkins', 'SSE', 'Elasticsearch'].map((tech) => (
-                                    <span key={tech} className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10">
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                            <div className="space-y-2 text-sm">
-                                <div className="flex items-center gap-2">
-                                    <span className="font-semibold text-foreground">주요 성과:</span>
-                                    <span className="text-muted">SSE 실시간 알림 구현, Elasticsearch 검색 성능 개선</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors">
-                            <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-xl font-semibold text-foreground">ODO - AI TTS 블로그</h3>
-                                <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">MSA 구성</span>
-                            </div>
-                            <div className="text-sm text-muted-foreground mb-3">2023.09 - 2023.12 | 카카오엔터프라이즈 SW아카데미</div>
-                            <p className="text-muted leading-relaxed mb-4">
-                                TTS AI 및 ko-GPT를 활용한 블로그 서비스. Spring Cloud Eureka 기반 MSA 아키텍처 구성.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {['SpringBoot', 'MSA', 'FastAPI', 'Kafka', 'MongoDB', 'MySQL', 'Redis'].map((tech) => (
-                                    <span key={tech} className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10">
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                            <div className="space-y-2 text-sm">
-                                <div className="flex items-center gap-2">
-                                    <span className="font-semibold text-foreground">주요 성과:</span>
-                                    <span className="text-muted">Redis 캐싱으로 처리량 163/sec → 978/sec (6배 증가)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <ProjectsSection />
 
             {/* Experience */}
             <section className="mb-12">
@@ -344,50 +263,6 @@ export default function AboutPage() {
                             <div>
                                 <div className="font-semibold text-foreground mb-1">AWS JAM (Solution Engineering)</div>
                                 <div className="text-sm text-muted">참여</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Education */}
-            <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold mb-6 text-foreground">Education</h2>
-                    <div className="space-y-4">
-                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground">2018.03 - 2025.02</div>
-                            <div>
-                                <div className="font-semibold text-foreground">가천대학교 컴퓨터공학과</div>
-                                <div className="text-sm text-muted">Gachon University, Computer Engineering</div>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="text-sm font-medium text-muted-foreground">2014.03 - 2017.02</div>
-                            <div>
-                                <div className="font-semibold text-foreground">이대부속고등학교</div>
-                                <div className="text-sm text-muted">Ewha Womans University Affiliated High School</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Language */}
-            <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold mb-6 text-foreground">Language</h2>
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground">2024.12</div>
-                            <div>
-                                <div className="font-semibold text-foreground">TOEIC Speaking: IM3/130</div>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="text-sm font-medium text-muted-foreground">2024.12</div>
-                            <div>
-                                <div className="font-semibold text-foreground">OPIc: IM1</div>
                             </div>
                         </div>
                     </div>

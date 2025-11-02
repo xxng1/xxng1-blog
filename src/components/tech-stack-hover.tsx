@@ -1,8 +1,11 @@
 "use client";
 
+import { ReactNode } from 'react';
+
 interface TechStackItem {
   name: string;
   description: string;
+  icon?: ReactNode;
 }
 
 interface TechStackGroupProps {
@@ -20,7 +23,8 @@ export default function TechStackGroup({ title, items }: TechStackGroupProps) {
             key={item.name}
             className="group relative"
           >
-            <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium border border-accent/20 cursor-help hover:bg-accent/20 transition-colors">
+            <span className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium border border-accent/20 cursor-help hover:bg-accent/20 transition-colors">
+              {item.icon && <span className="text-base">{item.icon}</span>}
               {item.name}
             </span>
             <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 bg-foreground text-background text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-50 shadow-xl max-w-xs w-max">
