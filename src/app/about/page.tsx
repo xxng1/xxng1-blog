@@ -292,18 +292,14 @@ export default function AboutPage() {
 
             {/* 블로그 글 보러가기 */}
             <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold mb-6 text-foreground">블로그 글 보러가기</h2>
-                    <p className="text-muted leading-relaxed mb-6">
-                        Cloud Infrastructure & DevOps 관련 기술과 경험을 기록하고 있습니다.
-                    </p>
-                    <Link
-                        href="/"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors shadow-sm hover:shadow-md"
-                    >
-                        블로그 보러가기 →
-                    </Link>
-                </div>
+                <Link href="/" className="block">
+                    <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm hover:border-accent/30 hover:shadow-md transition-all cursor-pointer">
+                        <h2 className="text-3xl font-bold mb-6 text-foreground">블로그 글 보러가기</h2>
+                        <p className="text-muted leading-relaxed">
+                            Cloud Infrastructure & DevOps 관련 기술과 경험을 기록하고 있습니다.
+                        </p>
+                    </div>
+                </Link>
             </section>
         </div>
     );

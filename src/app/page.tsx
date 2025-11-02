@@ -43,6 +43,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
       {/* Blog Posts Section */}
       <section className="space-y-8">
+        <hr className="border-t border-card-border" />
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-foreground">
             {tagParams.length > 0 ? `필터된 글 (${filteredPosts.length}개)` : '전체 글'}

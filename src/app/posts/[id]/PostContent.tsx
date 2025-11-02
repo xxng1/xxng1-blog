@@ -252,7 +252,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           },
           blockquote({ children, ...props }: any) {
             return (
-              <blockquote className="border-l border-card-border/60 pl-4 py-3 my-6 bg-card-background rounded text-foreground leading-relaxed text-base md:text-lg">
+              <blockquote className="border-l border-card-border/60 pl-3 py-1.5 my-6 bg-card-background rounded text-foreground leading-relaxed text-base md:text-lg">
                 {children}
               </blockquote>
             );
