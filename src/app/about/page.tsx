@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import TechStackGroup from '@/components/tech-stack-hover';
 
 export const metadata = {
     title: "About - xxng1",
@@ -32,13 +33,22 @@ export default function AboutPage() {
                     <p className="text-muted text-lg mb-4">
                         박상웅 | Sangwoong Park
                     </p>
-                    
-
-                    {/* <div className="flex justify-center md:justify-start gap-4">
-                        <a href="#" className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
-                            Contact Me
+                    <div className="flex flex-col gap-2 text-sm">
+                        <a href="mailto:woongaa1@naver.com" className="text-muted hover:text-accent transition-colors">
+                            📧 woongaa1@naver.com
                         </a>
-                    </div> */}
+                        <a href="tel:010-5648-8262" className="text-muted hover:text-accent transition-colors">
+                            📞 010-5648-8262
+                        </a>
+                        <div className="flex gap-4 mt-2">
+                            <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+                                GitHub
+                            </a>
+                            <a href="https://www.linkedin.com/in/sangwoong-park/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -48,15 +58,29 @@ export default function AboutPage() {
                         About Me
                     </h2>
                     <div className="space-y-6 text-muted leading-relaxed">
-                        <p>
-                            <span className="font-semibold text-foreground">No Silver Bullet</span> 이라는 말을 좋아합니다. 
-                            <span className="font-semibold text-foreground"> Silver Bullet</span> 이란 만능 해결책이라는 의미로, <br></br>
-                            <span className="font-bold text-foreground">한 번에 완벽하게 문제를 해결할 수 있는 솔루션은 없다</span>라는 말입니다. <br></br>
-                        </p>
-                        <p>
-                            이러한 자세로 <i className="text-accent">Well-Architected Framework</i> 의 관점에서 지속적으로 개선을 고민합니다. <br></br>
-                            서비스의 장점을 발견하고 더 나은 해결 방안을 찾아내며, 동료들과 함께 성장합니다.
-                        </p>
+                        <div>
+                            <h3 className="text-xl font-semibold text-foreground mb-3">1. Well-Architected Framework에 대한 이해</h3>
+                            <p>
+                                전공, 소프트웨어 아카데미, AWS 부트캠프를 통해 IT 인프라와 시스템 아키텍처에 대한 지식을 쌓아왔습니다.
+                                <br></br>
+                                운영 우수성(Operational Excellence), 보안(Security), 안정성(Reliability), 성능 효율성(Performance Efficiency), 
+                                비용 최적화(Cost Optimization), 지속가능성(Sustainability) 관점에서 서비스를 제공하기 위해 노력합니다.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-semibold text-foreground mb-3">2. CloudOps 엔지니어링에 대한 마음가짐</h3>
+                            <p>
+                                빠르게 상황을 대응하고 서비스를 운영할 수 있는 마음가짐과 책임감 있는 자세를 준비하고 있습니다.
+                                <br></br>
+                                반복되는 작업의 자동화와 비효율적인 프로세스의 개선을 통해 더 나은 운영 환경을 만들어 나갑니다.
+                            </p>
+                        </div>
+                        <div className="pt-4 border-t border-card-border">
+                            <p>
+                                On-Prem/Cloud 인프라 경험을 통해 솔루션 최적화, 인프라 자동화, 애플리케이션 개발 역량을 갖추며, 
+                                <span className="font-semibold text-foreground">구체적인 성과를 만들어내는 엔지니어</span>로 성장하고자 합니다.
+                            </p>
+                        </div>
                     </div>
                     <div className="mt-6">
                         <Link
@@ -69,21 +93,305 @@ export default function AboutPage() {
                         </Link>
                     </div>
                 </div>
+            </section>
 
+            {/* Certification */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold mb-6 text-foreground">Certification</h2>
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground">2025.07</div>
+                            <div className="font-semibold text-foreground">Certified Kubernetes Administrator (CKA)</div>
+                        </div>
+                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground">2025.05</div>
+                            <div className="font-semibold text-foreground">SnowPro Associate: Platform Certification</div>
+                        </div>
+                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground">2024.09</div>
+                            <div className="font-semibold text-foreground">AWS Certified Developer - Associate</div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <div className="text-sm font-medium text-muted-foreground">2024.03</div>
+                            <div className="font-semibold text-foreground">AWS Certified Solutions Architect - Associate</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-{/* <br></br>
-<p>👋 Hi, I’m Brilly!</p>
-<p>🏫 I'm majoring in Digital Media(Design & Programming)</p>
-<p>👀 I’m interested in server and infra, especially cloud!</p>
-<p>🌫️ I study Kubernetes and AWS services intensively!</p>
-<p>🗣️ I'm very outgoing and love presenting my experiences or knowledge!</p>
-<p>🌉 I'm the bridge that connects people.</p> */}
+            {/* Tech Stack */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-3xl font-bold text-foreground">Tech Stack</h2>
+                        <span className="text-xs text-muted-foreground italic">* 기술에 마우스를 올리면 수준 설명을 확인할 수 있습니다</span>
+                    </div>
+                    <div className="space-y-6">
+                        <TechStackGroup 
+                            title="Cloud Platform"
+                            items={[
+                                { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리, 배포 자동화, 스크립트 기반 인프라 운영을 할 수 있습니다' },
+                                { name: 'AWS EC2/EKS', description: 'EC2 인스턴스 구성 및 EKS 클러스터를 통해 컨테이너 오케스트레이션을 운영할 수 있습니다' },
+                                { name: 'AWS Lambda', description: '서버리스 아키텍처 구축 및 이벤트 기반 애플리케이션 개발을 할 수 있습니다' },
+                                { name: 'Azure VM/AKS', description: 'Azure VM 구성 및 AKS를 활용한 Kubernetes 환경 구축과 운영을 할 수 있습니다' }
+                            ]}
+                        />
+                        <TechStackGroup 
+                            title="Operating System"
+                            items={[
+                                { name: 'Linux', description: 'Linux 환경에서 서버 구성, 시스템 관리, 쉘 스크립팅을 할 수 있습니다' },
+                                { name: 'Mac', description: 'macOS 환경에서 개발 및 DevOps 작업을 효율적으로 수행할 수 있습니다' },
+                                { name: 'Windows', description: 'Windows 서버 환경 구성 및 운영 경험이 있습니다' }
+                            ]}
+                        />
+                        <TechStackGroup 
+                            title="Container & Orchestration"
+                            items={[
+                                { name: 'Kubernetes', description: 'Kubernetes 클러스터 구성, Pod 배포, HPA 설정, Service/Ingress 관리를 할 수 있습니다' },
+                                { name: 'Docker', description: 'Docker 이미지 빌드, 컨테이너 관리, Docker Compose를 활용한 멀티 컨테이너 환경 구축을 할 수 있습니다' }
+                            ]}
+                        />
+                        <TechStackGroup 
+                            title="CI/CD & IaC"
+                            items={[
+                                { name: 'Github Actions', description: 'GitHub Actions를 통해 CI/CD 파이프라인 구축 및 자동화를 할 수 있습니다' },
+                                { name: 'ArgoCD', description: 'ArgoCD를 활용한 GitOps 워크플로우 구성 및 자동 배포를 할 수 있습니다' },
+                                { name: 'Jenkins', description: 'Jenkins를 통한 CI/CD 파이프라인 구축 및 Blue/Green 배포 자동화를 할 수 있습니다' },
+                                { name: 'Terraform', description: 'Terraform을 통해 멀티클라우드 인프라 코드 작성 및 IaC 환경 구축을 할 수 있습니다' }
+                            ]}
+                        />
+                        <TechStackGroup 
+                            title="Observability"
+                            items={[
+                                { name: 'Prometheus', description: 'Prometheus를 활용한 메트릭 수집 및 모니터링 시스템 구축을 할 수 있습니다' },
+                                { name: 'Grafana', description: 'Grafana 대시보드를 통한 모니터링 시각화 및 알림 설정을 할 수 있습니다' },
+                                { name: 'Elastic Stack', description: 'Elasticsearch, Logstash, Kibana를 활용한 로그 수집 및 분석 시스템 구축을 할 수 있습니다' }
+                            ]}
+                        />
+                        <TechStackGroup 
+                            title="Language"
+                            items={[
+                                { name: 'Python', description: 'Python을 통해 데이터 마이그레이션, 자동화 스크립트 작성, AWS boto3 활용을 할 수 있습니다' },
+                                { name: 'Shell', description: 'Shell 스크립팅을 통해 시스템 자동화 및 배포 스크립트 작성을 할 수 있습니다' }
+                            ]}
+                        />
+                    </div>
+                </div>
+            </section>
 
-<br></br>
+            {/* Projects */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold mb-6 text-foreground">Projects</h2>
+                    <div className="space-y-6">
+                        <div className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors">
+                            <div className="flex items-start justify-between mb-3">
+                                <h3 className="text-xl font-semibold text-foreground">Chuno - 미디어 스트리밍 서비스</h3>
+                                <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">1등 수상</span>
+                            </div>
+                            <div className="text-sm text-muted-foreground mb-3">2024.09 - 2024.10 | NIPA-AWS Developer Bootcamp</div>
+                            <p className="text-muted leading-relaxed mb-4">
+                                AWS 서비스를 활용한 미디어 스트리밍 프로젝트. HLS 변환 및 실시간 스트리밍 기능 구현.
+                            </p>
+                            <div className="flex flex-wrap gap-2 mb-4">
+                                {['AWS', 'Kubernetes', 'React', 'FastAPI', 'Terraform', 'CloudFront', 'S3', 'ArgoCD'].map((tech) => (
+                                    <span key={tech} className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                            <div className="space-y-2 text-sm">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-semibold text-foreground">주요 성과:</span>
+                                    <span className="text-muted">ALB 구성으로 CORS 이슈 해결, HPA 적용으로 응답시간 2초 → 500ms 개선</span>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors">
+                            <div className="flex items-start justify-between mb-3">
+                                <h3 className="text-xl font-semibold text-foreground">DmarkeT - 쇼핑몰 플랫폼</h3>
+                                <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">기업 연계</span>
+                            </div>
+                            <div className="text-sm text-muted-foreground mb-3">2024.01 - 2024.02 | 카카오엔터프라이즈 SW아카데미</div>
+                            <p className="text-muted leading-relaxed mb-4">
+                                KakaoCloud 기반 하이브리드 클라우드 환경 구축 및 쇼핑몰 시스템 개발. 총 109개 요구사항 분석 및 최적화.
+                            </p>
+                            <div className="flex flex-wrap gap-2 mb-4">
+                                {['KakaoCloud', 'SpringBoot', 'Nginx', 'Jenkins', 'SSE', 'Elasticsearch'].map((tech) => (
+                                    <span key={tech} className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                            <div className="space-y-2 text-sm">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-semibold text-foreground">주요 성과:</span>
+                                    <span className="text-muted">SSE 실시간 알림 구현, Elasticsearch 검색 성능 개선</span>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors">
+                            <div className="flex items-start justify-between mb-3">
+                                <h3 className="text-xl font-semibold text-foreground">ODO - AI TTS 블로그</h3>
+                                <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">MSA 구성</span>
+                            </div>
+                            <div className="text-sm text-muted-foreground mb-3">2023.09 - 2023.12 | 카카오엔터프라이즈 SW아카데미</div>
+                            <p className="text-muted leading-relaxed mb-4">
+                                TTS AI 및 ko-GPT를 활용한 블로그 서비스. Spring Cloud Eureka 기반 MSA 아키텍처 구성.
+                            </p>
+                            <div className="flex flex-wrap gap-2 mb-4">
+                                {['SpringBoot', 'MSA', 'FastAPI', 'Kafka', 'MongoDB', 'MySQL', 'Redis'].map((tech) => (
+                                    <span key={tech} className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                            <div className="space-y-2 text-sm">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-semibold text-foreground">주요 성과:</span>
+                                    <span className="text-muted">Redis 캐싱으로 처리량 163/sec → 978/sec (6배 증가)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                
+            {/* Experience */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold mb-6 text-foreground">Experience</h2>
+                    <div className="space-y-6">
+                        <div>
+                            <h3 className="text-xl font-semibold text-foreground mb-2">NIPA-AWS Developer Bootcamp 2기</h3>
+                            <div className="text-sm text-muted-foreground mb-3">2024.08 - 2024.10</div>
+                            <p className="text-muted leading-relaxed mb-3">
+                                AWS 공인강사 기술 교육을 기반으로 클라우드 컴퓨팅을 학습했습니다. 미디어 스트리밍 프로젝트를 수행하여 5개 팀 중 1등을 수상했으며, 
+                                19명 중 최우수 수강생으로 선정되어 미국 시애틀 연수 여행을 다녀왔습니다. Amazon, Microsoft, Google 본사 방문 및 강의를 수강했습니다.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-semibold text-foreground mb-2">가천 카카오엔터프라이즈 SW아카데미 3기</h3>
+                            <div className="text-sm text-muted-foreground mb-3">2023.09 - 2024.02</div>
+                            <p className="text-muted leading-relaxed">
+                                개발 역량 강화와 엔지니어로 성장하기 위한 소프트웨어 아카데미에 참여했습니다. MSA(Microservices Architecture), Kubernetes, CSP(Cloud Service Provider), 
+                                Terraform 등 최신 기술을 학습하고 프로젝트 경험을 쌓았습니다. PBL(Project-Based Learning) 교육과 기업 연계 프로젝트를 통해 다양한 기술 역량과 협업 능력을 향상시켰습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Activity */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold mb-6 text-foreground">Activity</h2>
+                    <div className="space-y-4">
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">AWS JAM (DevOps Engineering)</div>
+                                <div className="text-sm text-muted">참여</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">Developing Serverless Solutions on AWS</div>
+                                <div className="text-sm text-muted">특강 이수 (AWS Lambda를 활용한 서버리스 애플리케이션 구축)</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">Running Containers on Amazon EKS</div>
+                                <div className="text-sm text-muted">특강 이수 (Kubernetes 컨테이너 관리 및 오케스트레이션)</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.08</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">Security Engineering on AWS</div>
+                                <div className="text-sm text-muted">특강 이수 (자동화, 모니터링, 로깅, 보안 사고 대응)</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.08</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">Developing on AWS</div>
+                                <div className="text-sm text-muted">특강 이수 (AWS SDK, AWS CLI, IDE를 활용한 애플리케이션 개발)</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.12</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">Multi Cloud Orchestration (Terraform)</div>
+                                <div className="text-sm text-muted">특강 이수 · 실습 강의 진행 (Terraform을 활용한 멀티클라우드 환경 오케스트레이션, AWS/Azure 배포)</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.11</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">Monitoring and Testing in DevOps Environment</div>
+                                <div className="text-sm text-muted">특강 이수 (ElasticSearch 기반 Observability 솔루션)</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.11</div>
+                            <div>
+                                <div className="font-semibold text-foreground mb-1">AWS JAM (Solution Engineering)</div>
+                                <div className="text-sm text-muted">참여</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Education */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold mb-6 text-foreground">Education</h2>
+                    <div className="space-y-4">
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground">2018.03 - 2025.02</div>
+                            <div>
+                                <div className="font-semibold text-foreground">가천대학교 컴퓨터공학과</div>
+                                <div className="text-sm text-muted">Gachon University, Computer Engineering</div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="text-sm font-medium text-muted-foreground">2014.03 - 2017.02</div>
+                            <div>
+                                <div className="font-semibold text-foreground">이대부속고등학교</div>
+                                <div className="text-sm text-muted">Ewha Womans University Affiliated High School</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Language */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold mb-6 text-foreground">Language</h2>
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-4 pb-4 border-b border-card-border">
+                            <div className="text-sm font-medium text-muted-foreground">2024.12</div>
+                            <div>
+                                <div className="font-semibold text-foreground">TOEIC Speaking: IM3/130</div>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <div className="text-sm font-medium text-muted-foreground">2024.12</div>
+                            <div>
+                                <div className="font-semibold text-foreground">OPIc: IM1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <figure className="mb-12">
@@ -106,63 +414,6 @@ export default function AboutPage() {
                     </a>
                 </figcaption>
             </figure>
-
-            {/* <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6 text-white">
-                    Career Highlights
-                </h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                    <div className="p-6 bg-gray-800 rounded-xl shadow-md">
-                        <h3 className="text-xl font-semibold mb-3">Cloud Engineering</h3>
-                        <p className="text-gray-300">
-                            AWS 기반 아키텍처 설계 및 최적화 경험
-                        </p>
-                    </div>
-                    <div className="p-6 bg-gray-800 rounded-xl shadow-md">
-                        <h3 className="text-xl font-semibold mb-3">Collaboration</h3>
-                        <p className="text-gray-300">
-                            Cross-functional 팀과의 협업을 통한 문제 해결
-                        </p>
-                    </div>
-                </div>
-            </section> */}
-
-            {/* <figure className="mb-12">
-                <div className="relative w-full h-64 md:h-110 rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                        src="/thespheres.jpeg"
-                        alt="Amazon The Spheres in Seattle"
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-                <figcaption className="mt-2 text-sm text-gray-400 text-center">
-                    아마존 The Spheres in Seattle (맨 오른쪽)
-                </figcaption>
-            </figure> */}
-
-            
-
-
-            {/* <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6 text-white">
-                    Technical Skills
-                </h2>
-                <div className="flex flex-wrap gap-3">
-                    <span className="px-4 py-2 bg-blue-900 text-blue-300 rounded-full">
-                        AWS
-                    </span>
-                    <span className="px-4 py-2 bg-purple-900 text-purple-300 rounded-full">
-                        Cloud Architecture
-                    </span>
-                    <span className="px-4 py-2 bg-green-900 text-green-300 rounded-full">
-                        DevOps
-                    </span>
-                    <span className="px-4 py-2 bg-yellow-900 text-yellow-300 rounded-full">
-                        CI/CD
-                    </span>
-                </div>
-            </section> */}
         </div>
     );
 }

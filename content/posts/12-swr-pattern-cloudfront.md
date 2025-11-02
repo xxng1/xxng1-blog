@@ -3,9 +3,8 @@ layout:       post
 title:        "[Cloud] CloudFront의 캐싱 ( 무효화 / SWR Pattern )"
 date: '2025-07-24'
 section: 'infra'
-# excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
-# categories: ['AWS/Media']
-# tags: ['AWS', 'Media', 'Streaming', 'Cloud']
+excerpt: 'CloudFront에 Stale-While-Revalidate 패턴 적용으로 비용 절감 및 성능 개선'
+tags: ['AWS', 'CloudFront', 'CDN', 'Caching', 'SWR', 'Cloud']
 ---
 
 <br />

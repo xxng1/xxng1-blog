@@ -3,8 +3,8 @@ layout: post
 title: "[Data] Kafka와 Python을 통한 Data Migration"
 date: '2024-06-15'
 section: 'infra'
-# excerpt: ''
-# categories: ['Database/mongodb', 'Go']
+excerpt: 'Python 스크립트를 활용한 Kafka 기반 MySQL → MongoDB 데이터 마이그레이션'
+tags: ['Kafka', 'Python', 'MySQL', 'MongoDB', 'Data Migration']
 ---
 
 <br />

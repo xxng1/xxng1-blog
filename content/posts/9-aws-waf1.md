@@ -3,8 +3,8 @@ layout:       post
 title:        "[Cloud] 웹 공격 방어 ( feat. AWS )"
 date: '2024-08-15'
 section: 'infra'
-# excerpt: ''
-# categories: ['AWS', 'Database/mysql', 'Database/oracle']
+excerpt: 'AWS WAF를 활용한 웹 애플리케이션 보안 및 공격 방어 설정'
+tags: ['AWS', 'WAF', 'Security', 'Cloud']
 ---
 
 <br />

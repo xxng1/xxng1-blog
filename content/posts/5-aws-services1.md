@@ -3,10 +3,8 @@ layout:       post
 title:        "[Cloud] AWS Services(feat. network)"
 date: '2024-04-11'
 section: 'infra'
-# excerpt: 'AWS 네트워크 서비스 소개 및 활용 방법'
-# categories: ['AWS']
-
-# tags: ['AWS', 'Network', 'Cloud', 'Infrastructure']
+excerpt: 'AWS 네트워크 서비스 소개 및 활용 방법'
+tags: ['AWS', 'Network', 'Cloud', 'Infrastructure', 'ALB', 'NLB', 'GLB']
 ---
 
 

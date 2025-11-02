@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
-import Navigation from "@/components/layout/navigation";
+import HeaderNav from "@/components/layout/header-nav";
 
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 
@@ -60,19 +60,8 @@ export default function RootLayout({
     >
       xxng1
     </Link>
-    <nav className="flex items-center space-x-8">
-      <Link
-        href="/"
-        className="text-base font-medium text-muted hover:text-foreground transition-colors"
-      >
-        Home
-      </Link>
-      <Link
-        href="/about"
-        className="text-base font-medium text-muted hover:text-foreground transition-colors"
-      >
-        About
-      </Link>
+    <nav className="flex items-center space-x-6">
+      <HeaderNav />
     </nav>
   </div>
 </header>
@@ -81,9 +70,6 @@ export default function RootLayout({
 
 
           <main className="py-12">
-            <div className="sticky top-[88px] bg-background/80 backdrop-blur-sm z-10 border-b border-card-border mb-8 pb-6">
-              <Navigation />
-            </div>
             {children}
           </main>
           <footer className="py-8 border-t border-card-border text-sm text-muted-foreground">

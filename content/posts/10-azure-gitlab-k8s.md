@@ -3,9 +3,8 @@ layout:       post
 title:        "[DevOps] Kubernetes Executor 기반 GitLab Runner"
 date: '2025-05-12'
 section: 'infra'
-# excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
-# categories: ['AWS/Media']
-# tags: ['AWS', 'Media', 'Streaming', 'Cloud']
+excerpt: 'AKS(Azure Kubernetes Service)에서 GitLab Runner Kubernetes Executor 구성 및 CI Job Pod 동적 생성'
+tags: ['GitLab', 'Kubernetes', 'Azure', 'AKS', 'CI/CD', 'DevOps']
 ---
 
 <br />

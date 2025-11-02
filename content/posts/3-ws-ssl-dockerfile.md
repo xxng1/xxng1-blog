@@ -3,10 +3,9 @@ layout:       post
 title:        "[DevOps] WS에서의 직접 SSL 인증서 발급/적용"
 date: '2024-01-08'
 section: 'infra'
-# excerpt: ''
-# categories: ['Java/Spring', 'Database/mariadb']
+excerpt: 'Dockerfile을 통한 웹서버 SSL 인증서 발급 및 적용 방법'
+tags: ['Docker', 'SSL', 'Nginx', "Let's Encrypt", 'DevOps']
 ---
-(Docker-Compose❌) 
 
 Docker(Dockerfile)을 통한 웹서버에서의 직접 SSL인증서 적용 방법에 대한 가이드라인
 

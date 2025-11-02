@@ -3,8 +3,8 @@ layout:       post
 title:        "[DevOps] jenkins - CD ( feat. tomcat )"
 date: '2023-07-02'
 section: 'infra'
-# excerpt: ''
-# categories: ['Java/Tomcat']
+excerpt: 'Jenkins와 Tomcat을 활용한 자동 배포(CD) 파이프라인 구성 방법'
+tags: ['Jenkins', 'Tomcat', 'CI/CD', 'Docker']
 ---
 
 ## 서론

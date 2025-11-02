@@ -170,9 +170,9 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
   return (
     <>
       <TableOfContents content={content} />
-      <article className="prose prose-slate mx-auto max-w-4xl [&>*]:my-6">
+      <article className="prose prose-slate mx-auto max-w-3xl [&>*]:my-6">
         <header className="mb-12 not-prose">
-          <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+          <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm mb-8">
             <time className="text-sm text-muted-foreground">
               {new Date(date).toLocaleDateString("ko-KR", {
                 year: "numeric",
@@ -180,10 +180,10 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
                 day: "numeric",
               })}
             </time>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+            <h1 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-tight">
               {title}
             </h1>
-            <p className="mt-4 text-xl text-muted leading-relaxed">
+            <p className="mt-4 text-lg text-muted leading-relaxed">
               {excerpt}
             </p>
           </div>
@@ -203,7 +203,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             if (isInline) {
               return (
                 <code
-                  className="bg-slate-100 text-slate-700 font-mono text-sm px-2 py-1 rounded border border-slate-200"
+                  className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-sm px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
                   {...props}
                 >
                   {children}
@@ -212,7 +212,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             }
 
             return (
-              <code className={className} {...props}>
+              <code className={`${className} text-sm md:text-base leading-relaxed`} {...props}>
                 {children}
               </code>
             );
@@ -220,7 +220,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
 
           pre({ children, ...props }: any) {
             return (
-              <pre className="overflow-auto my-8 p-6 rounded-xl bg-gray-50 border border-gray-200 relative shadow-lg" {...props}>
+              <pre className="overflow-auto my-8 p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg" {...props}>
                 {children}
               </pre>
             );
@@ -229,32 +229,32 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           h1({ children, ...props }: any) {
             return (
               <div>
-                <h1 className="text-3xl font-bold mt-12 mb-4 text-foreground">{children}</h1>
-                <hr className="border-t border-card-border mb-6" />
+                <h1 className="text-3xl font-bold mt-16 mb-6 text-foreground leading-tight">{children}</h1>
+                <hr className="border-t border-card-border mb-8 mt-6" />
               </div>
             );
           },
           h2({ children, ...props }: any) {
-            return <h2 className="text-2xl font-bold mt-10 mb-4 text-foreground">{children}</h2>;
+            return <h2 className="text-2xl font-bold mt-12 mb-5 text-foreground leading-tight pt-2">{children}</h2>;
           },
           h3({ children, ...props }: any) {
-            return <h3 className="text-xl font-bold mt-8 mb-3 text-foreground">{children}</h3>;
+            return <h3 className="text-xl font-bold mt-10 mb-4 text-foreground leading-tight pt-1">{children}</h3>;
           },
           p({ children, ...props }: any) {
-            return <p className="my-6 leading-relaxed text-muted text-base">{children}</p>;
+            return <p className="my-7 leading-8 text-foreground text-base md:text-lg">{children}</p>;
           },
           ul({ children, ...props }: any) {
-            return <ul className="my-6 list-disc pl-6 space-y-2">{children}</ul>;
+            return <ul className="my-7 list-disc pl-7 space-y-3">{children}</ul>;
           },
           ol({ children, ...props }: any) {
-            return <ol className="my-6 list-decimal pl-6 space-y-2">{children}</ol>;
+            return <ol className="my-7 list-decimal pl-7 space-y-3">{children}</ol>;
           },
           li({ children, ...props }: any) {
-            return <li className="text-muted leading-relaxed">{children}</li>;
+            return <li className="text-foreground leading-7 text-base md:text-lg">{children}</li>;
           },
           blockquote({ children, ...props }: any) {
             return (
-              <blockquote className="border-l-4 border-accent pl-6 italic my-8 bg-accent/5 p-6 rounded-lg">
+              <blockquote className="border-l-4 border-accent pl-6 italic my-8 bg-accent/5 p-6 rounded-lg text-foreground leading-7">
                 {children}
               </blockquote>
             );

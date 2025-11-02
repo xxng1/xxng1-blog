@@ -3,8 +3,8 @@ layout:       post
 title:        "[Backend] SSE 방식을 이용한 알림 구현"
 date: '2024-06-15'
 section: 'dev'
-# excerpt: ''
-# categories: ['Java/Spring']
+excerpt: 'Server-Sent Events를 활용한 실시간 알림 구현 및 Nginx 설정'
+tags: ['SSE', 'Java', 'Spring', 'Backend', 'Real-time']
 ---
 
 <br />

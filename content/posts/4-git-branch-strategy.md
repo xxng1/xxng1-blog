@@ -3,8 +3,8 @@ layout:       post
 title:        "[Project] 우리 팀에서 사용한 Git Branch 전략"
 date: '2024-02-15'
 section: 'etc'
-# excerpt: ''
-# categories: ['Database/redis', 'Go']
+excerpt: 'Github 협업을 위한 Git Flow 전략 및 Branch 관리 방법'
+tags: ['Git', 'GitFlow', 'Collaboration', 'Github']
 ---
 
 > Github로 협업하는 과정에서 사용한 우리 팀의 Git-Branch 전략

@@ -3,9 +3,8 @@ layout:       post
 title:        "[DevOps] Gitlab Runner(Shell Executor)를 통한 Nginx의 Blue/Green 배포"
 date: '2025-08-13'
 section: 'infra'
-# excerpt: '클라우드 기반 미디어 스트리밍 서비스 구축 경험 공유'
-# categories: ['AWS/Media']
-# tags: ['AWS', 'Media', 'Streaming', 'Cloud']
+excerpt: 'GitLab CI를 활용한 Nginx Blue/Green 배포 자동화 구성'
+tags: ['GitLab', 'CI/CD', 'Nginx', 'Blue/Green', 'DevOps', 'Docker']
 ---
 
 <br />

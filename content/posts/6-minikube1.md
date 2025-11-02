@@ -1,9 +1,10 @@
 ---
+layout: post
 title: "[DevOps] minikube?"
 date: '2024-04-25'
 section: 'infra'
-# excerpt: ''
-# categories: ['Database/mysql', 'Go']
+excerpt: '로컬 환경에서 Kubernetes를 학습하기 위한 minikube 설치 및 사용법'
+tags: ['Kubernetes', 'minikube', 'DevOps', 'Container']
 ---
 
 ## minikube?
