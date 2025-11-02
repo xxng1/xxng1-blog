@@ -25,31 +25,19 @@ export default async function Home({ searchParams }: HomeProps) {
     <div className="space-y-8">
       {/* Hero Section with About Me Button */}
       <section className="space-y-6 text-left mb-12">
-        <div className="bg-gradient-to-r from-accent/10 to-accent-hover/10 rounded-2xl p-8 border border-accent/20">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-4xl font-bold text-foreground mb-2">hello woong! 👋</h2>
-              <p className="text-muted text-lg leading-relaxed">
-                Cloud Infrastructure & DevOps에 집중하는 개발자입니다
-              </p>
-            </div>
-            <Link
-              href="/about"
-              className="px-6 py-3 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors shadow-sm hover:shadow-md"
-            >
-              About Me
-            </Link>
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-4xl font-bold text-foreground mb-2">hello woong! 👋</h2>
+            <p className="text-muted text-lg leading-relaxed">
+              Cloud Infrastructure & DevOps에 집중하는 개발자입니다
+            </p>
           </div>
-          <div className="flex flex-wrap gap-3 mt-6">
-            {["AWS", "Kubernetes", "Docker", "CI/CD", "Terraform"].map((tech) => (
-              <span
-                key={tech}
-                className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium border border-accent/20"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+          <Link
+            href="/about"
+            className="px-6 py-3 bg-accent/10 text-accent rounded-lg font-medium border border-accent/20 hover:bg-accent/20 transition-colors"
+          >
+            About Me
+          </Link>
         </div>
       </section>
 

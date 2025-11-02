@@ -5,7 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import TableOfContents from '@/components/table-of-contents';
@@ -193,8 +192,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[
           rehypeRaw,
-          rehypeSlug,
-          [rehypeAutolinkHeadings, { behavior: 'wrap' }]
+          rehypeSlug
         ]}
         components={{
           code({ node, className, children, ...props }: any) {
@@ -220,7 +218,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
 
           pre({ children, ...props }: any) {
             return (
-              <pre className="overflow-auto my-8 p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg" {...props}>
+              <pre className="overflow-auto my-12 p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg" {...props}>
                 {children}
               </pre>
             );
@@ -254,7 +252,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           },
           blockquote({ children, ...props }: any) {
             return (
-              <blockquote className="border-l-4 border-accent pl-6 italic my-8 bg-accent/5 p-6 rounded-lg text-foreground leading-7">
+              <blockquote className="border-l border-card-border/60 pl-4 py-3 my-6 bg-card-background rounded text-foreground leading-relaxed text-base md:text-lg">
                 {children}
               </blockquote>
             );
@@ -265,7 +263,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
                 src={src || ""}
                 alt={alt || ""}
                 // className="w-[100%] h-[100%] object-cover rounded-lg block mx-auto my-8"
-                className="w-full h-auto object-contain rounded-lg block mx-auto my-6"
+                className="w-full h-auto object-contain rounded-lg block mx-auto my-12"
               />
             );
           },

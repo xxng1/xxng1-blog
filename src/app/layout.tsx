@@ -56,7 +56,7 @@ export default function RootLayout({
   <div className="flex items-center justify-between">
     <Link
       href="/"
-      className="text-2xl font-bold italic tracking-tight text-accent hover:text-accent-hover transition-colors"
+      className="text-2xl font-bold italic tracking-tight text-foreground hover:text-muted transition-colors"
     >
       xxng1
     </Link>

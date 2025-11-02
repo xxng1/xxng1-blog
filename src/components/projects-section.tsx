@@ -60,7 +60,10 @@ export default function ProjectsSection() {
     <>
       <section className="mb-12">
         <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-          <h2 className="text-3xl font-bold mb-6 text-foreground">Projects</h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl font-bold text-foreground">Projects</h2>
+            <span className="text-xs text-muted-foreground italic">* 클릭하면 상세보기할 수 있습니다</span>
+          </div>
           <div className="space-y-6">
             {projects.map((project, index) => (
               <div
@@ -69,14 +72,9 @@ export default function ProjectsSection() {
                 className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors cursor-pointer group"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
-                      {project.title}
-                    </h3>
-                    <span className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1">
-                      클릭하여 상세보기 →
-                    </span>
-                  </div>
+                  <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors flex-1">
+                    {project.title}
+                  </h3>
                   <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">
                     {project.badge}
                   </span>
