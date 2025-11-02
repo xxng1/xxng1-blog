@@ -7,17 +7,9 @@ excerpt: 'AKS(Azure Kubernetes Service)에서 GitLab Runner Kubernetes Executor 
 tags: ['GitLab', 'Kubernetes', 'Azure', 'AKS', 'CI/CD', 'DevOps']
 ---
 
-<br />
+GitLab Runner를 Kubernetes 클러스터에 통합하는 과정입니다.
 
-> Gitlab Runner 를 K8S 클러스터에 통합하는 과정
-
-<br /><br />
-
-AKS(Azure Kubernetes Service) 사용.
-
-CI Job 실행 시 Pod 동적 생성 확인.
-
-# ⚙️ Architecture
+## Architecture
 
 ```
 [GitLab (Self-hosted on Azure VM)]
@@ -27,21 +19,19 @@ CI Job 실행 시 Pod 동적 생성 확인.
 [Runner는 실행 중, GitLab과 연동]
 ```
 
-# 목차
+AKS(Azure Kubernetes Service)를 사용하며, CI Job 실행 시 Pod이 동적으로 생성되는 것을 확인합니다.
 
-1. 설치과정
+## 목차
 
+1. 설치 과정
 2. 테스트
-
 3. CI Job 실행할 때마다 Pod 생성 확인
 
+## 1. 설치 과정
 
+### GitLab 설치 (Azure VM, Omnibus CE)
 
-# 1. 설치과정
-
-## Install Gitlab on Azrue VM (Omnibus CE)
-
-Gitlab을 Self-managed로 구성.
+GitLab을 Self-managed로 구성합니다.
 
 ```bash
 az group create --name gitlab-rg --location koreacentral
@@ -57,10 +47,9 @@ az vm create \
   --os-disk-size-gb 64
 ```
 
-- Standard_B2ms (2 vCPU / 8GB RAM)
+- **Standard_B2ms** (2 vCPU / 8GB RAM): 2코어이지만 RAM이 8GB로 GitLab 테스트에 최소한 동작이 가능합니다.
 
-- B2ms는 2코어이지만 RAM이 8GB로 GitLab 테스트에 최소한 동작은 가능
-
+포트를 엽니다:
 
 ```bash
 az vm open-port --port 80 --resource-group gitlab-rg --name gitlab-vm
@@ -68,19 +57,22 @@ az vm open-port --port 443 --resource-group gitlab-rg --name gitlab-vm
 az vm open-port --port 22 --resource-group gitlab-rg --name gitlab-vm
 ```
 
-다른 group 과 충돌 문제 시 `priority` 지정
-`az vm open-port --port 443 --resource-group gitlab-rg --name gitlab-vm --priority 1100`
+> **참고**: 다른 group과 충돌 문제 시 `priority`를 지정합니다:
+> ```bash
+> az vm open-port --port 443 --resource-group gitlab-rg --name gitlab-vm --priority 1100
+> ```
 
-- http,https,ssh 허용
+HTTP, HTTPS, SSH가 허용됩니다.
 
+### SSH 접속
 
-## ssh 접속
-azure -> Networking -> Public IP address 확인
+Azure -> Networking -> Public IP address를 확인한 후:
+
 ```bash
 ssh azureuser@<Public_IP>
 ```
 
-## Gitlab CE 설치 (Omnibus)
+### GitLab CE 설치 (Omnibus)
 
 ```bash
 sudo apt update
@@ -93,28 +85,29 @@ curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.de
 sudo EXTERNAL_URL="http://<Public_IP>" apt install -y gitlab-ce
 ```
 
-설치 후,
+설치 완료 후:
 
 ```bash
 Thank you for installing GitLab!
 GitLab should be available at http://4.217.217.205
 ```
-- Gitlab Web Url 확인
+
+GitLab Web URL을 확인합니다.
+
+초기 비밀번호 확인:
 
 ```bash
-# 초기 비밀번호 검색
-azureuser@gitlab-vm:~$ sudo cat /etc/gitlab/initial_root_password  | grep Password:
+sudo cat /etc/gitlab/initial_root_password | grep Password:
 Password: ~~~~
 ```
 
+**프로젝트 이름**: `gitlab-aks`
 
-project name: gitlab-aks
+### AKS 구성
 
+AKS 클러스터를 생성합니다:
 
-
-## AKS 구성
-
-```
+```bash
 az group create --name gitlab-aks-rg --location koreacentral
 
 az aks create \
@@ -125,17 +118,18 @@ az aks create \
   --generate-ssh-keys
 
 az aks get-credentials --resource-group gitlab-aks-rg --name gitlab-aks-cluster
-
 ```
 
-- default: `Standard_DS2_v2` ( 2VCPU, 7GB )
+- **기본 VM 크기**: `Standard_DS2_v2` (2VCPU, 7GB)
 - 노드 2개 구성, kubeconfig 연결
 
 ![](https://velog.velcdn.com/images/xxng1/post/50510be6-823d-4b79-8efe-5c5d3762358c/image.png)
 
+### GitLab Runner 설치 (Kubernetes Executor)
+
+로컬에 Helm이 설치되어 있어야 합니다:
 
 ```bash
-# 로컬에 helm 설치 필수
 helm repo add gitlab https://charts.gitlab.io
 helm repo update
 kubectl create namespace gitlab-runner
@@ -149,19 +143,20 @@ helm install gitlab-runner gitlab/gitlab-runner \
   --set runners.executor=kubernetes \
   --set runners.namespace=gitlab-runner
 ```
-! RegistrationToken = gitlab-aks > CI/CD Settings > Runners
 
+> **RegistrationToken**: GitLab > 프로젝트 > Settings > CI/CD > Runners에서 확인
 
 ![](https://velog.velcdn.com/images/xxng1/post/1a370ad6-608b-45d6-af6d-cc77ee33918a/image.png)
 
-- Gitlab Runner connect
+GitLab Runner가 연결되었습니다.
 
-
-
-### 현재 상태 (설치과정 이후)
+### 설치 완료 확인
 
 ```bash
- $ kubectl get po -n gitlab-runner
+kubectl get po -n gitlab-runner
+```
+
+```
 NAME                             READY   STATUS    RESTARTS   AGE
 gitlab-runner-56776bcccb-gzm2b   1/1     Running   0          2m
 ```
@@ -169,11 +164,11 @@ gitlab-runner-56776bcccb-gzm2b   1/1     Running   0          2m
 
 
 
-# 2. 테스트
+## 2. 테스트
 
-.gitlab-ci.yml 테스트 파일
+`.gitlab-ci.yml` 테스트 파일을 작성합니다:
 
-```yml
+```yaml
 stages:
   - test
 
@@ -185,35 +180,30 @@ job-runner-test:
     - echo "✅ Runner 동작 확인 완료!"
 ```
 
-
+Runner 로그 확인:
 
 ```bash
- $ kubectl logs gitlab-runner-56776bcccb-gzm2b -n gitlab-runner
+kubectl logs gitlab-runner-56776bcccb-gzm2b -n gitlab-runner
+```
+
+```
 job-status=running ... sent-log=0-764 status=202 Accepted
 Job succeeded ...
 Submitting job to coordinator...ok ... code=200 job-status=success
 Removed job from processing list ...
-
-
 ```
 
-로그 메시지
+### 로그 메시지 설명
 
-- *job-status=running*: GitLab 서버로부터 CI Job을 받아 처리 중
+- **job-status=running**: GitLab 서버로부터 CI Job을 받아 처리 중
+- **sent-log=0-764**: Job의 출력 로그 일부를 GitLab으로 전송함
+- **Job succeeded**: 내부 스크립트가 정상적으로 성공 처리됨
+- **Submitting job to coordinator...ok**: 최종 결과를 GitLab 서버에 제출 완료
+- **Removed job from processing list**: Runner가 해당 Job을 완전히 마무리하고 대기 상태로 전환
 
-- *sent-log=0-764*: Job의 출력 로그 일부를 GitLab으로 전송함
+## 3. CI Job 실행할 때마다 Pod 생성 확인
 
-- *Job succeeded: Job*: 내부 스크립트가 정상적으로 성공 처리됨
-
-- *Submitting job to coordinator...ok*: 최종 결과를 GitLab 서버에 제출 완료
-
-- *Removed job from processing list*: Runner가 해당 Job을 완전히 마무리하고 대기 상태로 전환
-
-
-
-# 3. CI Job 실행할 때마다 Pod 생성 확인
-
-.gitlab-ci.yml 수정
+`.gitlab-ci.yml`을 수정합니다:
 
 ```yaml
 stages:
@@ -229,23 +219,29 @@ test-pod-creation:
     - sleep 15  # 잠깐 유지시켜서 kubectl로 볼 수 있도록
 ```
 
-### Pod 자동 생성
+### Pod 자동 생성 확인
+
+Watch 모드로 Pod 상태를 확인합니다:
 
 ```bash
-# -w 옵션으로 Watch 모드
-kubectl get pods -n gitlab-runner -w 
+kubectl get pods -n gitlab-runner -w
 ```
 
 ![](https://velog.velcdn.com/images/xxng1/post/752dbe80-cafd-469d-bdf3-2a88f6531635/image.png)
 
+**초기 상태**: Runner Pod만 실행 중
 
 ```bash
-# 초기상태, 커밋하면 kubernetes executor가 job 실행 시 Pod 동적 생성
 gitlab-runner-56776bcccb-gzm2b   1/1     Running   0          27m
+```
 
-# Runner가 Job 실행용 임시 Pod을 생성함.
+**커밋 후**: Kubernetes executor가 Job 실행 시 Pod을 동적으로 생성
+
+```
 runner-<runner-id>-project-<project-id>-concurrent-<n>-<rand>
 ```
+
+Runner가 Job 실행용 임시 Pod을 생성합니다.
 
 
 

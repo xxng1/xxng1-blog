@@ -27,9 +27,9 @@ export default async function Home({ searchParams }: HomeProps) {
       <section className="space-y-6 text-left mb-12">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-4xl font-bold text-foreground mb-2">hello woong! 👋</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-2">hello woong! 👋</h2>
             <p className="text-muted text-lg leading-relaxed">
-              Cloud Infrastructure & DevOps에 집중하는 개발자입니다
+              Focused on Cloud Infrastructure & DevOps
             </p>
           </div>
           {/* <Link

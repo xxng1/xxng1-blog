@@ -7,22 +7,22 @@ excerpt: 'Github 협업을 위한 Git Flow 전략 및 Branch 관리 방법'
 tags: ['Git', 'GitFlow', 'Collaboration', 'Github']
 ---
 
-> Github로 협업하는 과정에서 사용한 우리 팀의 Git-Branch 전략
+Github로 협업하는 과정에서 사용한 우리 팀의 Git-Branch 전략입니다.
 
-> https://github.com/DKT-Kwanza/dmarket-back
+> **프로젝트**: https://github.com/DKT-Kwanza/dmarket-back
 
-## Branch
-브랜치는 용도에 맞게 **master(main), develop, feature, release, hotfix** 브랜치를 분리해서 사용한다.
+## Branch 전략
 
-메인 브랜치: **master, develop**
-보조 브랜치: **feature, release, hotfix**
+브랜치는 용도에 맞게 **master(main), develop, feature, release, hotfix** 브랜치를 분리해서 사용합니다.
 
-개발기간이 1달 남짓되는 짧은 기간이었기 때문에, 99% develop, feature 브랜치를 사용했다.
+- **메인 브랜치**: `master`, `develop`
+- **보조 브랜치**: `feature`, `release`, `hotfix`
 
-먼저 사진으로 보면 다음과 같다.
+개발 기간이 1달 남짓되는 짧은 기간이었기 때문에, 99% `develop`, `feature` 브랜치를 사용했습니다.
+
 ![](https://velog.velcdn.com/images/woongaa1/post/76e9f57a-6ebf-489c-a066-d08650231ef9/image.png)
 
-Git Flow 전략을 사용했는데, 각 과정에 대해 자세히 알아보도록 하자.
+Git Flow 전략을 사용했으며, 각 과정에 대해 자세히 알아보겠습니다.
 
 
 ## 1. 이슈 생성
@@ -74,6 +74,7 @@ Labels: 작업의 특징에 대해 설정한다. ( Labels -> New Labels 로 새�
 
 
 ## 마치며
-이슈를 통한 간단한 Github Branch 전략을 정리해 보았다.
-Github Actions, Jira 등 협업 전략을 효율적으로 사용하는 많은 방법이 있지만,
-시간 관계상 빠르게 전략을 정해야 했기 때문에, 더 나은 방법에 대해서는 차차 알아가보도록 하려고 한다.
+
+이슈를 통한 간단한 Github Branch 전략을 정리해보았습니다.
+
+Github Actions, Jira 등 협업 전략을 효율적으로 사용하는 많은 방법이 있지만, 시간 관계상 빠르게 전략을 정해야 했기 때문에, 더 나은 방법에 대해서는 차차 알아가보도록 하려고 합니다.

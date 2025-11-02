@@ -7,56 +7,49 @@ excerpt: 'CloudFront에 Stale-While-Revalidate 패턴 적용으로 비용 절감
 tags: ['AWS', 'CloudFront', 'CDN', 'Caching', 'SWR', 'Cloud']
 ---
 
-<br />
+CloudFront에 SWR(Stale-While-Revalidate) Pattern을 적용하는 방법입니다.
 
-> CloudFront에 SWR Pattern 적용
+CloudFront의 기본 캐시 정책 때문에 S3 등으로 웹페이지를 배포했을 때, 수정사항이 생기면 일반적으로 무효화를 해줄 필요가 생깁니다.
 
-<br /><br />
-
-
-
-CloudFront의 기본 캐시 정책 때문에, S3 등으로 웹페이지를 배포했을때, 수정사항이 생기면 일반적으로 무효화를 해줄 필요가 생긴다.
-
-그런데, 무효화는 조건부 비용이 붙는다.
+그런데 무효화는 조건부 비용이 붙습니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/54c8e1cb-0ba5-4b83-a6e5-fda1787bcf88/image.png)
 
-그래서 SWR Pattern을 CloudFront에 적용하는 과정을 알아보려고 한다.
+그래서 SWR Pattern을 CloudFront에 적용하는 과정을 알아보겠습니다.
 
+## SWR Pattern이란?
 
-# ✅ SWR Pattern?
+SWR(Stale-While-Revalidate)는 사용자에게 빠른 응답을 제공하며, 백그라운드에서 최신 데이터를 검사하고 자동 갱신하는 캐시 옵션입니다.
 
-SWR(Stale-While-Revalidate)는 사용자에게 빠른 응답을 제공하며, 복구 방식으로 최신 데이터를 검사하고 자동 갱신하는 캐시 옵션이다.
+현재 사용 중인 파일이 존재하면, TTL(max-age) 기간이 지나도 웹서버는 stale 데이터를 여전히 보내고, 백그라운드에서 자동으로 조건부 요청 (If-Modified-Since / ETag)을 사용해 최신화합니다.
 
-현재 사용중인 파일이 존재하면, TTL(max-age) 기간이 지나도 웹서버는 stale 데이터를 여전히 보내고, 뒤장에서 자동으로 조건부 요청 (If-Modified-Since / ETag) 을 사용해 최신화한다.
+CloudFront에서 SWR을 적용하면, 사용자는 느리지 않고, 최신 데이터가 나오면 자동으로 업데이트를 받게 됩니다.
 
-CloudFront에서 SWR을 적용하면, 사용자는 느리지 않고, 최신 컴퓨터 데이터가 나오면 자동으로 업데이티를 받게 된다.
+SWR은 정상적인 Cache-Control 헤더 값 (예: `max-age=10, stale-while-revalidate=60`)과, CloudFront 캐시 정책에서 해당 헤더를 유효하게 하는 설정이 업데이트 조건이 됩니다.
 
-SWR은 정상적인 Cache-Control 헤더 값 (ex. max-age=10, stale-while-revalidate=60)과, CloudFront 캐시 정체에서 해당 헤더를 유효하게 하는 설정이 업데이티 조건이 된다.
+이를 통해 자동 최신화가 되는 모든 형태의 정적 캐시 구조를 구축할 수 있습니다.
 
-이를 통해 자동 최신화가 되는 모든 형태의 정적 캐시 구조를 구축할 수 있다.
+### 사용 기술
 
-### ✔️ 사용 기술
-- `React` - 웹페이지 생성
-- `AWS S3` - 웹페이지 배포용
-- `AWS CloudFront` - CDN 배포
-- `AWS CLI & GUI` - 버킷 업로드 & 정책 생성
+- **React** - 웹페이지 생성
+- **AWS S3** - 웹페이지 배포용
+- **AWS CloudFront** - CDN 배포
+- **AWS CLI & GUI** - 버킷 업로드 및 정책 생성
 
+### 웹페이지 구성
 
-### ✔️ 웹페이지 구성
+- React로 웹페이지 생성 및 빌드
+- S3 생성, 정책 생성, 정적 사이트 호스팅
+- CloudFront와 연결, 초기 Cache 정책은 Default
+- 빌드 파일 업로드
 
-- react로 웹페이지 생성, 빌드.
-- s3 생성, 정책 생성, 정적 사이트 호스팅.
-- CloudFront와 연결, 초기 Cache 정책은 Default.
-- 빌드파일 업로드
+```bash
+aws s3 sync build/ s3://<bucket-name> --acl public-read
+```
 
-`aws s3 sync build/ s3://<bucket-name> --acl public-read`
+빌드 파일을 새로 업로드해도 S3의 웹사이트에만 반영이 될 뿐 CloudFront에는 변화가 없습니다. 기본적으로 캐싱을 하기 때문입니다.
 
-
-빌드파일을 새로 업로드해도, s3의 웹사이트에만 반영이 될 뿐 CloudFront에는 변화가 없다. 기본적으로 캐싱을 하기 때문.
-
-
-이제는 `Cache-control` 헤더를 포함해서 업로드를 해서 테스트한다. 캐시 헤더 변경이 필요하기때문에, `cp` 명령어를 사용한다.
+이제 `Cache-Control` 헤더를 포함해서 업로드를 해서 테스트합니다. 캐시 헤더 변경이 필요하기 때문에 `cp` 명령어를 사용합니다.
 
 
 | 항목       | `sync`                              | `cp --recursive`    |

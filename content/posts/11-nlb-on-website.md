@@ -47,21 +47,19 @@ tags: ['AWS', 'NLB', 'Load Balancer', 'Cloud', 'Infrastructure']
 
 # 1. 현재 상태
 
-⬇️ 3개의 VM이 있으며,
+3개의 VM이 있고:
 
 ![](https://velog.velcdn.com/images/xxng1/post/a625504d-c44c-4a57-ba69-bcce35170229/image.png)
 
-⬇️ 1개의 NLB(Network Load Balancer)가 있고,
+1개의 NLB(Network Load Balancer)가 있고:
 
 ![](https://velog.velcdn.com/images/xxng1/post/47284d13-e672-47f8-8529-a4cada8828d1/image.png)
 
-⬇️ 이 NLB에서 3개의 VM을 호스팅한다.
+이 NLB에서 3개의 VM을 호스팅합니다:
 
 ![](https://velog.velcdn.com/images/xxng1/post/60786f93-7c19-44d2-b873-37a8abaae66c/image.png)
 
-
-
-### 사용한 terraform 파일 (main.tf)
+### 사용한 Terraform 파일 (main.tf)
 ```hcl
 # provider "azurerm" {
 #   features {}
@@ -235,33 +233,35 @@ output "lb_public_ip" {
 ```
 
 
-# 2. Curl 테스트
+## 2. Curl 테스트
+
 ![](https://velog.velcdn.com/images/xxng1/post/1f615888-86f9-404a-ad0b-206df1cd93ed/image.png)
 
-public ip에 Curl로 요청을 보내본다.
+Public IP에 Curl로 요청을 보냅니다:
 
 ![](https://velog.velcdn.com/images/xxng1/post/d0690776-259f-4de9-9c77-ac4a630073f9/image.png)
 
-VM2 -> VM1 -> VM0 -> VM2 ... 순서대로 작동하는데? *seq* 명령어로 다시 요청을 보내봤다.
+VM2 → VM1 → VM0 → VM2 ... 순서대로 작동하는 것처럼 보입니다.
+
+`seq` 명령어로 다시 요청을 보냅니다:
 
 ![](https://velog.velcdn.com/images/xxng1/post/b289264b-3ca3-4a87-b821-5c54643a1500/image.png)
 
-100번씩 요청을 보내면, VM2 -> VM1 -> VM0 순서대로 34번씩 (33+33+34=100) 요청을 받는다.
+100번씩 요청을 보내면, VM2 → VM1 → VM0 순서대로 34번씩 (33+33+34=100) 요청을 받습니다.
 
+그렇다면 Azure NLB는 RR(Round-Robin) 방식일까요?
 
-그렇다면 Azure NLB는 RR(Round-Robin) 방식일까?
+### ❌ Azure NLB는 Round-Robin 방식이 아니다
 
-## ❌ Azure NLB는 Round-Robin 방식이 아니다.
+아래 조건을 만족할 경우 Round-Robin처럼 보일 수 있습니다:
 
-아래 조건을 만족할 경우 Round-Robin처럼 보일 수 있다.
-- **☑️ curl 요청의 Source Port가 매번 다르게 랜덤으로 바뀌는 경우**
+- **curl 요청의 Source Port가 매번 다르게 랜덤으로 바뀌는 경우**
 - curl을 여러 번 실행할 때 매번 새로운 TCP 커넥션을 생성하는 경우
 - Destination은 동일 (4.218.19.35:80), Protocol은 TCP, Source IP는 동일
 
-결국 5-튜플 중 source port만 계속 바뀌면, 해시 결과도 달라져서 VM2 → VM1 → VM0 처럼 Round-Robin 효과가 나는 것처럼 보이는 것이다.
+결국 5-tuple 중 source port만 계속 바뀌면, 해시 결과도 달라져서 VM2 → VM1 → VM0처럼 Round-Robin 효과가 나는 것처럼 보입니다.
 
-
-### 📷 $ tcpdump 실행 후 Curl
+### tcpdump 실행 후 Curl
 
 **VM 1 호출**
 ![](https://velog.velcdn.com/images/xxng1/post/0e46913d-7403-4779-99ab-a0684d4f1c08/image.png)
@@ -279,11 +279,9 @@ VM2 -> VM1 -> VM0 -> VM2 ... 순서대로 작동하는데? *seq* 명령어로 �
 이 때문에 5-tuple Hash 결과가 계속 달라지고, Azure NLB가 다른 백엔드 VM으로 요청을 보내는 것이다.
 
 
----
+## 3. NLB 성능 테스트
 
-# 3. NLB 성능테스트
-
-*K6* 으로 부하테스트 실행
+**K6**으로 부하 테스트를 실행합니다.
 
 ### nlb-test.js (k6)
 ```js
@@ -453,10 +451,13 @@ default ✓ [======================================] 100 VUs  1m0s
 
 
 
-## 3. Stress Test
+### Stress Test
 
-*10000명 사용자*, *10초* 수행
+10,000명 사용자, 10초 수행:
+
 ```bash
+k6 run nlb-test.js
+```
 █ TOTAL RESULTS
 
     checks_total.......................: 55964  1396.780297/s
@@ -512,16 +513,12 @@ default ✓ [======================================] 10000 VUs  10s
 
 ### ⬆️ 스트레스 테스트에는 버티지 못하는 모습
 
+## 4. 결론
 
+Azure NLB는 L4 기반의 로드 밸런서로 웹사이트 구축에는 제한적인 기능만 제공하지만, 단순한 정적 웹 페이지나 고성능이 필요한 서비스에서는 꽤 우수한 성능을 발휘합니다.
 
----
+실제 테스트에서도 평균 **10ms** 내외의 빠른 응답 속도와 **100% 성공률**을 기록하며 안정적인 트래픽 처리를 보였습니다.
 
-# 4. 결론
+하지만 **URL 라우팅**, **SSL 종단 처리**, **세션 유지**와 같은 고급 기능이 필요한 경우에는 **ALB** 사용이 일반적으로 더 적절합니다.
 
-Azure NLB는 L4 기반의 로드 밸런서로 웹사이트 구축에는 제한적인 기능만 제공하지만,
-
-단순한 정적 웹 페이지나 고성능이 필요한 서비스에서는 꽤 우수한 성능을 발휘한다. 실제 테스트에서도 평균 *10ms* 내외의 빠른 응답 속도와 *100% 성공률*을 기록하며 안정적인 트래픽 처리를 보였다.
-
-하지만 *URL 라우팅*, *SSL 종단 처리*, *세션 유지*와 같은 고급 기능이 필요한 경우에는 *ALB* 사용이 일반적으로 더 적절하다.
-
-다만, 극단적으로 높은 동시 접속(예: 10,000 VUs)에서는 응답 지연과 실패가 발생하며, 이는 백엔드 VM 수의 증가, 커넥션 처리 설정, 그리고 인프라 확장이 필요하다는 점을 보여준다.
+다만, 극단적으로 높은 동시 접속(예: 10,000 VUs)에서는 응답 지연과 실패가 발생하며, 이는 백엔드 VM 수의 증가, 커넥션 처리 설정, 그리고 인프라 확장이 필요하다는 점을 보여줍니다.

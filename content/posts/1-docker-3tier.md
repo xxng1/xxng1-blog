@@ -11,33 +11,44 @@ tags: ['Docker', 'Database', 'MariaDB', 'WAS', 'Tomcat']
 
 ### WS - WAS - DB 연결 - (3) WAS - DB Connecting
 
-기본적으로 도커 컨테이너를 실행시키고, 도커 컨테이너 쉘 bash로 작업한다.
+기본적으로 도커 컨테이너를 실행시키고, 도커 컨테이너 쉘 bash로 작업합니다.
 
-- **WAS(Tomcat) - DB(MariaDB) 연결**
-    - MariaDB 테스트테이블 생성
-        - 데이터베이스 이름: mydb
-        - 테이블 이름: users
-        - 테이블 칼럼: id, username, email
-    - 연결을 위한 JDBC(자바 프로그램이 데이터베이스와 연결되어 데이터를 주고 받을 수 있게 해주는 프로그래밍 인터페이스) 설치
-        - 다운로드 명령어
-        
-        ```docker
-        wget https://dlm.mariadb.com/2896635/Connectors/java/connector-java-2.7.9/mariadb-java-client-2.7.9.jar
-        ```
-        
-        - 설치 경로: tomcat/lib
-        예시) root@3a324624253c:/usr/local/tomcat/lib#
-        * 기본적으로 Docker 컨테이너에서는 관리자 권한이 없기 때문에 타 디렉터리에서 설치 후 cp명령 혹은 mv명령어로 이동을 시도할 수 없으므로 Dockerfile 수정을 이용해야 하는데, 번거로우므로 경로에 이동 후 설치하는 과정을 가졌다.
-    - MariaDB 주소 확인
-        - 주소 확인 명령어
-            
-            ```docker
-            docker inspect mariadb
-            ```
-            
-            **"IPAddress": "172.17.0.2",** 부분에서 ip를 확인한다.
-            
-    - Tomcat서버에서 받아오기위한 시작페이지를 수정한다.
+#### WAS(Tomcat) - DB(MariaDB) 연결
+
+**1. MariaDB 테스트 테이블 생성**
+
+- 데이터베이스 이름: `mydb`
+- 테이블 이름: `users`
+- 테이블 칼럼: `id`, `username`, `email`
+
+**2. JDBC 드라이버 설치**
+
+JDBC는 자바 프로그램이 데이터베이스와 연결되어 데이터를 주고 받을 수 있게 해주는 프로그래밍 인터페이스입니다.
+
+다운로드 명령어:
+
+```docker
+wget https://dlm.mariadb.com/2896635/Connectors/java/connector-java-2.7.9/mariadb-java-client-2.7.9.jar
+```
+
+설치 경로: `tomcat/lib`
+예시: `root@3a324624253c:/usr/local/tomcat/lib#`
+
+> **참고**: Docker 컨테이너에서는 관리자 권한이 없기 때문에 타 디렉터리에서 설치 후 `cp` 또는 `mv` 명령어로 이동을 시도할 수 없으므로 Dockerfile 수정을 이용해야 합니다. 하지만 번거로우므로 경로에 이동 후 설치하는 과정을 따릅니다.
+
+**3. MariaDB 주소 확인**
+
+MariaDB 컨테이너의 IP 주소를 확인합니다:
+
+```docker
+docker inspect mariadb
+```
+
+출력 결과에서 `"IPAddress": "172.17.0.2"` 부분의 IP를 확인합니다.
+
+**4. Tomcat 서버 시작 페이지 수정**
+
+Tomcat 서버에서 데이터베이스 데이터를 받아오기 위한 JSP 페이지를 작성합니다.
         
         ```jsp
         <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
@@ -106,8 +117,12 @@ tags: ['Docker', 'Database', 'MariaDB', 'WAS', 'Tomcat']
         </body>
         </html>
         ```
-        
-    - localhost:8080으로 접속해서 확인한다.
-    
-    ## 실행화면
+
+`jdbc:mysql://172.17.0.2:3306/mydb`는 `docker inspect` 명령어를 통해 확인한 MariaDB 주소를 사용합니다.
+
+**5. 결과 확인**
+
+`localhost:8080`으로 접속하여 데이터베이스 연결 및 데이터 조회를 확인합니다.
+
+## 실행 화면
     ![image](https://github.com/xxng1/xxng1.github.io/assets/114065532/7fc54232-2e42-4508-9914-831115068cfb)

@@ -227,16 +227,25 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           h1({ children, ...props }: any) {
             return (
               <div>
-                <h1 className="text-3xl font-bold mt-16 mb-6 text-foreground leading-tight">{children}</h1>
+                <h1 {...props} className="text-3xl font-bold mt-16 mb-6 text-foreground leading-tight">{children}</h1>
                 <hr className="border-t border-card-border mb-8 mt-6" />
               </div>
             );
           },
           h2({ children, ...props }: any) {
-            return <h2 className="text-2xl font-bold mt-12 mb-5 text-foreground leading-tight pt-2">{children}</h2>;
+            return <h2 {...props} className="text-2xl font-bold mt-12 mb-5 text-foreground leading-tight pt-2">{children}</h2>;
           },
           h3({ children, ...props }: any) {
-            return <h3 className="text-xl font-bold mt-10 mb-4 text-foreground leading-tight pt-1">{children}</h3>;
+            return <h3 {...props} className="text-xl font-bold mt-10 mb-4 text-foreground leading-tight pt-1">{children}</h3>;
+          },
+          h4({ children, ...props }: any) {
+            return <h4 {...props} className="text-lg font-bold mt-8 mb-3 text-foreground leading-tight">{children}</h4>;
+          },
+          h5({ children, ...props }: any) {
+            return <h5 {...props} className="text-base font-bold mt-6 mb-2 text-foreground leading-tight">{children}</h5>;
+          },
+          h6({ children, ...props }: any) {
+            return <h6 {...props} className="text-sm font-bold mt-4 mb-2 text-foreground leading-tight">{children}</h6>;
           },
           p({ children, ...props }: any) {
             return <p className="my-7 leading-8 text-foreground text-base md:text-lg">{children}</p>;

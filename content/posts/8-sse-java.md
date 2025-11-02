@@ -7,48 +7,54 @@ excerpt: 'Server-Sent Events를 활용한 실시간 알림 구현 및 Nginx 설�
 tags: ['SSE', 'Java', 'Spring', 'Backend', 'Real-time']
 ---
 
-<br />
-
-> 프로젝트에서 사용했던 SSE 방식에 대해
-
-<br /><br />
+프로젝트에서 사용했던 SSE 방식에 대해 정리합니다.
 
 ## 개요
-알림 구현에는 크게 4가지 방식이 있다.
 
-### 폴링(Polling)
+알림 구현에는 크게 4가지 방식이 있습니다.
+
+### 1. 폴링 (Polling)
+
 - 일정 시간마다 Client에서 Server로 요청을 보내고 응답을 받는 방식
 - 응답해줄 데이터가 없어도 응답을 받음
 - 지속적으로 request를 날림으로써 비용 부담 및 서버에 부하를 줄 수 있음
+
 ![](https://velog.velcdn.com/images/woongaa1/post/119c4231-3077-4528-8e7c-4b83ce622220/image.png)
 
-### 롱 폴링(Long Polling)
-- 긴 connection을 열어두고, 이벤트가 발생했을때 Request를 보냄
-- 응답해줄 데이터가 없으면 데이터가 생길때까지 기다림
+### 2. 롱 폴링 (Long Polling)
+
+- 긴 connection을 열어두고, 이벤트가 발생했을 때 Request를 보냄
+- 응답해줄 데이터가 없으면 데이터가 생길 때까지 기다림
 - connection 간격이 좁으면 Polling 방식과 큰 차이가 없음
+
 ![](https://velog.velcdn.com/images/woongaa1/post/81491857-b22f-41a5-9be3-6e6109891178/image.png)
 
-### 웹소켓(WebSocket)
+### 3. 웹소켓 (WebSocket)
+
 - 양방향 통신으로써 Client, Server 간 Handshaking 방식으로 접속 후 통신
 - 연결 후 계속 connection을 유지하므로 불필요한 비용 발생할 수 있음
+
 ![](https://velog.velcdn.com/images/woongaa1/post/79f24b0b-b0bb-4246-9d98-a559bd8bc111/image.png)
-### SSE(Server-Sent-Events)
+
+### 4. SSE (Server-Sent Events)
+
 - Client가 Server에 구독 요청을 보내면, Server에서 이벤트가 발생할 때마다 Response를 보냄
 - Server에서 Client로만 이벤트를 보내는 단방향 통신
 
 ![](https://velog.velcdn.com/images/woongaa1/post/d200c868-0596-4913-8f15-c636e05c83c5/image.png)
 
-우리는 사용자 알림에 대해서 기능을 구현할 예정이었기 때문에, SSE 방식을 통해서 알림을 구현하기로 했다.
+우리는 사용자 알림에 대해서 기능을 구현할 예정이었기 때문에, SSE 방식을 통해서 알림을 구현하기로 했습니다.
 
 ## 구현
-* `Emitter`란?
-SseEmitter 라는 SSE 통신을 위한 구현체를 제공받기 위해 사용
 
-* `React(Client)`에서 SSE응답을 받기 위한 방법
-token을 사용하지 않을 때: `EventSource`
-token을 사용할 때: `EventSourcePolyfill`
+### 주요 개념
 
-우리는 사용자 인증/인가를 JWT를 사용하여 구현하였기 때문에 `EventSourcePolyfill`을 사용하게 되었다.
+- **Emitter**: `SseEmitter`라는 SSE 통신을 위한 구현체를 제공받기 위해 사용
+- **React(Client)에서 SSE 응답을 받기 위한 방법**:
+  - token을 사용하지 않을 때: `EventSource`
+  - token을 사용할 때: `EventSourcePolyfill`
+
+우리는 사용자 인증/인가를 JWT를 사용하여 구현하였기 때문에 `EventSourcePolyfill`을 사용하게 되었습니다.
 
 ### 1. SseEmitters 클래스
 ```java
@@ -80,7 +86,8 @@ public class SseEmitters {
 
 
 ```
-- 이벤트를 관리하는 SseEmitter, ConcurrentHashMap을 통해서 여러 스레드에서 동시에 접근해도 데이터를 처리할 수 있도록 함
+
+이벤트를 관리하는 `SseEmitter`, `ConcurrentHashMap`을 통해서 여러 스레드에서 동시에 접근해도 데이터를 처리할 수 있도록 합니다.
 
 ### 2. NotificationController 클래스
 ```java
@@ -110,9 +117,10 @@ public class NotificationController {
 
 
 ```
-- 클라이언트 Header에 알림 모달이 위치해있고, 유저가 로그인해서 메인페이지에 접속하게 되면 Header를 통해서 `/api/notification/subscribe/{userId}`에 구독 요청을 보낸다.
-- 알림에는 아이디가 존재하는데, 통신 간에 누락 된 알림을 테스트하기 위해 lastEventId를 사용했다.
-- MediaType.TEXT_EVENT_STREAM_VALUE는 SSE를 지원하는 텍스트 형식을 나타낸다.
+
+- 클라이언트 Header에 알림 모달이 위치해있고, 유저가 로그인해서 메인 페이지에 접속하게 되면 Header를 통해서 `/api/notification/subscribe/{userId}`에 구독 요청을 보냅니다.
+- 알림에는 아이디가 존재하는데, 통신 간에 누락된 알림을 테스트하기 위해 `lastEventId`를 사용했습니다.
+- `MediaType.TEXT_EVENT_STREAM_VALUE`는 SSE를 지원하는 텍스트 형식을 나타냅니다.
 
 ### 3. NotificationService 클래스
 ```java
@@ -208,12 +216,12 @@ public class NotificationService {
     }
 
 ```
-- 구독 요청이 들어왔을 때, 새로운 Emitter를 생성하고 더미 데이터를 보낸다. 기존 연결이 있다면 제거하고 새로운 Emitter를 생성한다.
 
+구독 요청이 들어왔을 때, 새로운 Emitter를 생성하고 더미 데이터를 보냅니다. 기존 연결이 있다면 제거하고 새로운 Emitter를 생성합니다.
 
-추가적으로, 읽지 않은 알림 및 전체 알림 조회/삭제 기능을 위해서 알림에 대한 Entity와 Repository를 생성해줬다.
+> **참고**: 추가적으로 읽지 않은 알림 및 전체 알림 조회/삭제 기능을 위해서 알림에 대한 Entity와 Repository를 생성했습니다.
 
-### (+) 클라이언트에서 구독 요청 & 응답 읽기
+### 클라이언트에서 구독 요청 및 응답 읽기
 ```java
 	// sse 연결 선언
     useEffect(() => {
@@ -259,15 +267,21 @@ public class NotificationService {
         });
 	}
 ```
-연결 이펙트에 대한 함수를 선언하고, Server에서 보내는 알림에 대해 setNotifications useState에 인자로 넣어준다.
+
+연결 이펙트에 대한 함수를 선언하고, Server에서 보내는 알림에 대해 `setNotifications` useState에 인자로 넣어줍니다.
 
 ## Trouble Shooting
-- 프로젝트에서 WebServer로 nginx를 사용했는데, nginx는 WAS로 HTTP/1.0을 사용하고 ***Connection: close*** 헤더를 사용하기 때문에 지속적으로 연결이 안돼서 SSE가 작동하지 않는다.
-이에 대한 설정으로 nginx.conf에 추가해준다.
-```yaml
+
+### Nginx 설정
+
+프로젝트에서 WebServer로 nginx를 사용했는데, nginx는 WAS로 HTTP/1.0을 사용하고 `Connection: close` 헤더를 사용하기 때문에 지속적으로 연결이 안 돼서 SSE가 작동하지 않습니다.
+
+이에 대한 설정으로 `nginx.conf`에 다음을 추가합니다:
+```nginx
 proxy_set_header Connection '';
 proxy_http_version 1.1;
 ```
 
+### JPA 설정
 
-- open-in-view를 false로 설정하여 요청이 트랜잭션이 처리되는 동안에만 데이터베이스 연결을 열어준다.
+`open-in-view`를 `false`로 설정하여 요청이 트랜잭션이 처리되는 동안에만 데이터베이스 연결을 열어줍니다.

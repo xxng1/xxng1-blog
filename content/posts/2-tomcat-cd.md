@@ -8,24 +8,29 @@ tags: ['Jenkins', 'Tomcat', 'CI/CD', 'Docker']
 ---
 
 ## 서론
-- 현재 상황
-    - 실습자료에서의 CI(지속적 통합) 구축은 완료한 상태이다
-    - VM은 2개 있는 상황에서, 1개(was)를 추가 생성하였다.
+
+**현재 상황**
+- 실습자료에서의 CI(지속적 통합) 구축은 완료한 상태
+- VM은 2개 있는 상황에서, 1개(was)를 추가 생성
 
 ## 시스템 구현 과정
 
-CD를 구현하려면, was 서버 및 Jenkins와의 연동이 필요했다.
+CD를 구현하려면 WAS 서버 및 Jenkins와의 연동이 필요합니다.
 
-그러므로 먼저 VM에서 docker 컨테이너로의 tomcat을 실행시켜주었다.
+### 1. Tomcat 컨테이너 실행
+
+VM에서 Docker 컨테이너로 Tomcat을 실행합니다:
 
 ```bash
 docker pull tomcat
-docker run -d -i -t --restart=always --name was_tomcat 
--p 8080:8080 tomcat
+docker run -d -i -t --restart=always --name was_tomcat -p 8080:8080 tomcat
 ```
 
-Tomcat 내에는 배포된 프로젝트를 관리할 수 있는 페이지가 있는데, 이를 확인함과 동시에 Jenkins의 Credentials설정에서 ID와 PASSWD가 필요하므로 이를 설정해주도록 한다.
-우선 컨테이너 셸에 이동해서, 루트 url에서의 404 오류를 먼저 없애주었다.
+### 2. Tomcat 초기 설정
+
+Tomcat 내에는 배포된 프로젝트를 관리할 수 있는 Manager 페이지가 있습니다. Jenkins의 Credentials 설정에서 ID와 PASSWORD가 필요하므로 이를 설정합니다.
+
+먼저 컨테이너 셸에 이동하여 루트 URL에서의 404 오류를 해결합니다:
 
 ```shell
 docker exec -it was_tomcat /bin/bash
@@ -33,13 +38,15 @@ mv webapps webapps2
 mv webapps.dist/ webapps
 ```
 
-후에는 “http://172.16.212.32:8080/manager/html/”(관리자 페이지)에 접속하기 위한 설정을 해주었다. 
+### 3. Tomcat Manager 접근 설정
 
-**(ID, PASSWORD 및 권한 설정)**
+`http://172.16.212.32:8080/manager/html/`(관리자 페이지)에 접속하기 위한 설정을 진행합니다.
 
-`/usr/local/tomcat/conf/tomcat-users.xml` 에 추가
+#### ID, PASSWORD 및 권한 설정
 
-```jsp
+`/usr/local/tomcat/conf/tomcat-users.xml`에 다음 내용을 추가합니다:
+
+```xml
 <role rolename="admin"/>
 <role rolename="admin-gui"/>
 <role rolename="admin-script"/>
@@ -51,11 +58,11 @@ mv webapps.dist/ webapps
 <user username="admin" password="admin" roles="admin,manager,admin-gui,admin-script,manager-gui,manager-script,manager-jmx,manager-status" />
 ```
 
-**(내부 로컬에서만 접근이 가능하도록 하는 부분을 주석처리)**
+#### 내부 로컬에서만 접근 가능하도록 하는 부분 주석처리
 
-`webapps/manager/META-INF/context.xml and /webapps/host-manager/META-INF/context.xml` 에 처리
+`webapps/manager/META-INF/context.xml`과 `webapps/host-manager/META-INF/context.xml`에서 다음 부분을 주석처리합니다:
 
-```jsp
+```xml
 <Context antiResourceLocking="false" privileged="true" >
   <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
                    sameSiteCookies="strict" />
@@ -66,48 +73,52 @@ mv webapps.dist/ webapps
 </Context>
 ```
 
-후에 접속하여 로그인한다.
+설정 완료 후 `http://172.16.212.32:8080/manager/html/`에 접속하여 로그인합니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/4e022a98-8785-4080-8b25-313941362608/image.png)
 
-설정한 id, password로 로그인한다.
+설정한 ID, PASSWORD로 로그인합니다.
 
-후에는 GitLab과 연결해놓았던 Jenkins Item 설정을 할 수 있도록 했다.
+### 4. Jenkins Item 설정
 
-우선 나는 SpringBoot(Gradle) Project를 GitLab에 Push할 예정이므로 “**Add built step**”에서 **“Invoke Gradle script”** 를 추가했다. 후에 Use Gradle Wrapper, Make Gradlew executable을 설정했다.
+GitLab과 연결해놓았던 Jenkins Item 설정을 진행합니다.
 
- 
+#### Build 단계 설정
+
+SpringBoot(Gradle) Project를 GitLab에 Push할 예정이므로 "Add build step"에서 **"Invoke Gradle script"**를 추가합니다.
+
+- Use Gradle Wrapper: 체크
+- Make Gradlew executable: 체크
 
 ![](https://velog.velcdn.com/images/xxng1/post/878b1e79-7728-45ed-9c04-e7a64d3bc7eb/image.png)
 
+#### Deploy 단계 설정
 
-후에는 “**Deploy war/ear to a container**” 설정을 했다.
-
-SpringBoot로 war파일을 빌드해서 /demo로 베포한다는 내용 및,
-
-Tomcat 8버전 Container 연결을 위한 Credentials도 추가해주었다( ID, PASSWORD 는 `tomcat-users.xml` 에서 설정한 값 )
+"Deploy war/ear to a container" 설정을 추가합니다:
+- SpringBoot로 war 파일을 빌드하여 `/demo`로 배포
+- Tomcat 8 버전 Container 연결을 위한 Credentials 추가 (ID, PASSWORD는 `tomcat-users.xml`에서 설정한 값 사용)
 
 ![](https://velog.velcdn.com/images/xxng1/post/ce7cf08d-73f8-4749-b9f9-fcc0db009c0e/image.png)
 
-후에는 GitLab에 파일을 Push하여 빌드/베포가 되는지 확인한다.
+> **참고**: `**/*.war`는 Jenkins에서 빌드된 war 파일을 가져오는 경로입니다.
 
-`**/*.war` 는 젠킨스에서 빌드된 war 파일을 가지고 온다.
+### 5. SpringBoot 프로젝트 설정
 
-springboot 의 **build.gradle** 파일에 밑의 내용을 추가한다.
+SpringBoot의 `build.gradle` 파일에 다음 내용을 추가합니다:
 
-```
-bootWar{
+```gradle
+bootWar {
     archiveBaseName = "test7-api"
     archiveFileName = "test7-api.war"
     archiveVersion = "0.0.0"
 }
 ```
 
-### 후에 **gradle > tasks > build > bootWar**을 실행하면 ( = **./gradlew bootWar** 명령어 실행)
+**gradle > tasks > build > bootWar**을 실행하면 (`./gradlew bootWar` 명령어 실행)
 
-war파일이 생성되는 디렉토리( /build/libs )에 test7-api.war 라는 이름의 war파일이 생성된다.
+`/build/libs` 디렉토리에 `test7-api.war` 파일이 생성됩니다.
 
-루트 디렉토리에서 간단하게 테스트하기위해 TestApplication.java 파일에 밑의 내용을 추가시켜줬다.
+루트 디렉토리에서 간단하게 테스트하기 위해 `TestApplication.java` 파일에 다음 내용을 추가합니다:
 
 ```java
 @SpringBootApplication
@@ -125,27 +136,28 @@ public class TestApplication {
 }
 ```
 
-변경사항 저장 후 gitLab에 push 하면
+### 6. 배포 테스트
 
-![](https://velog.velcdn.com/images/xxng1/post/bbdd35be-9c57-4a03-b873-b82c8d10a7a2/image.png
+변경사항 저장 후 GitLab에 Push하면:
 
-실습해서 구현한 CI를 Jenkins 에서 CD할 준비를 하는 것을 볼 수 있다.
+![](https://velog.velcdn.com/images/xxng1/post/bbdd35be-9c57-4a03-b873-b82c8d10a7a2/image.png)
 
-후에 완료가 되면, http://172.16.212.32:8080/manager/html/ 파일에서
+실습해서 구현한 CI를 Jenkins에서 CD할 준비를 하는 것을 볼 수 있습니다.
 
-“**Deploy war/ear to a container**”에서의 “**Context path**”에서 작성했던 /demo 경로가 추가되어 있는것을 볼 수 있다
+배포 완료 후 `http://172.16.212.32:8080/manager/html/`에서 "Deploy war/ear to a container"의 "Context path"에 작성했던 `/demo` 경로가 추가되어 있는 것을 확인할 수 있습니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/b7f206f7-de31-46cc-b675-8098110d9a65/image.png)
 
-## 결론
+`http://172.16.212.32:8080/demo` 경로로 접속하면 SpringBoot Application에서 설정한 내용을 확인할 수 있습니다.
 
-- **구축결과**
-    - 해당 /demo 경로로 접속해보면 SpringBoot Application 파일에서 경로설정했던 내용을 볼 수 있다.
-        
-        ![](https://velog.velcdn.com/images/xxng1/post/5fc40d7c-000d-42f3-ab77-812e998beb49/image.png)
-        
-- **Trouble Shooting**
-    - .gitignore
-        - SpringBoot 프로젝트에서 빌드된 war 파일을 가져오기 위해서 build 디렉토리가 gitLab에 push되길 원했는데, 되지 않아서 방법을 찾던 중 .gitignore파일에서 build 내용을 삭제해주었더니 build 디렉토리가 push 되었다.
-    - tomcat-users.xml
-        - tomcat 의 manager 기능은 보안 관련 문제 때문에 통제되어있다는 사실을 알았다. brower 및 외부에서 접속하는 경우에는 권한을 추가해주어야 한다.
+![](https://velog.velcdn.com/images/xxng1/post/5fc40d7c-000d-42f3-ab77-812e998beb49/image.png)
+
+## Trouble Shooting
+
+### .gitignore
+
+SpringBoot 프로젝트에서 빌드된 war 파일을 가져오기 위해서 `build` 디렉토리가 GitLab에 push되길 원했는데, 되지 않아서 방법을 찾던 중 `.gitignore` 파일에서 `build` 내용을 삭제해주었더니 `build` 디렉토리가 push되었습니다.
+
+### tomcat-users.xml
+
+Tomcat의 manager 기능은 보안 관련 문제 때문에 통제되어 있다는 사실을 알았습니다. 브라우저 및 외부에서 접속하는 경우에는 권한을 추가해주어야 합니다.

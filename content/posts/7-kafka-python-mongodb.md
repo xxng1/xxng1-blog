@@ -7,27 +7,25 @@ excerpt: 'Python 스크립트를 활용한 Kafka 기반 MySQL → MongoDB 데이
 tags: ['Kafka', 'Python', 'MySQL', 'MongoDB', 'Data Migration']
 ---
 
-<br />
-
-> python 스크립팅으로 Kafka 환경 구축하기
-
-<br /><br />
-
+Python 스크립트를 활용한 Kafka 기반 MySQL → MongoDB 데이터 마이그레이션 방법입니다.
 
 # MySQL ➡️ Kafka ➡️ MongoDB
 
+Kafka를 통해서 데이터 마이그레이션을 하는 방법은 다양합니다:
+- Debezium 사용
+- Spring 웹 개발 과정에서의 연동 추가
+- Python script 이용
 
-Kafka를 통해서 데이터 마이그레이션을 하는 방법은 다양한데, debezium을 사용할 수도 있고, spring 웹 개발 과정에서의 연동을 추가하거나, python script를 이용하는 방법 등이 있습니다.
-오늘은 python script를 이용해서 데이터 마이그레이션을 하는 과정을 알아보겠습니다.
+이 글에서는 Python script를 이용해서 데이터 마이그레이션을 하는 과정을 알아보겠습니다.
 
+## 목차
 
-# 목차
 1. MongoDB Compass 설치 (선택)
-2. MongoDB 설치(Docker)
+2. MongoDB 설치 (Docker)
 3. MySQL 데이터 생성
-4. kafka 설치 & 토픽 생성
-5. python script 작성
-6. 실행&결과화면
+4. Kafka 설치 및 토픽 생성
+5. Python script 작성
+6. 실행 및 결과 화면
 
 
 # MongoDB Compass 설치 (선택)
@@ -94,12 +92,15 @@ INSERT INTO post (count, info, item_name, price, todaycount) VALUES
 ```
 
 
-# kafka 설치 & 토픽 생성
-kafka는 docker-compose를 통해서 설치해주겠습니다.
-해당 내용으로 docker-compose를 백그라운드로 실행합니다. 
+## 4. Kafka 설치 및 토픽 생성
 
-*docker-compose up -d*
+Kafka는 docker-compose를 통해서 설치합니다.
 
+해당 내용으로 docker-compose를 백그라운드로 실행합니다:
+
+```bash
+docker-compose up -d
+```
 
 ### docker-compose.yml
 ```yaml
@@ -219,22 +220,27 @@ if __name__ == "__main__":
 ```
 
 
-consumer.py코드에서는 사용할 db와 collection이름을 지정해주어야 합니다.
-MongoDB Compass를 통해서 만들었던 이름을 사용합니다. 10~11번째 줄에서 지정해줍니다.
+`consumer.py` 코드에서는 사용할 db와 collection 이름을 지정해주어야 합니다.
 
-*self.db = self.client['mongotest']*
+MongoDB Compass를 통해서 만들었던 이름을 사용합니다. 10~11번째 줄에서 지정합니다:
 
-*self.collection = self.db['mongotestcollection']*
+```python
+self.db = self.client['mongotest']
+self.collection = self.db['mongotestcollection']
+```
 
-또한 컨슈머에서 어떤 토픽을 사용할지 지정해주어야 합니다. 18번째 줄에서 지정해줍니다. 
+또한 컨슈머에서 어떤 토픽을 사용할지 지정해주어야 합니다. 18번째 줄에서 지정합니다:
 
-*self.consumer = KafkaConsumer('MongoMysql',*
-     
-     
-(+) 추가적으로 MongoDB를 컨테이너가 아닌 atlas를 통해 사용하고 있다면, connect url을 입력해줍니다. 
+```python
+self.consumer = KafkaConsumer('MongoMysql',
+```
 
-*self.client = pymongo.MongoClient("mongodb+srv://atlas_user:atlas123@mycluster.p0ytpkn.mongodb.net/?retryWrites=true&w=majority")*
-     
+> **참고**: 추가적으로 MongoDB를 컨테이너가 아닌 Atlas를 통해 사용하고 있다면, connect URL을 입력합니다:
+>
+> ```python
+> self.client = pymongo.MongoClient("mongodb+srv://atlas_user:atlas123@mycluster.p0ytpkn.mongodb.net/?retryWrites=true&w=majority")
+> ```
+
 ### consumer.py
 
 
@@ -287,18 +293,17 @@ if __name__ == "__main__":
 ```
 
 
-코드 작성 후 관련 의존성들을 pip3을 통해서 설치해주었습니다.
+코드 작성 후 관련 의존성들을 `pip3`을 통해서 설치합니다.
 
-consumer.py를 실행시켜줍니다.
-consumer는 현재 producer에서 데이터 전송이 이루어질때까지 대기하는 프로세스를 수행하기 때문에 데이터 전달이 없으면 아무런 콘솔이 찍히지 않습니다.
+`consumer.py`를 실행합니다.
 
-consumer.py 실행 이후에 producer.py를 실행시켜줍니다.
+> **참고**: consumer는 현재 producer에서 데이터 전송이 이루어질 때까지 대기하는 프로세스를 수행하기 때문에 데이터 전달이 없으면 아무런 콘솔이 찍히지 않습니다.
 
-이를 MongoDB Compass와 terminal을 통해서 확인해보겠습니다.
+`consumer.py` 실행 이후에 `producer.py`를 실행합니다.
 
+이를 MongoDB Compass와 terminal을 통해서 확인합니다.
 
-# 실행&결과화면
-
+## 6. 실행 및 결과 화면
 
 ### consumer를 실행시킨 모습
 ![](https://velog.velcdn.com/images/woongaa1/post/199c9f10-5e43-485a-ba19-f19e4b740d34/image.png)
@@ -313,12 +318,13 @@ consumer 터미널에도 관련 콘솔을 확인할 수 있습니다.
 document가 6개 마이그레이션 된 모습을 확인할 수 있습니다.
 
 
-현재는  중복된 데이터를 확인하는 절차와 수정된 데이터가 있는지 확인하는 프로세스가 없는데, 따라서 producer.py가 실행될 때 마다 document가 계속 생성됩니다. 
-이 프로세스 또한 python 스크립트에서 추가하여 업데이트를 감지하는 로직을 구현할 수 있습니다.
+현재는 중복된 데이터를 확인하는 절차와 수정된 데이터가 있는지 확인하는 프로세스가 없는데, 따라서 `producer.py`가 실행될 때마다 document가 계속 생성됩니다.
 
+이 프로세스도 Python 스크립트에서 추가하여 업데이트를 감지하는 로직을 구현할 수 있습니다.
 
-먼저 중복된 데이터를 확인하는 절차를 추가해보겠습니다.
-함수를 수정해줍니다.
+### 중복 데이터 확인 로직 추가
+
+먼저 중복된 데이터를 확인하는 절차를 추가합니다. 함수를 수정합니다:
 
 ```python
     def insert(self, message):
@@ -330,13 +336,16 @@ document가 6개 마이그레이션 된 모습을 확인할 수 있습니다.
             print("Duplicate data found. Skipping insertion.")
 ```
 
-(결과) 수정된 코드로 consumer를 작동시키니, document 삽입을 스킵하는 모습입니다.
+**결과**: 수정된 코드로 consumer를 작동시키니, document 삽입을 스킵하는 모습입니다:
+
 ```
 Topic:MongoMysql, partition:0, offset:55, datetimeobj:2024-05-15 23:20:51.555000
 Duplicate data found. Skipping insertion.
 ```
 
-이번에는 업데이트를 감지해보겠습니다. 코드를 수정합니다.
+### 업데이트 감지 로직 추가
+
+이번에는 업데이트를 감지합니다. 코드를 수정합니다:
 
 ```python
     def insert(self, message):
@@ -355,20 +364,25 @@ Duplicate data found. Skipping insertion.
             print("Data inserted into MongoDB: {}".format(message))
 ```
 
-mysql에서 post id값이 1인데이터의 count를 100으로 수정해주고 producer를 실행시켜줍니다.
+MySQL에서 `post` 테이블의 `id` 값이 1인 데이터의 `count`를 100으로 수정하고 producer를 실행합니다.
 
-(결과)
+**결과**:
+
 ```
 Data updated in MongoDB: {'id': 1, 'count': 100, 'info': 'Sample post info 1', 'item_name': 'Sample item 4', 'price': 150.0, 'todaycount': 3}
 ```
+
 ![](https://velog.velcdn.com/images/woongaa1/post/b2130ceb-a820-44f4-92f8-b55267064727/image.png)
 
-document가 늘어나지 않으며, 업데이트 된 데이터가 올바르게 마이그레이션 된 것을 확인할 수 있습니다.
+Document가 늘어나지 않으며, 업데이트된 데이터가 올바르게 마이그레이션된 것을 확인할 수 있습니다.
 
+## 마치며
 
-여기까지 Python Script를 사용해서 데이터 마이그레이션을 진행해 보았는데, 해당 프로세스는 주기적으로 파일을 실행시키는 bash 파일을 만들어서도 사용 가능하고, 삭제 등의 로직 또한 추가할 수 있습니다.
+여기까지 Python Script를 사용해서 데이터 마이그레이션을 진행해 보았습니다.
 
-(5초에 한 번씩 producer.py를 실행하는 스크립트)
+해당 프로세스는 주기적으로 파일을 실행시키는 bash 파일을 만들어서도 사용 가능하고, 삭제 등의 로직도 추가할 수 있습니다.
+
+### 5초에 한 번씩 producer.py를 실행하는 스크립트
 ```shell
 while true
 do

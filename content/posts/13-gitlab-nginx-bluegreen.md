@@ -7,39 +7,30 @@ excerpt: 'GitLab CI를 활용한 Nginx Blue/Green 배포 자동화 구성'
 tags: ['GitLab', 'CI/CD', 'Nginx', 'Blue/Green', 'DevOps', 'Docker']
 ---
 
-<br />
+Azure VM에서 GitLab + Nginx로 무중단 블루/그린 배포를 구축하는 방법입니다.
 
-> Azure VM에서 GitLab + Nginx로 무중단 블루/그린 배포 구축
-
-<br /><br />
-
-
-# Source Code
+## Source Code
 
 [Github Source Code](https://github.com/xxng1/nginx-apache-bluegreen-gitlab)
 
+## TL;DR
 
+- GitLab(Omnibus)은 80/443 그대로, 앱용 edge Nginx는 8081로 분리
+- Blue/Green은 각각 컨테이너(app-blue, app-green)로 항상 떠 있고, **심볼릭 링크 교체 + nginx -s reload**로 즉시 전환
+- GitLab Runner(shell) + Docker Compose v2:
+  - **태그 푸시 → idle 배포 → 검증 → 전환 → (지연) 정리** 자동화
 
-# TL;DR
-- GitLab(Omnibus)은 80/443 그대로, 앱용 edge Nginx는 8081로 분리.
-- Blue/Green은 각각 컨테이너(app-blue, app-green)로 항상 떠 있고, **심볼릭 링크 교체 + nginx -s reload**로 즉시 전환.
-- GitLab Runner(shell) + Docker Compose v2: 
-    - **태그 푸시 → idle 배포 → 검증 → 전환 → (지연) 정리** 자동화.
+## 목차
 
+1. 구조 (스크린샷)
+2. 환경
+3. 디렉터리 구조
+4. 구현 (스크린샷)
+5. 주요 코드 (Nginx)
+6. 주요 코드 (GitLab CI)
+7. Trouble Shooting
 
-# 목차
-번호 | 주제
---- | ---
-1 | 구조 (스크린샷)
-2 | 환경
-3 | 디렉터리 구조
-4 | 📷 구현(스크린샷)
-5 | 주요 코드 (Nginx)
-6 | 주요 코드 (GitLab CI)
-7 | Trouble Shooting
-
-
-# 1. 구조 
+## 1. 구조 
 
 ```swift
 [Client] → http://<VM>:8081 → (edge-nginx)
