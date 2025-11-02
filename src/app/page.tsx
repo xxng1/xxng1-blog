@@ -32,18 +32,18 @@ export default async function Home({ searchParams }: HomeProps) {
               Cloud Infrastructure & DevOps에 집중하는 개발자입니다
             </p>
           </div>
-          <Link
+          {/* <Link
             href="/about"
             className="px-6 py-3 bg-accent/10 text-accent rounded-lg font-medium border border-accent/20 hover:bg-accent/20 transition-colors"
           >
             About Me
-          </Link>
+          </Link> */}
         </div>
       </section>
 
       {/* Blog Posts Section */}
       <section className="space-y-8">
-        <hr className="border-t border-card-border" />
+        {/* <hr className="border-t border-card-border" /> */}
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-foreground">
             {tagParams.length > 0 ? `필터된 글 (${filteredPosts.length}개)` : '전체 글'}
