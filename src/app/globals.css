@@ -90,14 +90,14 @@ body {
 
 /* 개선된 링크 스타일 */
 .prose a {
-  color: #059669 !important;
+  color: var(--accent) !important;
   text-decoration: underline !important;
   text-underline-offset: 2px !important;
   transition: color 0.2s ease !important;
 }
 
 .prose a:hover {
-  color: #047857 !important;
+  color: var(--accent-hover) !important;
 }
 
 /* 개선된 인용구 스타일 */
@@ -110,6 +110,15 @@ body {
   font-style: normal !important;
   color: var(--foreground) !important;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.prose img {
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 8px 16px -8px rgba(15, 23, 42, 0.2) !important;
+  margin: 1.5rem auto !important;
+  display: block !important;
+  background: #fff !important;
 }
 
 /* 개선된 테이블 스타일 */

@@ -7,227 +7,82 @@ excerpt: 'AWS 네트워크 서비스 소개 및 활용 방법'
 tags: ['AWS', 'Network', 'Cloud', 'Infrastructure', 'ALB', 'NLB', 'GLB']
 ---
 
-# Network
+AWS를 처음 접했을 때 가장 헷갈렸던 부분은 "서비스가 이렇게 많은데 언제 무엇을 써야 하지?"였습니다. 그래서 프로젝트에서 자주 언급되는 서비스들을 주제별로 묶어 정리해 두었습니다. 간단한 정의와 함께 실무에서 어떻게 활용했는지도 덧붙였습니다.
 
-## Application Load Balancer (ALB)
+## 네트워크 & 트래픽 제어
 
-- HTTP, HTTPS 통신에 사용
-- **리스너 규칙으로 HTTP 트래픽을 HTTPS로 리디렉션 가능**
+| 서비스 | 핵심 포인트 | 활용 메모 |
+| --- | --- | --- |
+| **ALB** | HTTP/HTTPS 로드 밸런서 | 리스너 규칙으로 HTTP를 HTTPS로 리디렉션 |
+| **NLB** | 4계층(TCP/UDP) 로드 밸런서 | TLS Listener 구성으로 보안 강화 |
+| **Gateway Load Balancer** | 보안/네트워크 어플라이언스 통합 | VPC 간 트래픽을 투명하게 전달 |
+| **NAT Gateway** | 사설 서브넷 아웃바운드 인터넷 통신 | 퍼블릭 서브넷에 배치 |
+| **Route 53** | DNS 관리 | 도메인 라우팅 및 헬스 체크 |
+| **CloudFront** | CDN | 전 세계 Edge Location으로 콘텐츠 전송 |
 
-## Network Load Balancer (NLB)
+## 파일 전송 & 하이브리드 연결
 
-- TCP, UDP 통신에 사용
-- **TLS(SSL) listener를 구성하여 보안 향상**
+- **SFTP (AWS Transfer Family)**: 파트너사와 파일을 안전하게 주고받을 때 사용
+- **SMB 지원**: Storage Gateway, Amazon FSx로 온프레미스와 파일 시스템 연동
+- **DataSync**: 온프레미스 ↔ AWS 스토리지 간 데이터 마이그레이션 자동화
 
-## Gateway Load Balancer (GLB)
+## 컴퓨트 & 컨테이너
 
-- VPC 간의 통신에 사용
+| 서비스 | 설명 |
+| --- | --- |
+| **EC2** | 가장 기본적인 가상 서버. 세밀한 제어가 필요할 때 사용 |
+| **Lambda** | 이벤트 기반 서버리스 함수. 운영 부담이 거의 없음 |
+| **ECS / Fargate** | 컨테이너 오케스트레이션. Fargate는 서버 관리가 필요 없는 모드 |
+| **EKS** | 완전 관리형 Kubernetes. Pod 단위 IAM 권한 부여 가능 |
+| **Elastic Beanstalk** | EC2 구성을 자동화해주는 PaaS. 빠른 배포와 테스트에 유용 |
+| **Lightsail** | 간단한 애플리케이션을 위한 가벼운 VPS |
 
-## NAT Gateway
+## 스토리지 & 데이터베이스
 
-- 네트워크 트래픽을 패킷을 수정함으로써 포트 및 주소 등을 기록
-- 프라이빗 서브넷에 대한 인터넷 액세스를 활성화하는 등에 사용
-- **퍼블릭 서브넷에 배치**
+| 서비스 | 특징 |
+| --- | --- |
+| **S3** | 이미지, 동영상 등 정적 자산 저장소 |
+| **Glacier** | 장기 보관용 아카이브 스토리지 (저가 / 느린 조회) |
+| **EBS** | EC2 전용 디스크. 스냅샷으로 백업 가능 (단일 AZ) |
+| **EFS** | 다중 AZ 지원 네트워크 파일 시스템 |
+| **RDS** | 관리형 관계형 데이터베이스 |
+| **DynamoDB** | 서버리스 NoSQL 데이터베이스 |
+| **ElastiCache** | 메모리 기반 캐시 (Redis, Memcached) |
+| **Redshift** | 대규모 데이터 웨어하우스 |
 
-## SFTP (SSH File Transfer Protocol)
+## 애널리틱스 & 검색
 
-- AWS Transfer Family를 사용하여 반복되는 B2B 파일 전송을 AWS 스토리지 서비스로 안전하게 확장
+- **Athena**: S3 데이터를 표준 SQL로 분석하는 서버리스 쿼리 서비스
+- **Glue**: ETL 작업을 자동화하는 서버리스 데이터 통합 도구
+- **Kinesis**: 실시간 스트리밍 데이터 수집 및 처리
+- **EMR**: Hadoop 기반 빅데이터 처리 플랫폼
+- **QuickSight**: BI 대시보드. Tableau처럼 시각화 제공
+- **CloudSearch**: 완전 관리형 검색 서비스
 
-## SMB (Server Message Block)
+## 메시징 & 이벤트
 
-- 네트워크의 노드들 간에 자원을 공유할 수 있도록 설계된 프로토콜
-- 온프레미스-AWS 간 스토리지 서비스 중 SMB 지원하는 건 스토리지 게이트웨이, FSx
+- **SNS**: 다대다 메시징(A2A) 및 문자·메일 같은 A2P 알림을 모두 지원
+- **SQS**: 비동기 처리 큐. 마이크로서비스 간 작업을 분리할 때 활용
+- **EventBridge**: CloudWatch Events의 확장판. 서비스 간 이벤트 라우팅을 단일 도구로 정리
 
-# AWS Services
+## 보안 & 운영
 
-## Region
+- **AWS Firewall Manager**: WAF, Shield Advanced 정책을 중앙에서 관리
+- **AWS Shield / WAF**: DDoS 공격과 웹 공격(SQL Injection, XSS 등) 방어
+- **Origin Access Control / Identity**: CloudFront에서 원본 접근을 제한해 보안 강화
 
-- 물리적으로 떨어진 지역에서의 여러 개의 클라우드 인프라
+## AI & 미디어 서비스
 
-## Availability Zone
+- **Polly**: 텍스트를 자연스러운 음성으로 변환(TTS)
+- **Lex**: 대화형 챗봇 서비스
+- **Rekognition**: 이미지·영상 분석
 
-- 리전들이 모여 구성하는 데이터 센터
-- **가용성을 담당**
+## Kafka & 스트리밍
 
-## Edge Location
+- **Amazon MSK**: 완전 관리형 Apache Kafka. 스트리밍 데이터 파이프라인 구축에 적합
 
-- CDN(Content Delivery Network)을 이루는 캐시 서버
-- 리전 에지 캐시를 통한 데이터 속도 개선 가능
+![AWS 서비스 개요](https://velog.velcdn.com/images/woongaa1/post/eb0ad643-aba9-4930-921f-d30dd1df062e/image.png)
 
-## EC2 (Elastic Compute Cloud)
+## 마무리
 
-- 컴퓨터 리소스에 대해 전반적 관리를 도와주는 가상 서버
-
-## Lambda
-
-- 특정한 이벤트를 통해 입력 인자가 발생하면 연산 과정으로 출력 인자를 바꾸는 이벤트 기반의 컴퓨팅 서비스
-
-## ECS
-
-- AWS에서 제공하는 컨테이너 서비스
-
-## AWS Fargate
-
-- 컨테이너를 실행하고 관리하기 위한 서버리스 컴퓨팅 엔진
-- 직접 관리하지 않고 CPU, 메모리 등 리소스를 지정하면 자동으로 관리(운영 오버헤드 감소)
-
-## Amazon EKS (Elastic Kubernetes Service)
-
-- Kubernetes 클러스터를 관리, 개별 pod에 IAM Role 할당 가능
-
-## Lightsail
-
-- 완전 관리형 가상 서버 서비스
-
-## Elastic Beanstalk
-
-- EC2의 설정을 쉽게 돕는 서비스
-- **사이트 자주 테스트 가능 / 운영 오버헤드 낮음**
-
-## S3
-
-- 서비스 운영 시 생성되는 이미지, 동영상, 오디오 파일 등을 저장하는 스토리지 서비스
-
-## Glacier
-
-- 사용 빈도가 낮을 때(예: 백업 데이터) 사용하기 좋은 스토리지
-- 저렴하지만 트래픽 요금이 높다
-
-## Storage Gateway
-
-- 기존의 on-premise 환경과 AWS를 연결해주는 게이트웨이 서비스
-- **SMB 지원**
-
-## EBS (Elastic Block Storage)
-
-- EC2와 연결할 수 있는 저장장치 서비스
-- EC2의 하드디스크, SSD 스냅샷을 통해 언제든 EC2를 백업 및 복원 가능
-- Single AZ(가용성 감소)
-
-## EFS (Elastic File System)
-
-- 클라우드 기반 파일 시스템
-- Multi AZ(가용성 증가)
-
-## RDS
-
-- 관계형 데이터베이스(RDBMS)를 구축하는 서비스
-- SSD 영역에서 입출력이 수행
-
-## DynamoDB
-
-- NoSQL 기반의 완전 관리형 데이터베이스
-- SSD 영역에서 입출력이 수행
-
-## ElastiCache
-
-- 메모리에 데이터를 저장하여 빠르게 입출력이 가능한 데이터베이스
-- **세션 데이터 관리 등에 사용**
-- 지속되어야 하는 데이터 -> Amazon ElastiCache for Redis
-
-## Redshift
-
-- 완전 관리형 SQL 데이터 웨어하우스로써 대용량의 정형 데이터를 처리하는데 사용
-
-## VPC (Virtual Private Cloud)
-
-- 가상 네트워크망 구축 지원 서비스
-- 서비스 보안 수준을 결정하거나 적합한 권한이 있는 사용자들만 접속할 수 있도록 관리
-- **VPC 피어링으로 VPC 간 연결, 다른 리전에 있는 경우에도 연결 가능하나, CIDR을 참조해야 함**
-
-## Route53
-
-- AWS의 DNS(Domain Name System) 서비스
-
-## CloudFront
-
-- AWS의 클라우드 CDN 서비스로 에지 로케이션 서버를 이용하여 콘텐츠를 배포
-
-## Polly
-
-- 텍스트를 음성으로 바꾸는(TTS) 음성 합성 서비스
-
-## Lex
-
-- 대화형 챗봇(Chatbot) 서비스
-
-## Rekognition
-
-- 이미지 인식 및 분석 서비스
-
-## QuickSight
-
-- 태블로(Tableau)와 같이 데이터를 시각화하는 서비스
-
-## Athena
-
-- 서버리스 기반 SQL 쿼리 서비스
-
-## CloudSearch
-
-- 완전 관리형 검색 서비스
-
-## EMR (Amazon Elastic MapReduce)
-
-- 빅데이터 분석 플랫폼인 하둡 프레임워크를 연동하여 사용할 수 있는 서비스
-
-## Kinesis
-
-- 실시간 데이터 처리를 위한 서비스
-
-## Glue
-
-- 서버리스 ETL(추출(Extract), 로드(Load), 변환(Transform)) 서비스
-
-## SES (Simple Email Service)
-
-- SMTP(Simple Mail Transfer Protocol) 방식과 API 방식으로 이메일을 수신 및 발신
-
-## SNS (Simple Notifications Service)
-
-- A2A, A2P 방식으로 알림을 전송
-- **A2A**: 분산된 시스템, 마이크로서비스 및 이벤트 중심의 서버리스 애플리케이션 간 처리량이 많은 푸시 기반 다대다 메시징
-- **A2P**: SMS 텍스트, 푸시 알림, 이메일을 통한 메시지 전송
-
-## EventBridge
-
-- Amazon CloudWatch Events 기능 기반 상태 변화(이벤트) 감지
-- 메일 전송, 인증서 감지 등에 사용
-
-## Amazon FSx
-
-- Windows Server에 구축되는 완전 관리형 파일 스토리지
-- **SMB 지원**
-
-## DataSync
-
-- 온프레미스(On-premise)와 AWS 스토리지 서비스 사이 데이터 마이그레이션을 자동화 및 가속화하는 서비스
-
-## AWS Firewall Manager
-
-- AWS Shield Advanced의 속성, DDoS 탐지 강화
-- SQL Injection, XSS 공격 등 방어
-- Region이 나누어져 있을 경우 일시 중앙에서 생성
-
-## SQS (Simple Queue Service)
-
-- 서비스가 커질수록 여러 서버에서 처리하게 되면서, 작업을 분리할 때 등의 메시지를 주고받을 때 사용하는 서비스
-
-## 오리진 액세스 제한
-
-- 원본 액세스 제어(OAC), 원본 액세스 ID(OAI) 제공
-
-## Amazon Athena
-
-- 표준 SQL을 사용하여 S3의 데이터를 분석하는 대화형 쿼리 서비스
-- 서버리스 서비스이므로 일회성 쿼리에 사용
-
-## Amazon QuickSight
-
-- Amazon의 셀프 서비스 시각화 인텔리전스(BI) 도구
-
-## Amazon MSK (Amazon Managed Streaming for Apache Kafka)
-
-- 완전 관리형 Kafka를 통한 실시간 스트리밍 데이터 처리 서비스
-
-![](https://velog.velcdn.com/images/woongaa1/post/eb0ad643-aba9-4930-921f-d30dd1df062e/image.png)
+AWS 서비스는 이름만 들어도 어렵게 느껴질 때가 많습니다. 이렇게 주제별로 묶어 보면 필요할 때 어떤 카테고리를 살펴봐야 하는지 금방 감이 옵니다. 실제 프로젝트에서 선택했던 이유와 함께 정리해 둔 만큼, 비슷한 고민을 하는 분들께 도움이 되면 좋겠습니다.

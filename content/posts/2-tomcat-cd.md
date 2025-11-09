@@ -9,42 +9,36 @@ tags: ['Jenkins', 'Tomcat', 'CI/CD', 'Docker']
 
 ## 서론
 
-**현재 상황**
-- 실습자료에서의 CI(지속적 통합) 구축은 완료한 상태
-- VM은 2개 있는 상황에서, 1개(was)를 추가 생성
+CI 파이프라인을 어느 정도 갖춰 놓고 나니, 이제는 "코드가 변경될 때 자동으로 배포까지 흘러가면 좋겠다"는 생각이 들었습니다. 이 글은 Jenkins와 Tomcat을 이용해 Spring Boot 애플리케이션을 자동 배포하는 과정을 단계별로 정리한 기록입니다. 실습 환경은 Docker 기반이며, 전체 흐름을 따라가면 동일한 구성을 재현할 수 있습니다.
 
-## 시스템 구현 과정
+## 전체 흐름
 
-CD를 구현하려면 WAS 서버 및 Jenkins와의 연동이 필요합니다.
+1. Tomcat 컨테이너 준비 및 초기 설정
+2. Tomcat Manager 접속 권한 구성
+3. Jenkins Item에서 빌드·배포 파이프라인 설정
+4. Spring Boot 프로젝트를 war로 패키징
+5. GitLab → Jenkins → Tomcat으로 이어지는 배포 검증
 
-### 1. Tomcat 컨테이너 실행
-
-VM에서 Docker 컨테이너로 Tomcat을 실행합니다:
+## 1. Tomcat 컨테이너 실행
 
 ```bash
 docker pull tomcat
-docker run -d -i -t --restart=always --name was_tomcat -p 8080:8080 tomcat
+docker run -d --restart=always --name was_tomcat -p 8080:8080 tomcat
 ```
 
-### 2. Tomcat 초기 설정
+컨테이너 실행 후 기본 페이지가 404로 보이면 다음처럼 디렉터리를 교체합니다.
 
-Tomcat 내에는 배포된 프로젝트를 관리할 수 있는 Manager 페이지가 있습니다. Jenkins의 Credentials 설정에서 ID와 PASSWORD가 필요하므로 이를 설정합니다.
-
-먼저 컨테이너 셸에 이동하여 루트 URL에서의 404 오류를 해결합니다:
-
-```shell
+```bash
 docker exec -it was_tomcat /bin/bash
 mv webapps webapps2
 mv webapps.dist/ webapps
 ```
 
-### 3. Tomcat Manager 접근 설정
+## 2. Tomcat Manager 접근 설정
 
-`http://172.16.212.32:8080/manager/html/`(관리자 페이지)에 접속하기 위한 설정을 진행합니다.
+### 2-1. 관리자 계정 추가
 
-#### ID, PASSWORD 및 권한 설정
-
-`/usr/local/tomcat/conf/tomcat-users.xml`에 다음 내용을 추가합니다:
+`/usr/local/tomcat/conf/tomcat-users.xml`에 아래 역할(Role)과 사용자(User)를 등록합니다.
 
 ```xml
 <role rolename="admin"/>
@@ -55,23 +49,22 @@ mv webapps.dist/ webapps
 <role rolename="manager-script"/>
 <role rolename="manager-jmx"/>
 <role rolename="manager-status"/>
-<user username="admin" password="admin" roles="admin,manager,admin-gui,admin-script,manager-gui,manager-script,manager-jmx,manager-status" />
+<user username="admin" password="admin"
+      roles="admin,manager,admin-gui,admin-script,manager-gui,manager-script,manager-jmx,manager-status" />
 ```
 
-#### 내부 로컬에서만 접근 가능하도록 하는 부분 주석처리
+### 2-2. 로컬 접근 제한 해제
 
-`webapps/manager/META-INF/context.xml`과 `webapps/host-manager/META-INF/context.xml`에서 다음 부분을 주석처리합니다:
+`webapps/manager/META-INF/context.xml`과 `webapps/host-manager/META-INF/context.xml`에서 `RemoteAddrValve` 부분을 주석처리하면 외부에서도 Manager 페이지에 접속할 수 있습니다.
 
 ```xml
-<Context antiResourceLocking="false" privileged="true" >
-  <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
-                   sameSiteCookies="strict" />
-  <!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve"
-         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
-  -->
-  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
-</Context>
+<!--
+<Valve className="org.apache.catalina.valves.RemoteAddrValve"
+       allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+-->
 ```
+
+이제 `http://<Tomcat_IP>:8080/manager/html/`로 접속하면 앞에서 생성한 계정으로 로그인할 수 있습니다.
 
 설정 완료 후 `http://172.16.212.32:8080/manager/html/`에 접속하여 로그인합니다.
 
@@ -79,32 +72,28 @@ mv webapps.dist/ webapps
 
 설정한 ID, PASSWORD로 로그인합니다.
 
-### 4. Jenkins Item 설정
+## 3. Jenkins Item 구성
 
-GitLab과 연결해놓았던 Jenkins Item 설정을 진행합니다.
+Jenkins에서 GitLab과 연동된 Item을 생성한 뒤 다음을 설정했습니다.
 
-#### Build 단계 설정
+### Build 단계
 
-SpringBoot(Gradle) Project를 GitLab에 Push할 예정이므로 "Add build step"에서 **"Invoke Gradle script"**를 추가합니다.
-
-- Use Gradle Wrapper: 체크
-- Make Gradlew executable: 체크
+- **Invoke Gradle script** 추가
+- `Use Gradle Wrapper`, `Make Gradlew executable` 옵션 활성화
 
 ![](https://velog.velcdn.com/images/xxng1/post/878b1e79-7728-45ed-9c04-e7a64d3bc7eb/image.png)
 
-#### Deploy 단계 설정
+### Deploy 단계
 
-"Deploy war/ear to a container" 설정을 추가합니다:
-- SpringBoot로 war 파일을 빌드하여 `/demo`로 배포
-- Tomcat 8 버전 Container 연결을 위한 Credentials 추가 (ID, PASSWORD는 `tomcat-users.xml`에서 설정한 값 사용)
+- **Deploy war/ear to a container** 추가
+- `**/*.war` 패턴으로 빌드 아티팩트 선택
+- Tomcat 8.x Container 추가 후 Credentials에 앞서 만든 `admin` 계정 사용
 
 ![](https://velog.velcdn.com/images/xxng1/post/ce7cf08d-73f8-4749-b9f9-fcc0db009c0e/image.png)
 
-> **참고**: `**/*.war`는 Jenkins에서 빌드된 war 파일을 가져오는 경로입니다.
+## 4. Spring Boot 프로젝트 설정
 
-### 5. SpringBoot 프로젝트 설정
-
-SpringBoot의 `build.gradle` 파일에 다음 내용을 추가합니다:
+`build.gradle`에 war 패키징 옵션을 지정했습니다.
 
 ```gradle
 bootWar {
@@ -114,11 +103,7 @@ bootWar {
 }
 ```
 
-**gradle > tasks > build > bootWar**을 실행하면 (`./gradlew bootWar` 명령어 실행)
-
-`/build/libs` 디렉토리에 `test7-api.war` 파일이 생성됩니다.
-
-루트 디렉토리에서 간단하게 테스트하기 위해 `TestApplication.java` 파일에 다음 내용을 추가합니다:
+샘플 엔드포인트는 다음과 같이 구성했습니다.
 
 ```java
 @SpringBootApplication
@@ -136,28 +121,32 @@ public class TestApplication {
 }
 ```
 
-### 6. 배포 테스트
+`./gradlew bootWar` 실행 시 `/build/libs/test7-api.war`가 생성됩니다.
 
-변경사항 저장 후 GitLab에 Push하면:
+## 5. 배포 검증
+
+1. 변경 사항을 GitLab에 Push
+2. Jenkins가 자동으로 빌드 후 war 파일 배포
+3. Tomcat Manager에서 `/demo` 컨텍스트가 등록된 것을 확인
+4. `http://<Tomcat_IP>:8080/demo` 접속 → "psw(scott) CI/CD 테스트 출력입니다." 문구 확인
+
+변경 사항을 GitLab에 Push하면 Jenkins가 Job을 실행합니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/bbdd35be-9c57-4a03-b873-b82c8d10a7a2/image.png)
 
-실습해서 구현한 CI를 Jenkins에서 CD할 준비를 하는 것을 볼 수 있습니다.
-
-배포 완료 후 `http://172.16.212.32:8080/manager/html/`에서 "Deploy war/ear to a container"의 "Context path"에 작성했던 `/demo` 경로가 추가되어 있는 것을 확인할 수 있습니다.
+배포 완료 후 `http://172.16.212.32:8080/manager/html/`에서 `Context path`에 `/demo`가 추가된 것을 확인합니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/b7f206f7-de31-46cc-b675-8098110d9a65/image.png)
 
-`http://172.16.212.32:8080/demo` 경로로 접속하면 SpringBoot Application에서 설정한 내용을 확인할 수 있습니다.
+`http://172.16.212.32:8080/demo`에 접속하면 Spring Boot 애플리케이션이 응답합니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/5fc40d7c-000d-42f3-ab77-812e998beb49/image.png)
 
-## Trouble Shooting
+## Trouble Shooting 메모
 
-### .gitignore
+- **.gitignore**: 빌드 결과물을 리포지토리에 올리기 위해 `.gitignore`에서 `build` 항목을 일시 제거했습니다.
+- **tomcat-users.xml**: Tomcat Manager는 기본적으로 보안 때문에 외부 접속이 차단되어 있으니, 필요한 권한을 직접 추가해야 합니다.
 
-SpringBoot 프로젝트에서 빌드된 war 파일을 가져오기 위해서 `build` 디렉토리가 GitLab에 push되길 원했는데, 되지 않아서 방법을 찾던 중 `.gitignore` 파일에서 `build` 내용을 삭제해주었더니 `build` 디렉토리가 push되었습니다.
+## 마무리
 
-### tomcat-users.xml
-
-Tomcat의 manager 기능은 보안 관련 문제 때문에 통제되어 있다는 사실을 알았습니다. 브라우저 및 외부에서 접속하는 경우에는 권한을 추가해주어야 합니다.
+이 구성을 통해 코드 Push → Jenkins 빌드 → Tomcat 배포까지의 흐름이 완성되었습니다. 환경이 정리되면 Blue/Green, Canary 같은 배포 전략도 Jenkins 파이프라인에서 자연스럽게 확장할 수 있습니다. 다음 단계는 Terraform으로 인프라를 코드화하고, 모니터링을 붙여보는 것입니다.

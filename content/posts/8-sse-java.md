@@ -7,56 +7,54 @@ excerpt: 'Server-Sent Events를 활용한 실시간 알림 구현 및 Nginx 설�
 tags: ['SSE', 'Java', 'Spring', 'Backend', 'Real-time']
 ---
 
-프로젝트에서 사용했던 SSE 방식에 대해 정리합니다.
+프로젝트에서 사용했던 SSE 방식에 대해 정리합니다. 실시간 알림을 구현할 때는 "어떤 통신 방식을 선택할까?"라는 질문부터 시작합니다. 우리 팀은 사용자 알림 기능을 위해 **Server-Sent Events(SSE)**를 선택했고, Spring Boot와 Nginx 환경에서 안정적으로 동작하도록 구성했습니다. 전체 과정을 기록해 둡니다.
 
 ## 개요
 
-알림 구현에는 크게 4가지 방식이 있습니다.
+알림 구현에는 크게 네 가지 패턴이 있습니다. 각 방식의 특징을 간략히 소개한 뒤, 왜 SSE를 선택했는지 설명합니다.
 
-### 1. 폴링 (Polling)
-
-- 일정 시간마다 Client에서 Server로 요청을 보내고 응답을 받는 방식
-- 응답해줄 데이터가 없어도 응답을 받음
-- 지속적으로 request를 날림으로써 비용 부담 및 서버에 부하를 줄 수 있음
+### 1. 폴링(Polling)
+- 일정 시간마다 클라이언트가 서버로 요청을 보내고 응답을 받는 방식
+- 응답 데이터가 없어도 계속 요청을 수행하기 때문에 비용과 부하가 커질 수 있음
 
 ![](https://velog.velcdn.com/images/woongaa1/post/119c4231-3077-4528-8e7c-4b83ce622220/image.png)
 
-### 2. 롱 폴링 (Long Polling)
-
-- 긴 connection을 열어두고, 이벤트가 발생했을 때 Request를 보냄
-- 응답해줄 데이터가 없으면 데이터가 생길 때까지 기다림
-- connection 간격이 좁으면 Polling 방식과 큰 차이가 없음
+### 2. 롱 폴링(Long Polling)
+- 연결을 길게 열어두고 이벤트가 생길 때까지 대기
+- 연결 간격이 짧으면 폴링과 큰 차이가 없으며, 커넥션 관리 부담이 존재
 
 ![](https://velog.velcdn.com/images/woongaa1/post/81491857-b22f-41a5-9be3-6e6109891178/image.png)
 
-### 3. 웹소켓 (WebSocket)
-
-- 양방향 통신으로써 Client, Server 간 Handshaking 방식으로 접속 후 통신
-- 연결 후 계속 connection을 유지하므로 불필요한 비용 발생할 수 있음
+### 3. 웹소켓(WebSocket)
+- 클라이언트·서버 간 양방향 통신을 지원
+- 연결이 지속되기 때문에 불필요한 비용이 발생할 수 있고, 서버 자원 관리가 필요
 
 ![](https://velog.velcdn.com/images/woongaa1/post/79f24b0b-b0bb-4246-9d98-a559bd8bc111/image.png)
 
-### 4. SSE (Server-Sent Events)
-
-- Client가 Server에 구독 요청을 보내면, Server에서 이벤트가 발생할 때마다 Response를 보냄
-- Server에서 Client로만 이벤트를 보내는 단방향 통신
+### 4. SSE(Server-Sent Events)
+- 클라이언트가 구독을 요청하면 서버에서 이벤트가 발생할 때마다 응답을 전송
+- 서버 → 클라이언트 단방향 스트림으로 알림, 모니터링 로그 등에 적합
 
 ![](https://velog.velcdn.com/images/woongaa1/post/d200c868-0596-4913-8f15-c636e05c83c5/image.png)
 
-우리는 사용자 알림에 대해서 기능을 구현할 예정이었기 때문에, SSE 방식을 통해서 알림을 구현하기로 했습니다.
+우리 시나리오는 사용자에게 일방향 알림만 전달하면 충분했기 때문에 SSE가 가장 가볍고 적합했습니다. 아래에 각 방식을 다시 표로 정리했습니다.
 
-## 구현
+| 방식 | 특징 | 언제 유용한가 |
+| --- | --- | --- |
+| 폴링 | 주기적으로 서버에 요청 | 구현이 간단하지만 트래픽이 많아짐 |
+| 롱 폴링 | 요청을 오래 열어두고 응답 대기 | 폴링보다 효율적이나 연결 관리가 번거로울 수 있음 |
+| 웹소켓 | 양방향 통신 | 채팅, 게임 등 양방향이 필요할 때 |
+| **SSE** | 서버 → 클라이언트 단방향 스트림 | 알림, 로그 스트리밍 등 서버 푸시가 핵심일 때 |
 
-### 주요 개념
+## 핵심 개념
 
-- **Emitter**: `SseEmitter`라는 SSE 통신을 위한 구현체를 제공받기 위해 사용
-- **React(Client)에서 SSE 응답을 받기 위한 방법**:
-  - token을 사용하지 않을 때: `EventSource`
-  - token을 사용할 때: `EventSourcePolyfill`
+- **SseEmitter**: Spring이 제공하는 SSE 구현체
+- **EventSource / EventSourcePolyfill**: 브라우저에서 SSE를 구독하는 객체 (인증 토큰이 필요하면 Polyfill 사용)
 
-우리는 사용자 인증/인가를 JWT를 사용하여 구현하였기 때문에 `EventSourcePolyfill`을 사용하게 되었습니다.
+## 서버 구현
 
-### 1. SseEmitters 클래스
+### 1. Emitter 관리 클래스
+
 ```java
 @Slf4j
 @Getter
@@ -69,7 +67,6 @@ public class SseEmitters {
         emitters.put(id, emitter);
         log.info("new emitter added: {}", emitter);
         log.info("emitter list size: {}", emitters.size());
-
         return emitter;
     }
 
@@ -83,13 +80,12 @@ public class SseEmitters {
         emitters.remove(id);
     }
 }
-
-
 ```
 
-이벤트를 관리하는 `SseEmitter`, `ConcurrentHashMap`을 통해서 여러 스레드에서 동시에 접근해도 데이터를 처리할 수 있도록 합니다.
+사용자별로 여러 탭에서 접속할 수 있으므로 `ConcurrentHashMap`으로 안전하게 관리합니다.
 
-### 2. NotificationController 클래스
+### 2. Controller
+
 ```java
 @Slf4j
 @RestController
@@ -99,7 +95,6 @@ public class NotificationController {
     private final JWTUtil jwtUtil;
     private final NotificationService notificationService;
 
-    // sse 연결
     @GetMapping(value = "/subscribe/{userId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> subscribe(@PathVariable Long userId,
                                                 @RequestHeader(value = "lastEventId", required = false, defaultValue = "") String lastEventId,
@@ -108,21 +103,19 @@ public class NotificationController {
         return new ResponseEntity<>(notificationService.subscribe(userId, response), HttpStatus.OK);
     }
 
-    // 유저 별 알림 조회
     @GetMapping("/{userId}")
     public ResponseEntity<List<Notification>> getUserNotifications(@PathVariable Long userId){
         List<Notification> notifications = notificationService.getUserNotifications(userId);
         return new ResponseEntity<> (notifications, HttpStatus.OK);
     }
-
-
+}
 ```
 
-- 클라이언트 Header에 알림 모달이 위치해있고, 유저가 로그인해서 메인 페이지에 접속하게 되면 Header를 통해서 `/api/notification/subscribe/{userId}`에 구독 요청을 보냅니다.
-- 알림에는 아이디가 존재하는데, 통신 간에 누락된 알림을 테스트하기 위해 `lastEventId`를 사용했습니다.
-- `MediaType.TEXT_EVENT_STREAM_VALUE`는 SSE를 지원하는 텍스트 형식을 나타냅니다.
+- `MediaType.TEXT_EVENT_STREAM_VALUE`를 명시해 브라우저가 SSE임을 인지하도록 합니다.
+- `lastEventId`를 활용하면 누락된 이벤트를 다시 전달할 수 있습니다.
 
-### 3. NotificationService 클래스
+### 3. Service
+
 ```java
 @Slf4j
 @Service
@@ -130,11 +123,9 @@ public class NotificationController {
 public class NotificationService {
     private final SseEmitters sseEmitters;
     private final NotificationRepository notificationRepository;
-    // timeout 시간 설정
     private static final long TIMEOUT = 60 * 1000L;
 
     public SseEmitter subscribe(Long userId, HttpServletResponse response) {
-        // 기존의 연결 종료
         String existingId = userId + "_";
         Map<String, SseEmitter> existingEmitters = sseEmitters.findEmitter(existingId);
         existingEmitters.forEach((key, emitter) -> {
@@ -142,33 +133,28 @@ public class NotificationService {
             sseEmitters.delete(key);
         });
 
-        // 새 연결 생성
         SseEmitter emitter = new SseEmitter(TIMEOUT);
         String id = userId + "_" + System.currentTimeMillis();
         sseEmitters.add(id, emitter);
 
-        // NGINX PROXY 에서의 필요 설정 불필요한 버퍼링방지
         response.setHeader("X-Accel-Buffering", "no");
 
         Map<String, Object> testContent = new HashMap<>();
         testContent.put("content", "connected!");
         sendToClient(emitter, "test", id, testContent);
 
-        // 타임아웃 시 emitter 만료
         emitter.onTimeout(() -> {
             log.info("onTimeout callback");
             emitter.complete();
             sseEmitters.delete(id);
         });
 
-		// 에러 발생
         emitter.onError(throwable -> {
             log.error("[sse] SseEmitters 파일 add 메서드 : {}", throwable.getMessage());
             emitter.complete();
             sseEmitters.delete(id);
         });
 
-		//클라이언트와의 연결이 끊어졌을 때
         emitter.onCompletion(() -> {
             log.info("onCompletion callback");
             sseEmitters.delete(id);
@@ -176,7 +162,6 @@ public class NotificationService {
 
         return emitter;
     }
-
 
     private void sendToClient(SseEmitter emitter, String name, String id, Object data) {
         try {
@@ -193,95 +178,77 @@ public class NotificationService {
     @Transactional
     public void send(SendNotificationEvent noti) {
         Notification notification = notificationRepository.save(Notification.create(noti));
-        log.info("저장됨");
-
         String receiverId = noti.getReceiver() + "_";
-        log.info(receiverId);
 
-        // 해당 회원의 emitter 모두 찾아서 이벤트 전송
         Map<String, SseEmitter> emitters = sseEmitters.findEmitter(receiverId);
-        log.info(emitters.entrySet().toString());
-
-        emitters.forEach(
-            (key, emitter) -> {
-                sendToClient(emitter, noti.getName(), noti.getEventId(), notification);
-                log.info("알림 전송 완료");
-            }
-        );
+        emitters.forEach((key, emitter) -> {
+            sendToClient(emitter, noti.getName(), noti.getEventId(), notification);
+            log.info("알림 전송 완료");
+        });
     }
 
-    // 유저 별 알림 조회
     public List<Notification> getUserNotifications(Long userId) {
         return notificationRepository.findByReceiverOrderByNotificationCreatedDateDesc(userId);
     }
-
+}
 ```
 
-구독 요청이 들어왔을 때, 새로운 Emitter를 생성하고 더미 데이터를 보냅니다. 기존 연결이 있다면 제거하고 새로운 Emitter를 생성합니다.
+구독 요청 시 기존 연결을 정리하고 새 `SseEmitter`를 생성합니다. 첫 연결이 제대로 되었는지 확인하기 위해 테스트 이벤트를 한 번 전송하는 것도 중요합니다.
 
-> **참고**: 추가적으로 읽지 않은 알림 및 전체 알림 조회/삭제 기능을 위해서 알림에 대한 Entity와 Repository를 생성했습니다.
+## 클라이언트 구현 (React)
 
-### 클라이언트에서 구독 요청 및 응답 읽기
-```java
-	// sse 연결 선언
-    useEffect(() => {
-        // 마운트 시 로그인 상태 + sse 연결이 안 된 상태면 연결
-        if (token && !eventSource) {
-            subscribe();
-        }
+```typescript
+useEffect(() => {
+  if (token && !eventSource) {
+    subscribe();
+  }
+  return () => {
+    if (eventSource) {
+      eventSource.close();
+      setEventSource(null);
+    }
+  };
+}, [eventSource, token]);
 
-        // 언마운트 시 sse 연결 종료
-        return () => {
-            if (eventSource) {
-                eventSource.close();
-                console.log("연결 종료");
-                setEventSource(null);
-            }
-        }
-    },[eventSource, token])
-    
-    // sse 연결 시작
-    const subscribe = async () => {
-        console.log("연결 시작");
-        const source = new EventSourcePolyfill(
-            `${notifyApi}/subscribe/` + userId,
-            {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                lastEventId: lastEventId,
-            },
-            heartbeatTimeout: 600000,
-            }
-        );
-        
-        // mileage 관련 알림 받아옴
-        source.addEventListener("mileage", (e) => {
-            setLastEventId(e.lastEventId);
-            console.log(lastEventId);
-            const data = JSON.parse(e.data);
-            console.log(data);
-            toast(data.content);
-            setNotifications((prevNotifications) => [data, ...prevNotifications]);
-            console.log(notifications);
-            setUnreadCount((prevCount) => prevCount + 1);
-        });
-	}
+const subscribe = async () => {
+  const source = new EventSourcePolyfill(`${notifyApi}/subscribe/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      lastEventId: lastEventId,
+    },
+    heartbeatTimeout: 600000,
+  });
+
+  source.addEventListener("mileage", (e) => {
+    setLastEventId(e.lastEventId);
+    const data = JSON.parse(e.data);
+    toast(data.content);
+    setNotifications((prev) => [data, ...prev]);
+    setUnreadCount((prev) => prev + 1);
+  });
+
+  setEventSource(source);
+};
 ```
 
-연결 이펙트에 대한 함수를 선언하고, Server에서 보내는 알림에 대해 `setNotifications` useState에 인자로 넣어줍니다.
+- 컴포넌트가 마운트되면 구독을 시작하고, 언마운트될 때 연결을 종료합니다.
+- 이벤트 타입(`mileage`)별로 리스너를 추가해 토스트 알림과 상태 갱신을 수행합니다.
 
-## Trouble Shooting
+## 운영 중 만난 이슈
 
-### Nginx 설정
+### 1. Nginx Proxy 설정
 
-프로젝트에서 WebServer로 nginx를 사용했는데, nginx는 WAS로 HTTP/1.0을 사용하고 `Connection: close` 헤더를 사용하기 때문에 지속적으로 연결이 안 돼서 SSE가 작동하지 않습니다.
+Nginx는 기본적으로 HTTP/1.0 연결을 끊어버려 SSE가 제대로 동작하지 않았습니다. 아래 설정을 추가하니 안정적으로 연결이 유지됐습니다.
 
-이에 대한 설정으로 `nginx.conf`에 다음을 추가합니다:
 ```nginx
 proxy_set_header Connection '';
 proxy_http_version 1.1;
 ```
 
-### JPA 설정
+### 2. JPA `open-in-view`
 
-`open-in-view`를 `false`로 설정하여 요청이 트랜잭션이 처리되는 동안에만 데이터베이스 연결을 열어줍니다.
+트랜잭션 외부에서 엔티티를 참조하면 `LazyInitializationException`이 발생할 수 있습니다. `open-in-view=false`로 설정해 요청 범위 안에서만 영속성 컨텍스트를 사용하도록 했습니다.
+
+## 마치며
+
+SSE는 구현이 단순하면서도 실시간성이 필요한 알림에 딱 맞는 도구였습니다. 운영 과정에서 중요한 것은 **연결 관리**와 **프록시 설정**입니다. 이후에는 알림 저장소를 Redis Pub/Sub와 연동하거나, 읽지 않은 알림 카운트를 별도로 관리하는 기능을 확장해 볼 계획입니다.
