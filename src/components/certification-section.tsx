@@ -11,6 +11,8 @@ type CertificationItem = {
   imageAlt?: string;
 };
 
+type CertificationWithImage = CertificationItem & { imageSrc: string };
+
 const certifications: CertificationItem[] = [
   {
     date: '2025.07',
@@ -43,7 +45,7 @@ const certifications: CertificationItem[] = [
 ];
 
 export default function CertificationSection() {
-  const [selectedCertification, setSelectedCertification] = useState<CertificationItem | null>(null);
+  const [selectedCertification, setSelectedCertification] = useState<CertificationWithImage | null>(null);
 
   return (
     <>
@@ -68,7 +70,12 @@ export default function CertificationSection() {
                   </div>
                   {certification.imageSrc && (
                     <button
-                      onClick={() => setSelectedCertification(certification)}
+                      onClick={() =>
+                        setSelectedCertification({
+                          ...certification,
+                          imageSrc: certification.imageSrc!,
+                        })
+                      }
                       className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium"
                     >
                       자격증 확인
