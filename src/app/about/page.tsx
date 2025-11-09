@@ -3,6 +3,10 @@ import Link from 'next/link';
 import TechStackGroup from '@/components/tech-stack-hover';
 import ProjectsSection from '@/components/projects-section';
 import CertificationSection from '@/components/certification-section';
+
+import { VscAzure } from "react-icons/vsc";
+
+
 import {
   SiAmazon,
   SiLinux,
@@ -130,7 +134,7 @@ export default function AboutPage() {
                                 { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리, 배포 자동화, 스크립트 기반 인프라 운영을 할 수 있습니다', icon: <SiAmazon /> },
                                 { name: 'AWS EC2/EKS', description: 'EC2 인스턴스 구성 및 EKS 클러스터를 통해 컨테이너 오케스트레이션을 운영할 수 있습니다', icon: <SiAmazon /> },
                                 { name: 'AWS Lambda', description: '서버리스 아키텍처 구축 및 이벤트 기반 애플리케이션 개발을 할 수 있습니다', icon: <SiAmazon /> },
-                                { name: 'Azure VM/AKS', description: 'Azure VM 구성 및 AKS를 활용한 Kubernetes 환경 구축과 운영을 할 수 있습니다' }
+                                { name: 'Azure VM/AKS', description: 'Azure VM 구성 및 AKS를 활용한 Kubernetes 환경 구축과 운영을 할 수 있습니다', icon: <VscAzure /> }
                             ]}
                         />
                         <TechStackGroup 
@@ -138,7 +142,6 @@ export default function AboutPage() {
                             items={[
                                 { name: 'Linux', description: 'Linux 환경에서 서버 구성, 시스템 관리, 쉘 스크립팅을 할 수 있습니다', icon: <SiLinux /> },
                                 { name: 'Mac', description: 'macOS 환경에서 개발 및 DevOps 작업을 효율적으로 수행할 수 있습니다', icon: <SiApple /> },
-                                { name: 'Windows', description: 'Windows 서버 환경 구성 및 운영 경험이 있습니다' }
                             ]}
                         />
                         <TechStackGroup 
