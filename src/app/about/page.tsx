@@ -84,24 +84,24 @@ export default function AboutPage() {
                         <div>
                             <h3 className="text-xl font-semibold text-foreground mb-3">1. Well-Architected Framework에 대한 이해</h3>
                             <p>
-                                전공, 소프트웨어 아카데미, AWS 부트캠프를 통해 IT 인프라와 시스템 아키텍처에 대한 지식을 쌓아왔습니다.
+                                전공, 소프트웨어 아카데미, Cloud 부트캠프를 거쳐서 <span className="font-semibold text-foreground">IT Infra</span> 및 <span className="font-semibold text-foreground">System Architecture</span>에 대한 지식을 키워왔습니다.
                                 <br></br>
-                                운영 우수성(Operational Excellence), 보안(Security), 안정성(Reliability), 성능 효율성(Performance Efficiency), 
-                                비용 최적화(Cost Optimization), 지속가능성(Sustainability) 관점에서 서비스를 제공하기 위해 노력합니다.
+                                운영 우수성, 보안, 신뢰성, 성능 효율성, 비용 최적화, 지속 가능성에 대한 관점으로 서비스를 제공하기 위해 노력합니다.
                             </p>
                         </div>
                         <div>
-                            <h3 className="text-xl font-semibold text-foreground mb-3">2. CloudOps 엔지니어링에 대한 마음가짐</h3>
+                            <h3 className="text-xl font-semibold text-foreground mb-3">2. DevOps 엔지니어링에 대한 마음가짐</h3>
                             <p>
-                                빠르게 상황을 대응하고 서비스를 운영할 수 있는 마음가짐과 책임감 있는 자세를 준비하고 있습니다.
+                                언제든지 상황에 <span className="font-semibold text-foreground">신속히 대응</span>하여 서비스를 운영하기 위한 준비된 마음가짐과 책임감 있는 자세를 갖추고 있습니다.
                                 <br></br>
-                                반복되는 작업의 자동화와 비효율적인 프로세스의 개선을 통해 더 나은 운영 환경을 만들어 나갑니다.
+                                반복되는 일을 <span className="font-semibold text-foreground">자동화</span>하고 비효율적인 <span className="font-semibold text-foreground">프로세스를 개선</span>하는 것을 통해 더 나은 운영 환경을 만들고자 합니다.
                             </p>
                         </div>
                         <div className="pt-4 border-t border-card-border">
                             <p>
-                                On-Prem/Cloud 인프라 경험을 통해 솔루션 최적화, 인프라 자동화, 애플리케이션 개발 역량을 갖추며, 
-                                <span className="font-semibold text-foreground">구체적인 성과를 만들어내는 엔지니어</span>로 성장하고자 합니다.
+                                On-Prem/Cloud 인프라 환경에서의 경험으로 솔루션 최적화, 인프라 자동화, 요구사항 개발 등에 대한 역량을 갖추었으며, 
+                                <br></br>
+                                이를 통해 구체적인 성과를 내는 엔지니어로 성장하고자 합니다.
                             </p>
                         </div>
                     </div>
