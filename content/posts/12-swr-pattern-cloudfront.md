@@ -7,11 +7,15 @@ excerpt: 'CloudFront에 Stale-While-Revalidate 패턴 적용으로 비용 절감
 tags: ['AWS', 'CloudFront', 'CDN', 'Caching', 'SWR', 'Cloud']
 ---
 
-React로 만든 정적 웹사이트를 S3 + CloudFront에 배포하고 나면, 수정사항이 생길 때마다 **무효화(Invalidation)**를 누르는 자신을 발견하게 됩니다. 문제는 무효화 요청이 무료가 아니라는 점입니다. 그래서 캐시 비용은 줄이면서도 최신 콘텐츠를 유지할 수 있는 방법으로 **SWR(Stale-While-Revalidate)** 패턴을 적용해 보았습니다.
+CloudFront의 기본 캐시 정책 때문에, S3 등으로 웹페이지를 배포했을때, 수정사항이 생기면 일반적으로 **Invalidations(무효화)** 를 해줄 필요가 생깁니다.
+
+이건 **Invalidations(무효화)** 의 캐시 정책 때문인데, 무효화는 조건부 비용이 있다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/54c8e1cb-0ba5-4b83-a6e5-fda1787bcf88/image.png)
 
-## SWR은 무엇인가요?
+그래서, **SWR(Stale-While-Revalidate)** 패턴을 적용하는 과정을 알아보려고 한다.
+
+## SWR Pattern?
 
 SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최신화”하는 전략입니다.
 

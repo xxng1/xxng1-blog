@@ -4,10 +4,10 @@ title:        "[Backend] SSE 방식을 이용한 알림 구현"
 date: '2024-06-15'
 section: 'dev'
 excerpt: 'Server-Sent Events를 활용한 실시간 알림 구현 및 Nginx 설정'
-tags: ['SSE', 'Java', 'Spring', 'Backend', 'Real-time']
+tags: ['SSE', 'Backend', 'Real-time', 'Nginx']
 ---
 
-프로젝트에서 사용했던 SSE 방식에 대해 정리합니다. 실시간 알림을 구현할 때는 "어떤 통신 방식을 선택할까?"라는 질문부터 시작합니다. 우리 팀은 사용자 알림 기능을 위해 **Server-Sent Events(SSE)**를 선택했고, Spring Boot와 Nginx 환경에서 안정적으로 동작하도록 구성했습니다. 전체 과정을 기록해 둡니다.
+프로젝트에서 사용했던 SSE 방식에 대해 정리합니다. 사용자 알림 기능을 위해 **Server-Sent Events(SSE)**를 선택했고, Spring Boot와 Nginx 환경에서 안정적으로 동작하도록 구성했습니다. 전체 과정을 기록해 둡니다.
 
 ## 개요
 

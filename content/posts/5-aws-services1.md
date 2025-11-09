@@ -4,10 +4,10 @@ title:        "[Cloud] AWS Services(feat. network)"
 date: '2024-04-11'
 section: 'infra'
 excerpt: 'AWS 네트워크 서비스 소개 및 활용 방법'
-tags: ['AWS', 'Network', 'Cloud', 'Infrastructure', 'ALB', 'NLB', 'GLB']
+tags: ['AWS', 'Network', 'Cloud', 'Infrastructure']
 ---
 
-AWS를 처음 접했을 때 가장 헷갈렸던 부분은 "서비스가 이렇게 많은데 언제 무엇을 써야 하지?"였습니다. 그래서 프로젝트에서 자주 언급되는 서비스들을 주제별로 묶어 정리해 두었습니다. 간단한 정의와 함께 실무에서 어떻게 활용했는지도 덧붙였습니다.
+AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들을 주제별로 묶어 정리해 두었습니다. 간단한 정의와 함께 어떻게 활용했는지도 덧붙였습니다.
 
 ## 네트워크 & 트래픽 제어
 

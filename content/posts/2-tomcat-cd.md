@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "[DevOps] jenkins - CD ( feat. tomcat )"
+title:        "[DevOps] jenkins - CD (feat. Tomcat)"
 date: '2023-07-02'
 section: 'infra'
 excerpt: 'Jenkins와 Tomcat을 활용한 자동 배포(CD) 파이프라인 구성 방법'
@@ -9,7 +9,9 @@ tags: ['Jenkins', 'Tomcat', 'CI/CD', 'Docker']
 
 ## 서론
 
-CI 파이프라인을 어느 정도 갖춰 놓고 나니, 이제는 "코드가 변경될 때 자동으로 배포까지 흘러가면 좋겠다"는 생각이 들었습니다. 이 글은 Jenkins와 Tomcat을 이용해 Spring Boot 애플리케이션을 자동 배포하는 과정을 단계별로 정리한 기록입니다. 실습 환경은 Docker 기반이며, 전체 흐름을 따라가면 동일한 구성을 재현할 수 있습니다.
+Jenkins와 Tomcat을 이용해 Spring Boot 애플리케이션을 자동 배포하는 과정을 단계별로 정리한 기록입니다. 
+
+실습 환경은 Docker 기반이며, 전체 흐름을 따라가면 동일한 구성을 재현할 수 있습니다.
 
 ## 전체 흐름
 

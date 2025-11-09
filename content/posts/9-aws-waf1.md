@@ -7,7 +7,7 @@ excerpt: 'AWS WAF를 활용한 웹 애플리케이션 보안 및 공격 방어 �
 tags: ['AWS', 'WAF', 'Security', 'Cloud']
 ---
 
-프로덕션 환경을 준비하면서 "헬스 체크는 잘 되는데, 보안은 어떻게 막을까?"라는 질문을 자주 받았습니다. 그래서 AWS에서 제공하는 WAF(Web Application Firewall)를 직접 구성해 보며 얻은 내용을 정리했습니다. 기본적인 공격 유형을 짚어보고, Web ACL을 만들면서 적용했던 규칙 예시까지 함께 기록했습니다.
+> AWS에서 제공하는 WAF(Web Application Firewall)를 직접 구성해 보며 얻은 내용
 
 ## 먼저 짚고 가는 공격 유형
 

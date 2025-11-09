@@ -1,15 +1,17 @@
 ---
 layout:       post
-title:        "[DevOps] WAS - DB connect ( feat. docker )"
+title:        "[DevOps] WAS(Web Application Server)와 DB 연결 (feat. docker)"
 date: '2023-06-15'
 section: 'infra'
-excerpt: 'Docker 컨테이너를 활용한 3-Tier 아키텍처 구성 및 WAS-DB 연결 방법'
-tags: ['Docker', 'Database', 'MariaDB', 'WAS', 'Tomcat']
+excerpt: 'Docker 컨테이너를 활용한 3-Tier 아키텍처 구성 및 WAS와 DB 연결 방법'
+tags: ['Docker', 'Database', 'MariaDB', 'Tomcat']
 ---
 
 ## 개요
 
-3-Tier 아키텍처를 실습하면서 가장 먼저 확인하고 싶었던 것은 "애플리케이션(WAS)과 데이터베이스(DB)가 정말로 잘 연결되는가?"였습니다. 이 글은 Docker 컨테이너 환경에서 Tomcat과 MariaDB를 연결해 데이터를 조회하는 과정을 정리한 기록입니다. 세팅부터 확인까지의 전체 흐름을 적어 두었으니, 비슷한 환경을 구축할 때 참고하면 좋습니다.
+Docker 컨테이너 환경에서 Tomcat과 MariaDB를 연결해 데이터를 조회하는 과정을 정리한 기록입니다. 
+
+3-Tier 아키텍처의 세팅부터 확인까지의 전체 흐름을 적어 두었습니다.
 
 ## 준비 사항
 

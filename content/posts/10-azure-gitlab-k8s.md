@@ -4,10 +4,12 @@ title:        "[DevOps] Kubernetes Executor 기반 GitLab Runner"
 date: '2025-05-12'
 section: 'infra'
 excerpt: 'AKS(Azure Kubernetes Service)에서 GitLab Runner Kubernetes Executor 구성 및 CI Job Pod 동적 생성'
-tags: ['GitLab', 'Kubernetes', 'Azure', 'AKS', 'CI/CD', 'DevOps']
+tags: ['Azure', 'GitLab', 'Kubernetes', 'AKS', 'CI/CD', 'DevOps']
 ---
 
-GitLab Runner를 Kubernetes에 붙이고 나면, CI Job이 실행될 때마다 임시 Pod가 생성되고 종료되는 과정을 눈으로 확인할 수 있습니다. 이 글에서는 Azure 환경을 예로 들어, GitLab을 자체 호스팅하고 AKS에 Runner를 배포하는 과정을 정리했습니다.
+GitLab Runner를 Kubernetes에 붙이고 나면, CI Job이 실행될 때마다 임시 Pod가 생성되고 종료되는 과정을 확인할 수 있습니다.
+
+이 글에서는 `Azure` 환경을 예로 들어, `GitLab`을 자체 호스팅하고 `AKS`에 `GitLab Runner`를 배포하는 과정을 정리했습니다.
 
 ## 전체 구조
 

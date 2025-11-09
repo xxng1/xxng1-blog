@@ -4,10 +4,12 @@ title: "[Data] Kafka와 Python을 통한 Data Migration"
 date: '2024-06-15'
 section: 'infra'
 excerpt: 'Python 스크립트를 활용한 Kafka 기반 MySQL → MongoDB 데이터 마이그레이션'
-tags: ['Kafka', 'Python', 'MySQL', 'MongoDB', 'Data Migration']
+tags: ['Kafka', 'Python', 'MySQL', 'MongoDB']
 ---
 
-MySQL에 쌓인 데이터를 MongoDB로 옮겨야 할 일이 생겼습니다. Debezium이나 Spring Batch 등을 검토했지만, 빠르게 PoC를 진행하려면 가벼운 스크립트가 더 적합했습니다. 그래서 Kafka를 메시지 브로커로 두고 Python으로 Producer/Consumer를 작성해 마이그레이션을 구현했습니다. 전체 과정을 기록해 둡니다.
+MySQL에 쌓인 데이터를 MongoDB로 옮겨야 할 때,
+
+Kafka를 메시지 브로커로 두고 Python으로 Producer/Consumer를 작성해 마이그레이션을 구현했습니다. 전체 과정을 기록해 둡니다.
 
 ## 아키텍처 개요
 

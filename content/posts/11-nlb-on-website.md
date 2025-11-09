@@ -4,10 +4,12 @@ title:        "[Cloud] 웹사이트에서의 NLB(Network Load Balancer)"
 date: '2025-05-14'
 section: 'infra'
 excerpt: '웹사이트에 Network Load Balancer 적용 및 ALB 대비 장단점 분석'
-tags: ['AWS', 'NLB', 'Load Balancer', 'Cloud', 'Infrastructure']
+tags: ['Azure', 'NLB', 'Cloud', 'Infrastructure']
 ---
 
-"웹 서비스라면 ALB를 써야 한다"는 말을 흔히 듣습니다. 하지만 L4 기반의 NLB를 쓰면 어떤 결과가 나올지 궁금해졌고, 직접 구성해 보았습니다. 이 글은 Azure NLB를 기준으로 알고리즘을 확인하고, 실제 부하 테스트를 통해 체감 성능을 측정한 기록입니다.
+웹 사이트에서는 주로 ALB(Appliction Load Balacncer)를 사용하는데, NLB(Network Load Balancer)를 사용하면 안될까?
+
+이 글에서는 `Azure NLB` 동작 알고리즘을 알아보고, `성능 테스트`를 진행한다.
 
 ## NLB의 분산 방식은?
 
@@ -19,9 +21,7 @@ Azure NLB는 **5-tuple 해시**를 사용합니다.
 - Destination Port
 - Protocol
 
-이 다섯 값을 해싱해 백엔드 풀의 VM 중 하나를 선택합니다. 따라서 Source Port가 바뀔 때마다 다른 VM으로 라우팅되며, 겉보기에는 Round-Robin처럼 느껴질 수 있습니다.
-
-![](https://velog.velcdn.com/images/xxng1/post/a625504d-c44c-4a57-ba69-bcce35170229/image.png)
+이 다섯 값을 해싱해 백엔드 풀의 VM 중 하나를 선택합니다. 따라서 Source Port가 바뀔 때마다 다른 VM으로 라우팅되며, 겉보기에는 Round-Robin처럼 느껴질 수 있다.
 
 ## 테스트 환경 구성
 
@@ -29,6 +29,8 @@ Azure NLB는 **5-tuple 해시**를 사용합니다.
 - Terraform으로 네트워크, 보안 그룹, VM, NLB 리소스 구성
 - 각 VM에는 간단한 Nginx 서버와 "Hello from VM n" 페이지 배포
 
+
+![](https://velog.velcdn.com/images/xxng1/post/a625504d-c44c-4a57-ba69-bcce35170229/image.png)
 ![](https://velog.velcdn.com/images/xxng1/post/47284d13-e672-47f8-8529-a4cada8828d1/image.png)
 ![](https://velog.velcdn.com/images/xxng1/post/60786f93-7c19-44d2-b873-37a8abaae66c/image.png)
 

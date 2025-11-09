@@ -7,7 +7,8 @@ excerpt: 'Dockerfile을 통한 웹서버 SSL 인증서 발급 및 적용 방법'
 tags: ['Docker', 'SSL', 'Nginx', "Let's Encrypt", 'DevOps']
 ---
 
-HTTPS는 사용자 신뢰와 검색 노출을 위해 이제는 선택이 아니라 필수가 되었습니다. 프런트엔드 서버를 직접 운영하고 있었다면 "인증서를 자동으로 갱신하고 안전하게 적용할 수 있을까?"라는 고민을 한 번쯤 하게 됩니다. 이 글에서는 Docker 기반 Nginx 서버에 Certbot을 활용해 SSL 인증서를 발급하고 적용하는 과정을 순서대로 정리했습니다.
+
+Docker 기반 Nginx 서버에 Certbot을 활용해 SSL 인증서를 발급하고 적용하는 과정을 순서대로 정리했습니다.
 
 ## 사전 준비 체크리스트
 

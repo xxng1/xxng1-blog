@@ -7,7 +7,7 @@ excerpt: '로컬 환경에서 Kubernetes를 학습하기 위한 minikube 설치 
 tags: ['Kubernetes', 'minikube', 'DevOps', 'Container']
 ---
 
-쿠버네티스를 배우고 싶은데 클러스터를 직접 구축하기는 쉽지 않을 때, 가장 빠른 대안이 **minikube**입니다. 이름 그대로 "mini Kubernetes"를 로컬에서 실행해 보며, 실제 환경의 감각을 익힐 수 있습니다. 아래는 제가 minikube로 기본 워크로드를 띄워 보며 정리한 메모입니다.
+쿠버네티스를 쉽게 구축하고 싶을 때 가장 빠른 대안이 **minikube**입니다. 이름 그대로 "mini Kubernetes"를 로컬에서 실행해 보며, 실제 환경의 감각을 익힐 수 있습니다. 아래는 제가 minikube로 기본 워크로드를 띄워 보며 정리한 메모입니다.
 
 ## minikube란?
 

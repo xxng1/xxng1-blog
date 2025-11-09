@@ -4,10 +4,12 @@ title:        "[Project] 우리 팀에서 사용한 Git Branch 전략"
 date: '2024-02-15'
 section: 'etc'
 excerpt: 'Github 협업을 위한 Git Flow 전략 및 Branch 관리 방법'
-tags: ['Git', 'GitFlow', 'Collaboration', 'Github']
+tags: ['Git', 'Collaboration', 'Github']
 ---
 
-짧은 기간 동안 팀 프로젝트를 진행하면서도 최소한의 협업 질서를 갖추고 싶었습니다. 그래서 가장 익숙한 Git Flow를 우리 팀에 맞게 다듬어 적용했고, 그 과정을 공유해 둡니다. 프로젝트 레포는 [DKT-Kwanza/dmarket-back](https://github.com/DKT-Kwanza/dmarket-back)입니다.
+Github로 협업하는 과정에서 사용한 우리 팀의 Git-Branch 전략
+
+[Github Repository](https://github.com/DKT-Kwanza/dmarket-back)
 
 ## 우리가 사용한 브랜치 구조
 

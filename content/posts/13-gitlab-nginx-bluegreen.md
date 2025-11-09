@@ -4,14 +4,23 @@ title:        "[DevOps] Gitlab Runner(Shell Executor)를 통한 Nginx의 Blue/Gr
 date: '2025-08-13'
 section: 'infra'
 excerpt: 'GitLab CI를 활용한 Nginx Blue/Green 배포 자동화 구성'
-tags: ['GitLab', 'CI/CD', 'Nginx', 'Blue/Green', 'DevOps', 'Docker']
+tags: ['Azure', 'GitLab', 'CI/CD', 'Nginx', 'Blue/Green', 'Shell']
 ---
 
-Azure VM 한 대에서 GitLab, Runner, Nginx를 모두 돌리면서도 블루/그린 전환을 자동화할 수 있을까요? 이 글은 그 질문에서 출발했습니다. GitLab Runner(Shell Executor)와 Docker Compose를 활용해 Nginx에서 무중단 전환을 구현한 과정을 공유합니다.
+> Azure VM 한 대에서 `GitLab`, `GitLab Runner`, `Nginx`로 무중단 블루/그린 배포 구축
+
+## Source Code
+
+[Github Source Code](https://github.com/xxng1/nginx-apache-bluegreen-gitlab)
+
+---
+
 
 ![](https://velog.velcdn.com/images/xxng1/post/65e9fee9-bf27-433b-ac8f-975dc5760ed8/image.png)
 
-## 빠르게 훑어보기
+
+
+## 훑어보기
 
 - GitLab(Omnibus)은 80/443 포트를 그대로 사용하고, 애플리케이션 트래픽은 8081번 포트의 Edge Nginx가 담당
 - Blue/Green 슬롯은 각각의 컨테이너(app-blue, app-green)로 항상 기동
@@ -145,7 +154,7 @@ switch_to_green:
   only: [branches, tags]
 ```
 
-## 현장에서 얻은 교훈
+## 인사이트
 
 - **심볼릭 링크 경로**는 컨테이너 내부 기준으로 작성해야 합니다.
 - 링크를 교체하기 전에는 반드시 Nginx 설정 검증을 선행해야 전체 Edge가 다운되는 사고를 막을 수 있습니다.
