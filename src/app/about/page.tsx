@@ -132,9 +132,9 @@ export default function AboutPage() {
                         <TechStackGroup 
                             title="Cloud Platform"
                             items={[
-                                { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리, 배포 자동화, 스크립트 기반 인프라 운영을 할 수 있습니다', icon: <SiAmazon /> },
+                                { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리, 스크립트 기반 인프라 운영을 할 수 있습니다', icon: <SiAmazon /> },
                                 { name: 'AWS EC2/EKS', description: 'EC2 인스턴스 구성 및 EKS 클러스터를 통해 컨테이너 오케스트레이션을 운영할 수 있습니다', icon: <SiAmazon /> },
-                                { name: 'AWS Lambda', description: '서버리스 아키텍처 구축 및 이벤트 기반 애플리케이션 개발을 할 수 있습니다', icon: <SiAmazon /> },
+                                { name: 'AWS Services', description: 'MSK, VPC, IVS, MediaConvert, CloudFront, S3, Lambda 등 AWS의 다양한 서비스에 대한 전반적인 이해 수준을 갖추고 있습니다', icon: <SiAmazon /> },
                                 { name: 'Azure VM/AKS', description: 'Azure VM 구성 및 AKS를 활용한 Kubernetes 환경 구축과 운영을 할 수 있습니다', icon: <VscAzure /> }
                             ]}
                         />
@@ -148,7 +148,7 @@ export default function AboutPage() {
                         <TechStackGroup 
                             title="Container & Orchestration"
                             items={[
-                                { name: 'Kubernetes', description: 'Kubernetes 클러스터 구성, Pod 배포, HPA 설정, Service/Ingress 관리를 할 수 있습니다', icon: <SiKubernetes /> },
+                                { name: 'Kubernetes', description: 'Kubernetes의 동작 원리와 리소스 오브젝트 전반에 대한 이해를 갖추고 있습니다', icon: <SiKubernetes /> },
                                 { name: 'Docker', description: 'Docker 이미지 빌드, 컨테이너 관리, Docker Compose를 활용한 멀티 컨테이너 환경 구축을 할 수 있습니다', icon: <SiDocker /> }
                             ]}
                         />
@@ -191,17 +191,20 @@ export default function AboutPage() {
                         <div>
                             <h3 className="text-xl font-semibold text-foreground mb-2">NIPA-AWS Developer Bootcamp 2기</h3>
                             <div className="text-sm text-muted-foreground mb-3">2024.08 - 2024.10</div>
-                            <p className="text-muted leading-relaxed mb-3">
-                                AWS 공인강사 기술 교육을 기반으로 클라우드 컴퓨팅을 학습했습니다. 미디어 스트리밍 프로젝트를 수행하여 5개 팀 중 1등을 수상했으며, 
-                                19명 중 최우수 수강생으로 선정되어 미국 시애틀 연수 여행을 다녀왔습니다. Amazon, Microsoft, Google 본사 방문 및 강의를 수강했습니다.
+                            <p className="text-muted leading-relaxed mb-2">
+                                AWS 공인 강사 테크 수업에 기반한 클라우드 컴퓨팅 학습을 진행했습니다.<br />
+                                미디어 스트리밍 프로젝트를 진행해서, 총 5팀 중 1위로 프로젝트 대상을 수상하였습니다.<br />
+                                전체 수료생 19명 중 최우수 수료생으로 선정되어, 미국 시애틀 연수에 다녀왔습니다.
                             </p>
+                            {/* <p className="text-sm text-muted-foreground">(Amazon, Microsoft, Google 본사 방문 및 강연 참석)</p> */}
                         </div>
                         <div>
                             <h3 className="text-xl font-semibold text-foreground mb-2">가천 카카오엔터프라이즈 SW아카데미 3기</h3>
                             <div className="text-sm text-muted-foreground mb-3">2023.09 - 2024.02</div>
                             <p className="text-muted leading-relaxed">
-                                개발 역량 강화와 엔지니어로 성장하기 위한 소프트웨어 아카데미에 참여했습니다. MSA(Microservices Architecture), Kubernetes, CSP(Cloud Service Provider), 
-                                Terraform 등 최신 기술을 학습하고 프로젝트 경험을 쌓았습니다. PBL(Project-Based Learning) 교육과 기업 연계 프로젝트를 통해 다양한 기술 역량과 협업 능력을 향상시켰습니다.
+                                개발 역량 강화와 엔지니어로서의 성장을 위한 소프트웨어 아카데미에 참여했습니다.<br />
+                                MSA, Kubernetes, CSP, Terraform 등 최신 기술을 학습하며 프로젝트 경험을 쌓았습니다.<br />
+                                PBL 교육, 기업 주도 프로젝트를 거쳐 다양한 기술을 학습하고 협업 능력을 향상시켰습니다.
                             </p>
                         </div>
                     </div>
@@ -216,57 +219,74 @@ export default function AboutPage() {
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
                             <div>
-                                <div className="font-semibold text-foreground mb-1">AWS JAM (DevOps Engineering)</div>
-                                <div className="text-sm text-muted">참여</div>
+                                <div className="font-semibold text-foreground mb-1">AWS JAM(2024)</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    DevOps Engineering을 주제로 한 AWS JAM 이벤트에 참여했습니다.
+                                </p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Developing Serverless Solutions on AWS</div>
-                                <div className="text-sm text-muted">특강 이수 (AWS Lambda를 활용한 서버리스 애플리케이션 구축)</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    AWS Lambda를 사용하여 서버리스 애플리케이션을 구축하는 주제의 특강을 수료했습니다.
+                                </p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
                             <div>
-                                <div className="font-semibold text-foreground mb-1">Running Containers on Amazon EKS</div>
-                                <div className="text-sm text-muted">특강 이수 (Kubernetes 컨테이너 관리 및 오케스트레이션)</div>
+                                <div className="font-semibold text-foreground mb-1">Running Containers on Amazon Elastic Kubernetes Service (Amazon EKS)</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    Kubernetes의 컨테이너를 관리하고 오케스트레이션하는 방법에 대한 특강을 수료했습니다.
+                                </p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.08</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Security Engineering on AWS</div>
-                                <div className="text-sm text-muted">특강 이수 (자동화, 모니터링, 로그, 보안 사고 대응)</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    자동화, 모니터링 및 로깅, 보안 인시던트 대응에 필요한 기술에 대한 특강을 수료했습니다.
+                                </p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.08</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Developing on AWS</div>
-                                <div className="text-sm text-muted">특강 이수 (AWS SDK, AWS CLI, IDE를 활용한 애플리케이션 개발)</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    AWS SDK, AWS CLI 및 IDE를 사용하여 애플리케이션을 개발하는 주제의 특강을 수료했습니다.
+                                </p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.12</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Multi Cloud Orchestration (Terraform)</div>
-                                <div className="text-sm text-muted">특강 이수 · 실습 강의 진행 (Terraform을 활용한 멀티클라우드 환경 오케스트레이션, AWS/Azure 배포)</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    멀티클라우드 환경의 오케스트레이션 실전구현 특강을 수료했습니다.<br />
+                                    Terraform을 활용해 멀티클라우드(AWS, Azure) 배포 강의 및 실습을 진행했습니다.
+                                </p>
                             </div>
                         </div>
-                        <div className="flex items-start gap-4 pb-4 border-card-border">
+                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.11</div>
                             <div>
-                                <div className="font-semibold text-foreground mb-1">Monitoring and Testing in DevOps Environment</div>
-                                <div className="text-sm text-muted">특강 이수 (ElasticSearch 기반 Observability 솔루션)</div>
+                                <div className="font-semibold text-foreground mb-1">Monitoring and Testing Implementation in a DevOps Environment</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    ElasticSearch 기반의 Observability 솔루션 실습 특강을 수료했습니다.
+                                </p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.11</div>
                             <div>
-                                <div className="font-semibold text-foreground mb-1">AWS JAM (Solution Engineering)</div>
-                                <div className="text-sm text-muted">참여</div>
+                                <div className="font-semibold text-foreground mb-1">AWS JAM (2023)</div>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    Solution Engineering을 주제로 한 AWS JAM 이벤트에 참여했습니다.
+                                </p>
                             </div>
                         </div>
                     </div>
