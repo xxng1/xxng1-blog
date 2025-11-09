@@ -3,6 +3,7 @@ import Link from 'next/link';
 import TechStackGroup from '@/components/tech-stack-hover';
 import ProjectsSection from '@/components/projects-section';
 import CertificationSection from '@/components/certification-section';
+import AboutGallery from '@/components/about/gallery';
 
 import { VscAzure } from "react-icons/vsc";
 
@@ -237,7 +238,7 @@ export default function AboutPage() {
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.08</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Security Engineering on AWS</div>
-                                <div className="text-sm text-muted">특강 이수 (자동화, 모니터링, 로깅, 보안 사고 대응)</div>
+                                <div className="text-sm text-muted">특강 이수 (자동화, 모니터링, 로그, 보안 사고 대응)</div>
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
@@ -254,7 +255,7 @@ export default function AboutPage() {
                                 <div className="text-sm text-muted">특강 이수 · 실습 강의 진행 (Terraform을 활용한 멀티클라우드 환경 오케스트레이션, AWS/Azure 배포)</div>
                             </div>
                         </div>
-                        <div className="flex items-start gap-4 pb-4 border-b border-card-border">
+                        <div className="flex items-start gap-4 pb-4 border-card-border">
                             <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.11</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Monitoring and Testing in DevOps Environment</div>
@@ -272,27 +273,6 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <figure className="mb-12">
-                <div className="relative w-full h-64 md:h-110 rounded-xl overflow-hidden shadow-xl">
-                    <Image
-                        src="/thespehers.JPG"
-                        alt="Amazon The Spheres in Seattle"
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-                <figcaption className="mt-4 text-sm text-muted-foreground text-center">
-                    <a
-                        href="https://www.google.com/maps/place/The+Spheres/@47.615728,-122.3420854,17z/data=!3m1!4b1!4m6!3m5!1s0x5490154bca117fb1:0x7f39ceca621d130c!8m2!3d47.615728!4d-122.3395105!16s%2Fg%2F11f3xqwt6t?hl=en&entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline hover:text-accent transition-colors"
-                    >
-                        The Spheres - Amazon
-                    </a>
-                </figcaption>
-            </figure>
-
             {/* 블로그 글 보러가기 */}
             <section className="mb-12">
                 <Link href="/" className="block">
@@ -304,6 +284,8 @@ export default function AboutPage() {
                     </div>
                 </Link>
             </section>
+
+            <AboutGallery />
         </div>
     );
 }

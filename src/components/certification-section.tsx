@@ -21,7 +21,7 @@ const certifications: CertificationItem[] = [
   },
   {
     date: '2025.05',
-    title: 'SnowPro Associate: Platform Certification',
+    title: 'SnowPro Associate: Platform',
     issuer: 'Snowflake',
     imageSrc: '/snowflake.png',
     imageAlt: 'SnowPro Associate Platform Certification',
