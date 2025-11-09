@@ -6,9 +6,15 @@ import Image from 'next/image';
 interface CertificationImageModalProps {
   isOpen: boolean;
   onClose: () => void;
+  certification: {
+    title: string;
+    issuer: string;
+    imageSrc: string;
+    imageAlt?: string;
+  } | null;
 }
 
-export default function CertificationImageModal({ isOpen, onClose }: CertificationImageModalProps) {
+export default function CertificationImageModal({ isOpen, onClose, certification }: CertificationImageModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -20,7 +26,10 @@ export default function CertificationImageModal({ isOpen, onClose }: Certificati
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !certification) return null;
+
+  const encodedSrc = encodeURI(certification.imageSrc);
+  const altText = certification.imageAlt ?? `${certification.title} Certificate`;
 
   return (
     <div
@@ -31,8 +40,11 @@ export default function CertificationImageModal({ isOpen, onClose }: Certificati
         className="bg-card-background border border-card-border rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-foreground">Certified Kubernetes Administrator (CKA)</h2>
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h2 className="text-xl font-bold text-foreground">{certification.title}</h2>
+            <p className="text-sm text-muted-foreground mt-1">{certification.issuer}</p>
+          </div>
           <button
             onClick={onClose}
             className="text-muted hover:text-foreground transition-colors text-2xl leading-none"
@@ -43,8 +55,8 @@ export default function CertificationImageModal({ isOpen, onClose }: Certificati
         </div>
         <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden border border-card-border">
           <Image
-            src="/CKA_IMAGE.png"
-            alt="Certified Kubernetes Administrator Certificate"
+            src={encodedSrc}
+            alt={altText}
             fill
             className="object-contain"
             priority

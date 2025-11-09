@@ -34,6 +34,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   @apply font-sans;
+  zoom: 0.8;
+  transform-origin: top center;
 }
 
 /* 개선된 코드 블록 스타일 */

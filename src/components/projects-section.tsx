@@ -1,8 +1,5 @@
 "use client";
 
-import { useState } from 'react';
-import ProjectModal from './project-modal';
-
 const projects = [
   {
     title: 'Chuno - 미디어 스트리밍 서비스',
@@ -54,63 +51,56 @@ const projects = [
 ];
 
 export default function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
-
   return (
-    <>
-      <section className="mb-12">
-        <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-foreground">Projects</h2>
-            <span className="text-xs text-muted-foreground italic">* 클릭하면 상세보기할 수 있습니다</span>
-          </div>
-          <div className="space-y-6">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedProject(index)}
-                className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors cursor-pointer group"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors flex-1">
-                    {project.title}
-                  </h3>
-                  <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">
-                    {project.badge}
+    <section className="mb-12">
+      <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-3xl font-bold text-foreground">Projects</h2>
+          <span className="text-xs text-muted-foreground italic">* 상세 내용을 카드에서 바로 확인할 수 있습니다</span>
+        </div>
+        <div className="space-y-6">
+          {projects.map((project) => (
+            <article
+              key={project.title}
+              className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors"
+            >
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <h3 className="text-xl font-semibold text-foreground flex-1">
+                  {project.title}
+                </h3>
+                <span className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full">
+                  {project.badge}
+                </span>
+              </div>
+              <div className="text-sm text-muted-foreground mb-3">{project.period}</div>
+              <p className="text-muted leading-relaxed mb-4">{project.description}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.techStack.map((tech) => (
+                  <span
+                    key={`${project.title}-${tech}`}
+                    className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10"
+                  >
+                    {tech}
                   </span>
-                </div>
-                <div className="text-sm text-muted-foreground mb-3">{project.period}</div>
-                <p className="text-muted leading-relaxed mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-xs px-2 py-1 bg-accent/5 text-accent rounded border border-accent/10"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-foreground">주요 성과:</span>
-                    <span className="text-muted">{project.achievements}</span>
-                  </div>
+                ))}
+              </div>
+              <div className="text-sm flex flex-col gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                  <span className="font-semibold text-foreground">주요 성과</span>
+                  <span className="text-muted sm:max-w-xl">{project.achievements}</span>
                 </div>
               </div>
-            ))}
-          </div>
+              {project.detail && (
+                <div className="mt-5 pt-5 border-t border-dashed border-card-border">
+                  <h4 className="text-sm font-semibold text-foreground mb-2">상세 내용</h4>
+                  <p className="text-muted leading-relaxed whitespace-pre-line">{project.detail}</p>
+                </div>
+              )}
+            </article>
+          ))}
         </div>
-      </section>
-
-      {selectedProject !== null && (
-        <ProjectModal
-          isOpen={true}
-          onClose={() => setSelectedProject(null)}
-          project={projects[selectedProject]}
-        />
-      )}
-    </>
+      </div>
+    </section>
   );
 }
 
