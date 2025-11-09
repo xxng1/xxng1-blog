@@ -11,16 +11,6 @@ const galleryItems = [
     caption: "The Spheres - Amazon",
     href: "https://www.google.com/maps/place/The+Spheres/@47.615728,-122.3420854,17z/data=!3m1!4b1!4m6!3m5!1s0x5490154bca117fb1:0x7f39ceca621d130c!8m2!3d47.615728!4d-122.3395105!16s%2Fg%2F11f3xqwt6t?hl=en&entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D",
   },
-  {
-    src: "/testimage.png",
-    alt: "AWS S3 콘솔 스크린샷",
-    caption: "AWS S3 Console - Dataset 구조",
-  },
-  {
-    src: "/testimage2.png",
-    alt: "MSK 소비자 구조 다이어그램",
-    caption: "Kafka MSK Consumer 구조",
-  },
 ];
 
 export default function AboutGallery() {

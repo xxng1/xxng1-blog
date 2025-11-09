@@ -6,6 +6,7 @@ import CertificationSection from '@/components/certification-section';
 import AboutGallery from '@/components/about/gallery';
 
 import { VscAzure } from "react-icons/vsc";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 
 import {
@@ -64,10 +65,12 @@ export default function AboutPage() {
                             📞 010-5648-8262
                         </a>
                         <div className="flex gap-4 mt-2">
-                            <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+                            <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
+                                <FaGithub size={18} />
                                 GitHub
                             </a>
-                            <a href="https://www.linkedin.com/in/sangwoong-park/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
+                            <a href="https://www.linkedin.com/in/sangwoong-park/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
+                                <FaLinkedin size={18} />
                                 LinkedIn
                             </a>
                         </div>
@@ -188,6 +191,14 @@ export default function AboutPage() {
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
                     <h2 className="text-3xl font-bold mb-6 text-foreground">Experience</h2>
                     <div className="space-y-6">
+                        <div>
+                            <h3 className="text-xl font-semibold text-foreground mb-2">현대오토에버 모빌리티 SW 스쿨 2기</h3>
+                            <div className="text-sm text-muted-foreground mb-3">2025.04 - 2025.11</div>
+                            <p className="text-muted leading-relaxed mb-2">
+                                클라우드 과정에 참여하여 아키텍처와 운영 전반에 대한 이해를 심화했습니다.<br />
+                                Kubernetes와 IaC(Terraform, Ansible) 등 오픈소스 기반 인프라 기술을 다루며 실무 역량을 키웠습니다.
+                            </p>
+                        </div>
                         <div>
                             <h3 className="text-xl font-semibold text-foreground mb-2">NIPA-AWS Developer Bootcamp 2기</h3>
                             <div className="text-sm text-muted-foreground mb-3">2024.08 - 2024.10</div>

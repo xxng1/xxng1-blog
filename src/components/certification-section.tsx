@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import CertificationImageModal from './certification-image-modal';
+import { GiClick } from "react-icons/gi";
 
 type CertificationItem = {
   date: string;
@@ -76,9 +77,9 @@ export default function CertificationSection() {
                           imageSrc: certification.imageSrc!,
                         })
                       }
-                      className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium"
+                      className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
                     >
-                      자격증 확인
+                      <GiClick />
                     </button>
                   )}
                 </div>
