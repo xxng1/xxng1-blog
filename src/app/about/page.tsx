@@ -273,19 +273,32 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* 블로그 글 보러가기 */}
-            <section className="mb-12">
-                <Link href="/" className="block">
-                    <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm hover:border-accent/30 hover:shadow-md transition-all cursor-pointer">
-                        <h2 className="text-3xl font-bold mb-6 text-foreground">블로그 글 보러가기</h2>
-                        <p className="text-muted leading-relaxed">
-                            Cloud Infrastructure & DevOps 관련 기술과 경험을 기록하고 있습니다.
-                        </p>
-                    </div>
-                </Link>
-            </section>
-
             <AboutGallery />
+
+            {/* 블로그 글 보러가기 */}
+            {/* <section className="mb-12">
+                <div className="flex justify-end">
+                    <Link href="/" className="group">
+                        <div className="w-full sm:w-[22rem] p-[1px] rounded-3xl bg-gradient-to-r from-accent via-indigo-500 to-purple-500 shadow-[0_18px_40px_-20px_rgba(59,130,246,0.7)] transition-transform group-hover:-translate-y-1">
+                            <div className="bg-card-background rounded-[calc(1.5rem-1px)] p-7 flex flex-col gap-4 items-start">
+                                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent/80">
+                                    Blog
+                                </span>
+                                <h2 className="text-2xl font-bold text-foreground leading-tight">
+                                    최신 글 보러가기
+                                </h2>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    Cloud Infrastructure & DevOps 이야기와 실제 경험을 정리해두었어요.
+                                </p>
+                                <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors group-hover:text-accent-hover">
+                                    블로그 홈으로 이동하기
+                                    <span className="text-base">→</span>
+                                </span>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+            </section> */}
         </div>
     );
 }
