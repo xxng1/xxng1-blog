@@ -5,9 +5,9 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/atom-one-dark.css';
+import 'highlight.js/styles/github.css';
+import TableOfContents from '@/components/table-of-contents';
 
 interface PostContentProps {
   title: string;
@@ -117,38 +117,42 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
     styleElement.textContent = `
       pre {
         position: relative;
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
         overflow: hidden;
-        margin: 1.5rem 0;
+        margin: 2rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       }
 
       .copy-button {
         position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.25rem 0.5rem;
+        top: 0.75rem;
+        right: 0.75rem;
+        padding: 0.375rem 0.75rem;
         font-size: 0.75rem;
         line-height: 1;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.8);
-        border: none;
-        border-radius: 0.25rem;
+        background-color: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 0.375rem;
         cursor: pointer;
         transition: all 0.2s ease;
+        font-weight: 500;
       }
 
       .copy-button:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        color: white;
+        background-color: rgba(59, 130, 246, 0.2);
+        color: #2563eb;
+        border-color: rgba(59, 130, 246, 0.3);
       }
 
       pre code {
         display: block;
-        padding: 1rem;
+        padding: 1.5rem;
         overflow-x: auto;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 0.875rem;
-        line-height: 1.5;
+        line-height: 1.6;
+        color: #374151;
       }
     `;
 
@@ -163,29 +167,32 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
   }, []);
 
   return (
-    <article className="prose prose-invert mx-auto [&>*]:my-6">
-      <header className="mb-8 not-prose">
-        <time className="text-sm text-zinc-400">
-          {new Date(date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-          {title}
-        </h1>
-        <p className="mt-3 text-xl text-zinc-400">
-          {excerpt}
-        </p>
-      </header>
+    <>
+      <TableOfContents content={content} />
+      <article className="prose prose-slate mx-auto max-w-3xl [&>*]:my-6">
+        <header className="mb-12 not-prose">
+          <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm mb-8">
+            <time className="text-sm text-muted-foreground">
+              {new Date(date).toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <h1 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-tight">
+              {title}
+            </h1>
+            <p className="mt-4 text-lg text-muted leading-relaxed">
+              {excerpt}
+            </p>
+          </div>
+        </header>
 
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[
           rehypeRaw,
-          rehypeSlug,
-          [rehypeAutolinkHeadings, { behavior: 'wrap' }]
+          rehypeSlug
         ]}
         components={{
           code({ node, className, children, ...props }: any) {
@@ -194,7 +201,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             if (isInline) {
               return (
                 <code
-                  className="bg-zinc-700 text-zinc-200 font-mono text-sm px-1.5 py-1 rounded"
+                  className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-sm px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
                   {...props}
                 >
                   {children}
@@ -203,7 +210,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             }
 
             return (
-              <code className={className} {...props}>
+              <code className={`${className} text-sm md:text-base leading-relaxed`} {...props}>
                 {children}
               </code>
             );
@@ -211,7 +218,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
 
           pre({ children, ...props }: any) {
             return (
-              <pre className="overflow-auto my-8 p-4 rounded-lg bg-zinc-900 border border-zinc-700 relative" {...props}>
+              <pre className="overflow-auto my-12 p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg" {...props}>
                 {children}
               </pre>
             );
@@ -220,32 +227,41 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           h1({ children, ...props }: any) {
             return (
               <div>
-                <h1 className="text-3xl font-bold mt-8 mb-2">{children}</h1>
-                <hr className="border-t border-zinc-700 mb-4 opacity-50" />
+                <h1 {...props} className="text-3xl font-bold mt-16 mb-6 text-foreground leading-tight">{children}</h1>
+                <hr className="border-t border-card-border mb-8 mt-6" />
               </div>
             );
           },
           h2({ children, ...props }: any) {
-            return <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>;
+            return <h2 {...props} className="text-2xl font-bold mt-12 mb-5 text-foreground leading-tight pt-2">{children}</h2>;
           },
           h3({ children, ...props }: any) {
-            return <h3 className="text-xl font-bold mt-6 mb-4">{children}</h3>;
+            return <h3 {...props} className="text-xl font-bold mt-10 mb-4 text-foreground leading-tight pt-1">{children}</h3>;
+          },
+          h4({ children, ...props }: any) {
+            return <h4 {...props} className="text-lg font-bold mt-8 mb-3 text-foreground leading-tight">{children}</h4>;
+          },
+          h5({ children, ...props }: any) {
+            return <h5 {...props} className="text-base font-bold mt-6 mb-2 text-foreground leading-tight">{children}</h5>;
+          },
+          h6({ children, ...props }: any) {
+            return <h6 {...props} className="text-sm font-bold mt-4 mb-2 text-foreground leading-tight">{children}</h6>;
           },
           p({ children, ...props }: any) {
-            return <p className="my-5 leading-relaxed">{children}</p>;
+            return <p className="my-7 leading-8 text-foreground text-base md:text-lg">{children}</p>;
           },
           ul({ children, ...props }: any) {
-            return <ul className="my-6 list-disc pl-6">{children}</ul>;
+            return <ul className="my-7 list-disc pl-7 space-y-3">{children}</ul>;
           },
           ol({ children, ...props }: any) {
-            return <ol className="my-6 list-decimal pl-6">{children}</ol>;
+            return <ol className="my-7 list-decimal pl-7 space-y-3">{children}</ol>;
           },
           li({ children, ...props }: any) {
-            return <li className="my-6">{children}</li>;
+            return <li className="text-foreground leading-7 text-base md:text-lg">{children}</li>;
           },
           blockquote({ children, ...props }: any) {
             return (
-              <blockquote className="border-l-6 border-zinc-700 pl-4 italic my-6 bg-zinc-800 p-2 rounded-lg flex items-center">
+              <blockquote className="border-l border-card-border/60 pl-3 py-1.5 my-6 bg-card-background rounded text-foreground leading-relaxed text-base md:text-lg">
                 {children}
               </blockquote>
             );
@@ -256,51 +272,51 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
                 src={src || ""}
                 alt={alt || ""}
                 // className="w-[100%] h-[100%] object-cover rounded-lg block mx-auto my-8"
-                className="w-full h-auto object-contain rounded-lg block mx-auto my-6"
+                className="w-full h-auto object-contain rounded-lg block mx-auto my-12"
               />
             );
           },
 
           em({ children, ...props }: any) {
             return (
-              <em className="italic text-zinc-300" {...props}>
+              <em className="italic text-muted" {...props}>
                 {children}
               </em>
             );
           },
           strong({ children, ...props }: any) {
             return (
-              <strong className="font-bold text-zinc-100" {...props}>
+              <strong className="font-bold text-foreground" {...props}>
                 {children}
               </strong>
             );
           },
           hr(props: any) {
-            return <hr className="border-t border-zinc-700 my-8 opacity-50" />;
+            return <hr className="border-t border-card-border my-10" />;
           },
           table({ children, ...props }: any) {
             return (
-              <div className="overflow-x-auto my-6">
-                <table className="min-w-full border border-zinc-700 rounded-lg" {...props}>
+              <div className="overflow-x-auto my-8">
+                <table className="min-w-full border border-card-border rounded-lg shadow-sm" {...props}>
                   {children}
                 </table>
               </div>
             );
           },
           thead({ children, ...props }: any) {
-            return <thead className="bg-zinc-800" {...props}>{children}</thead>;
+            return <thead className="bg-accent/5" {...props}>{children}</thead>;
           },
           tbody({ children, ...props }: any) {
-            return <tbody className="divide-y divide-zinc-700" {...props}>{children}</tbody>;
+            return <tbody className="divide-y divide-card-border" {...props}>{children}</tbody>;
           },
           tr({ children, ...props }: any) {
-            return <tr className="border-b border-zinc-700" {...props}>{children}</tr>;
+            return <tr className="border-b border-card-border hover:bg-accent/5" {...props}>{children}</tr>;
           },
           th({ children, ...props }: any) {
-            return <th className="px-4 py-3 text-left text-sm font-semibold text-zinc-300 uppercase tracking-wider" {...props}>{children}</th>;
+            return <th className="px-6 py-4 text-left text-sm font-semibold text-foreground uppercase tracking-wider" {...props}>{children}</th>;
           },
           td({ children, ...props }: any) {
-            return <td className="px-4 py-3 text-sm" {...props}>{children}</td>;
+            return <td className="px-6 py-4 text-sm text-muted" {...props}>{children}</td>;
           },
 
           a({ children, href, ...props }: any) {
@@ -308,12 +324,12 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
             if (href && href.startsWith('#')) {
               return <a href={href} {...props}>{children}</a>;
             }
-            // 외부 링크에만 파란색 스타일 적용
+            // 외부 링크에만 초록색 스타일 적용
             if (href && !href.startsWith('#')) {
               return (
                 <a 
                   href={href} 
-                  className="text-blue-400 hover:text-blue-300 underline transition-colors duration-200" 
+                  className="text-emerald-600 hover:text-emerald-700 underline transition-colors duration-200" 
                   {...props}
                 >
                   {children}
@@ -329,6 +345,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
       >
         {content}
       </ReactMarkdown>
+      </article>
 
       <style jsx global>{`
         pre {
@@ -366,6 +383,6 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           border-radius: 0.25rem;
         }
       `}</style>
-    </article>
+    </>
   );
 }

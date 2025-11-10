@@ -1,71 +1,101 @@
 ---
+layout: post
 title: "[DevOps] minikube?"
 date: '2024-04-25'
 section: 'infra'
-# excerpt: ''
-# categories: ['Database/mysql', 'Go']
+excerpt: '로컬 환경에서 Kubernetes를 학습하기 위한 minikube 설치 및 사용법'
+tags: ['Kubernetes', 'minikube', 'DevOps', 'Container']
 ---
 
-## minikube?
+쿠버네티스를 쉽게 구축하고 싶을 때 가장 빠른 대안이 **minikube**입니다. 이름 그대로 "mini Kubernetes"를 로컬에서 실행해 보며, 실제 환경의 감각을 익힐 수 있습니다. 아래는 제가 minikube로 기본 워크로드를 띄워 보며 정리한 메모입니다.
+
+## minikube란?
+
 ![](https://velog.velcdn.com/images/woongaa1/post/f012ab39-2215-4dd1-8fab-f2f7167053f6/image.png)
 
-mini + kubernetes의 약자로 k8s 클러스터 구축 과정을 줄여서 쿠버네티스를 체험할 수 있는 프로젝트
+- 로컬 개발 PC에서 간단히 Kubernetes를 체험할 수 있는 도구
+- VirtualBox, Docker, HyperKit 등 다양한 하이퍼바이저 위에서 동작
+- `kubectl`과 동일한 명령어를 사용하기 때문에 실제 클러스터로 옮길 때도 부담이 적음
 
-쿠버네티스를 로컬에서 사용하기에 편리하다.
+## 설치
 
----
-먼저 minikube를 설치해준다.
+[minikube 공식 문서](https://minikube.sigs.k8s.io/docs/start/)에서 운영체제에 맞는 설치 방법을 안내합니다. 저는 Docker 드라이버를 선택해 사용했습니다.
 
-[minikube 사이트](https://minikube.sigs.k8s.io/docs/start/)에서 설치 과정이 설명되어 있다.
+## 첫 번째 클러스터 띄우기
 
-- minikube 시작 명령어 ***minikube start***
+1. **클러스터 시작**
+   ```bash
+   minikube start
+   ```
+   기본 설정으로도 워커 노드 하나가 생성됩니다.
 
+2. **대시보드 확인**
+   ```bash
+   minikube dashboard
+   ```
+   브라우저에서 리소스를 시각적으로 확인할 수 있습니다.
 
-- minikube 대시보드 확인 ***minikube dashboard***
-![](https://velog.velcdn.com/images/woongaa1/post/1a6b8f78-6ac9-41d9-b107-08ae15617885/image.png)
+   ![](https://velog.velcdn.com/images/woongaa1/post/1a6b8f78-6ac9-41d9-b107-08ae15617885/image.png)
 
-- 디플로이먼트 생성 ***kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080***
+## kubectl 명령어 맛보기
 
+| 목적 | 명령어 |
+| --- | --- |
+| 디플로이먼트 생성 | `kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080` |
+| 디플로이먼트 목록 | `kubectl get deployments` |
+| 파드 목록 | `kubectl get pods` |
+| 이벤트 확인 | `kubectl get events` |
+| 현재 컨텍스트 | `kubectl config view` |
+| 파드 로그 | `kubectl logs <파드이름>` |
 
-- 디플로이먼트 조회 ***kubectl get deployments***
-![](https://velog.velcdn.com/images/woongaa1/post/3325e855-72c1-4c1f-bc25-4bca48b2744f/image.png)
+각 명령을 실행하면 아래처럼 결과를 확인할 수 있습니다.
 
-- 파드 조회 ***kubectl get pods***
-![](https://velog.velcdn.com/images/woongaa1/post/b8db9882-dfb7-4a61-9b21-948722bce267/image.png)
+![kubectl get deployments](https://velog.velcdn.com/images/woongaa1/post/3325e855-72c1-4c1f-bc25-4bca48b2744f/image.png)
+![kubectl get pods](https://velog.velcdn.com/images/woongaa1/post/b8db9882-dfb7-4a61-9b21-948722bce267/image.png)
+![kubectl get events](https://velog.velcdn.com/images/woongaa1/post/b3ec55c5-d348-4e78-b324-b92e8f3e53cb/image.png)
+![kubectl config view](https://velog.velcdn.com/images/woongaa1/post/13cac459-14a5-4662-bb7a-ddb83516cee6/image.png)
+![kubectl logs](https://velog.velcdn.com/images/woongaa1/post/126e465c-6e18-4b68-ad5d-1ca9dca89967/image.png)
 
-- 클러스터 이벤트 조회 ***kubectl get events***
-![](https://velog.velcdn.com/images/woongaa1/post/b3ec55c5-d348-4e78-b324-b92e8f3e53cb/image.png)
+이 명령어만으로도 Kubernetes 객체의 생애주기를 한 번 경험할 수 있습니다.
 
+## 서비스 노출과 접근
 
-- kubectl 설정 조회 ***kubectl config view***
-![](https://velog.velcdn.com/images/woongaa1/post/13cac459-14a5-4662-bb7a-ddb83516cee6/image.png)
+1. **로드 밸런서 타입 서비스 생성**
+   ```bash
+   kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+   ```
+   minikube 환경에서는 내부적으로 터널을 만들어 외부 접근을 흉내 냅니다.
 
+   ![](https://velog.velcdn.com/images/woongaa1/post/b70416c4-8b2d-4bc1-ab21-07a107397108/image.png)
 
-- 컨테이너 로그 조회 ***kubectl logs <파드이름>***
-![](https://velog.velcdn.com/images/woongaa1/post/126e465c-6e18-4b68-ad5d-1ca9dca89967/image.png)
+2. **서비스 목록 확인**
+   ```bash
+   kubectl get services
+   ```
+   기본 제공 서비스와 함께 우리가 만든 `hello-node`가 보입니다.
 
-- 외부IP 주소로 expose해주는 로드 밸런서 디플로이먼트 생성 ***kubectl expose deployment hello-node --type=LoadBalancer --port=8080***
+   ![](https://velog.velcdn.com/images/woongaa1/post/59e9965f-5e31-4246-93c5-f5abd87f5272/image.png)
 
-![](https://velog.velcdn.com/images/woongaa1/post/b70416c4-8b2d-4bc1-ab21-07a107397108/image.png)
+3. **서비스 URL 열기**
+   ```bash
+   minikube service hello-node
+   ```
+   자동으로 브라우저가 열리며 호출이 가능합니다.
 
-- 서비스 조회 ***kubectl get services***
-![](https://velog.velcdn.com/images/woongaa1/post/59e9965f-5e31-4246-93c5-f5abd87f5272/image.png)
+   ![](https://velog.velcdn.com/images/woongaa1/post/e54e51c7-6a12-4d3b-83fb-9155f2d3b4d4/image.png)
+   ![](https://velog.velcdn.com/images/woongaa1/post/3728b5f5-c081-462a-9f1b-2912164639a5/image.png)
 
+## 마무리 작업
 
-- 서비스 실행 ***minikube service hello-node***
-![](https://velog.velcdn.com/images/woongaa1/post/e54e51c7-6a12-4d3b-83fb-9155f2d3b4d4/image.png)
+- **서비스 삭제**: `kubectl delete service hello-node`
+- **클러스터 종료**: `minikube stop`
+- 필요하다면 `minikube delete`로 클러스터를 완전히 제거할 수도 있습니다.
 
-
-실행화면
-![](https://velog.velcdn.com/images/woongaa1/post/3728b5f5-c081-462a-9f1b-2912164639a5/image.png)
-
-
-서비스 삭제
 ![](https://velog.velcdn.com/images/woongaa1/post/f1f1fe4d-ada4-4e79-917a-8ac0be48a80d/image.png)
 
+## 마치며
 
-
-- minikube 종료 ***minikube stop***
+minikube는 Kubernetes 개념을 몸으로 익히기에 최적의 도구입니다. 이후에는 Helm 차트 배포, Ingress 설정 등도 동일한 방법으로 실습할 수 있습니다. 익숙해지면 클라우드에 있는 EKS/Amazon AKS 같은 관리형 서비스로 쉽게 확장할 수 있습니다.
 
 
 
