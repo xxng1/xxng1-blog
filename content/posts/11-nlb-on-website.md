@@ -14,6 +14,8 @@ NLB(Network Load Balancer)를 사용하면 안될까?
 
 이 글에서는 **Azure NLB** 동작 알고리즘을 알아보고, **성능 테스트**를 진행한다.
 
+<br>
+
 # NLB의 분산 방식은?
 
 Azure NLB는 **5-tuple 해시**를 사용한다.
@@ -28,6 +30,8 @@ Azure NLB는 **5-tuple 해시**를 사용한다.
 <sub> [Azure Docs: Backend pool management](https://learn.microsoft.com/ko-kr/azure/load-balancer/backend-pool-management) </sub>
 
 따라서 `Source Port`가 바뀔 때마다 다른 VM으로 라우팅되며, 겉보기에는 Round-Robin처럼 느껴질 수 있다.
+
+<br>
 
 # 테스트 환경 구성
 

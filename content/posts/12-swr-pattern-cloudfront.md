@@ -7,9 +7,7 @@ excerpt: 'AWS CloudFront에 SWR(Stale-While-Revalidate) 패턴 적용'
 tags: ['AWS', 'CloudFront', 'CDN', 'Caching', 'SWR', 'Cloud']
 ---
 
-<sub>* AWS CloudFront: AWS의 CDN(Content Delivery Network) 서비스</sub>  
-
-**AWS CloudFront** 는 전 세계 엣지에 정적 파일을 캐싱해서 빠르게 제공한다.
+AWS CloudFront 는 전 세계 엣지에 정적 파일을 캐싱해서 빠르게 제공한다.
 
 이 기본 캐싱 정책 때문에 `S3` + `CloudFront`로 컨텐츠를 배포하면,  
 수정사항이 생겼을 때 **무효화(invalidation)** 를 해줄 필요가 생긴다.

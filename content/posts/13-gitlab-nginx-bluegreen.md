@@ -7,7 +7,9 @@ excerpt: 'GitLab CI를 활용한 Nginx Blue/Green 배포 파이프라인 구성'
 tags: ['Azure', 'Cloud', 'GitLab', 'CI/CD', 'Nginx', 'Blue/Green', 'Shell']
 ---
 
-Azure VM에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/그린 배포 구축
+Azure VM에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/그린 배포 구축.
+
+파이프라인이 실행됐을 때 슬롯을 변경하도록 하고, 수동으로 전환 또한 가능하게 한다.
 
 <br>
 
