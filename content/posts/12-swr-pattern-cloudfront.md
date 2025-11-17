@@ -1,57 +1,69 @@
 ---
 layout:       post
-title:        "[Cloud] CloudFront의 캐싱 ( 무효화 / SWR Pattern )"
+title:        "AWS CloudFront에서의 무효화(invalidate) 및 SWR Pattern"
 date: '2025-07-24'
 section: 'infra'
-excerpt: 'CloudFront에 Stale-While-Revalidate 패턴 적용으로 비용 절감 및 성능 개선'
+excerpt: 'AWS CloudFront에 SWR(Stale-While-Revalidate) 패턴 적용'
 tags: ['AWS', 'CloudFront', 'CDN', 'Caching', 'SWR', 'Cloud']
 ---
 
-CloudFront의 기본 캐시 정책 때문에, S3 등으로 웹페이지를 배포했을때, 수정사항이 생기면 일반적으로 **Invalidations(무효화)** 를 해줄 필요가 생깁니다.
+<sub>* AWS CloudFront: AWS의 CDN(Content Delivery Network) 서비스</sub>  
 
-이건 **Invalidations(무효화)** 의 캐시 정책 때문인데, 무효화는 조건부 비용이 있다.
+**AWS CloudFront** 는 전 세계 엣지에 정적 파일을 캐싱해서 빠르게 제공한다.
+
+이 기본 캐싱 정책 때문에 `S3` + `CloudFront`로 컨텐츠를 배포하면,  
+수정사항이 생겼을 때 **무효화(invalidation)** 를 해줄 필요가 생긴다.
+
+그런데, 무효화는 조건부 비용이 있다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/54c8e1cb-0ba5-4b83-a6e5-fda1787bcf88/image.png)
 
 그래서, **SWR(Stale-While-Revalidate)** 패턴을 적용하는 과정을 알아보려고 한다.
 
-## SWR Pattern?
+# SWR Pattern?
 
-SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최신화”하는 전략입니다.
+SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최신화”하는 전략이다.
 
-1. 사용자가 페이지를 요청하면, 캐시된 콘텐츠를 즉시 전달합니다.
-2. 동시에 백그라운드에서 원본(S3)에 조건부 요청(If-Modified-Since / ETag)을 보내 최신 여부를 확인합니다.
-3. 변경이 있다면 캐시를 업데이트하고 다음 요청부터 바로 새로운 콘텐츠가 전달됩니다.
+1. 사용자가 페이지를 요청하면, 캐시된 콘텐츠를 즉시 전달
+2. 동시에 백그라운드에서 원본(S3)에 요청을 보내 최신 여부를 확인
+3. 변경이 있다면 캐시를 업데이트하고 다음 요청부터 바로 새로운 콘텐츠가 전달
 
-즉, `Cache-Control: max-age=10, stale-while-revalidate=60`과 같은 헤더를 사용하면 **10초 동안은 Fresh**, 이후 **60초까지는 Stale이 허용**되고 그 사이에 CloudFront가 알아서 최신화합니다.
+즉, `Cache-Control: max-age=10`, `stale-while-revalidate=60`과 같은 헤더를 사용하면 **10초 동안은 Fresh**, 이후 **60초까지는 Stale이 허용**되고 그 사이에 CloudFront가 알아서 최신화해주는 전략이다.
 
-## 사용한 구성 요소
+
+# 사용한 구성 요소
 
 - **React**: 정적 웹사이트 빌드
 - **S3**: 정적 사이트 호스팅
 - **CloudFront**: CDN 배포
 - **AWS CLI / Console**: 파일 업로드 및 캐시 정책 설정
 
-## 1. 기본 배포 후 문제점
 
-보통은 `aws s3 sync` 명령어로 빌드 파일을 올립니다.
+# 1. AWS CLI 사용
+
+CI/CD 파이프라인에서 S3로 빌드 결과를 업로드할 때, 
+
+보통은 `aws s3 sync` 명령어로 빌드 파일을 올린다.
 
 ```bash
 aws s3 sync build/ s3://<bucket-name> --acl public-read
 ```
 
-하지만 `sync`는 변경된 파일만 업로드하기 때문에 **캐시 헤더가 갱신되지 않습니다.** 캐시 정책을 바꾸려면 강제로 모든 파일을 덮어써야 합니다.
+그런데 `sync`는 변경된 파일만 업로드하기 때문에, **캐시 헤더가 갱신되지 않는다.** 
+
+캐시 정책을 바꾸려면 강제로 모든 파일을 덮어써야 한다.
 
 | 항목 | `sync` | `cp --recursive` |
 | --- | --- | --- |
 | 기본 동작 | 변경된 파일만 업로드 | 모든 파일 강제 업로드 |
-| 캐시 헤더 반영 | ❌ (기존 헤더 유지) | ✅ (새 헤더 적용) |
+| 캐시 헤더 반영 | 기존 헤더 유지 | 새 헤더 적용 |
 | 속도 | 빠름 | 느릴 수 있음 |
 | 추천 상황 | 자주 배포 | **헤더 변경 필요할 때** |
 
-## 2. 캐시 헤더 설정
+# 2. 캐시 헤더 설정
 
-모든 파일을 새 헤더로 덮어씁니다.
+모든 파일을 새 헤더로 덮어쓴다.
+
 
 ```bash
 aws s3 cp build/ s3://swr-pattern-bucket-s3/ \
@@ -62,26 +74,54 @@ aws s3 cp build/ s3://swr-pattern-bucket-s3/ \
 
 ### 헤더 적용 확인
 
-```bash
-aws s3api head-object --bucket swr-pattern-bucket-s3 --key index.html
+```powershell
+PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pattern-bucket-s3 --key index.html
+>>
+{
+    "AcceptRanges": "bytes",
+    "LastModified": "2025-07-24T07:21:59+00:00",
+    "ContentLength": 644,
+    "ETag": "\"92ed791677aab7efc06ae542ecdb82f3\"",
+    "CacheControl": "max-age=10, stale-while-revalidate=60", // ✅
+    "ContentType": "text/html",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {}
+}
+
 ```
 
+CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출되지 않는다.
+
+헤더 적용 이후에 **TTL 10초, 60초** 를 적용하기 위해서 `CloudFront`에서 **0 ~ 10 ~ 70** 의 SWR 정책을 생성해준다.
+
+
+- `fresh` 상태: 0~10초
+- `stale` 상태 허용: 10~70초
+
+
+# 3. CloudFront 캐시 정책 생성 (GUI)
+
+- TTL 설정
+  - **최솟값(Minimum TTL)**: `0` 초
+  - **기본값(Default TTL)**: `10` 초
+  - **최댓값(Maximum TTL)**: `70` 초 (= max-age + stale-while-revalidate)
+
+
+
 ![](https://velog.velcdn.com/images/xxng1/post/ed760744-433a-4b26-9dfb-e56c5163044a/image.png)
+
+
+- custom header도 추가해주고,
+
 ![](https://velog.velcdn.com/images/xxng1/post/7a359d95-2f1b-4011-9818-9a19a5138d65/image.png)
+
+
+- CloudFront에 만들어준 캐시 정책을 적용해준다.
+
 ![](https://velog.velcdn.com/images/xxng1/post/6e8b2ce5-956f-446c-9177-2dfe7a24bd99/image.png)
 
-## 3. CloudFront 캐시 정책 만들기
 
-헤더만 바꿔서는 부족합니다. CloudFront도 SWR 값을 존중하도록 정책을 만들어야 합니다.
-
-- **Minimum TTL**: 0초
-- **Default TTL**: 10초
-- **Maximum TTL**: 70초 (= max-age + stale-while-revalidate)
-- **Cache key**: 필요 시 커스텀 헤더 포함
-
-Console에서 **Cache Policy**를 새로 만들고, 배포에 연결합니다.
-
-## 4. 동작 확인
+# 4. 동작 확인
 
 1. 파일 업로드 후 `curl -I https://<cloudfront-domain>/index.html`
 2. 응답 헤더의 `x-cache` 값을 관찰합니다.
@@ -110,7 +150,7 @@ Console에서 **Cache Policy**를 새로 만들고, 배포에 연결합니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/34cc5d8b-e3cd-4d83-8820-a73c4875d614/image.png)
 
-## 5. 흐름 정리
+# 5. 흐름 정리
 
 | 시간대 | 상태 | 동작 | x-cache |
 | --- | --- | --- | --- |
@@ -118,14 +158,11 @@ Console에서 **Cache Policy**를 새로 만들고, 배포에 연결합니다.
 | 10~70초 | Stale 허용 | Stale 응답 + 백그라운드 최신화 | `Hit` 또는 `RefreshHit` |
 | 70초 이후 | 만료 | 오리진에서 새로 가져옴 | `Miss from cloudfront` |
 
-## 무효화와 비교해 보니
+
+# 6. 무효화(invalidation)와 비교
 
 | 관점 | SWR | 무효화 |
 | --- | --- | --- |
 | 사용자 체감 | 항상 빠른 응답 | 새 버전 적용 전 잠깐 느려질 수 있음 |
 | 운영 | 헤더만 잘 관리하면 자동 | 무효화 요청을 자동화해야 함 |
 | 비용 | 일반적인 요청 비용만 발생 | 1,000건 초과 시 무효화 비용 부과 |
-
-## 마무리
-
-SWR 패턴을 적용하고 나니, 배포할 때마다 무효화 버튼을 누르던 일이 사라졌습니다. 빌드 과정에서 `Cache-Control`만 제대로 설정하면, CloudFront가 알아서 최신 콘텐츠를 유지해 줍니다. 정적 사이트 운영 비용을 줄이고 사용자 경험도 향상시키고 싶다면 꼭 한 번 적용해 보세요.
