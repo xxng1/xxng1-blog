@@ -1,13 +1,13 @@
 ---
 layout:       post
-title:        "[DevOps] Gitlab Runner(Shell Executor)를 통한 Nginx의 Blue/Green 배포"
+title:        "GitLab Runner(Shell Executor)를 통한 Nginx의 Blue/Green 배포"
 date: '2025-08-13'
 section: 'infra'
-excerpt: 'GitLab CI를 활용한 Nginx Blue/Green 배포 자동화 구성'
+excerpt: 'GitLab CI를 활용한 Nginx Blue/Green 배포 파이프라인 구성'
 tags: ['Azure', 'Cloud', 'GitLab', 'CI/CD', 'Nginx', 'Blue/Green', 'Shell']
 ---
 
-> Azure VM 한 대에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/그린 배포 구축
+> Azure VM에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/그린 배포 구축
 
 # 소스 코드
 
