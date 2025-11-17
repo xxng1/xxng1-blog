@@ -18,7 +18,11 @@ tags: ['AWS', 'CloudFront', 'CDN', 'Caching', 'SWR', 'Cloud']
 
 ![](https://velog.velcdn.com/images/xxng1/post/54c8e1cb-0ba5-4b83-a6e5-fda1787bcf88/image.png)
 
+<br>
+
 그래서, **SWR(Stale-While-Revalidate)** 패턴을 적용하는 과정을 알아보려고 한다.
+
+<br>
 
 # SWR Pattern?
 
@@ -31,6 +35,9 @@ SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최�
 즉, `Cache-Control: max-age=10`, `stale-while-revalidate=60`과 같은 헤더를 사용하면 **10초 동안은 Fresh**, 이후 **60초까지는 Stale이 허용**되고 그 사이에 CloudFront가 알아서 최신화해주는 전략이다.
 
 
+
+<br>
+
 # 사용한 구성 요소
 
 - **React**: 정적 웹사이트 빌드
@@ -38,6 +45,7 @@ SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최�
 - **CloudFront**: CDN 배포
 - **AWS CLI / Console**: 파일 업로드 및 캐시 정책 설정
 
+<br>
 
 # 1. AWS CLI 사용
 
@@ -49,9 +57,11 @@ CI/CD 파이프라인에서 S3로 빌드 결과를 업로드할 때,
 aws s3 sync build/ s3://<bucket-name> --acl public-read
 ```
 
+<br>
+
 그런데 `sync`는 변경된 파일만 업로드하기 때문에, **캐시 헤더가 갱신되지 않는다.** 
 
-캐시 정책을 바꾸려면 강제로 모든 파일을 덮어써야 한다.
+캐시 정책을 바꾸려면 `cp --recursive` 명령어를 통해서 강제로 모든 파일을 덮어써야 한다.
 
 | 항목 | `sync` | `cp --recursive` |
 | --- | --- | --- |
@@ -59,6 +69,8 @@ aws s3 sync build/ s3://<bucket-name> --acl public-read
 | 캐시 헤더 반영 | 기존 헤더 유지 | 새 헤더 적용 |
 | 속도 | 빠름 | 느릴 수 있음 |
 | 추천 상황 | 자주 배포 | **헤더 변경 필요할 때** |
+
+<br>
 
 # 2. 캐시 헤더 설정
 
@@ -72,7 +84,9 @@ aws s3 cp build/ s3://swr-pattern-bucket-s3/ \
   --acl public-read
 ```
 
-### 헤더 적용 확인
+<br>
+
+- 헤더 적용 확인
 
 ```powershell
 PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pattern-bucket-s3 --key index.html
@@ -89,19 +103,19 @@ PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pat
 }
 
 ```
-
 CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출되지 않는다.
 
-헤더 적용 이후에 **TTL 10초, 60초** 를 적용하기 위해서 `CloudFront`에서 **0 ~ 10 ~ 70** 의 SWR 정책을 생성해준다.
-
-
-- `fresh` 상태: 0~10초
-- `stale` 상태 허용: 10~70초
-
+<br>
 
 # 3. CloudFront 캐시 정책 생성 (GUI)
 
-- TTL 설정
+헤더 적용 이후에 **TTL** 을 적용하기 위해서 `CloudFront`에서 **0 ~ 10 ~ 70** 의 SWR 정책을 생성해준다.
+
+### 상태 흐름
+- `fresh` 상태: 0~10초
+- `stale` 상태 허용: 10~70초  
+
+### TTL 설정
   - **최솟값(Minimum TTL)**: `0` 초
   - **기본값(Default TTL)**: `10` 초
   - **최댓값(Maximum TTL)**: `70` 초 (= max-age + stale-while-revalidate)
@@ -110,15 +124,21 @@ CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출
 
 ![](https://velog.velcdn.com/images/xxng1/post/ed760744-433a-4b26-9dfb-e56c5163044a/image.png)
 
+<br>
+
 
 - custom header도 추가해주고,
 
 ![](https://velog.velcdn.com/images/xxng1/post/7a359d95-2f1b-4011-9818-9a19a5138d65/image.png)
 
+<br>
+
 
 - CloudFront에 만들어준 캐시 정책을 적용해준다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/6e8b2ce5-956f-446c-9177-2dfe7a24bd99/image.png)
+
+<br>
 
 
 # 4. 동작 확인
@@ -132,23 +152,33 @@ CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출
 | `Hit from cloudfront` | TTL 내 응답 또는 SWR 허용 구간 |
 | `RefreshHit from cloudfront` | Stale 상태에서 오리진의 304 응답으로 갱신 |
 
+<br>
+
 테스트 결과:
 
 - 처음 요청: `Miss`
 
 ![](https://velog.velcdn.com/images/xxng1/post/36e247be-f972-4d52-aab7-aa0224b39fa0/image.png)
 
+<br>
+
 - 연속 요청: `Hit`
 
 ![](https://velog.velcdn.com/images/xxng1/post/c8b74eeb-8810-4fa0-a2c6-5baa1da7284a/image.png)
+
+<br>
 
 - 70초 이상 요청이 없으면 `RefreshHit`, 이후 다시 `Hit`
 
 ![](https://velog.velcdn.com/images/xxng1/post/f3575934-7aa7-4073-b20b-92abce19b1ba/image.png)
 
+<br>
+
 - S3에서 파일을 수정하면 `Age` 값이 초기화
 
 ![](https://velog.velcdn.com/images/xxng1/post/34cc5d8b-e3cd-4d83-8820-a73c4875d614/image.png)
+
+<br>
 
 # 5. 흐름 정리
 
@@ -158,6 +188,7 @@ CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출
 | 10~70초 | Stale 허용 | Stale 응답 + 백그라운드 최신화 | `Hit` 또는 `RefreshHit` |
 | 70초 이후 | 만료 | 오리진에서 새로 가져옴 | `Miss from cloudfront` |
 
+<br>
 
 # 6. 무효화(invalidation)와 비교
 

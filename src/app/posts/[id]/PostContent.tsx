@@ -296,7 +296,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           },
           table({ children, ...props }: any) {
             return (
-              <div className="overflow-x-auto my-8">
+              <div className="overflow-x-auto my-12">
                 <table className="min-w-full border border-card-border rounded-lg shadow-sm" {...props}>
                   {children}
                 </table>
