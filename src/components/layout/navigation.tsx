@@ -29,7 +29,7 @@ export default function Navigation({ }: NavigationProps) {
   };
 
   return (
-    <nav className="sticky top-[88px] bg-background/80 backdrop-blur-sm z-10 border-b border-card-border -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-4 mb-8 flex items-center space-x-1">
+    <nav className="sticky top-[88px] bg-background/80 backdrop-blur-sm z-50 border-b border-card-border -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-4 mb-8 flex items-center space-x-1">
       <Link 
         href="/" 
         className={`px-4 py-2 rounded-lg text-base font-medium transition-all ${

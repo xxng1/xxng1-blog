@@ -52,7 +52,7 @@ export default function RootLayout({
   </div>
 </header> */}
 
-<header className="flex flex-col py-8 border-b border-card-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+<header className="flex flex-col py-8 border-b border-card-border sticky top-0 bg-background/80 backdrop-blur-sm z-50">
   <div className="flex items-center justify-between">
     <Link
       href="/"

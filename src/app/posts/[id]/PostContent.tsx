@@ -137,6 +137,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
         cursor: pointer;
         transition: all 0.2s ease;
         font-weight: 500;
+        z-index: 1;
       }
 
       .copy-button:hover {
@@ -364,6 +365,7 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
           font-size: 0.875rem;
           cursor: pointer;
           transition: background-color 0.2s;
+          z-index: 1;
         }
 
         .copy-button:hover {
