@@ -29,7 +29,8 @@ Azure NLB는 **5-tuple 해시**를 사용한다.
 이 다섯 값을 해싱해 **백엔드 풀(Backend pool)** 의 VM 중 하나를 선택한다.  
 <sub> [Azure Docs: Backend pool management](https://learn.microsoft.com/ko-kr/azure/load-balancer/backend-pool-management) </sub>
 
-따라서 `Source Port`가 바뀔 때마다 다른 VM으로 라우팅되며, 겉보기에는 Round-Robin처럼 느껴질 수 있다.
+따라서 `Source Port`가 바뀔 때마다 다른 VM으로 라우팅되고,  
+겉보기에는 Round-Robin 스케줄링처럼 느껴질 수 있다.
 
 <br>
 

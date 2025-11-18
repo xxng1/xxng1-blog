@@ -1,15 +1,17 @@
 ---
 layout:       post
-title:        "[Cloud] AWS Services(feat. network)"
+title:        "AWS SAA-C03 Services"
 date: '2024-04-11'
 section: 'infra'
-excerpt: 'AWS 네트워크 서비스 소개 및 활용 방법'
+excerpt: 'AWS Certified Solutions Architect - Associate 시험을 공부하며 많이 봤던 서비스들 정리'
 tags: ['AWS', 'Network', 'Cloud', 'Infrastructure']
 ---
 
-AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들을 주제별로 묶어 정리해 두었습니다. 간단한 정의와 함께 어떻게 활용했는지도 덧붙였습니다.
+AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들 정리. 
 
-## 네트워크 & 트래픽 제어
+<br>
+
+# ☑️ 네트워크 & 트래픽 제어
 
 | 서비스 | 핵심 포인트 | 활용 메모 |
 | --- | --- | --- |
@@ -20,13 +22,18 @@ AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들을 주�
 | **Route 53** | DNS 관리 | 도메인 라우팅 및 헬스 체크 |
 | **CloudFront** | CDN | 전 세계 Edge Location으로 콘텐츠 전송 |
 
-## 파일 전송 & 하이브리드 연결
+<br>
+
+# ☑️ 파일 전송 & 하이브리드 연결
 
 - **SFTP (AWS Transfer Family)**: 파트너사와 파일을 안전하게 주고받을 때 사용
 - **SMB 지원**: Storage Gateway, Amazon FSx로 온프레미스와 파일 시스템 연동
 - **DataSync**: 온프레미스 ↔ AWS 스토리지 간 데이터 마이그레이션 자동화
 
-## 컴퓨트 & 컨테이너
+
+<br>
+
+# ☑️ 컴퓨트 & 컨테이너
 
 | 서비스 | 설명 |
 | --- | --- |
@@ -37,7 +44,9 @@ AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들을 주�
 | **Elastic Beanstalk** | EC2 구성을 자동화해주는 PaaS. 빠른 배포와 테스트에 유용 |
 | **Lightsail** | 간단한 애플리케이션을 위한 가벼운 VPS |
 
-## 스토리지 & 데이터베이스
+<br>
+
+# ☑️ 스토리지 & 데이터베이스
 
 | 서비스 | 특징 |
 | --- | --- |
@@ -50,7 +59,9 @@ AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들을 주�
 | **ElastiCache** | 메모리 기반 캐시 (Redis, Memcached) |
 | **Redshift** | 대규모 데이터 웨어하우스 |
 
-## 애널리틱스 & 검색
+<br>
+
+# ☑️ 애널리틱스 & 검색
 
 - **Athena**: S3 데이터를 표준 SQL로 분석하는 서버리스 쿼리 서비스
 - **Glue**: ETL 작업을 자동화하는 서버리스 데이터 통합 도구
@@ -59,30 +70,37 @@ AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들을 주�
 - **QuickSight**: BI 대시보드. Tableau처럼 시각화 제공
 - **CloudSearch**: 완전 관리형 검색 서비스
 
-## 메시징 & 이벤트
+
+<br>
+
+# ☑️ 메시징 & 이벤트
 
 - **SNS**: 다대다 메시징(A2A) 및 문자·메일 같은 A2P 알림을 모두 지원
 - **SQS**: 비동기 처리 큐. 마이크로서비스 간 작업을 분리할 때 활용
 - **EventBridge**: CloudWatch Events의 확장판. 서비스 간 이벤트 라우팅을 단일 도구로 정리
 
-## 보안 & 운영
+
+<br>
+
+# ☑️ 보안 & 운영
 
 - **AWS Firewall Manager**: WAF, Shield Advanced 정책을 중앙에서 관리
 - **AWS Shield / WAF**: DDoS 공격과 웹 공격(SQL Injection, XSS 등) 방어
 - **Origin Access Control / Identity**: CloudFront에서 원본 접근을 제한해 보안 강화
 
-## AI & 미디어 서비스
+<br>
+
+# ☑️ AI & 미디어 서비스
 
 - **Polly**: 텍스트를 자연스러운 음성으로 변환(TTS)
 - **Lex**: 대화형 챗봇 서비스
 - **Rekognition**: 이미지·영상 분석
 
-## Kafka & 스트리밍
+<br>
+
+
+# ☑️ Kafka & 스트리밍
 
 - **Amazon MSK**: 완전 관리형 Apache Kafka. 스트리밍 데이터 파이프라인 구축에 적합
 
 ![AWS 서비스 개요](https://velog.velcdn.com/images/woongaa1/post/eb0ad643-aba9-4930-921f-d30dd1df062e/image.png)
-
-## 마무리
-
-AWS 서비스는 이름만 들어도 어렵게 느껴질 때가 많습니다. 이렇게 주제별로 묶어 보면 필요할 때 어떤 카테고리를 살펴봐야 하는지 금방 감이 옵니다. 실제 프로젝트에서 선택했던 이유와 함께 정리해 둔 만큼, 비슷한 고민을 하는 분들께 도움이 되면 좋겠습니다.

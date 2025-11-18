@@ -1,30 +1,30 @@
 ---
 layout:       post
-title:        "[DevOps] WAS(Web Application Server)와 DB 연결 (feat. docker)"
+title:        "WAS(Web Application Server)와 DB 연결"
 date: '2023-06-15'
 section: 'infra'
-excerpt: 'Docker 컨테이너를 활용한 3-Tier 아키텍처 구성 및 WAS와 DB 연결 방법'
+excerpt: 'Docker 컨테이너를 활용한 3-Tier 아키텍처 구성 및 연결 방법'
 tags: ['Docker', 'Database', 'MariaDB', 'Tomcat']
 ---
 
-## 개요
+Docker 컨테이너 환경에서 Tomcat과 MariaDB를 연결해 데이터를 조회하는 과정
 
-Docker 컨테이너 환경에서 Tomcat과 MariaDB를 연결해 데이터를 조회하는 과정을 정리한 기록입니다. 
+3-Tier 아키텍처의 세팅부터 확인까지의 전체 흐름 정리
 
-3-Tier 아키텍처의 세팅부터 확인까지의 전체 흐름을 적어 두었습니다.
+<br>
 
-## 준비 사항
+# ☑️ 준비 사항
 
 - Docker 가 설치된 로컬 환경
 - MariaDB, Tomcat 컨테이너
 - 컨테이너 내부 접속을 위한 bash 쉘 사용
 - 테스트용 데이터베이스와 테이블 (예: `mydb.users`)
 
-> **TIP**: Docker 컨테이너는 권한 제약이 있기 때문에 파일을 직접 이동하기보다는 필요한 위치에서 바로 다운로드하는 편이 편합니다.
+<br>
 
-## 연결 절차
 
-### 1. MariaDB에 테스트 데이터 준비
+
+# ☑️ 1. MariaDB에 테스트 데이터 준비
 
 ```sql
 CREATE DATABASE mydb;
@@ -37,24 +37,32 @@ CREATE TABLE users (
 );
 ```
 
-### 2. Tomcat 컨테이너에 JDBC 드라이버 설치
+<br>
+
+# ☑️ 2. Tomcat 컨테이너에 JDBC 드라이버 설치
 
 ```bash
 wget https://dlm.mariadb.com/2896635/Connectors/java/connector-java-2.7.9/mariadb-java-client-2.7.9.jar \
   -P /usr/local/tomcat/lib
 ```
 
-### 3. MariaDB 컨테이너 IP 확인
+<br>
+
+
+# ☑️ 3. MariaDB 컨테이너 IP 확인
 
 ```bash
 docker inspect mariadb | grep IPAddress
 ```
 
-> 출력에서 `"IPAddress": "172.17.0.2"`처럼 확인되는 주소를 JDBC URL에 사용합니다.
+출력에서 `"IPAddress": "172.17.0.2"`처럼 확인되는 주소를 JDBC URL에 사용.
 
-### 4. Tomcat 시작 페이지 수정
+<br>
 
-아래 JSP 파일을 Tomcat 컨테이너에 배포해 DB 연결을 확인했습니다.
+
+# ☑️ 4. Tomcat 시작 페이지 수정
+
+아래 JSP 파일을 Tomcat 컨테이너에 배포해 DB 연결을 확인
 
 ```jsp
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
@@ -116,12 +124,10 @@ try {
 </html>
 ```
 
-### 5. 결과 확인
+<br>
 
-브라우저에서 `http://localhost:8080`으로 접속하면 DB에서 조회한 사용자 목록이 테이블로 출력됩니다.
+# ☑️ 5. 결과 확인
 
-![](https://github.com/xxng1/xxng1.github.io/assets/114065532/7fc54232-2e42-4508-9914-831115068cfb)
+브라우저에서 `http://localhost:8080`으로 접속하면 DB에서 조회한 사용자 목록이 테이블로 출력된다.
 
-## 마무리
-
-Docker 컨테이너로 3-Tier 구조를 구성할 때 핵심은 각 계층 간 네트워크 연결을 명확히 검증하는 것입니다. 특히 IP 주소와 포트, JDBC 드라이버 위치를 정확히 지정하면 대부분의 이슈를 피할 수 있습니다. 이번 실습을 통해 아키텍처를 확인했고, 이후에는 인프라 자동화(Terraform)와 배포 파이프라인(Jenkins)에도 확장할 계획입니다.
+![](/blog-images/1/1.png)

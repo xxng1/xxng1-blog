@@ -1,17 +1,19 @@
 ---
 layout: post
-title: "[Data] Kafka와 Python을 통한 Data Migration"
-date: '2024-06-15'
+title: "Kafka와 Python을 활용한 데이터 동기화"
+date: '2024-05-15'
 section: 'infra'
-excerpt: 'Python 스크립트를 활용한 Kafka 기반 MySQL → MongoDB 데이터 마이그레이션'
+excerpt: 'kafka-python 라이브러리를 활용한 MySQL에서 MongoDB간의 데이터 마이그레이션'
 tags: ['Kafka', 'Python', 'MySQL', 'MongoDB']
 ---
 
 MySQL에 쌓인 데이터를 MongoDB로 옮겨야 할 때,
 
-Kafka를 메시지 브로커로 두고 Python으로 Producer/Consumer를 작성해 마이그레이션을 구현했습니다. 전체 과정을 기록해 둡니다.
+Kafka를 메시지 브로커로 두고 Python으로 Producer/Consumer를 작성해 마이그레이션을 구현했다.
 
-## 아키텍처 개요
+<br>
+
+# ☑️ 아키텍처 개요
 
 ```
 MySQL → (Producer) → Kafka Topic → (Consumer) → MongoDB
@@ -22,7 +24,9 @@ MySQL → (Producer) → Kafka Topic → (Consumer) → MongoDB
 - **MongoDB**: 목적지 데이터베이스
 - **Python 스크립트**: Producer/Consumer 구현체
 
-## 실습 흐름
+<br>
+
+# ☑️ 과정 흐름
 
 1. MongoDB 및 관리 도구 설치
 2. MySQL 테스트 데이터 준비
@@ -31,9 +35,11 @@ MySQL → (Producer) → Kafka Topic → (Consumer) → MongoDB
 5. Python Consumer 작성 및 실행
 6. 중복/업데이트 처리 로직 보강
 
-## 1. MongoDB 준비
+<br>
 
-- Docker로 MongoDB 컨테이너 실행:
+# ☑️ 1. MongoDB 준비
+
+- Docker로 MongoDB 컨테이너 실행
   ```bash
   docker pull mongo
   docker run --name mongodb -dp 27017:27017 mongo
@@ -41,7 +47,9 @@ MySQL → (Producer) → Kafka Topic → (Consumer) → MongoDB
 - GUI가 필요하면 [MongoDB Compass](https://www.mongodb.com/try/download/compass) 설치 후 접속
 - 사용할 데이터베이스/컬렉션 미리 생성 (예: `mongotest.mongotestcollection`)
 
-## 2. MySQL 테스트 데이터 생성
+<br>
+
+# ☑️ 2. MySQL 테스트 데이터 생성
 
 ```sql
 CREATE TABLE post_tags (
@@ -73,9 +81,11 @@ INSERT INTO post (count, info, item_name, price, todaycount) VALUES
 (35, 'Sample post info 3', 'Sample item 6', 350.0, 9);
 ```
 
-## 3. Kafka와 토픽 생성
+<br>
 
-`docker-compose.yml`:
+# ☑️ 3. Kafka와 토픽 생성
+
+- `docker-compose.yml`
 
 ```yaml
 version: '3.8'
@@ -97,11 +107,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-MongoDB Compass에서 작업에 사용할 데이터베이스와 컬렉션을 생성해줍니다.
+<br>
 
-![](https://velog.velcdn.com/images/woongaa1/post/a1c7397e-800c-4dec-8a17-c2c9f1a63772/image.png)
-
-컨테이너 실행 후 토픽 생성:
+- 컨테이너 실행 후 토픽 생성
 
 ```bash
 docker-compose up -d
@@ -109,11 +117,12 @@ docker exec -it kafka /bin/bash
 kafka-topics.sh --create --topic MongoMysql --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
 ```
 
-![](https://velog.velcdn.com/images/woongaa1/post/a1a432c3-8d7f-44e2-bdb9-0d45f3b30ce5/image.png)
+<br>
 
-## 4. Python Producer 작성
 
-MySQL에서 데이터를 읽어 JSON으로 직렬화한 뒤 Kafka로 전송합니다.
+# ☑️ 4. Python Producer 작성
+
+- MySQL에서 데이터를 읽어 JSON으로 직렬화한 뒤 Kafka로 전송
 
 ```python
 from kafka import KafkaProducer
@@ -173,9 +182,12 @@ if __name__ == "__main__":
     main()
 ```
 
-## 5. Python Consumer 작성
+<br>
 
-Kafka에서 메시지를 받아 MongoDB에 적재합니다.
+
+# ☑️ 5. Python Consumer 작성
+
+- Kafka에서 메시지를 받아 MongoDB에 적재
 
 ```python
 from kafka import KafkaConsumer
@@ -229,33 +241,77 @@ if __name__ == "__main__":
     main()
 ```
 
-> MongoDB Atlas를 사용한다면 `pymongo.MongoClient`에 Atlas 접속 URI를 넣어 주면 됩니다.
+<br>
 
-## 6. 실행 및 결과 화면
 
-### consumer를 실행시킨 모습
+# ☑️ 6. 실행 및 결과 화면
+
+- consumer를 실행시킨 모습
 
 ![](https://velog.velcdn.com/images/woongaa1/post/199c9f10-5e43-485a-ba19-f19e4b740d34/image.png)
 
-### producer.py를 실행시킨 모습
+<br>
+
+
+- producer.py를 실행시킨 모습
 
 ![](https://velog.velcdn.com/images/woongaa1/post/c05a9e12-2e3c-4af0-9224-8410f85ad9d5/image.png)
 
-### MongoDB Compass에서 확인한 모습
+<br>
+
+
+
+- MongoDB Compass에서 확인한 모습
 
 ![](https://velog.velcdn.com/images/woongaa1/post/7a45dc37-fec3-43ba-b071-cf57d6a0af97/image.png)
 
-현재는 중복된 데이터를 확인하는 절차와 수정된 데이터가 있는지 확인하는 프로세스가 없는데, 따라서 `producer.py`가 실행될 때마다 document가 계속 생성됩니다.
 
-## 중복·갱신 처리 개선
+<br>
 
-초기 버전은 단순 삽입만 했기 때문에 스크립트를 다시 돌리면 문서가 계속 증가했습니다. `upsert` 로직을 추가해 `id` 기준으로 중복을 체크하고, 값이 바뀌면 `update_one`으로 갱신하도록 했습니다. 실제 운영에서는 Change Data Capture(CDC) 도구를 쓰는 것이 더 안전하지만, 간단한 테스트나 소규모 마이그레이션엔 충분합니다.
 
-![](https://velog.velcdn.com/images/woongaa1/post/b2130ceb-a820-44f4-92f8-b55267064727/image.png)
+현재는 중복된 데이터를 확인하는 절차와 수정된 데이터가 있는지 확인하는 프로세스가 없는데,  
+따라서 `producer.py`가 실행될 때마다 document가 계속 생성된다.
 
-## 자동 실행 스크립트 예시
+<br>
 
-주기적으로 Producer를 실행하고 싶다면 다음과 같이 shell 스크립트를 작성할 수 있습니다.
+
+# ☑️ 7. 중복 및 갱신 처리 개선
+
+`upsert` 로직을 추가해 `id` 기준으로 중복을 체크하고, 값이 바뀌면 `update_one`으로 갱신하도록 했다.  
+실제 운영에서는 Change Data Capture(CDC) 도구를 쓰는 것이 더 안전하다.
+
+- 업데이트 감지 코드
+```python
+    def insert(self, message):
+        existing_document = self.collection.find_one({'id': message['id']})
+        
+        if existing_document:
+            # 중복된 값이 있을 경우 업데이트
+            result = self.collection.update_one({'id': message['id']}, {'$set': message})
+            if result.matched_count > 0:
+                print("Data updated in MongoDB: {}".format(message))
+            else:
+                print("Duplicate data found. Skipping insertion.")
+        else:
+            # 중복된 값이 없을 경우 삽입
+            self.collection.insert_one(message)
+            print("Data inserted into MongoDB: {}".format(message))
+```
+
+```bash
+# 결과
+Data updated in MongoDB: {'id': 1, 'count': 100, 'info': 'Sample post info 1', 'item_name': 'Sample item 4', 'price': 150.0, 'todaycount': 3}
+
+```
+
+- 결과 캡처
+    ![](https://velog.velcdn.com/images/woongaa1/post/b2130ceb-a820-44f4-92f8-b55267064727/image.png)
+
+<br>
+
+# ☑️ 자동 실행 스크립트 예시
+
+주기적으로 Producer를 실행하고 싶다면 다음과 같이 shell 스크립트를 작성할 수 있다.
 
 ```bash
 while true
@@ -264,7 +320,3 @@ do
     sleep 5
 done
 ```
-
-## 마무리
-
-Kafka를 매개로 한 MySQL → MongoDB 마이그레이션은 생각보다 단순했습니다. 핵심은 메시지를 표준 구조(JSON)로 직렬화하고, Consumer에서 중복/갱신 로직을 탄탄히 다지는 것입니다. 이후에는 Schema Registry, Kafka Connect 등을 붙여 더 견고한 파이프라인으로 발전시킬 계획입니다.
