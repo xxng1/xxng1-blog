@@ -195,8 +195,9 @@ export default function AboutPage() {
                             <h3 className="text-xl font-semibold text-foreground mb-2">현대오토에버 모빌리티 SW 스쿨 2기</h3>
                             <div className="text-sm text-muted-foreground mb-3">2025.04 - 2025.11</div>
                             <p className="text-muted leading-relaxed mb-2">
-                                클라우드 과정에 참여하여 아키텍처와 운영 전반에 대한 이해를 심화했습니다.<br />
-                                Kubernetes와 IaC(Terraform, Ansible) 등 오픈소스 기반 인프라 기술을 다루며 실무 역량을 키웠습니다.
+                                클라우드 과정에 참여하여, 시스템 아키텍처와 운영 전반에 대한 이해를 심화했습니다.<br />
+                                Kubernetes와 IaC(Terraform, Ansible) 등 오픈소스 기반 인프라 기술을 다루며 실무 역량을 키웠습니다.<br />
+                                차량 데이터 파이프라인 프로젝트를 진행해서, 스트리밍과 배치를 아우르는 데이터 처리 환경을 구축했습니다.
                             </p>
                         </div>
                         <div>
@@ -205,7 +206,7 @@ export default function AboutPage() {
                             <p className="text-muted leading-relaxed mb-2">
                                 AWS 공인 강사 테크 수업에 기반한 클라우드 컴퓨팅 학습을 진행했습니다.<br />
                                 미디어 스트리밍 프로젝트를 진행해서, 총 5팀 중 1위로 프로젝트 대상을 수상하였습니다.<br />
-                                전체 수료생 19명 중 최우수 수료생으로 선정되어, 미국 시애틀 연수에 다녀왔습니다.
+                                전체 수료생 19명 중 최우수 수료생으로 선정되었습니다.
                             </p>
                             {/* <p className="text-sm text-muted-foreground">(Amazon, Microsoft, Google 본사 방문 및 강연 참석)</p> */}
                         </div>

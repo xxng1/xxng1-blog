@@ -4,19 +4,19 @@ const projects = [
   {
     title: 'Alcha - 데이터 파이프라인 자동화 프로젝트',
     period: '2025.08 - 2025.11',
-    description: '실시간 차량 상태 감지부터 데이터 분석·리포트까지 자동화된 통합 파이프라인 구현.',
+    description: 'IoT 데이터 파이프라인 구축. 실시간 통신부터 대시보드 ETL 프로세스 및 장애 처리 설계.',
     techStack: ['AWS', 'Kubernetes', 'IoT Core', 'Kafka', 'Terraform', 'ArgoCD', 'GitLab'],
   },
   {
     title: 'Chuno - 미디어 스트리밍 서비스',
     period: '2024.09 - 2024.10 | NIPA-AWS Developer Bootcamp',
-    description: 'AWS 서비스를 활용한 미디어 스트리밍 프로젝트. HLS 변환 및 실시간 스트리밍 기능 구현.',
+    description: 'AWS 서비스를 활용한 미디어 스트리밍 프로젝트. VOD 및 실시간 스트리밍 기능 제공.',
     techStack: ['AWS', 'Kubernetes', 'React', 'FastAPI', 'Terraform', 'CloudFront', 'S3', 'ArgoCD'],
   },
   {
     title: 'DmarkeT - 쇼핑몰 플랫폼',
     period: '2024.01 - 2024.02 | 카카오엔터프라이즈 SW아카데미',
-    description: 'KakaoCloud 기반 하이브리드 클라우드 환경 구축 및 쇼핑몰 시스템 개발. 총 109개 요구사항 분석 및 최적화.',
+    description: 'KakaoCloud 기반 하이브리드 클라우드 환경 구축. 총 109개 요구사항 분석 및 최적화.',
     techStack: ['KakaoCloud', 'SpringBoot', 'Nginx', 'Jenkins', 'SSE', 'Elasticsearch'],
   },
   {
