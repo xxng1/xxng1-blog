@@ -4,7 +4,7 @@ title: "minikube?"
 date: '2024-04-25'
 section: 'infra'
 excerpt: '로컬 환경에서 Kubernetes를 간단하게 사용하기 위한 minikube 설치 및 사용법'
-tags: ['Kubernetes', 'minikube', 'DevOps', 'Container']
+tags: ['Kubernetes', 'minikube', 'DevOps']
 ---
 
 쿠버네티스를 쉽게 구축하고 싶을 때 빠른 대안 중 하나가 **minikube**이다.

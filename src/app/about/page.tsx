@@ -133,7 +133,7 @@ export default function AboutPage() {
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-3xl font-bold text-foreground">Tech Stack</h2>
-                        <span className="text-xs text-muted-foreground italic">* 기술에 마우스를 올리면 수준 설명을 확인할 수 있습니다</span>
+                        <span className="text-xs text-muted-foreground italic">* 기술에 마우스를 올리면 설명을 확인할 수 있습니다</span>
                     </div>
                     <div className="space-y-6">
                         <TechStackGroup 

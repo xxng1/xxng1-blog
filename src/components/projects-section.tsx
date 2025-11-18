@@ -31,7 +31,7 @@ export default function ProjectsSection() {
   return (
     <section className="mb-12">
       <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-        <h2 className="text-3xl font-bold text-foreground mb-6">Projects</h2>
+        <h2 className="text-3xl font-bold text-foreground mb-6">Project</h2>
         <div className="space-y-6">
           {projects.map((project) => (
             <article

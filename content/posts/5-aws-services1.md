@@ -4,7 +4,7 @@ title:        "AWS SAA-C03 Services"
 date: '2024-04-11'
 section: 'infra'
 excerpt: 'AWS Certified Solutions Architect - Associate 시험을 공부하며 많이 봤던 서비스들 정리'
-tags: ['AWS', 'Network', 'Cloud', 'Infrastructure']
+tags: ['AWS', 'Network', 'Cloud']
 ---
 
 AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들 정리. 

@@ -4,7 +4,7 @@ title:        "웹사이트에서의 NLB(Network Load Balancer)와 Azure NLB 알
 date: '2025-05-14'
 section: 'infra'
 excerpt: 'WEB(HTTP/HTTPS)사이트에서의 L4 Layer Load Balancer'
-tags: ['Azure', 'NLB', 'Cloud', 'Infrastructure', 'Terraform']
+tags: ['Azure', 'NLB', 'Cloud', 'HTTP', 'Terraform']
 ---
 
 웹사이트는 대부분 HTTP/HTTPS 레벨에서 동작하고, ALB는 이 레벨의 기능을 그대로 활용할 수 있다.

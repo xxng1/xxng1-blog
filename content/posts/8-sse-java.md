@@ -4,7 +4,7 @@ title:        "SSE 방식을 이용한 실시간 알림 구현"
 date: '2024-06-15'
 section: 'dev'
 excerpt: 'Server-Sent Events를 활용한 단방향 통신 및 Nginx 설정'
-tags: ['SSE', 'Backend', 'Real-time', 'Nginx']
+tags: ['SSE', 'Backend', 'HTTP', 'Nginx']
 ---
 
 프로젝트에서 사용했던 SSE 방식에 대해.  
