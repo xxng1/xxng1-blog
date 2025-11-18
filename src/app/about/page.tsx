@@ -11,6 +11,7 @@ import { IoMdMail } from "react-icons/io";
 import { IoIosCall } from "react-icons/io";
 
 
+
 import {
   SiAmazon,
   SiLinux,
@@ -21,6 +22,9 @@ import {
   SiArgo,
   SiJenkins,
   SiHashicorp,
+  SiMysql,
+  SiMongodb,
+  SiRedis,
   SiPrometheus,
   SiGrafana,
   SiElastic,
@@ -139,17 +143,17 @@ export default function AboutPage() {
                         <TechStackGroup 
                             title="Cloud Platform"
                             items={[
-                                { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리, 스크립트 기반 인프라 운영을 할 수 있습니다', icon: <SiAmazon /> },
-                                { name: 'AWS EC2/EKS', description: 'EC2 인스턴스 구성 및 EKS 클러스터를 통해 컨테이너 오케스트레이션을 운영할 수 있습니다', icon: <SiAmazon /> },
-                                { name: 'AWS Services', description: 'MSK, VPC, IVS, MediaConvert, CloudFront, S3, Lambda 등 AWS의 다양한 서비스에 대한 전반적인 이해 수준을 갖추고 있습니다', icon: <SiAmazon /> },
-                                { name: 'Azure VM/AKS', description: 'Azure VM 구성 및 AKS를 활용한 Kubernetes 환경 구축과 운영을 할 수 있습니다', icon: <VscAzure /> }
+                                { name: 'AWS CLI', description: 'AWS CLI를 통해 리소스 관리 및 스크립트 기반 인프라 운영을 할 수 있습니다', icon: <SiAmazon /> },
+                                { name: 'AWS EC2/EKS', description: 'EC2 인스턴스를 구성하고 배포 환경 및 네트워크 설정을 할 수 있으며, EKS 클러스터를 통해 컨테이너 오케스트레이션을 운영할 수 있습니다', icon: <SiAmazon /> },
+                                { name: 'AWS Services', description: 'MSK, VPC, CloudFront, S3, Lambda, MediaConvert, KMS, IAM 등 AWS의 다양한 서비스에 대한 전반적인 이해 수준을 갖추고 있습니다', icon: <SiAmazon /> },
+                                { name: 'Azure VM/AKS', description: 'Azure VM 구성할 수 있으며, AKS를 활용한 Kubernetes 환경 구축과 운영을 할 수 있습니다', icon: <VscAzure /> }
                             ]}
                         />
                         <TechStackGroup 
                             title="Operating System"
                             items={[
-                                { name: 'Linux', description: 'Linux 환경에서 서버 구성, 시스템 관리, 쉘 스크립팅을 할 수 있습니다', icon: <SiLinux /> },
-                                { name: 'Mac', description: 'macOS 환경에서 개발 및 DevOps 작업을 효율적으로 수행할 수 있습니다', icon: <SiApple /> },
+                                { name: 'Linux', description: 'Linux 환경에서 서버 구성, 시스템 관리, 로그 분석을 할 수 있습니다', icon: <SiLinux /> },
+                                { name: 'Mac', description: 'macOS 환경에서 개발 환경 구성 및 DevOps 작업을 효율적으로 수행할 수 있습니다', icon: <SiApple /> },
                             ]}
                         />
                         <TechStackGroup 
@@ -162,10 +166,18 @@ export default function AboutPage() {
                         <TechStackGroup 
                             title="CI/CD & IaC"
                             items={[
-                                { name: 'Github Actions', description: 'GitHub Actions를 통해 CI/CD 파이프라인 구축 및 자동화를 할 수 있습니다', icon: <SiGithubactions /> },
+                                { name: 'Github Actions', description: 'GitHub Actions를 통해 CI/CD 파이프라인 구축 및 배포 자동화를 할 수 있습니다', icon: <SiGithubactions /> },
                                 { name: 'ArgoCD', description: 'ArgoCD를 활용한 GitOps 워크플로우 구성 및 자동 배포를 할 수 있습니다', icon: <SiArgo /> },
-                                { name: 'Jenkins', description: 'Jenkins를 통한 CI/CD 파이프라인 구축 및 Blue/Green 배포 자동화를 할 수 있습니다', icon: <SiJenkins /> },
-                                { name: 'Terraform', description: 'Terraform을 통해 멀티클라우드 인프라 코드 작성 및 IaC 환경 구축을 할 수 있습니다', icon: <SiHashicorp /> }
+                                { name: 'Jenkins', description: 'Jenkins를 통한 CI/CD 파이프라인 구축 및 배포 자동화를 할 수 있습니다', icon: <SiJenkins /> },
+                                { name: 'Terraform', description: 'Terraform을 사용하여 IaC 환경 구축을 할 수 있습니다', icon: <SiHashicorp /> }
+                            ]}
+                        />
+                        <TechStackGroup 
+                            title="Database"
+                            items={[
+                                { name: 'MySQL', description: 'MySQL 데이터베이스 구축 및 운영, SQL 쿼리 작성을 할 수 있습니다', icon: <SiMysql /> },
+                                { name: 'MongoDB', description: 'MongoDB 데이터베이스 구축 및 운영을 할 수 있으며, 데이터베이스 최적화 경험이 있습니다', icon: <SiMongodb /> },
+                                { name: 'Redis', description: 'Redis를 활용한 캐싱 및 데이터 구조 활용을 할 수 있습니다', icon: <SiRedis /> }
                             ]}
                         />
                         <TechStackGroup 
@@ -179,8 +191,8 @@ export default function AboutPage() {
                         <TechStackGroup 
                             title="Language"
                             items={[
-                                { name: 'Python', description: 'Python을 통해 데이터 마이그레이션, 자동화 스크립트 작성, AWS boto3 활용을 할 수 있습니다', icon: <SiPython /> },
-                                { name: 'Shell', description: 'Shell 스크립팅을 통해 시스템 자동화 및 배포 스크립트 작성을 할 수 있습니다', icon: <SiGnubash /> }
+                                { name: 'Python', description: 'Python을 통해 알고리즘 구현부터 자동화 스크립트 작성 및 AWS boto3 활용을 할 수 있습니다', icon: <SiPython /> },
+                                { name: 'Shell', description: 'Shell 스크립트를 통해 시스템 자동화 및 배포 스크립트 작성을 할 수 있습니다', icon: <SiGnubash /> }
                             ]}
                         />
                     </div>
