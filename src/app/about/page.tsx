@@ -7,6 +7,8 @@ import AboutGallery from '@/components/about/gallery';
 
 import { VscAzure } from "react-icons/vsc";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { IoMdMail } from "react-icons/io";
+import { IoIosCall } from "react-icons/io";
 
 
 import {
@@ -58,11 +60,13 @@ export default function AboutPage() {
                         박상웅 | Sangwoong Park
                     </p>
                     <div className="flex flex-col gap-2 text-sm">
-                        <a href="mailto:woongaa1@naver.com" className="text-muted hover:text-accent transition-colors">
-                            📧 woongaa1@naver.com
+                        <a href="mailto:woongaa1@naver.com" className="text-muted hover:text-accent transition-colors flex items-center gap-2">
+                            <IoMdMail size={18} />
+                            woongaa1@naver.com
                         </a>
-                        <a href="tel:010-5648-8262" className="text-muted hover:text-accent transition-colors">
-                            📞 010-5648-8262
+                        <a href="tel:010-5648-8262" className="text-muted hover:text-accent transition-colors flex items-center gap-2">
+                            <IoIosCall size={18} />
+                            010-5648-8262
                         </a>
                         <div className="flex gap-4 mt-2">
                             <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
