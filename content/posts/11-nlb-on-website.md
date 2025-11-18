@@ -1,9 +1,9 @@
 ---
 layout:       post
-title:        "웹사이트에서의 NLB(Network Load Balancer)"
+title:        "웹사이트에서의 NLB(Network Load Balancer)와 Azure NLB 알고리즘"
 date: '2025-05-14'
 section: 'infra'
-excerpt: 'WEB(HTTP/HTTPS)사이트에서 표준으로 사용되는 ALB와의 비교 및 Azure NLB 알고리즘'
+excerpt: 'WEB(HTTP/HTTPS)사이트에서의 L4 Layer Load Balancer'
 tags: ['Azure', 'NLB', 'Cloud', 'Infrastructure', 'Terraform']
 ---
 
@@ -16,7 +16,7 @@ NLB(Network Load Balancer)를 사용하면 안될까?
 
 <br>
 
-# NLB의 분산 방식은?
+# ☑️ NLB의 분산 방식은?
 
 Azure NLB는 **5-tuple 해시**를 사용한다.
 
@@ -33,7 +33,7 @@ Azure NLB는 **5-tuple 해시**를 사용한다.
 
 <br>
 
-# 테스트 환경 구성
+# ☑️ 테스트 환경 구성
 
 - VM 3대(Standard_B1s)
 
@@ -238,7 +238,9 @@ output "lb_public_ip" {
 
 <br>
 
-# Curl + tcpdump로 확인하기
+# ☑️ 테스트 결과 확인
+
+`Curl`명령어와 `tcpdump` 명령어를 통해서 확인하기
 
 - Terraform `output.tf`에서 확인한 Public IP
 
@@ -266,7 +268,7 @@ output "lb_public_ip" {
 - 각 VM에서 `tcpdump`로 캡처해 보면 Source Port가 매 요청마다 바뀌는 것을 확인할 수 있다.
 
 <div align="center">
-<64352>
+<64352 port>
 </div>
 
 ![](https://velog.velcdn.com/images/xxng1/post/0e46913d-7403-4779-99ab-a0684d4f1c08/image.png)
@@ -275,7 +277,7 @@ output "lb_public_ip" {
 
 
 <div align="center">
-<64353>
+<64353 port>
 </div>
 
 ![](https://velog.velcdn.com/images/xxng1/post/299fbe73-90e6-4baf-80a3-0d41d4ae5475/image.png)
@@ -283,18 +285,18 @@ output "lb_public_ip" {
 <br>
 
 <div align="center">
-<64354>
+<64354 port>
 </div>
 
 ![](https://velog.velcdn.com/images/xxng1/post/3d0b480b-b7f2-409d-8ac4-e3d2bcad9625/image.png)
 
 <br>
 
-그래서 5-tuple Hash 결과가 계속 달라지고, Azure NLB가 다른 백엔드 VM으로 요청을 보내는 것이다.
+이에 따라 5-tuple Hash 값이 달라지고, Azure NLB가 다른 백엔드 VM으로 요청을 보내는 것이다.
 
 
 
-# NLB 성능 테스트
+# ☑️ NLB 성능 테스트
 
 `k6`를 사용한 부하 테스트
 
@@ -483,7 +485,7 @@ default ✓ [======================================] 10000 VUs  10s
 <br>
 
 
-# 결론
+# ☑️ 결론
 
 - NLB는 매우 낮은 지연을 제공하고, 단순 트래픽 분산에는 충분히 좋은 선택이다.
 - 하지만 URL 라우팅, 스티키 세션 등 L7 기능이 필요하다면 여전히 ALB가 적합하다.

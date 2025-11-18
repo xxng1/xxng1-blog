@@ -13,13 +13,13 @@ Azure VM에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/
 
 <br>
 
-# Github 소스 코드
+# ☑️ Github 소스 코드
 
 [Github Source Code](https://github.com/xxng1/nginx-apache-bluegreen-gitlab)
 
 <br>
 
-# 구축 목표
+# ☑️ 구축 목표
 
 - GitLab(Omnibus)은 80/443 포트를 그대로 사용, 애플리케이션 트래픽은 8081번 포트의 Edge Nginx가 담당
 - Blue/Green 슬롯은 각각의 컨테이너(app-blue, app-green)로 항상 기동
@@ -28,7 +28,7 @@ Azure VM에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/
 
 <br>
 
-# 환경 구성
+# ☑️ 환경 구성
 
 - Azure VM (Standard_B4ms, Ubuntu)
 - Docker / Docker Compose v2
@@ -36,7 +36,7 @@ Azure VM에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/
 
 <br>
 
-# 웹 서버 컨테이너 구성
+# ☑️ 웹 서버 컨테이너 구성
 
 ![](https://velog.velcdn.com/images/xxng1/post/65e9fee9-bf27-433b-ac8f-975dc5760ed8/image.png)
 
@@ -58,7 +58,7 @@ http://<VM>:8081 (Edge Nginx)
 <br>
 
 
-# 초기 설정
+# ☑️ 초기 설정
 
 - **GitLab Runner 등록** 과정에서 Shell Executor를 붙여 놓았다.
 
@@ -67,7 +67,7 @@ http://<VM>:8081 (Edge Nginx)
 
 <br>
 
-# 디렉터리 구조
+# ☑️ 디렉터리 구조
 
 ```bash
 nginx-apache-blue-green
@@ -91,7 +91,7 @@ nginx-apache-blue-green
 
 두 슬롯을 동시에 띄우고, 스크립트에서 심볼릭 링크와 Compose 프로젝트명을 적절히 다루는 것이 핵심이다.
 
-# 파이프라인 흐름
+# ☑️ 파이프라인 흐름
 
 ### 1. **태그 푸시** 또는 수동 실행으로 배포 파이프라인 시작
   ![](https://velog.velcdn.com/images/xxng1/post/de7dbdcd-1d84-4686-8cce-3a1147848352/image.png)
@@ -115,7 +115,7 @@ nginx-apache-blue-green
 <br>
 
 
-# 결과
+# ☑️ 결과
 
 ### 1. 파이프라인 실행 전/후
 
@@ -130,7 +130,7 @@ nginx-apache-blue-green
 <br>
 
 
-# Troubleshooting
+# ☑️ Troubleshooting
 
 
 

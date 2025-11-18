@@ -22,7 +22,7 @@ AWS CloudFront 는 전 세계 엣지에 정적 파일을 캐싱해서 빠르게 
 
 <br>
 
-# SWR Pattern?
+# ☑️ SWR Pattern?
 
 SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최신화”하는 전략이다.
 
@@ -36,7 +36,7 @@ SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최�
 
 <br>
 
-# 사용한 구성 요소
+# ☑️ 사용한 구성 요소
 
 - **React**: 정적 웹사이트 빌드
 - **S3**: 정적 사이트 호스팅
@@ -45,7 +45,7 @@ SWR은 “조금 낡은 데이터를 먼저 보여 주고, 뒤에서 몰래 최�
 
 <br>
 
-# 1. AWS CLI 사용
+# ☑️ 1. AWS CLI 사용
 
 CI/CD 파이프라인에서 S3로 빌드 결과를 업로드할 때, 
 
@@ -70,7 +70,7 @@ aws s3 sync build/ s3://<bucket-name> --acl public-read
 
 <br>
 
-# 2. 캐시 헤더 설정
+# ☑️ 2. 캐시 헤더 설정
 
 모든 파일을 새 헤더로 덮어쓴다.
 
@@ -101,11 +101,11 @@ PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pat
 }
 
 ```
-CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출되지 않는다.
+아직 CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출되지 않는다.
 
 <br>
 
-# 3. CloudFront 캐시 정책 생성 (GUI)
+# ☑️ 3. CloudFront 캐시 정책 생성 (GUI)
 
 헤더 적용 이후에 **TTL** 을 적용하기 위해서 `CloudFront`에서 **0 ~ 10 ~ 70** 의 SWR 정책을 생성해준다.
 
@@ -139,10 +139,10 @@ CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출
 <br>
 
 
-# 4. 동작 확인
+# ☑️ 4. 동작 확인
 
 1. 파일 업로드 후 `curl -I https://<cloudfront-domain>/index.html`
-2. 응답 헤더의 `x-cache` 값을 관찰합니다.
+2. 응답 헤더의 `x-cache` 값을 측정
 
 | x-cache | 의미 |
 | --- | --- |
@@ -172,13 +172,13 @@ CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출
 
 <br>
 
-- S3에서 파일을 수정하면 `Age` 값이 초기화
+- S3에서 파일을 수정하면 `Age`(초) 값이 초기화
 
 ![](https://velog.velcdn.com/images/xxng1/post/34cc5d8b-e3cd-4d83-8820-a73c4875d614/image.png)
 
 <br>
 
-# 5. 흐름 정리
+# ☑️ 5. 흐름 정리
 
 | 시간대 | 상태 | 동작 | x-cache |
 | --- | --- | --- | --- |
@@ -188,7 +188,7 @@ CloudFront의 default 캐시 값이 적용되어있어서, x-cache 값이 추출
 
 <br>
 
-# 6. 무효화(invalidation)와 비교
+# ☑️ 6. 무효화(invalidation)와 비교
 
 | 관점 | SWR | 무효화 |
 | --- | --- | --- |
