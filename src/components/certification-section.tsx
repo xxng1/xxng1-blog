@@ -18,7 +18,7 @@ const certifications: CertificationItem[] = [
   {
     date: '2025.07',
     title: 'Certified Kubernetes Administrator (CKA)',
-    issuer: 'CNCF (Cloud Native Computing Foundation)',
+    issuer: 'Cloud Native Computing Foundation (CNCF)',
     imageSrc: '/CKA_IMAGE.png',
     imageAlt: 'Certified Kubernetes Administrator (CKA) Certificate',
   },
