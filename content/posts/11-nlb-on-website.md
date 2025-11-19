@@ -10,7 +10,7 @@ tags: ['Azure', 'NLB', 'Cloud', 'HTTP', 'Terraform', 'k6']
 웹사이트는 대부분 HTTP/HTTPS 레벨에서 동작하고, ALB는 이 레벨의 기능을 그대로 활용할 수 있다.
 
 그래서 웹 사이트에서는 주로 ALB(Appliction Load Balacncer)를 사용하는데,  
-NLB(Network Load Balancer)를 사용하면 안될까?
+L4 Layer인 NLB(Network Load Balancer)를 사용하면 안될까?
 
 이 글에서는 **Azure Load Balancer** 동작 알고리즘을 알아보고, **성능 테스트**를 진행한다.
 
@@ -26,13 +26,13 @@ NLB(Network Load Balancer)를 사용하면 안될까?
 
 ---
 
-AWS의 NLB(Network Load Balancer)가 Azure의 Load Balancer 이고,  
-AWS의 ALB(Application Load Balancer)는 Azure의 Application Gateway이다.
+AWS의 **NLB(Network Load Balancer)** 가 Azure의 **Load Balancer** 이고,  
+AWS의 **ALB(Application Load Balancer)** 는 Azure의 **Application Gateway**이다.
 
 | AWS 서비스 | Azure 서비스 | 계층 |
 | :--- | :--- | :--- |
-| **NLB (Network Load Balancer)** | **Azure Load Balancer** | L4 |
-| **ALB (Application Load Balancer)** | **Application Gateway** | L7 |
+| **NLB (Network Load Balancer)** | **Azure Load Balancer** | **L4** |
+| **ALB (Application Load Balancer)** | **Application Gateway** | **L7** |
 
 
 
