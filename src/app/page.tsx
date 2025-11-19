@@ -21,8 +21,8 @@ export default async function Home({ searchParams }: HomeProps) {
     ? getPostsByTags(tagParams)
     : allPostsData;
   
-  // TOP 3 추천 글 (11번, 13번, 12번 순서)
-  const featuredPostIds = ['11-nlb-on-website', '13-gitlab-nginx-bluegreen', '12-swr-pattern-cloudfront'];
+  // TOP 3 추천 글 (11번, 13번, 10번 순서)
+  const featuredPostIds = ['11-nlb-on-website', '13-gitlab-nginx-bluegreen', '10-azure-gitlab-k8s'];
   const featuredPosts = await Promise.all(
     featuredPostIds.map(id => getPostData(id))
   );

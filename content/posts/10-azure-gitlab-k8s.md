@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "GitLab Runner의 Kubernetes Executor"
+title:        "Kubernetes Executor 기반 GitLab Runner"
 date: '2025-05-12'
 section: 'infra'
 excerpt: 'AKS(Azure Kubernetes Service)와 GitLab Runner를 연동한 CI Job Pod 동적 생성'
