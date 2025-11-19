@@ -1,10 +1,10 @@
 ---
 layout:       post
-title:        "웹사이트에서의 NLB(Network Load Balancer)와 Azure NLB 알고리즘"
+title:        "웹사이트에서의 NLB(Network Load Balancer)와 Azure Load Balancer 알고리즘"
 date: '2025-05-14'
 section: 'infra'
-excerpt: 'WEB(HTTP/HTTPS)사이트에서의 L4 Layer Load Balancer'
-tags: ['Azure', 'NLB', 'Cloud', 'HTTP', 'Terraform']
+excerpt: 'WEB(HTTP/HTTPS)사이트에서의 L4 Layer Load Balancer와 성능 테스트'
+tags: ['Azure', 'NLB', 'Cloud', 'HTTP', 'Terraform', 'k6']
 ---
 
 웹사이트는 대부분 HTTP/HTTPS 레벨에서 동작하고, ALB는 이 레벨의 기능을 그대로 활용할 수 있다.
@@ -12,13 +12,37 @@ tags: ['Azure', 'NLB', 'Cloud', 'HTTP', 'Terraform']
 그래서 웹 사이트에서는 주로 ALB(Appliction Load Balacncer)를 사용하는데,  
 NLB(Network Load Balancer)를 사용하면 안될까?
 
-이 글에서는 **Azure NLB** 동작 알고리즘을 알아보고, **성능 테스트**를 진행한다.
+이 글에서는 **Azure Load Balancer** 동작 알고리즘을 알아보고, **성능 테스트**를 진행한다.
+
+
+<sub>[docs: azure load balancer](https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)</sub>
+![](/blog-images/11/1.png)
+
+---
+
+<sub>[docs: azure application gateway](https://learn.microsoft.com/en-us/azure/application-gateway/overview)</sub>
+![](/blog-images/11/2.png)
+
+
+---
+
+AWS의 NLB(Network Load Balancer)가 Azure의 Load Balancer 이고,  
+AWS의 ALB(Application Load Balancer)는 Azure의 Application Gateway이다.
+
+| AWS 서비스 | Azure 서비스 | 계층 |
+| :--- | :--- | :--- |
+| **NLB (Network Load Balancer)** | **Azure Load Balancer** | L4 |
+| **ALB (Application Load Balancer)** | **Application Gateway** | L7 |
+
+
+
+
 
 <br>
 
-# ☑️ NLB의 분산 방식은?
+# ☑️ Azure Load Balancer의 분산 방식은?
 
-Azure NLB는 **5-tuple 해시**를 사용한다.
+Azure Load Balancer는 **5-tuple 해시**를 사용한다.
 
 - Source IP
 - Source Port
@@ -42,7 +66,7 @@ Azure NLB는 **5-tuple 해시**를 사용한다.
 
 <br>
 
-- NLB(Network Load Balancer) 한개
+- Azure Load Balancer 한개
 
 ![](https://velog.velcdn.com/images/xxng1/post/47284d13-e672-47f8-8529-a4cada8828d1/image.png)
 
@@ -297,7 +321,7 @@ output "lb_public_ip" {
 
 
 
-# ☑️ NLB 성능 테스트
+# ☑️ Azure Load Balancer 성능 테스트
 
 `k6`를 사용한 부하 테스트
 
@@ -488,7 +512,7 @@ default ✓ [======================================] 10000 VUs  10s
 
 # ☑️ 결론
 
-- NLB는 매우 낮은 지연을 제공하고, 단순 트래픽 분산에는 충분히 좋은 선택이다.
+- Azure Load Balancer 는 매우 낮은 지연을 제공하고, 단순 트래픽 분산에는 충분히 좋은 선택이다.
 - 하지만 URL 라우팅, 스티키 세션 등 L7 기능이 필요하다면 여전히 ALB가 적합하다.
 - 고부하 상황에서는 한계가 드러났다.
 
