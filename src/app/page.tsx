@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getSortedPostsData, getAllTags, getPostsByTags } from '@/lib/posts';
+import { getSortedPostsData, getAllTags, getPostsByTags, getPostData } from '@/lib/posts';
 import ClientTagFilter from '@/components/client-tag-filter';
 import { Suspense } from 'react';
 
@@ -21,23 +21,40 @@ export default async function Home({ searchParams }: HomeProps) {
     ? getPostsByTags(tagParams)
     : allPostsData;
   
+  // TOP 3 추천 글 (11번, 13번, 12번 순서)
+  const featuredPostIds = ['11-nlb-on-website', '13-gitlab-nginx-bluegreen', '12-swr-pattern-cloudfront'];
+  const featuredPosts = await Promise.all(
+    featuredPostIds.map(id => getPostData(id))
+  );
+  
   return (
     <div className="space-y-8">
-      {/* Hero Section with About Me Button */}
-      <section className="space-y-6 text-left mb-12">
-        <div className="flex items-center justify-between">
-          <div>
+      {/* Hero Section with TOP 3 */}
+      <section className="space-y-6 mb-12">
+        <div className="flex flex-col md:flex-row gap-8 items-center">
+          <div className="flex-1">
             <h2 className="text-3xl font-bold text-foreground mb-2">hello woong! 👋</h2>
             <p className="text-muted text-lg leading-relaxed">
               Focused on Cloud Infrastructure & DevOps
             </p>
           </div>
-          {/* <Link
-            href="/about"
-            className="px-6 py-3 bg-accent/10 text-accent rounded-lg font-medium border border-accent/20 hover:bg-accent/20 transition-colors"
-          >
-            About Me
-          </Link> */}
+          
+          {/* TOP 3 추천 글 섹션 - 세로 배치 */}
+          <div className="w-full md:w-auto">
+            <h2 className="text-2xl font-bold text-foreground mb-4">TOP 3</h2>
+            <div className="flex flex-col gap-2">
+              {featuredPosts.map((post, index) => (
+                <Link key={post.id} href={`/posts/${post.id}`} className="block group">
+                  <div className="bg-card-background border border-card-border rounded-lg p-3 hover:border-accent/30 transition-colors">
+                    <div className="text-sm text-foreground hover:text-accent transition-colors">
+                      <span className="text-base font-bold mr-2">{index + 1}</span>
+                      <span>{post.title}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
