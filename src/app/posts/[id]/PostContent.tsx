@@ -14,9 +14,10 @@ interface PostContentProps {
   date: string;
   excerpt: string;
   content: string;
+  tags?: string[];
 }
 
-export default function PostContent({ title, date, excerpt, content }: PostContentProps) {
+export default function PostContent({ title, date, excerpt, content, tags }: PostContentProps) {
   useEffect(() => {
     hljs.configure({
       languages: ['javascript', 'typescript', 'python', 'java', 'bash', 'json', 'html', 'css', 'xml', 'yaml', 'markdown']
@@ -180,6 +181,15 @@ export default function PostContent({ title, date, excerpt, content }: PostConte
                 day: "numeric",
               })}
             </time>
+            {tags && tags.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {tags.map(tag => (
+                  <span key={tag} className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full border border-accent/20">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
             <h1 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-tight">
               {title}
             </h1>

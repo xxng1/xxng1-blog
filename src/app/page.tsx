@@ -46,7 +46,7 @@ export default async function Home({ searchParams }: HomeProps) {
         {/* <hr className="border-t border-card-border" /> */}
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-foreground">
-            {tagParams.length > 0 ? `필터된 글 (${filteredPosts.length}개)` : '전체 글'}
+            {tagParams.length > 0 ? `태그가 포함된 글 (${filteredPosts.length}개)` : '전체 글'}
           </h2>
           <span className="text-muted-foreground text-sm bg-card-background px-3 py-1 rounded-full border border-card-border">
             총 {allPostsData.length}개의 글
@@ -87,7 +87,7 @@ export default async function Home({ searchParams }: HomeProps) {
                       <div className="flex flex-wrap gap-2">
                         {tags.map(tag => (
                           <span key={tag} className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full border border-accent/20">
-                            {tag}
+                            #{tag}
                           </span>
                         ))}
                       </div>

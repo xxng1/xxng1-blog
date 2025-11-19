@@ -58,7 +58,7 @@ export default function ClientTagFilter({ tags, baseUrl }: TagFilterProps) {
               : 'bg-card-background text-muted border-card-border hover:border-accent/50 hover:text-accent hover:bg-accent/5'
           }`}
         >
-          {tag} {tags[tag] > 0 && <span className="text-xs opacity-75">({tags[tag]})</span>}
+          #{tag} {tags[tag] > 0 && <span className="text-xs opacity-75">({tags[tag]})</span>}
         </Link>
       ))}
     </div>
