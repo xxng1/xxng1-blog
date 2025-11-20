@@ -184,7 +184,10 @@ export default function PostContent({ title, date, excerpt, content, tags }: Pos
             {tags && tags.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
                 {tags.map(tag => (
-                  <span key={tag} className="text-xs px-3 py-1 bg-accent/10 text-accent rounded-full border border-accent/20">
+                  <span
+                    key={tag}
+                    className="text-xs px-3 py-1 border border-card-border rounded-full text-muted-foreground bg-transparent"
+                  >
                     #{tag}
                   </span>
                 ))}
