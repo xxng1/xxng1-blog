@@ -11,7 +11,7 @@ export default function HeaderNav() {
     <>
       <Link
         href="/"
-        className={`text-lg font-medium transition-colors ${
+        className={`text-[17px] font-medium transition-colors ${
           (pathname === "/" || isPost) && !isAbout
             ? "text-foreground font-semibold"
             : "text-muted hover:text-foreground"
@@ -22,7 +22,7 @@ export default function HeaderNav() {
 
       <Link
         href="/about"
-        className={`text-lg font-medium transition-colors ${
+        className={`text-[17px] font-medium transition-colors ${
           isAbout
             ? "text-foreground font-semibold"
             : "text-muted hover:text-foreground"
