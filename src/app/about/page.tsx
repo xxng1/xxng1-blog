@@ -10,6 +10,9 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { IoIosCall } from "react-icons/io";
 
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
+
+
 
 
 import {
@@ -331,9 +334,12 @@ export default function AboutPage() {
                         className="group inline-flex items-center gap-3 text-xl font-semibold text-foreground hover:text-accent transition-colors"
                     >
                         블로그 글 보러 가기
-                        <span className="w-10 h-10 rounded-full border border-foreground flex items-center justify-center text-lg group-hover:border-accent">
+
+                        <FaRegArrowAltCircleRight size={22} />
+
+                        {/* <span className="w-10 h-10 rounded-full border border-foreground flex items-center justify-center text-lg group-hover:border-accent">
                             →
-                        </span>
+                        </span> */}
                     </Link>
                 </div>
             </section>
