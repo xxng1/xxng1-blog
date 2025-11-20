@@ -11,11 +11,8 @@ Azure VM에서 `GitLab`, `GitLab Runner`, `Nginx`를 사용한 무중단 블루/
 
 파이프라인이 실행됐을 때 슬롯을 변경하도록 하고, 수동으로 전환 또한 가능하게 한다.
 
-<br>
+### [Github Source Code](https://github.com/xxng1/nginx-apache-bluegreen-gitlab)
 
-# ☑️ Github 소스 코드
-
-[Github Source Code](https://github.com/xxng1/nginx-apache-bluegreen-gitlab)
 
 <br>
 
