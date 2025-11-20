@@ -58,6 +58,9 @@ export default async function Home({ searchParams }: HomeProps) {
         </div>
       </section>
 
+      {/* Separator - Confluence style */}
+      <hr className="border-0 h-px bg-[#dfe1e6] rounded-full" />
+
       {/* Blog Posts Section */}
       <section className="space-y-8">
         {/* <hr className="border-t border-card-border" /> */}
