@@ -3,7 +3,7 @@
 const projects = [
   {
     title: 'Alcha - 데이터 파이프라인 자동화 프로젝트',
-    period: '2025.08 - 2025.11',
+    period: '2025.08 - 2025.11 | 현대오토에버 모빌리티 SW 스쿨',
     description: 'IoT 데이터 파이프라인 구축. 실시간 통신부터 대시보드 ETL 프로세스 및 장애 처리 설계.',
     techStack: ['AWS', 'Kubernetes', 'IoT Core', 'Kafka', 'Terraform', 'ArgoCD', 'GitLab'],
   },
