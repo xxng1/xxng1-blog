@@ -11,21 +11,21 @@ export default function HeaderNav() {
     <>
       <Link
         href="/"
-        className={`text-base font-medium transition-colors ${
-          (pathname === '/' || isPost) && !isAbout
-            ? 'text-foreground font-semibold' 
-            : 'text-muted hover:text-foreground'
+        className={`text-lg font-medium transition-colors ${
+          (pathname === "/" || isPost) && !isAbout
+            ? "text-foreground font-semibold"
+            : "text-muted hover:text-foreground"
         }`}
       >
         Blog
       </Link>
-      
+
       <Link
         href="/about"
-        className={`text-base font-medium transition-colors ${
-          isAbout 
-            ? 'text-foreground font-semibold' 
-            : 'text-muted hover:text-foreground'
+        className={`text-lg font-medium transition-colors ${
+          isAbout
+            ? "text-foreground font-semibold"
+            : "text-muted hover:text-foreground"
         }`}
       >
         About
