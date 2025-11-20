@@ -31,8 +31,8 @@ export default async function Home({ searchParams }: HomeProps) {
     <div className="space-y-8">
       {/* Hero Section with TOP 3 */}
       <section className="space-y-6 mb-12">
-        <div className="flex flex-col md:flex-row gap-8 items-center">
-          <div className="flex-1">
+        <div className="grid gap-8 md:grid-cols-2 md:items-center">
+          <div className="text-center md:text-left">
             <h2 className="text-3xl font-bold text-foreground mb-2">hello woong! 👋</h2>
             <p className="text-muted text-lg leading-relaxed">
               Focused on Cloud Infrastructure & DevOps
@@ -40,15 +40,15 @@ export default async function Home({ searchParams }: HomeProps) {
           </div>
           
           {/* TOP 3 추천 글 섹션 - 세로 배치 */}
-          <div className="w-full md:w-auto">
+          <div className="w-full">
             <h2 className="text-2xl font-bold text-foreground mb-4">TOP 3</h2>
             <div className="flex flex-col gap-2">
               {featuredPosts.map((post, index) => (
                 <Link key={post.id} href={`/posts/${post.id}`} className="block group">
                   <div className="bg-card-background border border-card-border rounded-lg p-3 hover:border-accent/30 transition-colors">
-                    <div className="text-sm text-foreground hover:text-accent transition-colors">
-                      <span className="text-base font-bold mr-2">{index + 1}</span>
-                      <span>{post.title}</span>
+                    <div className="flex items-center gap-3 text-sm text-foreground hover:text-accent transition-colors overflow-hidden">
+                      <span className="text-base font-bold">{index + 1}</span>
+                      <span className="flex-1 truncate">{post.title}</span>
                     </div>
                   </div>
                 </Link>
