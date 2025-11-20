@@ -324,29 +324,19 @@ export default function AboutPage() {
             <AboutGallery />
 
             {/* 블로그 글 보러가기 */}
-            {/* <section className="mb-12">
-                <div className="flex justify-end">
-                    <Link href="/" className="group">
-                        <div className="w-full sm:w-[22rem] p-[1px] rounded-3xl bg-gradient-to-r from-accent via-indigo-500 to-purple-500 shadow-[0_18px_40px_-20px_rgba(59,130,246,0.7)] transition-transform group-hover:-translate-y-1">
-                            <div className="bg-card-background rounded-[calc(1.5rem-1px)] p-7 flex flex-col gap-4 items-start">
-                                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-accent/80">
-                                    Blog
-                                </span>
-                                <h2 className="text-2xl font-bold text-foreground leading-tight">
-                                    최신 글 보러가기
-                                </h2>
-                                <p className="text-sm text-muted-foreground leading-relaxed">
-                                    Cloud Infrastructure & DevOps 이야기와 실제 경험을 정리해두었어요.
-                                </p>
-                                <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors group-hover:text-accent-hover">
-                                    블로그 홈으로 이동하기
-                                    <span className="text-base">→</span>
-                                </span>
-                            </div>
-                        </div>
+            <section className="mt-16 mb-4">
+                <div className="flex justify-center">
+                    <Link
+                        href="/"
+                        className="group inline-flex items-center gap-3 text-xl font-semibold text-foreground hover:text-accent transition-colors"
+                    >
+                        블로그 글 보러 가기
+                        <span className="w-10 h-10 rounded-full border border-foreground flex items-center justify-center text-lg group-hover:border-accent">
+                            →
+                        </span>
                     </Link>
                 </div>
-            </section> */}
+            </section>
         </div>
     );
 }
