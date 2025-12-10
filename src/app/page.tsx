@@ -35,7 +35,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="text-center md:text-left">
             <h2 className="text-3xl font-bold text-foreground mb-2">hello woong! 👋</h2>
             <p className="text-muted text-lg leading-relaxed">
-              Focused on Cloud Infrastructure & DevOps
+              Focused on Cloud Native & DevOps
             </p>
           </div>
           

@@ -98,7 +98,7 @@ export default function AboutPage() {
                         <div>
                             <h3 className="text-xl font-semibold text-foreground mb-3">1. Well-Architected Framework에 대한 이해</h3>
                             <p>
-                                전공, 소프트웨어 아카데미, Cloud 부트캠프를 거쳐서 <span className="font-semibold text-foreground">IT Infra</span> 및 <span className="font-semibold text-foreground">System Architecture</span>에 대한 지식을 키워왔습니다.
+                                전공, 소프트웨어 아카데미, Cloud 부트캠프를 거쳐서 <span className="font-semibold text-foreground">Cloud Native</span> 및 <span className="font-semibold text-foreground">System Architecture</span>에 대한 지식을 키워왔습니다.
                                 <br></br>
                                 운영 우수성, 보안, 신뢰성, 성능 효율성, 비용 최적화, 지속 가능성에 대한 관점으로 서비스를 제공하기 위해 노력합니다.
                             </p>
