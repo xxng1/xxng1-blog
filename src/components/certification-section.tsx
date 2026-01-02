@@ -98,10 +98,13 @@ export default function CertificationSection() {
                         href={certification.credlyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
+                        className="group relative px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
                         aria-label="Credly 배지 보기"
                       >
                         <FiExternalLink />
+                        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs bg-background text-foreground rounded-lg border border-card-border shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-10">
+                          View Credential ↗
+                        </span>
                       </a>
                     )}
                     {certification.snowflakeUrl && (
@@ -109,10 +112,13 @@ export default function CertificationSection() {
                         href={certification.snowflakeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
+                        className="group relative px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
                         aria-label="Snowflake 배지 보기"
                       >
                         <FiExternalLink />
+                        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs bg-background text-foreground rounded-lg border border-card-border shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-10">
+                          View Credential ↗
+                        </span>
                       </a>
                     )}
                     {certification.imageSrc && (
@@ -123,10 +129,13 @@ export default function CertificationSection() {
                             imageSrc: certification.imageSrc!,
                           })
                         }
-                        className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
+                        className="group relative px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
                         aria-label="인증서 이미지 보기"
                       >
                         <FiEye />
+                        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs bg-background text-foreground rounded-lg border border-card-border shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-10">
+                          Preview Certificate
+                        </span>
                       </button>
                     )}
                   </div>
