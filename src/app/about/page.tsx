@@ -213,7 +213,7 @@ export default function AboutPage() {
                     <h2 className="text-3xl font-bold mb-6 text-foreground">Experience</h2>
                     <div className="space-y-6">
                         <div>
-                            <h3 className="text-xl font-semibold text-foreground mb-2">현대오토에버 모빌리티 SW 스쿨 2기</h3>
+                            <h3 className="text-xl font-semibold text-foreground mb-2">현대오토에버 모빌리티 SW 스쿨 2기 - Cloud Track</h3>
                             <div className="text-sm text-muted-foreground mb-3">2025.04 - 2025.11</div>
                             <p className="text-muted leading-relaxed mb-2">
                                 클라우드 과정에 참여하여, 시스템 아키텍처와 운영 전반에 대한 이해를 심화했습니다.<br />
