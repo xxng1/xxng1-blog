@@ -16,6 +16,13 @@ type CertificationWithImage = CertificationItem & { imageSrc: string };
 
 const certifications: CertificationItem[] = [
   {
+    date: '2026.01',
+    title: 'Certified Kubernetes Application Developer (CKAD)',
+    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    imageSrc: '/CKAD_IMAGE.png',
+    imageAlt: 'Certified Kubernetes Application Developer (CKAD) Certificate',
+  },
+  {
     date: '2025.12',
     title: 'Kubernetes and Cloud Native Associate (KCNA)',
     issuer: 'Cloud Native Computing Foundation (CNCF)',
