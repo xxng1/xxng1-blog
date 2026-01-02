@@ -32,6 +32,9 @@ import {
   SiPrometheus,
   SiGrafana,
   SiElastic,
+  SiGit,
+  SiJira,
+  SiConfluence,
   SiPython,
   SiGnubash
 } from 'react-icons/si';
@@ -194,9 +197,17 @@ export default function AboutPage() {
                             ]}
                         />
                         <TechStackGroup 
+                            title="Collaboration & Workflow"
+                            items={[
+                                { name: 'Git', description: 'GitHub와 GitLab을 활용해 브랜치 전략 관리, 코드 리뷰, 협업 중심의 형상 관리를 할 수 있습니다', icon: <SiGit /> },
+                                { name: 'Jira', description: 'Jira를 이용해 이슈와 티켓 단위로 작업을 관리할 수 있습니다', icon: <SiJira /> },
+                                { name: 'Confluence', description: 'Confluence를 사용해 프로젝트 문서화, 기술 정리, 팀 내 정보 공유를 할 수 있습니다', icon: <SiConfluence /> }
+                            ]}
+                        />
+                        <TechStackGroup 
                             title="Language"
                             items={[
-                                { name: 'Python', description: 'Python을 통해 알고리즘 구현부터 자동화 스크립트 작성 및 AWS boto3 활용을 할 수 있습니다', icon: <SiPython /> },
+                                { name: 'Python', description: 'Python을 통해 알고리즘 구현과 자동화 스크립트 작성 및 AWS boto3 활용을 할 수 있습니다', icon: <SiPython /> },
                                 { name: 'Shell', description: 'Shell 스크립트를 통해 시스템 자동화 및 배포 스크립트 작성을 할 수 있습니다', icon: <SiGnubash /> }
                             ]}
                         />
