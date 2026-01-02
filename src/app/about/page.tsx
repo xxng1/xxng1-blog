@@ -177,7 +177,7 @@ export default function AboutPage() {
                                 { name: 'Github Actions', description: 'GitHub Actions를 통해 CI/CD 파이프라인 구축 및 배포 자동화를 할 수 있습니다', icon: <SiGithubactions /> },
                                 { name: 'ArgoCD', description: 'ArgoCD를 활용한 GitOps 워크플로우 구성 및 자동 배포를 할 수 있습니다', icon: <SiArgo /> },
                                 { name: 'Jenkins', description: 'Jenkins를 통한 CI/CD 파이프라인 구축 및 배포 자동화를 할 수 있습니다', icon: <SiJenkins /> },
-                                { name: 'Terraform', description: 'Terraform을 사용하여 IaC 환경 구축을 할 수 있습니다', icon: <SiHashicorp /> }
+                                { name: 'Terraform', description: 'Terraform의 동작 원리를 이해하고 있으며, IaC를 통해 프로비저닝 과정을 자동화할 수 있습니다', icon: <SiHashicorp /> }
                             ]}
                         />
                         <TechStackGroup 
