@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import CertificationImageModal from './certification-image-modal';
-import { GiClick } from "react-icons/gi";
+import { FiEye, FiExternalLink } from "react-icons/fi";
 
 type CertificationItem = {
   date: string;
@@ -10,6 +10,8 @@ type CertificationItem = {
   issuer: string;
   imageSrc?: string;
   imageAlt?: string;
+  credlyUrl?: string;
+  snowflakeUrl?: string;
 };
 
 type CertificationWithImage = CertificationItem & { imageSrc: string };
@@ -21,6 +23,7 @@ const certifications: CertificationItem[] = [
     issuer: 'Cloud Native Computing Foundation (CNCF)',
     imageSrc: '/CKAD_IMAGE.png',
     imageAlt: 'Certified Kubernetes Application Developer (CKAD) Certificate',
+    credlyUrl: 'https://www.credly.com/badges/e8c4c4d2-b29a-45c9-9f8f-bed3244dd9a4',
   },
   {
     date: '2025.12',
@@ -28,6 +31,7 @@ const certifications: CertificationItem[] = [
     issuer: 'Cloud Native Computing Foundation (CNCF)',
     imageSrc: '/kcna.png',
     imageAlt: 'Kubernetes and Cloud Native Associate (KCNA) Certificate',
+    credlyUrl: 'https://www.credly.com/badges/f9ec9460-6072-4427-8f36-1fdbf25ff468',
   },
 
   {
@@ -36,6 +40,7 @@ const certifications: CertificationItem[] = [
     issuer: 'Cloud Native Computing Foundation (CNCF)',
     imageSrc: '/CKA_IMAGE.png',
     imageAlt: 'Certified Kubernetes Administrator (CKA) Certificate',
+    credlyUrl: 'https://www.credly.com/badges/f7bb8e11-c6c9-493e-bb43-a4a5fe95d45a',
   },
   {
     date: '2025.05',
@@ -43,6 +48,7 @@ const certifications: CertificationItem[] = [
     issuer: 'Snowflake',
     imageSrc: '/snowflake.png',
     imageAlt: 'SnowPro Associate Platform Certification',
+    snowflakeUrl: 'https://achieve.snowflake.com/54f9c9d9-a363-4d71-862f-5204d500d7e7#acc.txBJYfsd',
   },
   {
     date: '2024.09',
@@ -50,6 +56,7 @@ const certifications: CertificationItem[] = [
     issuer: 'Amazon Web Services (AWS)',
     imageSrc: '/AWS Certified Developer - Associate certificate.png',
     imageAlt: 'AWS Certified Developer - Associate Certificate',
+    credlyUrl: 'https://www.credly.com/badges/2747935d-9415-4e07-bb92-e55b318f1822',
   },
   {
     date: '2024.03',
@@ -57,6 +64,7 @@ const certifications: CertificationItem[] = [
     issuer: 'Amazon Web Services (AWS)',
     imageSrc: '/AWS Certified Solutions Architect - Associate certificate.png',
     imageAlt: 'AWS Certified Solutions Architect - Associate Certificate',
+    credlyUrl: 'https://www.credly.com/badges/f3d037e2-a9f8-4b7a-ad05-bc174144d196',
   },
 ];
 
@@ -84,19 +92,44 @@ export default function CertificationSection() {
                     <div className="font-semibold text-foreground">{certification.title}</div>
                     <div className="text-sm text-muted-foreground mt-1">{certification.issuer}</div>
                   </div>
-                  {certification.imageSrc && (
-                    <button
-                      onClick={() =>
-                        setSelectedCertification({
-                          ...certification,
-                          imageSrc: certification.imageSrc!,
-                        })
-                      }
-                      className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
-                    >
-                      <GiClick />
-                    </button>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {certification.credlyUrl && (
+                      <a
+                        href={certification.credlyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
+                        aria-label="Credly 배지 보기"
+                      >
+                        <FiExternalLink />
+                      </a>
+                    )}
+                    {certification.snowflakeUrl && (
+                      <a
+                        href={certification.snowflakeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
+                        aria-label="Snowflake 배지 보기"
+                      >
+                        <FiExternalLink />
+                      </a>
+                    )}
+                    {certification.imageSrc && (
+                      <button
+                        onClick={() =>
+                          setSelectedCertification({
+                            ...certification,
+                            imageSrc: certification.imageSrc!,
+                          })
+                        }
+                        className="px-4 py-2 text-sm bg-accent/10 text-accent rounded-lg border border-accent/20 hover:bg-accent/20 transition-colors font-medium flex items-center justify-center"
+                        aria-label="인증서 이미지 보기"
+                      >
+                        <FiEye />
+                      </button>
+                    )}
+                  </div>
                 </div>
               );
             })}
