@@ -21,6 +21,7 @@ import {
   SiApple,
   SiKubernetes,
   SiDocker,
+  SiPodman,
   SiGithubactions,
   SiArgo,
   SiJenkins,
@@ -163,7 +164,8 @@ export default function AboutPage() {
                             title="Container & Orchestration"
                             items={[
                                 { name: 'Kubernetes', description: 'Kubernetes의 동작 원리와 리소스 오브젝트 전반에 대한 이해를 갖추고 있습니다', icon: <SiKubernetes /> },
-                                { name: 'Docker', description: 'Docker 이미지 빌드, 컨테이너 관리, Docker Compose를 활용한 멀티 컨테이너 환경 구축을 할 수 있습니다', icon: <SiDocker /> }
+                                { name: 'Docker', description: 'Docker 이미지 빌드, 컨테이너 관리, Docker Compose를 활용한 멀티 컨테이너 환경 구축을 할 수 있습니다', icon: <SiDocker /> },
+                                { name: 'Podman', description: 'Podman을 사용해 OCI 이미지 빌드 및 아카이브 작업을 수행할 수 있습니다', icon: <SiPodman /> }
                             ]}
                         />
                         <TechStackGroup 

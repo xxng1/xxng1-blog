@@ -23,7 +23,7 @@ export default function TechStackGroup({ title, items }: TechStackGroupProps) {
             key={item.name}
             className="group relative"
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium border border-accent/20 cursor-help hover:bg-accent/20 transition-colors">
+            <span className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium border border-accent/20 cursor-pointer hover:bg-accent/20 transition-colors">
               {item.icon && <span className="text-base">{item.icon}</span>}
               {item.name}
             </span>
