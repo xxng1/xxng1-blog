@@ -67,74 +67,14 @@ export default function AboutPage() {
                 </div>
                 <div className="text-center md:text-left">
                     <h2 className="text-3xl font-bold mb-2 text-foreground">@xxng1</h2>
-                    <p className="text-muted text-lg mb-4">
+                    <p className="text-muted text-lg mb-3">
                         박상웅 | Sangwoong Park
                     </p>
-                    <div className="flex flex-col gap-2 text-sm">
-                        <a href="mailto:woongaa1@naver.com" className="text-muted hover:text-accent transition-colors flex items-center gap-2">
-                            <IoMdMail size={18} />
-                            woongaa1@naver.com
-                        </a>
-                        <a href="tel:010-5648-8262" className="text-muted hover:text-accent transition-colors flex items-center gap-2">
-                            <IoIosCall size={18} />
-                            010-5648-8262
-                        </a>
-                        <div className="flex gap-4 mt-2">
-                            <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
-                                <FaGithub size={18} />
-                                GitHub
-                            </a>
-                            <a href="https://www.linkedin.com/in/sangwoong-park/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
-                                <FaLinkedin size={18} />
-                                LinkedIn
-                            </a>
-                        </div>
-                    </div>
+                    <p className="text-muted text-base italic font-light">
+                        No Silver Bullet — Exploring better ways in Cloud & DevOps
+                    </p>
                 </div>
             </div>
-
-            <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold mb-6 text-foreground">
-                        About Me
-                    </h2>
-                    <div className="space-y-6 text-muted leading-relaxed">
-                        <div>
-                            <h3 className="text-xl font-semibold text-foreground mb-3">1. Well-Architected Framework에 대한 이해</h3>
-                            <p>
-                                전공, SW아카데미, Cloud 부트캠프를 거쳐서 <span className="font-semibold text-foreground">Cloud Native</span> 및 <span className="font-semibold text-foreground">System Architecture</span>에 대한 지식을 키워왔습니다.
-                                <br></br>
-                                운영 우수성, 보안, 신뢰성, 성능 효율성, 비용 최적화, 지속 가능성에 대한 관점으로 서비스를 제공하기 위해 노력합니다.
-                            </p>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-semibold text-foreground mb-3">2. DevOps 엔지니어링에 대한 마음가짐</h3>
-                            <p>
-                                언제든지 상황에 <span className="font-semibold text-foreground">신속히 대응</span>하여 서비스를 운영하기 위한 준비된 마음가짐과 책임감 있는 자세를 갖추고 있습니다.
-                                <br></br>
-                                반복되는 일을 <span className="font-semibold text-foreground">자동화</span>하고 비효율적인 <span className="font-semibold text-foreground">프로세스를 개선</span>하는 것을 통해 더 나은 운영 환경을 만들고자 합니다.
-                            </p>
-                        </div>
-                        <div className="pt-4 border-t border-card-border">
-                            <p>
-                                On-Prem/Cloud 인프라 환경에서의 경험으로 솔루션 최적화, 인프라 자동화, 요구사항 개발 등에 대한 역량을 갖추었으며, 
-                                <br></br>
-                                이를 통해 구체적인 성과를 내는 엔지니어로 성장하고자 합니다.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="mt-6">
-                        <Link
-                            href="https://github.com/xxng1/xxng1-blog"
-                            className="inline-flex items-center text-accent hover:text-accent-hover underline transition-colors"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            블로그 소스코드 Github →
-                        </Link>
-                    </div>
-                </div>
-            </section>
 
             {/* Certification */}
             <CertificationSection />
