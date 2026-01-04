@@ -325,6 +325,13 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
               </strong>
             );
           },
+          sub({ children, ...props }: any) {
+            return (
+              <sub className="block text-right text-sm text-muted -mt-4 mb-0" {...props}>
+                {children}
+              </sub>
+            );
+          },
           hr(props: any) {
             return <hr className="border-t border-card-border my-10" />;
           },

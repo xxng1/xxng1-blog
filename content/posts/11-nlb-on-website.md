@@ -21,8 +21,8 @@ L4 Layer인 NLB(Network Load Balancer)를 사용하면 안될까?
 
 ---
 
-<sub>[docs: azure application gateway](https://learn.microsoft.com/en-us/azure/application-gateway/overview)</sub>
 ![](/blog-images/11/2.png)
+<sub>[docs: azure application gateway](https://learn.microsoft.com/en-us/azure/application-gateway/overview)</sub>
 
 
 ---
