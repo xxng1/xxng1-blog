@@ -13,6 +13,7 @@ export interface PostData {
   categories?: string[];
   section?: string;
   tags?: string[];
+  githubUrl?: string;
 }
 
 export interface Category {
@@ -42,6 +43,7 @@ export function getSortedPostsData(): PostData[] {
       categories: matterResult.data.categories || [],
       section: matterResult.data.section || '',
       tags: matterResult.data.tags || [],
+      githubUrl: matterResult.data.githubUrl || undefined,
       ...(matterResult.data as { title: string; date: string; excerpt: string }),
     };
   });
@@ -81,6 +83,7 @@ export async function getPostData(id: string): Promise<PostData> {
     categories: matterResult.data.categories || [],
     section: matterResult.data.section || '',
     tags: matterResult.data.tags || [],
+    githubUrl: matterResult.data.githubUrl || undefined,
     ...(matterResult.data as { title: string; date: string; excerpt: string }),
   };
 }

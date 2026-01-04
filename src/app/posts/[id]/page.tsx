@@ -12,7 +12,7 @@ export default async function Post({ params }: { params: Promise<{ id: string }>
   const { id } = await params;
   try {
     const postData = await getPostData(id);
-    return <PostContent title={postData.title} date={postData.date} excerpt={postData.excerpt} content={postData.content} tags={postData.tags} />;
+    return <PostContent title={postData.title} date={postData.date} excerpt={postData.excerpt} content={postData.content} tags={postData.tags} githubUrl={postData.githubUrl} />;
   } catch {
     notFound();
   }

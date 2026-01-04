@@ -8,6 +8,7 @@ import rehypeSlug from 'rehype-slug';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import TableOfContents from '@/components/table-of-contents';
+import { FaGithub } from "react-icons/fa";
 
 interface PostContentProps {
   title: string;
@@ -15,9 +16,10 @@ interface PostContentProps {
   excerpt: string;
   content: string;
   tags?: string[];
+  githubUrl?: string;
 }
 
-export default function PostContent({ title, date, excerpt, content, tags }: PostContentProps) {
+export default function PostContent({ title, date, excerpt, content, tags, githubUrl }: PostContentProps) {
   useEffect(() => {
     hljs.configure({
       languages: ['javascript', 'typescript', 'python', 'java', 'bash', 'json', 'html', 'css', 'xml', 'yaml', 'markdown']
@@ -193,9 +195,22 @@ export default function PostContent({ title, date, excerpt, content, tags }: Pos
                 ))}
               </div>
             )}
-            <h1 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-tight">
-              {title}
-            </h1>
+            <div className="flex items-start justify-between gap-4 mt-4">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-tight flex-1">
+                {title}
+              </h1>
+              {githubUrl && (
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted hover:text-accent transition-colors flex-shrink-0 mt-2"
+                  aria-label="GitHub Source Code"
+                >
+                  <FaGithub size={24} />
+                </a>
+              )}
+            </div>
             <p className="mt-4 text-lg text-muted leading-relaxed">
               {excerpt}
             </p>
