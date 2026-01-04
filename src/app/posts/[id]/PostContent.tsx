@@ -207,13 +207,13 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center group relative"
+                  className="inline-flex items-center group relative !text-foreground hover:!text-foreground"
                   aria-label="GitHub Source Code"
-                  title="실습에 사용한 개인 Github Repository 입니다(클릭 시 이동)"
+                  title="실습에 사용한 개인 Github Repository"
                 >
-                  <BsGithub size={24} />
+                  <BsGithub size={24} className="text-foreground" />
                   <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-900 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
-                    실습에 사용한 개인 Github Repository 입니다(클릭 시 이동)
+                    실습에 사용한 개인 Github Repository
                     <span className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900"></span>
                   </span>
                 </a>
