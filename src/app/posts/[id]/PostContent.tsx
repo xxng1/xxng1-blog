@@ -8,7 +8,7 @@ import rehypeSlug from 'rehype-slug';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import TableOfContents from '@/components/table-of-contents';
-import { FaGithub } from "react-icons/fa";
+import { BsGithub } from "react-icons/bs";
 
 interface PostContentProps {
   title: string;
@@ -195,25 +195,30 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
                 ))}
               </div>
             )}
-            <div className="flex items-start justify-between gap-4 mt-4">
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-tight flex-1">
-                {title}
-              </h1>
-              {githubUrl && (
+            <h1 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-tight">
+              {title}
+            </h1>
+            <p className="mt-4 text-lg text-muted leading-relaxed">
+              {excerpt}
+            </p>
+            {githubUrl && (
+              <div className="mt-4 flex justify-end">
                 <a
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted hover:text-accent transition-colors flex-shrink-0 mt-2"
+                  className="inline-flex items-center group relative"
                   aria-label="GitHub Source Code"
+                  title="실습에 사용한 개인 Github Repository 입니다(클릭 시 이동)"
                 >
-                  <FaGithub size={24} />
+                  <BsGithub size={24} />
+                  <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-900 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                    실습에 사용한 개인 Github Repository 입니다(클릭 시 이동)
+                    <span className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900"></span>
+                  </span>
                 </a>
-              )}
-            </div>
-            <p className="mt-4 text-lg text-muted leading-relaxed">
-              {excerpt}
-            </p>
+              </div>
+            )}
           </div>
         </header>
 
