@@ -222,170 +222,170 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
           </div>
         </header>
 
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[
-          rehypeRaw,
-          rehypeSlug
-        ]}
-        components={{
-          code({ node, className, children, ...props }: any) {
-            const isInline = !className || !className.includes('language-');
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[
+            rehypeRaw,
+            rehypeSlug
+          ]}
+          components={{
+            code({ node, className, children, ...props }: any) {
+              const isInline = !className || !className.includes('language-');
 
-            if (isInline) {
+              if (isInline) {
+                return (
+                  <code
+                    className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-sm px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
+                    {...props}
+                  >
+                    {children}
+                  </code>
+                );
+              }
+
               return (
-                <code
-                  className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-sm px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
-                  {...props}
-                >
+                <code className={`${className} text-sm md:text-base leading-relaxed`} {...props}>
                   {children}
                 </code>
               );
-            }
+            },
 
-            return (
-              <code className={`${className} text-sm md:text-base leading-relaxed`} {...props}>
-                {children}
-              </code>
-            );
-          },
-
-          pre({ children, ...props }: any) {
-            return (
-              <pre className="overflow-auto my-12 p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg" {...props}>
-                {children}
-              </pre>
-            );
-          },
-
-          h1({ children, ...props }: any) {
-            return (
-              <div>
-                <h1 {...props} className="text-3xl font-bold mt-16 mb-6 text-foreground leading-tight">{children}</h1>
-                <hr className="border-t border-card-border mb-8 mt-6" />
-              </div>
-            );
-          },
-          h2({ children, ...props }: any) {
-            return <h2 {...props} className="text-2xl font-bold mt-12 mb-5 text-foreground leading-tight pt-2">{children}</h2>;
-          },
-          h3({ children, ...props }: any) {
-            return <h3 {...props} className="text-xl font-bold mt-10 mb-4 text-foreground leading-tight pt-1">{children}</h3>;
-          },
-          h4({ children, ...props }: any) {
-            return <h4 {...props} className="text-lg font-bold mt-8 mb-3 text-foreground leading-tight">{children}</h4>;
-          },
-          h5({ children, ...props }: any) {
-            return <h5 {...props} className="text-base font-bold mt-6 mb-2 text-foreground leading-tight">{children}</h5>;
-          },
-          h6({ children, ...props }: any) {
-            return <h6 {...props} className="text-sm font-bold mt-4 mb-2 text-foreground leading-tight">{children}</h6>;
-          },
-          p({ children, ...props }: any) {
-            return <p className="my-7 leading-8 text-foreground text-base md:text-lg">{children}</p>;
-          },
-          ul({ children, ...props }: any) {
-            return <ul className="my-7 list-disc pl-7 space-y-3">{children}</ul>;
-          },
-          ol({ children, ...props }: any) {
-            return <ol className="my-7 list-decimal pl-7 space-y-3">{children}</ol>;
-          },
-          li({ children, ...props }: any) {
-            return <li className="text-foreground leading-7 text-base md:text-lg">{children}</li>;
-          },
-          blockquote({ children, ...props }: any) {
-            return (
-              <blockquote className="border-l border-card-border/60 pl-3 py-1.5 my-6 bg-card-background rounded text-foreground leading-relaxed text-base md:text-lg">
-                {children}
-              </blockquote>
-            );
-          },
-          img({ src, alt, ...props }: any) {
-            return (
-              <img
-                src={src || ""}
-                alt={alt || ""}
-                // className="w-[100%] h-[100%] object-cover rounded-lg block mx-auto my-8"
-                className="w-full h-auto object-contain rounded-lg block mx-auto my-12"
-              />
-            );
-          },
-
-          em({ children, ...props }: any) {
-            return (
-              <em className="italic text-muted" {...props}>
-                {children}
-              </em>
-            );
-          },
-          strong({ children, ...props }: any) {
-            return (
-              <strong className="font-bold text-foreground" {...props}>
-                {children}
-              </strong>
-            );
-          },
-          sub({ children, ...props }: any) {
-            return (
-              <sub className="block text-right text-sm text-muted -mt-4 mb-0" {...props}>
-                {children}
-              </sub>
-            );
-          },
-          hr(props: any) {
-            return <hr className="border-t border-card-border my-10" />;
-          },
-          table({ children, ...props }: any) {
-            return (
-              <div className="overflow-x-auto my-12">
-                <table className="min-w-full border border-card-border rounded-lg shadow-sm" {...props}>
-                  {children}
-                </table>
-              </div>
-            );
-          },
-          thead({ children, ...props }: any) {
-            return <thead className="bg-accent/5" {...props}>{children}</thead>;
-          },
-          tbody({ children, ...props }: any) {
-            return <tbody className="divide-y divide-card-border" {...props}>{children}</tbody>;
-          },
-          tr({ children, ...props }: any) {
-            return <tr className="border-b border-card-border hover:bg-accent/5" {...props}>{children}</tr>;
-          },
-          th({ children, ...props }: any) {
-            return <th className="px-6 py-4 text-left text-sm font-semibold text-foreground uppercase tracking-wider" {...props}>{children}</th>;
-          },
-          td({ children, ...props }: any) {
-            return <td className="px-6 py-4 text-sm text-muted" {...props}>{children}</td>;
-          },
-
-          a({ children, href, ...props }: any) {
-            // 헤딩 안의 자동 생성된 앵커 링크는 기본 스타일 유지
-            if (href && href.startsWith('#')) {
-              return <a href={href} {...props}>{children}</a>;
-            }
-            // 외부 링크에만 초록색 스타일 적용
-            if (href && !href.startsWith('#')) {
+            pre({ children, ...props }: any) {
               return (
-                <a 
-                  href={href} 
-                  className="text-emerald-600 hover:text-emerald-700 underline transition-colors duration-200" 
-                  {...props}
-                >
+                <pre className="overflow-auto my-12 p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg" {...props}>
                   {children}
-                </a>
+                </pre>
               );
-            }
-            // href가 없으면 기본 a 태그
-            return <a {...props}>{children}</a>;
-          },
+            },
+
+            h1({ children, ...props }: any) {
+              return (
+                <div>
+                  <h1 {...props} className="text-3xl font-bold mt-16 mb-6 text-foreground leading-tight">{children}</h1>
+                  <hr className="border-t border-card-border mb-8 mt-6" />
+                </div>
+              );
+            },
+            h2({ children, ...props }: any) {
+              return <h2 {...props} className="text-2xl font-bold mt-12 mb-5 text-foreground leading-tight pt-2">{children}</h2>;
+            },
+            h3({ children, ...props }: any) {
+              return <h3 {...props} className="text-xl font-bold mt-10 mb-4 text-foreground leading-tight pt-1">{children}</h3>;
+            },
+            h4({ children, ...props }: any) {
+              return <h4 {...props} className="text-lg font-bold mt-8 mb-3 text-foreground leading-tight">{children}</h4>;
+            },
+            h5({ children, ...props }: any) {
+              return <h5 {...props} className="text-base font-bold mt-6 mb-2 text-foreground leading-tight">{children}</h5>;
+            },
+            h6({ children, ...props }: any) {
+              return <h6 {...props} className="text-sm font-bold mt-4 mb-2 text-foreground leading-tight">{children}</h6>;
+            },
+            p({ children, ...props }: any) {
+              return <p className="my-7 leading-8 text-foreground text-base md:text-lg">{children}</p>;
+            },
+            ul({ children, ...props }: any) {
+              return <ul className="my-7 list-disc pl-7 space-y-3">{children}</ul>;
+            },
+            ol({ children, ...props }: any) {
+              return <ol className="my-7 list-decimal pl-7 space-y-3">{children}</ol>;
+            },
+            li({ children, ...props }: any) {
+              return <li className="text-foreground leading-7 text-base md:text-lg">{children}</li>;
+            },
+            blockquote({ children, ...props }: any) {
+              return (
+                <blockquote className="border-l border-card-border/60 pl-3 py-1.5 my-6 bg-card-background rounded text-foreground leading-relaxed text-base md:text-lg">
+                  {children}
+                </blockquote>
+              );
+            },
+            img({ src, alt, ...props }: any) {
+              return (
+                <img
+                  src={src || ""}
+                  alt={alt || ""}
+                  // className="w-[100%] h-[100%] object-cover rounded-lg block mx-auto my-8"
+                  className="w-full h-auto object-contain rounded-lg block mx-auto my-12"
+                />
+              );
+            },
+
+            em({ children, ...props }: any) {
+              return (
+                <em className="italic text-muted" {...props}>
+                  {children}
+                </em>
+              );
+            },
+            strong({ children, ...props }: any) {
+              return (
+                <strong className="font-bold text-foreground" {...props}>
+                  {children}
+                </strong>
+              );
+            },
+            sub({ children, ...props }: any) {
+              return (
+                <sub className="block text-right text-sm text-muted -mt-4 mb-0" {...props}>
+                  {children}
+                </sub>
+              );
+            },
+            hr(props: any) {
+              return <hr className="border-t border-card-border my-10" />;
+            },
+            table({ children, ...props }: any) {
+              return (
+                <div className="overflow-x-auto my-12">
+                  <table className="min-w-full border border-card-border rounded-lg shadow-sm" {...props}>
+                    {children}
+                  </table>
+                </div>
+              );
+            },
+            thead({ children, ...props }: any) {
+              return <thead className="bg-accent/5" {...props}>{children}</thead>;
+            },
+            tbody({ children, ...props }: any) {
+              return <tbody className="divide-y divide-card-border" {...props}>{children}</tbody>;
+            },
+            tr({ children, ...props }: any) {
+              return <tr className="border-b border-card-border hover:bg-accent/5" {...props}>{children}</tr>;
+            },
+            th({ children, ...props }: any) {
+              return <th className="px-6 py-4 text-left text-sm font-semibold text-foreground uppercase tracking-wider" {...props}>{children}</th>;
+            },
+            td({ children, ...props }: any) {
+              return <td className="px-6 py-4 text-sm text-muted" {...props}>{children}</td>;
+            },
+
+            a({ children, href, ...props }: any) {
+              // 헤딩 안의 자동 생성된 앵커 링크는 기본 스타일 유지
+              if (href && href.startsWith('#')) {
+                return <a href={href} {...props}>{children}</a>;
+              }
+              // 외부 링크에만 초록색 스타일 적용
+              if (href && !href.startsWith('#')) {
+                return (
+                  <a
+                    href={href}
+                    className="text-emerald-600 hover:text-emerald-700 underline transition-colors duration-200"
+                    {...props}
+                  >
+                    {children}
+                  </a>
+                );
+              }
+              // href가 없으면 기본 a 태그
+              return <a {...props}>{children}</a>;
+            },
 
 
-        }}
-      >
-        {content}
-      </ReactMarkdown>
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </article>
 
       <style jsx global>{`
