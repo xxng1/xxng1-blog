@@ -15,8 +15,9 @@ L4 Layer인 NLB(Network Load Balancer)를 사용하면 안될까?
 이 글에서는 **Azure Load Balancer** 동작 알고리즘을 알아보고, **성능 테스트**를 진행한다.
 
 
-<sub>[docs: azure load balancer](https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)</sub>
+
 ![](/blog-images/11/1.png)
+<sub>[docs: azure load balancer](https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)</sub>
 
 ---
 
