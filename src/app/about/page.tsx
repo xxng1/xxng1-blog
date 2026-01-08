@@ -70,9 +70,19 @@ export default function AboutPage() {
                     <p className="text-muted text-lg mb-3">
                         박상웅 | Sangwoong Park
                     </p>
-                    <p className="text-muted text-base italic font-light">
+                    <p className="text-muted text-base italic font-light mb-4">
                         No Silver Bullet — Exploring better ways in Cloud & DevOps
                     </p>
+                    <div className="flex gap-4 text-sm">
+                        <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
+                            <FaGithub size={18} />
+                            GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/sangwoong-park/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
+                            <FaLinkedin size={18} />
+                            LinkedIn
+                        </a>
+                    </div>
                 </div>
             </div>
 
