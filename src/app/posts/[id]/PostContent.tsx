@@ -173,7 +173,7 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
   return (
     <>
       <TableOfContents content={content} />
-      <article className="prose prose-slate mx-auto max-w-3xl [&>*]:my-6">
+      <article className="prose prose-slate mx-auto max-w-3xl px-4 sm:px-0 [&>*]:my-6">
         <header className="mb-12 not-prose">
           <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm mb-8">
             <time className="text-sm text-muted-foreground">
@@ -252,7 +252,7 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
 
             pre({ children, ...props }: any) {
               return (
-                <pre className="overflow-auto my-12 p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg" {...props}>
+                <pre className="overflow-x-auto my-12 p-4 sm:p-5 md:p-6 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 relative shadow-lg max-w-full" {...props}>
                   {children}
                 </pre>
               );
@@ -337,7 +337,7 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
             },
             table({ children, ...props }: any) {
               return (
-                <div className="overflow-x-auto my-12">
+                <div className="overflow-x-auto my-12 -mx-4 sm:mx-0">
                   <table className="min-w-full border border-card-border rounded-lg shadow-sm" {...props}>
                     {children}
                   </table>
@@ -391,6 +391,8 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
       <style jsx global>{`
         pre {
           position: relative;
+          max-width: 100%;
+          overflow-x: auto;
         }
 
         .copy-button {

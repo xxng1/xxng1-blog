@@ -56,7 +56,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 <Link key={post.id} href={`/posts/${post.id}`} className="block group">
                   <div className="bg-card-background border border-card-border rounded-lg p-3 hover:border-accent/30 transition-colors">
                     <div className="flex items-center gap-3 text-sm text-foreground hover:text-accent transition-colors overflow-hidden">
-                      <span className="text-base font-bold">{index + 1}</span>
+                      <span className="text-base font-bold flex-shrink-0">{index + 1}</span>
                       <span className="flex-1 truncate">{post.title}</span>
                     </div>
                   </div>
@@ -73,11 +73,11 @@ export default async function Home({ searchParams }: HomeProps) {
       {/* Blog Posts Section */}
       <section className="space-y-8">
         {/* <hr className="border-t border-card-border" /> */}
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <h2 className="text-2xl font-bold text-foreground">
             {tagParams.length > 0 ? `태그가 포함된 글 (${filteredPosts.length}개)` : '전체 글'}
           </h2>
-          <span className="text-muted-foreground text-sm bg-card-background px-3 py-1 rounded-full border border-card-border">
+          <span className="text-muted-foreground text-sm bg-card-background px-3 py-1 rounded-full border border-card-border whitespace-nowrap">
             총 {allPostsData.length}개의 글
           </span>
         </div>

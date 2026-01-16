@@ -92,9 +92,9 @@ export default function AboutPage() {
             {/* Tech Stack */}
             <section className="mb-12">
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-3xl font-bold text-foreground">Tech Stack</h2>
-                        <span className="text-xs text-muted-foreground italic">* 기술에 마우스를 올리면 설명을 확인할 수 있습니다</span>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Tech Stack</h2>
+                        <span className="text-xs text-muted-foreground italic whitespace-nowrap">* 기술에 마우스를 올리면 설명을 확인할 수 있습니다</span>
                     </div>
                     <div className="space-y-6">
                         <TechStackGroup 
@@ -211,7 +211,7 @@ export default function AboutPage() {
                     <h2 className="text-3xl font-bold mb-6 text-foreground">Activity</h2>
                     <div className="space-y-4">
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2024.09</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">AWS JAM(2024)</div>
                                 <p className="text-sm text-muted leading-relaxed">
@@ -220,7 +220,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2024.09</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Developing Serverless Solutions on AWS</div>
                                 <p className="text-sm text-muted leading-relaxed">
@@ -229,7 +229,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.09</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2024.09</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Running Containers on Amazon Elastic Kubernetes Service (Amazon EKS)</div>
                                 <p className="text-sm text-muted leading-relaxed">
@@ -238,7 +238,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.08</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2024.08</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Security Engineering on AWS</div>
                                 <p className="text-sm text-muted leading-relaxed">
@@ -247,7 +247,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2024.08</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2024.08</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Developing on AWS</div>
                                 <p className="text-sm text-muted leading-relaxed">
@@ -256,7 +256,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.12</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2023.12</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Multi Cloud Orchestration (Terraform)</div>
                                 <p className="text-sm text-muted leading-relaxed">
@@ -266,7 +266,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.11</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2023.11</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">Monitoring and Testing Implementation in a DevOps Environment</div>
                                 <p className="text-sm text-muted leading-relaxed">
@@ -275,7 +275,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
-                            <div className="text-sm font-medium text-muted-foreground min-w-[80px]">2023.11</div>
+                            <div className="text-sm font-medium text-muted-foreground min-w-[70px] sm:min-w-[80px]">2023.11</div>
                             <div>
                                 <div className="font-semibold text-foreground mb-1">AWS JAM (2023)</div>
                                 <p className="text-sm text-muted leading-relaxed">

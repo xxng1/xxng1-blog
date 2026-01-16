@@ -53,14 +53,14 @@ export default function RootLayout({
 </header> */}
 
 <header className="flex flex-col py-8 border-b border-card-border sticky top-0 bg-background/80 backdrop-blur-sm z-50">
-  <div className="flex items-center justify-between">
+  <div className="flex items-center justify-between gap-4">
     <Link
       href="/"
-      className="text-2xl font-bold italic tracking-tight text-foreground hover:text-muted transition-colors"
+      className="text-2xl font-bold italic tracking-tight text-foreground hover:text-muted transition-colors flex-shrink-0"
     >
       xxng1
     </Link>
-    <nav className="flex items-center space-x-8">
+    <nav className="flex items-center space-x-4 sm:space-x-8 flex-shrink-0">
       <HeaderNav />
     </nav>
   </div>
@@ -73,8 +73,8 @@ export default function RootLayout({
             {children}
           </main>
           <footer className="py-8 border-t border-card-border text-sm text-muted-foreground">
-            <div className="flex justify-between items-center">
-              <p>© {new Date().getFullYear()}. xxng1 All rights reserved.</p>
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-center sm:text-left">© {new Date().getFullYear()}. xxng1 All rights reserved.</p>
               <div className="flex space-x-6">
                 <a href="mailto:woongaaaaa1@gmail.com" className="text-muted-foreground hover:text-accent transition-colors">
                   <FaEnvelope size={20} /> 

@@ -30,12 +30,23 @@
 }
 /* ...existing code... */
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   @apply font-sans;
   zoom: 0.8;
   transform-origin: top center;
+}
+
+/* 모바일에서는 zoom 제거 */
+@media (max-width: 767px) {
+  body {
+    zoom: 1;
+  }
 }
 
 /* 개선된 코드 블록 스타일 */
@@ -45,6 +56,14 @@ body {
   border-radius: 0.75rem !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   position: relative !important;
+}
+
+/* 모바일에서 코드 블록 overflow 처리 */
+@media (max-width: 767px) {
+  .prose pre {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
 }
 
 /* 복사 버튼 스타일 */
@@ -119,6 +138,8 @@ body {
   margin: 1.5rem auto !important;
   display: block !important;
   background: #fff !important;
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 /* 개선된 테이블 스타일 */
@@ -129,6 +150,15 @@ body {
   border-radius: 0.5rem !important;
   overflow: hidden !important;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 모바일에서 테이블 overflow 처리 */
+@media (max-width: 767px) {
+  .prose table {
+    max-width: 100% !important;
+    display: block !important;
+    overflow-x: auto !important;
+  }
 }
 
 .prose th {

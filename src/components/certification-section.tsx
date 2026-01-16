@@ -83,7 +83,7 @@ export default function CertificationSection() {
               return (
                 <div
                   key={`${certification.title}-${certification.date}`}
-                  className={`flex flex-wrap items-center gap-4 ${!isLast ? 'pb-4 border-b border-card-border' : ''}`}
+                  className={`flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-4 ${!isLast ? 'pb-4 border-b border-card-border' : ''}`}
                 >
                   <div className="text-sm font-medium text-muted-foreground min-w-[4.5rem]">
                     {certification.date}
