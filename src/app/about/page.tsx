@@ -73,7 +73,7 @@ export default function AboutPage() {
                     <p className="text-muted text-base italic font-light mb-4">
                         No Silver Bullet — Exploring better ways in Cloud & DevOps
                     </p>
-                    <div className="flex gap-4 text-sm justify-center">
+                    <div className="flex gap-4 text-sm justify-center md:justify-start">
                         <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
                             <FaGithub size={18} />
                             GitHub
