@@ -3,6 +3,7 @@ import { getSortedPostsData, getAllTags, getPostsByTags, getPostData } from '@/l
 import ClientTagFilter from '@/components/client-tag-filter';
 import { Suspense } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { BsGithub } from 'react-icons/bs';
 
 interface HomeProps {
   searchParams: Promise<{ tag?: string | string[]; page?: string }>;
@@ -93,7 +94,7 @@ export default async function Home({ searchParams }: HomeProps) {
         ) : (
           <>
             <div className="grid gap-6">
-              {paginatedPosts.map(({ id, date, title, excerpt, tags }) => (
+              {paginatedPosts.map(({ id, date, title, excerpt, tags, githubUrl }) => (
                 <Link key={id} href={`/posts/${id}`} className="block group">
                   <article className="relative bg-card-background border border-card-border rounded-xl p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-300 cursor-pointer group-hover:-translate-y-1">
                     <div className="space-y-4">
@@ -105,8 +106,15 @@ export default async function Home({ searchParams }: HomeProps) {
                             day: 'numeric',
                           })}
                         </time>
-                        <div className="text-accent opacity-0 group-hover:opacity-100 transition-opacity">
-                          →
+                        <div className="flex items-center gap-2">
+                          {githubUrl && (
+                            <span title="실습 레포지토리 있음" className="flex-shrink-0">
+                              <BsGithub size={18} className="text-muted-foreground" aria-hidden />
+                            </span>
+                          )}
+                          <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                            →
+                          </span>
                         </div>
                       </div>
                       <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors leading-tight">

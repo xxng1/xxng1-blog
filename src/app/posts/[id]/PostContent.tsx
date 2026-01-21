@@ -176,13 +176,31 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
       <article className="prose prose-slate mx-auto max-w-3xl [&>*]:my-6">
         <header className="mb-12 not-prose">
           <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm mb-8">
-            <time className="text-sm text-muted-foreground">
-              {new Date(date).toLocaleDateString("ko-KR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
+            <div className="flex justify-between items-start gap-4">
+              <time className="text-sm text-muted-foreground">
+                {new Date(date).toLocaleDateString("ko-KR", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+              {githubUrl && (
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-card-border bg-muted/5 !text-gray-900 hover:bg-muted/10 hover:border-foreground/30 hover:!text-gray-900 transition-colors text-sm font-medium flex-shrink-0 group relative [&_svg]:text-current"
+                  aria-label="GitHub Source Code"
+                >
+                  <BsGithub size={20} />
+                  <span>Repository</span>
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-900 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                    실습에 사용한 개인 Github Repository
+                    <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900" />
+                  </span>
+                </a>
+              )}
+            </div>
             {tags && tags.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
                 {tags.map(tag => (
@@ -201,24 +219,6 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
             <p className="mt-4 text-lg text-muted leading-relaxed">
               {excerpt}
             </p>
-            {githubUrl && (
-              <div className="mt-4 flex justify-end">
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center group relative !text-foreground hover:!text-foreground"
-                  aria-label="GitHub Source Code"
-                  title="실습에 사용한 개인 Github Repository"
-                >
-                  <BsGithub size={24} className="text-foreground" />
-                  <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-900 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
-                    실습에 사용한 개인 Github Repository
-                    <span className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900"></span>
-                  </span>
-                </a>
-              </div>
-            )}
           </div>
         </header>
 

@@ -5,7 +5,7 @@ date: '2026-01-04'
 section: 'infra'
 excerpt: 'Terraform State Backend 마이그레이션 (local → S3+DynamoDB → S3 Native Lock)'
 tags: ['Terraform', 'Cloud', 'S3', 'DynamoDB']
-githubUrl: 'https://github.com/xxng1/terraform-backend-migration'
+# githubUrl: 'https://github.com/xxng1/terraform-backend-migration'
 ---
 
 Terraform은 IaC(Infrastructure as Code)를 통해 리소스를 관리한다. 이 과정에서 `terraform.tfstate` 파일은 실제 프로비저닝된 리소스의 현재 상태를 기록하는 핵심 메타데이터이다.
@@ -31,6 +31,11 @@ Terraform은 본래 **AWS S3**를 원격 상태 저장소로 사용하고, **AWS
 1. **Local** 환경에서 tfstate 구축
 2. **Local → S3+DynamoDB** 환경으로 마이그레이션
 3. **S3+DynamoDB → S3 Native Lock** 환경으로 마이그레이션
+
+<br>
+
+실습에 사용한 Github Repository  
+https://github.com/xxng1/terraform-backend-migration
 
 
 <br>
