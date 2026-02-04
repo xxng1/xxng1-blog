@@ -12,16 +12,4 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// 정적 파일(_next 등)은 검사하지 않도록 설정 (서버 비용 절감)
-export const config = {
-  matcher: [
-    /*
-     * 아래 경로로 시작하는 것들은 제외하고 실행:
-     * - api (API 라우트) -> API도 봇 차단하려면 이 줄 제거
-     * - _next/static (정적 파일)
-     * - _next/image (이미지 최적화)
-     * - favicon.ico (파비콘)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
-};
+// matcher 없음 = 모든 요청에 미들웨어 실행 (봇이 /, favicon, _next 등 아무 경로로 와도 차단됨)
