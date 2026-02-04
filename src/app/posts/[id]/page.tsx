@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   }
 }
 
-// 정적 경로 생성
+// 정적 경로 생성 (App Router 형식: { id: string }[])
 export async function generateStaticParams() {
   const paths = getAllPostIds();
-  return paths;
+  return paths.map((p) => p.params);
 }

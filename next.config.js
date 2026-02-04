@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  images: { unoptimized: true },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Don't include fs module on the client to prevent errors
