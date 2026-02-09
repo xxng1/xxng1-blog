@@ -34,7 +34,7 @@ const projects = [
   {
     title: 'ODO - AI TTS 블로그',
     period: '2023.09 - 2023.12 | 카카오엔터프라이즈 SW아카데미 | 팀 프로젝트',
-    description: 'TTS AI 및 ko-GPT를 활용한 블로그 서비스. Spring Cloud Eureka 기반 MSA 아키텍처 구성.',
+    description: 'TTS AI 및 ko-GPT를 활용한 블로그 서비스. Spring Cloud Eureka 기반 폴리글랏 아키텍처 구성.',
     techStack: ['SpringBoot', 'MSA', 'FastAPI', 'Kafka', 'MongoDB', 'MySQL', 'Redis'],
     githubUrl: 'https://github.com/KEA3-KeLog/ODO-Server',
   }
