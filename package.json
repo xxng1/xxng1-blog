@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@types/prismjs": "^1.26.5",
-    "@vercel/analytics": "^1.5.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "next": "^15.2.6",

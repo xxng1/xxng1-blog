@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@/components/analytics";
 import HeaderNav from "@/components/layout/header-nav";
 
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
@@ -89,7 +89,7 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
-        <Analytics /> {/* Analytics 컴포넌트를 여기 추가 */}
+        <Analytics />
       </body>
     </html>
   );
