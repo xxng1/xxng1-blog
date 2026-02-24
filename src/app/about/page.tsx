@@ -71,7 +71,7 @@ export default function AboutPage() {
                         박상웅 | Sangwoong Park
                     </p>
                     <p className="text-muted text-base italic font-light mb-4">
-                        No Silver Bullet — Exploring better ways in Cloud & DevOps
+                        No Silver Bullet — Exploring better ways in Cloud Native & DevOps
                     </p>
                     <div className="flex gap-4 text-sm justify-center md:justify-start">
                         <a href="https://github.com/xxng1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted hover:text-accent transition-colors">
