@@ -9,8 +9,9 @@
   --foreground: #1a1a1a;
   --card-background: #ffffff;
   --card-border: #e5e7eb;
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
+  --accent: #868b94;
+  --accent-hover: #6b7080;
+  --accent-bg: #f2f3f6;
   --muted: #6b7280;
   --muted-foreground: #9ca3af;
 }
@@ -23,6 +24,7 @@
   --color-card-border: var(--card-border);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-bg: var(--accent-bg);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --font-sans: 'Noto Sans KR', Arial, Helvetica, sans-serif;
@@ -55,9 +57,9 @@ body {
   padding: 0.375rem 0.75rem !important;
   font-size: 0.75rem !important;
   line-height: 1 !important;
-  background-color: rgba(59, 130, 246, 0.1) !important;
-  color: #3b82f6 !important;
-  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  background-color: var(--accent-bg) !important;
+  color: var(--accent) !important;
+  border: 1px solid rgba(134, 139, 148, 0.3) !important;
   border-radius: 0.375rem !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
@@ -66,9 +68,9 @@ body {
 }
 
 .copy-button:hover {
-  background-color: rgba(59, 130, 246, 0.2) !important;
-  color: #2563eb !important;
-  border-color: rgba(59, 130, 246, 0.3) !important;
+  background-color: rgba(134, 139, 148, 0.2) !important;
+  color: var(--accent-hover) !important;
+  border-color: rgba(134, 139, 148, 0.4) !important;
 }
 
 .prose code {
@@ -102,8 +104,8 @@ body {
 
 /* 개선된 인용구 스타일 */
 .prose blockquote {
-  border-left: 2px solid rgba(59, 130, 246, 0.3) !important;
-  background: rgba(249, 250, 251, 0.8) !important;
+  border-left: 2px solid rgba(134, 139, 148, 0.4) !important;
+  background: var(--accent-bg) !important;
   padding: 0.01rem 0.01rem 0.01rem 2.0rem !important;
   border-radius: 0.375rem !important;
   margin: 1.5rem 0 !important;
@@ -132,7 +134,7 @@ body {
 }
 
 .prose th {
-  background: rgba(59, 130, 246, 0.1) !important;
+  background: var(--accent-bg) !important;
   padding: 0.75rem 1rem !important;
   text-align: left !important;
   font-weight: 600 !important;
@@ -147,5 +149,5 @@ body {
 }
 
 .prose tr:hover {
-  background: rgba(59, 130, 246, 0.02) !important;
+  background: rgba(242, 243, 246, 0.8) !important;
 }

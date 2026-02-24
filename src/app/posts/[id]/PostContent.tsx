@@ -133,9 +133,9 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
         padding: 0.375rem 0.75rem;
         font-size: 0.75rem;
         line-height: 1;
-        background-color: rgba(59, 130, 246, 0.1);
-        color: #3b82f6;
-        border: 1px solid rgba(59, 130, 246, 0.2);
+        background-color: #f2f3f6;
+        color: #868b94;
+        border: 1px solid rgba(134, 139, 148, 0.3);
         border-radius: 0.375rem;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -144,9 +144,9 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
       }
 
       .copy-button:hover {
-        background-color: rgba(59, 130, 246, 0.2);
-        color: #2563eb;
-        border-color: rgba(59, 130, 246, 0.3);
+        background-color: rgba(134, 139, 148, 0.2);
+        color: #6b7080;
+        border-color: rgba(134, 139, 148, 0.4);
       }
 
       pre code {
@@ -345,13 +345,13 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
               );
             },
             thead({ children, ...props }: any) {
-              return <thead className="bg-accent/5" {...props}>{children}</thead>;
+              return <thead className="bg-accent-bg" {...props}>{children}</thead>;
             },
             tbody({ children, ...props }: any) {
               return <tbody className="divide-y divide-card-border" {...props}>{children}</tbody>;
             },
             tr({ children, ...props }: any) {
-              return <tr className="border-b border-card-border hover:bg-accent/5" {...props}>{children}</tr>;
+              return <tr className="border-b border-card-border hover:bg-accent-bg" {...props}>{children}</tr>;
             },
             th({ children, ...props }: any) {
               return <th className="px-6 py-4 text-left text-sm font-semibold text-foreground uppercase tracking-wider" {...props}>{children}</th>;

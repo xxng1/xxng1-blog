@@ -55,7 +55,7 @@ export default function ClientTagFilter({ tags, baseUrl }: TagFilterProps) {
           className={`px-3 py-1 text-xs rounded-full border transition-all duration-200 ${
             currentTags.includes(tag) 
               ? 'bg-accent text-white border-accent shadow-sm' 
-              : 'bg-card-background text-muted border-card-border hover:border-accent/50 hover:text-accent hover:bg-accent/5'
+              : 'bg-card-background text-muted border-card-border hover:border-accent/50 hover:text-accent hover:bg-accent-bg'
           }`}
         >
           #{tag} {tags[tag] > 0 && <span className="text-xs opacity-75">({tags[tag]})</span>}
