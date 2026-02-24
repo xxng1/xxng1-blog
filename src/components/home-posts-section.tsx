@@ -71,7 +71,7 @@ export default function HomePostsSection({ allPosts, allTags }: HomePostsSection
           <div className="grid gap-6">
             {paginatedPosts.map(({ id, date, title, excerpt, tags, githubUrl }) => (
               <Link key={id} href={`/posts/${id}`} className="block group">
-                <article className="relative bg-card-background border border-card-border rounded-xl p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-300 cursor-pointer group-hover:-translate-y-1">
+                <article className="relative bg-card-background border border-card-border rounded-xl p-6 hover:border-accent/30 transition-all duration-300 cursor-pointer group-hover:-translate-y-1">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <time className="text-sm text-muted-foreground">
