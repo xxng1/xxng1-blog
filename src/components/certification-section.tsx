@@ -98,7 +98,7 @@ export default function CertificationSection() {
                         href={certification.credlyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative px-4 py-2 text-sm bg-accent-bg text-accent rounded-lg border border-accent/20 hover:bg-accent/10 transition-colors font-medium flex items-center justify-center"
+                        className="group relative px-4 py-2 text-sm bg-accent-bg text-gray-600 rounded-lg border border-accent/20 hover:bg-accent/10 transition-colors font-medium flex items-center justify-center"
                         aria-label="Credly 배지 보기"
                       >
                         <FiExternalLink />
@@ -112,7 +112,7 @@ export default function CertificationSection() {
                         href={certification.snowflakeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative px-4 py-2 text-sm bg-accent-bg text-accent rounded-lg border border-accent/20 hover:bg-accent/10 transition-colors font-medium flex items-center justify-center"
+                        className="group relative px-4 py-2 text-sm bg-accent-bg text-gray-600 rounded-lg border border-accent/20 hover:bg-accent/10 transition-colors font-medium flex items-center justify-center"
                         aria-label="Snowflake 배지 보기"
                       >
                         <FiExternalLink />
@@ -129,7 +129,7 @@ export default function CertificationSection() {
                             imageSrc: certification.imageSrc!,
                           })
                         }
-                        className="group relative px-4 py-2 text-sm bg-accent-bg text-accent rounded-lg border border-accent/20 hover:bg-accent/10 transition-colors font-medium flex items-center justify-center"
+                        className="group relative px-4 py-2 text-sm bg-accent-bg text-gray-600 rounded-lg border border-accent/20 hover:bg-accent/10 transition-colors font-medium flex items-center justify-center"
                         aria-label="인증서 이미지 보기"
                       >
                         <FiEye />

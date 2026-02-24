@@ -370,7 +370,7 @@ export default function PostContent({ title, date, excerpt, content, tags, githu
                 return (
                   <a
                     href={href}
-                    className="text-emerald-600 hover:text-emerald-700 underline transition-colors duration-200"
+                    className="text-accent hover:text-accent-hover underline transition-colors duration-200"
                     {...props}
                   >
                     {children}
