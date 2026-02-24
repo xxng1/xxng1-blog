@@ -4,17 +4,18 @@ import { usePathname } from 'next/navigation';
 
 export default function HeaderNav() {
   const pathname = usePathname();
-  const isAbout = pathname === '/about';
+  const isAbout = pathname === '/about' || pathname.startsWith('/about/');
   const isPost = pathname.includes('/posts/');
+  const isBlogActive = (pathname === '/' || isPost) && !isAbout;
 
   return (
     <>
       <Link
         href="/"
-        className={`text-[17px] font-medium transition-colors ${
-          (pathname === "/" || isPost) && !isAbout
+        className={`text-[17px] transition-colors ${
+          isBlogActive
             ? "text-foreground font-semibold"
-            : "text-muted hover:text-foreground"
+            : "text-muted font-medium hover:text-foreground"
         }`}
       >
         Blog
@@ -22,10 +23,10 @@ export default function HeaderNav() {
 
       <Link
         href="/about"
-        className={`text-[17px] font-medium transition-colors ${
+        className={`text-[17px] transition-colors ${
           isAbout
             ? "text-foreground font-semibold"
-            : "text-muted hover:text-foreground"
+            : "text-muted font-medium hover:text-foreground"
         }`}
       >
         About
