@@ -73,7 +73,7 @@ export default function ProjectsSection() {
                 {project.techStack.map((tech) => (
                   <span
                     key={`${project.title}-${tech}`}
-                    className="text-xs px-2 py-1 bg-accent-bg text-accent rounded border border-accent/20"
+                    className="text-xs px-2 py-1 bg-accent-bg text-muted font-medium rounded border border-accent/20"
                   >
                     {tech}
                   </span>

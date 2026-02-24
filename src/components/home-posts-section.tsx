@@ -108,7 +108,7 @@ export default function HomePostsSection({ allPosts, allTags }: HomePostsSection
                         {tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs px-3 py-1 bg-accent-bg text-accent rounded-full border border-accent/20"
+                            className="text-xs px-3 py-1 bg-accent-bg text-muted font-medium rounded-full border border-accent/20"
                           >
                             #{tag}
                           </span>
