@@ -89,6 +89,35 @@ export default function AboutPage() {
             {/* Certification */}
             <CertificationSection />
 
+            {/* Open Source Contribution */}
+            <section className="mb-12">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                    <h2 className="text-3xl font-bold text-foreground mb-6">
+                        Open Source Contribution
+                    </h2>
+                    <div className="space-y-4">
+                        <Link
+                            href="https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/pull/39"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block border border-card-border rounded-xl p-6 hover:border-accent/30 hover:bg-accent-bg/40 transition-colors"
+                        >
+                            <div className="flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-sm text-muted-foreground mb-1">
+                                        aws-samples / sample-OpenClaw-on-AWS-with-Bedrock
+                                    </p>
+                                    <h3 className="text-xl font-semibold text-foreground">
+                                        fix: align bedrock-mantle VPCE deployment with regional support #39
+                                    </h3>
+                                </div>
+                                <FaGithub className="text-gray-600 flex-shrink-0" size={22} />
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
             {/* Tech Stack */}
             <section className="mb-12">
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
@@ -205,7 +234,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Activity */}
+            {/* Activity
             <section className="mb-12">
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
                     <h2 className="text-3xl font-bold mb-6 text-foreground">Activity</h2>
@@ -285,7 +314,7 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             <AboutGallery />
 
