@@ -99,9 +99,9 @@ export default function AboutPage() {
                         href="https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/pull/39"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center gap-3 pb-4 border-b border-card-border"
+                        className="group flex items-center gap-3 pb-4"
                     >
-                        <div className="min-w-0 flex-1 py-1">
+                        <div className="min-w-0 flex-1 py-1 pl-4 border-l-2 border-accent/50">
                             <div className="font-semibold text-foreground">
                                 fix: align bedrock-mantle VPCE deployment with regional support #39
                             </div>
