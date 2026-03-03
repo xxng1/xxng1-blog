@@ -41,7 +41,7 @@ export default function AboutGallery() {
     <section className="mb-12">
       <div className="bg-card-background border border-card-border rounded-2xl p-6 sm:p-8 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-3xl font-bold mb-6 text-foreground">Gallery</h2>
+          <h2 className="text-3xl font-semibold mb-6 text-foreground">Gallery</h2>
           <span className="text-sm text-muted-foreground">
             {currentIndex + 1} / {galleryItems.length}
           </span>

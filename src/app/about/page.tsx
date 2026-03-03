@@ -92,29 +92,25 @@ export default function AboutPage() {
             {/* Open Source Contribution */}
             <section className="mb-12">
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold text-foreground mb-6">
+                    <h2 className="text-3xl font-semibold text-foreground mb-6">
                         Open Source Contribution
                     </h2>
-                    <div className="space-y-4">
-                        <Link
-                            href="https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/pull/39"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block border border-card-border rounded-xl p-6 hover:border-accent/30 hover:bg-accent-bg/40 transition-colors"
-                        >
-                            <div className="flex items-center justify-between gap-4">
-                                <div>
-                                    <p className="text-sm text-muted-foreground mb-1">
-                                        aws-samples / sample-OpenClaw-on-AWS-with-Bedrock
-                                    </p>
-                                    <h3 className="text-xl font-semibold text-foreground">
-                                        fix: align bedrock-mantle VPCE deployment with regional support #39
-                                    </h3>
-                                </div>
-                                <FaGithub className="text-gray-600 flex-shrink-0" size={22} />
-                            </div>
-                        </Link>
-                    </div>
+                    <Link
+                        href="https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock/pull/39"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex gap-4 pl-4 border-l-2 border-card-border hover:border-accent transition-colors"
+                    >
+                        <div className="min-w-0 flex-1 py-1">
+                            <p className="text-sm text-muted-foreground mb-0.5">
+                                aws-samples / sample-OpenClaw-on-AWS-with-Bedrock
+                            </p>
+                            <p className="text-foreground group-hover:text-accent transition-colors">
+                                fix: align bedrock-mantle VPCE deployment with regional support #39
+                            </p>
+                        </div>
+                        <FaGithub className="flex-shrink-0 text-muted group-hover:text-accent mt-1 transition-colors" size={20} />
+                    </Link>
                 </div>
             </section>
 
@@ -122,7 +118,7 @@ export default function AboutPage() {
             <section className="mb-12">
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-3xl font-bold text-foreground">Tech Stack</h2>
+                        <h2 className="text-3xl font-semibold text-foreground">Tech Stack</h2>
                         <span className="text-xs text-muted-foreground italic">* 기술에 마우스를 올리면 설명을 확인할 수 있습니다</span>
                     </div>
                     <div className="space-y-6">
@@ -200,7 +196,7 @@ export default function AboutPage() {
             {/* Experience */}
             <section className="mb-12">
                 <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-                    <h2 className="text-3xl font-bold mb-6 text-foreground">Experience</h2>
+                    <h2 className="text-3xl font-semibold mb-6 text-foreground">Experience</h2>
                     <div className="space-y-6">
                         <div>
                             <h3 className="text-xl font-semibold text-foreground mb-2">현대오토에버 모빌리티 SW 스쿨 2기 - Cloud Track</h3>

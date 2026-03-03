@@ -75,7 +75,7 @@ export default function CertificationSection() {
     <>
       <section className="mb-12">
         <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
-          <h2 className="text-3xl font-bold mb-6 text-foreground">Certification</h2>
+          <h2 className="text-3xl font-semibold mb-6 text-foreground">Certification</h2>
           <div className="space-y-4">
             {certifications.map((certification, index) => {
               const isLast = index === certifications.length - 1;
