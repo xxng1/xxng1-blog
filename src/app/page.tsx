@@ -38,7 +38,7 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="w-full">
+          <div className="w-full hidden md:block">
             <h2 className="text-2xl font-bold text-foreground mb-4">TOP 3</h2>
             <div className="flex flex-col gap-2">
               {featuredPosts.map((post, index) => (
