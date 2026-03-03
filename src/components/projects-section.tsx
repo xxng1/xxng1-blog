@@ -43,13 +43,13 @@ const projects = [
 export default function ProjectsSection() {
   return (
     <section className="mb-12">
-      <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+      <div className="bg-card-background border border-card-border rounded-2xl p-8">
         <h2 className="text-3xl font-semibold text-foreground mb-6">Project</h2>
         <div className="space-y-6">
           {projects.map((project) => (
             <article
               key={project.title}
-              className="border border-card-border rounded-xl p-6 hover:border-accent/30 transition-colors"
+              className="border border-card-border rounded-xl p-6"
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <h3 className="text-xl font-semibold text-foreground flex-1">

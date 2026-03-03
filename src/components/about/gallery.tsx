@@ -39,7 +39,7 @@ export default function AboutGallery() {
 
   return (
     <section className="mb-12">
-      <div className="bg-card-background border border-card-border rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div className="bg-card-background border border-card-border rounded-2xl p-6 sm:p-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-3xl font-semibold mb-6 text-foreground">Gallery</h2>
           <span className="text-sm text-muted-foreground">
@@ -48,7 +48,7 @@ export default function AboutGallery() {
         </div>
 
         <figure className="flex flex-col items-center">
-          <div className="relative w-full h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden shadow-xl border border-card-border bg-card-background">
+          <div className="relative w-full h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-card-border bg-card-background">
             <div
               className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
                 isFading ? "opacity-0" : "opacity-100"

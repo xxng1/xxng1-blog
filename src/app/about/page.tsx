@@ -91,7 +91,7 @@ export default function AboutPage() {
 
             {/* Open Source Contribution */}
             <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8">
                     <h2 className="text-3xl font-semibold text-foreground mb-6">
                         Open Source Contribution
                     </h2>
@@ -118,7 +118,7 @@ export default function AboutPage() {
 
             {/* Tech Stack */}
             <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8">
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-3xl font-semibold text-foreground">Tech Stack</h2>
                         <span className="text-xs text-muted-foreground italic">* 기술에 마우스를 올리면 설명을 확인할 수 있습니다</span>
@@ -197,7 +197,7 @@ export default function AboutPage() {
 
             {/* Experience */}
             <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8">
                     <h2 className="text-3xl font-semibold mb-6 text-foreground">Experience</h2>
                     <div className="space-y-6">
                         <div>
@@ -234,7 +234,7 @@ export default function AboutPage() {
 
             {/* Activity
             <section className="mb-12">
-                <div className="bg-card-background border border-card-border rounded-2xl p-8 shadow-sm">
+                <div className="bg-card-background border border-card-border rounded-2xl p-8">
                     <h2 className="text-3xl font-bold mb-6 text-foreground">Activity</h2>
                     <div className="space-y-4">
                         <div className="flex items-start gap-4 pb-4 border-b border-card-border">
