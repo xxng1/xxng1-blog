@@ -18,6 +18,14 @@ type CertificationWithImage = CertificationItem & { imageSrc: string };
 
 const certifications: CertificationItem[] = [
   {
+    date: '26.03',
+    title: 'Kubernetes and Cloud Native Security Associate (KCSA)',
+    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    imageSrc: '/kcsa.png',
+    imageAlt: 'Kubernetes and Cloud Native Security Associate (KCSA) Certificate',
+    credlyUrl: 'https://www.credly.com/badges/df71ff4e-38eb-4029-b1f2-f5abaaae9a2c',
+  },
+  {
     date: '2026.01',
     title: 'Certified Kubernetes Application Developer (CKAD)',
     issuer: 'Cloud Native Computing Foundation (CNCF)',
@@ -44,7 +52,7 @@ const certifications: CertificationItem[] = [
   },
   {
     date: '2025.05',
-    title: 'SnowPro Associate: Platform',
+    title: 'SnowPro Associate: Platform Certification',
     issuer: 'Snowflake',
     imageSrc: '/snowflake.png',
     imageAlt: 'SnowPro Associate Platform Certification',
