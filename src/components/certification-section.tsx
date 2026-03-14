@@ -18,7 +18,7 @@ type CertificationWithImage = CertificationItem & { imageSrc: string };
 
 const certifications: CertificationItem[] = [
   {
-    date: '26.03',
+    date: '2026.03',
     title: 'Kubernetes and Cloud Native Security Associate (KCSA)',
     issuer: 'Cloud Native Computing Foundation (CNCF)',
     imageSrc: '/kcsa.png',
