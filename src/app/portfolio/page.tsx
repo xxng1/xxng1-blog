@@ -41,6 +41,7 @@ export default function PortfolioPage() {
                 height={1697}
                 className="w-full h-auto"
                 unoptimized
+                priority={i === 0}
               />
             </div>
           ))}
