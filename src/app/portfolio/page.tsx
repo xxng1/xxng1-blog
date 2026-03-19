@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Portfolio | xxng1",
@@ -8,6 +9,9 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
+
+const PORTFOLIO_IMAGES = 9;
+const imageSrc = (n: number) => `/portfolio/${n}.png`;
 
 export default function PortfolioPage() {
   return (
@@ -24,12 +28,22 @@ export default function PortfolioPage() {
             포트폴리오 PDF 열기 / 다운로드
           </a>
         </div>
-        <div className="w-full border border-card-border rounded-lg overflow-hidden bg-card-background">
-          <iframe
-            src="/portfolio.pdf#zoom=55"
-            className="w-full h-[min(90vh,960px)]"
-            title="Portfolio PDF"
-          />
+        <div className="w-full space-y-6">
+          {Array.from({ length: PORTFOLIO_IMAGES }, (_, i) => (
+            <div
+              key={i + 1}
+              className="relative w-full border border-card-border rounded-lg overflow-hidden bg-card-background"
+            >
+              <Image
+                src={imageSrc(i + 1)}
+                alt={`포트폴리오 ${i + 1}페이지`}
+                width={1200}
+                height={1697}
+                className="w-full h-auto"
+                unoptimized
+              />
+            </div>
+          ))}
         </div>
       </section>
     </div>
