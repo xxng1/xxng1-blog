@@ -151,3 +151,17 @@ body {
 .prose tr:hover {
   background: rgba(242, 243, 246, 0.8) !important;
 }
+
+/* Portfolio PDF: 카드용 순백(#fff) 제거, 본문 배경과 동일하게 */
+.portfolio-pdf-root .react-pdf__Page {
+  background-color: transparent !important;
+}
+
+.portfolio-pdf-root .textLayer,
+.portfolio-pdf-root .react-pdf__Page__textContent {
+  background: transparent !important;
+}
+
+.portfolio-pdf-root .annotationLayer {
+  background: transparent !important;
+}

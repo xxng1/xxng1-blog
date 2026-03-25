@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import PortfolioPdfViewerLoader from "./PortfolioPdfViewerLoader";
+import { PORTFOLIO_PDF_BUTTON_CLASS } from "./portfolioPdfButtonClass";
 
 export const metadata: Metadata = {
   title: "Portfolio | xxng1",
@@ -9,9 +10,6 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
-
-const PORTFOLIO_IMAGES = 9;
-const imageSrc = (n: number) => `/portfolio/${n}.png`;
 
 export default function PortfolioPage() {
   return (
@@ -23,29 +21,12 @@ export default function PortfolioPage() {
             href="/portfolio.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium bg-accent-bg text-gray-600 border border-accent/20"
+            className={PORTFOLIO_PDF_BUTTON_CLASS}
           >
-            포트폴리오 PDF 열기 / 다운로드
+            포트폴리오 PDF 열기
           </a>
         </div>
-        <div className="w-full space-y-6">
-          {Array.from({ length: PORTFOLIO_IMAGES }, (_, i) => (
-            <div
-              key={i + 1}
-              className="relative w-full border border-card-border rounded-lg overflow-hidden bg-card-background"
-            >
-              <Image
-                src={imageSrc(i + 1)}
-                alt={`포트폴리오 ${i + 1}페이지`}
-                width={1200}
-                height={1697}
-                className="w-full h-auto"
-                unoptimized
-                priority={i === 0}
-              />
-            </div>
-          ))}
-        </div>
+        <PortfolioPdfViewerLoader />
       </section>
     </div>
   );
