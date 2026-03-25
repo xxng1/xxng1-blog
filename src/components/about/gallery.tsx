@@ -6,6 +6,11 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const galleryItems = [
   {
+    src: "/kanana_gift.png",
+    alt: "KANANA gift",
+    caption: "KANANA 429",
+  },
+  {
     src: "/thespehers.JPG",
     alt: "Amazon The Spheres in Seattle",
     caption: "The Spheres - Amazon",
@@ -35,7 +40,6 @@ export default function AboutGallery() {
       }, 30);
     }, 200);
   };
-//   <h2 className="text-3xl font-bold mb-6 text-foreground">Activity</h2>
 
   return (
     <section className="mb-12">
@@ -46,7 +50,6 @@ export default function AboutGallery() {
             {currentIndex + 1} / {galleryItems.length}
           </span>
         </div>
-
         <figure className="flex flex-col items-center">
           <div className="relative w-full h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-card-border bg-card-background">
             <div
@@ -59,7 +62,8 @@ export default function AboutGallery() {
                 src={currentItem.src}
                 alt={currentItem.alt}
                 fill
-                className="object-cover"
+                // 이미지 비율이 컨테이너와 달라도 "잘리지 않고" 전체가 보이게 합니다.
+                className="object-contain"
                 priority
               />
             </div>
