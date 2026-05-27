@@ -59,7 +59,9 @@ AWS CloudFront에서 클릭 한 번으로 가능한 기능임에도 불구하고
 
 # 블로그 초기
 
+
 원래 이 블로그는, Ruby를 사용하는 Jekyll 블로그였다.
+### 1. Jekyll 기반 초기 블로그 (~ 2023)
 ![](/blog-images/15/2.png)
 
 저때 당시 예쁜 블로그를 보고 커스텀해서 사용했었다.  
@@ -68,7 +70,7 @@ github pages 를 사용해서 배포했었는데, 다른 기술 블로그처럼 
 
 <br>
 
-
+### 2. 실습 블로그로 전환 (2023 ~ 2024)
 ![](/blog-images/15/3.png)
 
 지금 예전 사진을 보고싶어서 오랜만에 옛날 블로그 GitHub를 클론해서 돌리고 있는데,
@@ -93,9 +95,16 @@ AI가 참 좋은 것 같다..
 
 <br>
 
+### 3. TraeAI로 블로그 제작, Vercel에 블로그 배포 (2025 ~)
 ![](/blog-images/15/5.png)
 
 이렇게 생겼었다.
+
+가비아에서 도메인 두개를 구입했었는데, ( xxng1.com, xxng1.site )  
+**xxng1.com**은 **Vercel**,  
+**xxng1.site**는 **Azure static web apps** 에 배포했었다.
+
+**xxng1.com** 은 1년 연장했고, **xxng1.site**는 만료됐다.
 
 <br>
 
