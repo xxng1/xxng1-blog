@@ -155,9 +155,9 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
           <button
             key={item.id}
             onClick={() => scrollToHeading(item.id)}
-            className={`block w-full text-left text-sm py-1 px-2 rounded transition-colors ${
+            className={`relative block w-full text-left text-sm py-1 px-2 rounded transition-colors ${
               activeId === item.id
-                ? 'text-foreground bg-gray-100 border-l-2 border-gray-400'
+                ? 'text-foreground bg-gray-100 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[2px] before:bg-[rgba(134,139,148,0.4)] before:rounded-none'
                 : 'text-muted hover:text-foreground hover:bg-gray-50'
             }`}
             style={{ paddingLeft: `${(item.level - 1) * 12 + 8}px` }}
