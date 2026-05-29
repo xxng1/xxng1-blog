@@ -3,7 +3,7 @@ layout:       post
 title:        "AI Driven Kubernetes 아키텍처와 Kanana-o"
 date: '2026-05-28'
 section: 'infra'
-excerpt: 'Kanana-o API를 사용한 쿠버네티스 장애 조치 테스트'
+excerpt: 'Kanana-o API를 사용한 Kubernetes 장애 조치 테스트'
 tags: ['Kubernetes', 'AIOps', 'Kanana', 'Gemini']
 ---
 
@@ -17,7 +17,7 @@ Kubernetes 또한 AI와 잘 결합하게 되면 강력한 운영을 할 수 있�
 첫 번째 글에서 AI가 실행할 가이드를 설계하고, IaC와 전통적인 Runbook의 한계를 극복하는 AI-Driven Kubernetes 운영 전략에 대해 배울 수 있었다.
 
 두 번째 글은, Kubenretes 장애에 대해 AI Agent가 처리하는지 벤치마킹 한 글이었는데,  
-![](/blog-images/16/2.png)
+![](/blog-images/16/5.svg)
 여기서 Kanana는 어떨 지 궁금해졌다.
 
 
@@ -159,5 +159,5 @@ web-api-65476ddc5b-vmc9n   1/1     Running   0          5s
 
 인프라 자동화 프로젝트에서, 자율적인 제어나 그걸 통제하는 하네스를 구축하는 건 중요하다고 생각한다.
 
-엔터프라이즈급 대규모 클러스터를 다룰 때는 어떤 트레이드오프를 중요하게 생각하면서 업무를 진행해야할지 궁금하기도 하지만,  
+엔터프라이즈급 대규모 클러스터를 다룰 때는 다양한 트레이드오프를 중요하게 생각해야겠지만,  
 조직원간의 소통 비용을 생각하는것도 기업과 개인이 동반 성장하는데 큰 힘을 줄 것이라고 느꼈다.
