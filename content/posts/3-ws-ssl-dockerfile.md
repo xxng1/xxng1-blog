@@ -68,7 +68,7 @@ RUN mkdir /etc/letsencrypt
 docker ps
 ```
 
-![](https://velog.velcdn.com/images/woongaa1/post/603d89c2-6931-4fc0-8d16-24260a470ea7/image.png)
+![](/blog-images/3/1.png)
 
 <br>
 
@@ -84,8 +84,8 @@ certbot --nginx -d dmarketmall.com
 
 <br>
 
-![](https://velog.velcdn.com/images/woongaa1/post/04827a10-e9f1-4220-bff1-ebf5092722cd/image.png)
-![](https://velog.velcdn.com/images/woongaa1/post/1a416553-04f3-428f-91ed-fa81c09b92c4/image.png)
+![](/blog-images/3/2.png)
+![](/blog-images/3/3.png)
 
 
 <br>
@@ -94,10 +94,10 @@ certbot --nginx -d dmarketmall.com
 # ☑️ 6. 결과 확인
 
 ### 적용 전: HTTP 접속
-![](https://velog.velcdn.com/images/woongaa1/post/e8781817-6d60-4cb8-a98f-681b78aaac18/image.png)
+![](/blog-images/3/4.png)
 
 <br>
 
 ### 적용 후: HTTPS 접속 및 안전 연결 표시
-![](https://velog.velcdn.com/images/woongaa1/post/9c990ab3-2c4f-4f88-b98d-75400f9a30de/image.png)
+![](/blog-images/3/5.png)
 

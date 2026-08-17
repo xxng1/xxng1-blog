@@ -97,7 +97,7 @@ az aks get-credentials --resource-group gitlab-aks-rg --name gitlab-aks-cluster
 
 기본 노드 풀은 `Standard_DS2_v2`(2 vCPU, 7GB RAM)로 생성된다.
 
-![](https://velog.velcdn.com/images/xxng1/post/50510be6-823d-4b79-8efe-5c5d3762358c/image.png)
+![](/blog-images/10/1.png)
 
 <br>
 
@@ -126,7 +126,7 @@ helm install gitlab-runner gitlab/gitlab-runner \
 
 - 연결 완료 상태
 
-![](https://velog.velcdn.com/images/xxng1/post/1a370ad6-608b-45d6-af6d-cc77ee33918a/image.png)
+![](/blog-images/10/2.png)
 
 <br>
 
@@ -198,6 +198,6 @@ test-pod-creation:
 
 
 - `kubectl -w` 명령어로 모니터링
-![](https://velog.velcdn.com/images/xxng1/post/752dbe80-cafd-469d-bdf3-2a88f6531635/image.png)
+![](/blog-images/10/3.png)
 
 사진과 같이 임시 Pod가 생성되고 종료되는 것을 확인할 수 있다.

@@ -248,14 +248,14 @@ if __name__ == "__main__":
 
 - consumer를 실행시킨 모습
 
-![](https://velog.velcdn.com/images/woongaa1/post/199c9f10-5e43-485a-ba19-f19e4b740d34/image.png)
+![](/blog-images/7/1.png)
 
 <br>
 
 
 - producer.py를 실행시킨 모습
 
-![](https://velog.velcdn.com/images/woongaa1/post/c05a9e12-2e3c-4af0-9224-8410f85ad9d5/image.png)
+![](/blog-images/7/2.png)
 
 <br>
 
@@ -263,7 +263,7 @@ if __name__ == "__main__":
 
 - MongoDB Compass에서 확인한 모습
 
-![](https://velog.velcdn.com/images/woongaa1/post/7a45dc37-fec3-43ba-b071-cf57d6a0af97/image.png)
+![](/blog-images/7/3.png)
 
 
 <br>
@@ -305,7 +305,7 @@ Data updated in MongoDB: {'id': 1, 'count': 100, 'info': 'Sample post info 1', '
 ```
 
 - 결과 캡처
-    ![](https://velog.velcdn.com/images/woongaa1/post/b2130ceb-a820-44f4-92f8-b55267064727/image.png)
+    ![](/blog-images/7/4.png)
 
 <br>
 

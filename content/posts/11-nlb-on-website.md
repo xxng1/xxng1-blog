@@ -62,19 +62,19 @@ Azure Load Balancer는 **5-tuple 해시**를 사용한다.
 
 - VM 3대(Standard_B1s)
 
-![](https://velog.velcdn.com/images/xxng1/post/a625504d-c44c-4a57-ba69-bcce35170229/image.png)
+![](/blog-images/11/3.png)
 
 <br>
 
 - Azure Load Balancer 한개
 
-![](https://velog.velcdn.com/images/xxng1/post/47284d13-e672-47f8-8529-a4cada8828d1/image.png)
+![](/blog-images/11/4.png)
 
 <br>
 
 - 3개의 VM을 호스팅하도록 Backend pools 구성
 
-![](https://velog.velcdn.com/images/xxng1/post/60786f93-7c19-44d2-b873-37a8abaae66c/image.png)
+![](/blog-images/11/5.png)
 
 <br>
 
@@ -269,19 +269,19 @@ output "lb_public_ip" {
 
 - Terraform `output.tf`에서 확인한 Public IP
 
-![](https://velog.velcdn.com/images/xxng1/post/1f615888-86f9-404a-ad0b-206df1cd93ed/image.png)
+![](/blog-images/11/6.png)
 
 <br>
 
 - Public IP로 `curl`을 여러 번 실행하면 각 명령이 새로운 TCP 연결을 만들고, 요청이 여러 VM으로 분산되는 것을 확인할 수 있다. 아래 실행에서는 VM0, VM1, VM2가 반복해서 나타났지만 이 순서는 Azure Load Balancer가 보장하는 Round-Robin 결과가 아니다.
 
-![](https://velog.velcdn.com/images/xxng1/post/d0690776-259f-4de9-9c77-ac4a630073f9/image.png)
+![](/blog-images/11/7.png)
 
 <br>
 
 - `seq` 명령어로 다시 요청을 보내보면 각 순서대로 요청을 받는 것을 확인할 수 있다.
 
-![](https://velog.velcdn.com/images/xxng1/post/b289264b-3ca3-4a87-b821-5c54643a1500/image.png)
+![](/blog-images/11/8.png)
 
 
 
@@ -296,7 +296,7 @@ output "lb_public_ip" {
 <64352 port>
 </div>
 
-![](https://velog.velcdn.com/images/xxng1/post/0e46913d-7403-4779-99ab-a0684d4f1c08/image.png)
+![](/blog-images/11/9.png)
 
 <br>
 
@@ -305,7 +305,7 @@ output "lb_public_ip" {
 <64353 port>
 </div>
 
-![](https://velog.velcdn.com/images/xxng1/post/299fbe73-90e6-4baf-80a3-0d41d4ae5475/image.png)
+![](/blog-images/11/10.png)
 
 <br>
 
@@ -313,7 +313,7 @@ output "lb_public_ip" {
 <64354 port>
 </div>
 
-![](https://velog.velcdn.com/images/xxng1/post/3d0b480b-b7f2-409d-8ac4-e3d2bcad9625/image.png)
+![](/blog-images/11/11.png)
 
 <br>
 
@@ -507,7 +507,7 @@ default ✓ [======================================] 10000 VUs  10s
 <br>
 
 - 10,000 VU에서 현재 테스트 구성의 응답 지연과 실패율이 크게 증가한 모습
-![](https://velog.velcdn.com/images/xxng1/post/824cb09b-911d-4304-b7f3-acaef4adf0ba/image.png)
+![](/blog-images/11/12.png)
 
 
 ### Stress Test 결과를 어떻게 해석해야 할까?

@@ -14,7 +14,7 @@ AWS CloudFront 는 전 세계 엣지에 정적 파일을 캐싱해서 빠르게 
 
 그런데, 무효화는 조건부 비용이 있다.
 
-![](https://velog.velcdn.com/images/xxng1/post/54c8e1cb-0ba5-4b83-a6e5-fda1787bcf88/image.png)
+![](/blog-images/12/1.png)
 
 <br>
 
@@ -120,21 +120,21 @@ PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pat
 
 
 
-![](https://velog.velcdn.com/images/xxng1/post/ed760744-433a-4b26-9dfb-e56c5163044a/image.png)
+![](/blog-images/12/2.png)
 
 <br>
 
 
 - custom header도 추가해주고,
 
-![](https://velog.velcdn.com/images/xxng1/post/7a359d95-2f1b-4011-9818-9a19a5138d65/image.png)
+![](/blog-images/12/3.png)
 
 <br>
 
 
 - CloudFront에 만들어준 캐시 정책을 적용해준다.
 
-![](https://velog.velcdn.com/images/xxng1/post/6e8b2ce5-956f-446c-9177-2dfe7a24bd99/image.png)
+![](/blog-images/12/4.png)
 
 <br>
 
@@ -156,25 +156,25 @@ PS C:\Users\admin\Desktop\react-swr-demo> aws s3api head-object --bucket swr-pat
 
 - 처음 요청: `Miss`
 
-![](https://velog.velcdn.com/images/xxng1/post/36e247be-f972-4d52-aab7-aa0224b39fa0/image.png)
+![](/blog-images/12/5.png)
 
 <br>
 
 - 연속 요청: `Hit`
 
-![](https://velog.velcdn.com/images/xxng1/post/c8b74eeb-8810-4fa0-a2c6-5baa1da7284a/image.png)
+![](/blog-images/12/6.png)
 
 <br>
 
 - 70초 이상 요청이 없으면 `RefreshHit`, 이후 다시 `Hit`
 
-![](https://velog.velcdn.com/images/xxng1/post/f3575934-7aa7-4073-b20b-92abce19b1ba/image.png)
+![](/blog-images/12/7.png)
 
 <br>
 
 - S3에서 파일을 수정하면 `Age`(초) 값이 초기화
 
-![](https://velog.velcdn.com/images/xxng1/post/34cc5d8b-e3cd-4d83-8820-a73c4875d614/image.png)
+![](/blog-images/12/8.png)
 
 <br>
 

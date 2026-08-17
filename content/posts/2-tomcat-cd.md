@@ -80,7 +80,7 @@ mv webapps.dist/ webapps
 
 - 설정 완료 후 `http://172.16.212.32:8080/manager/html/`에 접속하여 로그인
 
-![](https://velog.velcdn.com/images/xxng1/post/4e022a98-8785-4080-8b25-313941362608/image.png)
+![](/blog-images/2/1.png)
 
 <br>
 
@@ -93,7 +93,7 @@ Jenkins에서 GitLab과 연동된 Item을 생성한 후 단계별 설정.
 - **Invoke Gradle script** 추가
 - `Use Gradle Wrapper`, `Make Gradlew executable` 옵션 활성화
 
-![](https://velog.velcdn.com/images/xxng1/post/878b1e79-7728-45ed-9c04-e7a64d3bc7eb/image.png)
+![](/blog-images/2/2.png)
 
 <br>
 
@@ -103,7 +103,7 @@ Jenkins에서 GitLab과 연동된 Item을 생성한 후 단계별 설정.
 - `**/*.war` 패턴으로 빌드 아티팩트 선택
 - Tomcat 8.x Container 추가 후 Credentials에 앞서 만든 `admin` 계정 사용
 
-![](https://velog.velcdn.com/images/xxng1/post/ce7cf08d-73f8-4749-b9f9-fcc0db009c0e/image.png)
+![](/blog-images/2/3.png)
 
 <br>
 
@@ -155,21 +155,21 @@ public class TestApplication {
 
 변경 사항을 GitLab에 Push하면 Jenkins가 Job을 실행합니다.
 
-![](https://velog.velcdn.com/images/xxng1/post/bbdd35be-9c57-4a03-b873-b82c8d10a7a2/image.png)
+![](/blog-images/2/4.png)
 
 <br>
 
 
 배포 완료 후 `http://172.16.212.32:8080/manager/html/`에서 `Context path`에 `/demo`가 추가된 것을 확인합니다.
 
-![](https://velog.velcdn.com/images/xxng1/post/b7f206f7-de31-46cc-b675-8098110d9a65/image.png)
+![](/blog-images/2/5.png)
 
 <br>
 
 
 `http://172.16.212.32:8080/demo`에 접속하면 Spring Boot 애플리케이션이 응답합니다.
 
-![](https://velog.velcdn.com/images/xxng1/post/5fc40d7c-000d-42f3-ab77-812e998beb49/image.png)
+![](/blog-images/2/6.png)
 
 
 <br>

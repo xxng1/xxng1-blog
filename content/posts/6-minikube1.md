@@ -15,7 +15,7 @@ tags: ['Kubernetes', 'minikube', 'DevOps']
 
 # ☑️ minikube란?
 
-![](https://velog.velcdn.com/images/woongaa1/post/f012ab39-2215-4dd1-8fab-f2f7167053f6/image.png)
+![](/blog-images/6/1.png)
 
 - 로컬 개발 PC에서 간단히 Kubernetes를 체험할 수 있는 도구
 - VirtualBox, Docker, HyperKit 등 다양한 하이퍼바이저 위에서 동작
@@ -44,7 +44,7 @@ Docker 드라이버를 선택해 설치했다.
    ```
    브라우저에서 리소스를 확인할 수 있다.
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/1a6b8f78-6ac9-41d9-b107-08ae15617885/image.png)
+   ![](/blog-images/6/2.png)
 
 <br>
 
@@ -61,11 +61,11 @@ Docker 드라이버를 선택해 설치했다.
 
 각 명령을 실행하면 아래처럼 결과를 확인할 수 있습니다.
 
-![kubectl get deployments](https://velog.velcdn.com/images/woongaa1/post/3325e855-72c1-4c1f-bc25-4bca48b2744f/image.png)
-![kubectl get pods](https://velog.velcdn.com/images/woongaa1/post/b8db9882-dfb7-4a61-9b21-948722bce267/image.png)
-![kubectl get events](https://velog.velcdn.com/images/woongaa1/post/b3ec55c5-d348-4e78-b324-b92e8f3e53cb/image.png)
-![kubectl config view](https://velog.velcdn.com/images/woongaa1/post/13cac459-14a5-4662-bb7a-ddb83516cee6/image.png)
-![kubectl logs](https://velog.velcdn.com/images/woongaa1/post/126e465c-6e18-4b68-ad5d-1ca9dca89967/image.png)
+![kubectl get deployments](/blog-images/6/3.png)
+![kubectl get pods](/blog-images/6/4.png)
+![kubectl get events](/blog-images/6/5.png)
+![kubectl config view](/blog-images/6/6.png)
+![kubectl logs](/blog-images/6/7.png)
 
 <br>
 
@@ -78,7 +78,7 @@ Docker 드라이버를 선택해 설치했다.
    ```
    minikube 환경에서는 내부적으로 터널을 만들어 외부 접근을 허용한다.
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/b70416c4-8b2d-4bc1-ab21-07a107397108/image.png)
+   ![](/blog-images/6/8.png)
 
 <br>
 
@@ -88,7 +88,7 @@ Docker 드라이버를 선택해 설치했다.
    ```
    직접 만든 `hello-node` 확인.
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/59e9965f-5e31-4246-93c5-f5abd87f5272/image.png)
+   ![](/blog-images/6/9.png)
 
 <br>
 
@@ -98,6 +98,6 @@ Docker 드라이버를 선택해 설치했다.
    ```
    자동으로 브라우저가 열리며 호출이 가능합니다.
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/e54e51c7-6a12-4d3b-83fb-9155f2d3b4d4/image.png)
-   ![](https://velog.velcdn.com/images/woongaa1/post/3728b5f5-c081-462a-9f1b-2912164639a5/image.png)
+   ![](/blog-images/6/10.png)
+   ![](/blog-images/6/11.png)
 

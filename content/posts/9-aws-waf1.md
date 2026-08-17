@@ -37,21 +37,21 @@ WAF는 이러한 애플리케이션 레벨(L7) 공격을 차단하는 데 초점
 
 - **WAF & Shield 콘솔** → Web ACL 생성
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/3e20e4f6-e714-435e-8ccb-d1367fc5089a/image.png)
+   ![](/blog-images/9/1.png)
 
 
 <br>   
 
 - 이름, 리전, 연결할 리소스(ALB 등) 선택
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/6926f03e-ce7c-4585-ae10-5b10cbebe997/image.png)
+   ![](/blog-images/9/2.png)
 
 
 <br>
 
 - 연결할 AWS 서비스를 선택하고, 적용 대상을 확인
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/d714d461-cab9-4ce5-9fbb-79739d6a2a1e/image.png)
+   ![](/blog-images/9/3.png)
 
 
 
@@ -60,7 +60,7 @@ WAF는 이러한 애플리케이션 레벨(L7) 공격을 차단하는 데 초점
 
 - 룰 추가 (Managed Rule Group 또는 직접 작성)
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/8888759f-98e1-43e8-82c0-0a2f5b5d143c/image.png)
+   ![](/blog-images/9/4.png)
 
 
 <br>
@@ -69,7 +69,7 @@ WAF는 이러한 애플리케이션 레벨(L7) 공격을 차단하는 데 초점
 
 - 콘솔에서 제공하는 JSON 에디터를 통해 규칙을 쉽게 작성하고 검증할 수 있다.
 
-   ![](https://velog.velcdn.com/images/woongaa1/post/cf62011c-2176-4ed7-b2a5-38738badb0d9/image.png)
+   ![](/blog-images/9/5.png)
 
 
 <br>

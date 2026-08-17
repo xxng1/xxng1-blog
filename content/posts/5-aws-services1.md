@@ -103,4 +103,4 @@ AWS 서비스 중 AWS SAA 시험에서 자주 언급되는 서비스들 정리.
 
 - **Amazon MSK**: 완전 관리형 Apache Kafka. 스트리밍 데이터 파이프라인 구축에 적합
 
-![AWS 서비스 개요](https://velog.velcdn.com/images/woongaa1/post/eb0ad643-aba9-4930-921f-d30dd1df062e/image.png)
+![AWS 서비스 개요](/blog-images/5/1.png)

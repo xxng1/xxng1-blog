@@ -40,7 +40,7 @@ https://github.com/xxng1/nginx-apache-bluegreen-gitlab
 
 # ☑️ 웹 서버 컨테이너 구성
 
-![](https://velog.velcdn.com/images/xxng1/post/65e9fee9-bf27-433b-ac8f-975dc5760ed8/image.png)
+![](/blog-images/13/1.png)
 
 
 ```
@@ -64,8 +64,8 @@ http://<VM>:8081 (Edge Nginx)
 
 - **GitLab Runner 등록** 과정에서 Shell Executor를 붙여 놓았다.
 
-  ![](https://velog.velcdn.com/images/xxng1/post/325f305c-388c-4d6e-a827-79abe52d4404/image.png)
-  ![](https://velog.velcdn.com/images/xxng1/post/c17c9d54-73ad-41da-aab9-e92e04b2e5be/image.png)
+  ![](/blog-images/13/2.png)
+  ![](/blog-images/13/3.png)
 
 <br>
 
@@ -96,19 +96,19 @@ nginx-apache-blue-green
 # ☑️ 파이프라인 흐름
 
 ### 1. **태그 푸시** 또는 수동 실행으로 배포 파이프라인 시작
-  ![](https://velog.velcdn.com/images/xxng1/post/de7dbdcd-1d84-4686-8cce-3a1147848352/image.png)
+  ![](/blog-images/13/4.png)
 
 <br>
 
 ### 2. `bootstrap` 단계에서 환경 점검 및 기본 링크 설정
-  ![](https://velog.velcdn.com/images/xxng1/post/a21dad4c-2a45-4d88-8974-2f44150edaff/image.png)
+  ![](/blog-images/13/5.png)
 
 <br>
 
 ### 3. 이후 배포 진행 후 검증
 `bootstrap` -> `deploy` -> `verify` -> `switch` 과정 진행 (`cleanup`은 30분 후 스케줄링)
 
-![](https://velog.velcdn.com/images/xxng1/post/d3e955e0-50cc-4bc8-9826-fc49517546f1/image.png)
+![](/blog-images/13/6.png)
 
 - 현재 활성 슬롯을 확인해 반대 슬롯으로 전환
 - `Blue`가 활성이면 → `Green`으로 전환
@@ -121,13 +121,13 @@ nginx-apache-blue-green
 
 ### 1. 파이프라인 실행 전/후
 
-![](https://velog.velcdn.com/images/xxng1/post/34b14a31-0d05-43c4-a8ca-4f832886db7c/image.png)
+![](/blog-images/13/7.png)
 
 <br>
 
 ### 2. GitLab UI에 전환용 수동(Job) 버튼을 추가해, 파이프라인을 돌지 않고 롤백도 가능
 
-![](https://velog.velcdn.com/images/xxng1/post/5ac164d4-bfa5-4c3f-9d75-b8a3dc022f31/image.png)
+![](/blog-images/13/8.png)
 
 <br>
 
@@ -156,7 +156,7 @@ include /etc/nginx/conf.d/app_active.conf;
 ### 2. Docker Compose 프로젝트 분리
 
 `deploy` 파이프라인 실패
-![](https://velog.velcdn.com/images/xxng1/post/87299252-8b81-4608-8980-7edaff38e62b/image.png)
+![](/blog-images/13/9.png)
 
 ```bash
 # bootstrap
@@ -172,7 +172,7 @@ docker compose -p bg-green -f app/docker-compose.green.yml up -d
 ### 3. GitLab CI 체크 포인트
 
 `bootstrap` 파이프라인 실패
-![](https://velog.velcdn.com/images/xxng1/post/2a179c2f-8762-4b83-add3-bc6a47613126/image.png)
+![](/blog-images/13/10.png)
 
 ```yaml
 before_script:

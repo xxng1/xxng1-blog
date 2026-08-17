@@ -22,7 +22,7 @@ Spring Boot와 Nginx 환경에서 안정적으로 동작하도록 구현했다.
 - 일정 시간마다 클라이언트가 서버로 요청을 보내고 응답을 받는 방식
 - 응답 데이터가 없어도 계속 요청을 수행하기 때문에 비용과 부하가 커질 수 있음
 
-![](https://velog.velcdn.com/images/woongaa1/post/119c4231-3077-4528-8e7c-4b83ce622220/image.png)
+![](/blog-images/8/1.png)
 
 <br>
 
@@ -30,7 +30,7 @@ Spring Boot와 Nginx 환경에서 안정적으로 동작하도록 구현했다.
 - 연결을 길게 열어두고 이벤트가 생길 때까지 대기
 - 연결 간격이 짧으면 폴링과 큰 차이가 없으며, 커넥션 관리 부담이 존재
 
-![](https://velog.velcdn.com/images/woongaa1/post/81491857-b22f-41a5-9be3-6e6109891178/image.png)
+![](/blog-images/8/2.png)
 
 <br>
 
@@ -38,7 +38,7 @@ Spring Boot와 Nginx 환경에서 안정적으로 동작하도록 구현했다.
 - 클라이언트·서버 간 양방향 통신을 지원
 - 연결이 지속되기 때문에 불필요한 비용이 발생할 수 있고, 서버 자원 관리가 필요
 
-![](https://velog.velcdn.com/images/woongaa1/post/79f24b0b-b0bb-4246-9d98-a559bd8bc111/image.png)
+![](/blog-images/8/3.png)
 
 <br>
 
@@ -48,7 +48,7 @@ Spring Boot와 Nginx 환경에서 안정적으로 동작하도록 구현했다.
 - 클라이언트가 구독을 요청하면 서버에서 이벤트가 발생할 때마다 응답을 전송
 - 서버 → 클라이언트 단방향 스트림으로 알림, 모니터링 로그 등에 적합
 
-![](https://velog.velcdn.com/images/woongaa1/post/d200c868-0596-4913-8f15-c636e05c83c5/image.png)
+![](/blog-images/8/4.png)
 
 <br>
 
