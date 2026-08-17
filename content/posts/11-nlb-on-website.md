@@ -7,12 +7,11 @@ excerpt: 'WEB(HTTP/HTTPS)사이트에서의 L4 Layer Load Balancer와 성능 테
 tags: ['Azure', 'NLB', 'Cloud', 'HTTP', 'Terraform', 'k6']
 ---
 
-웹사이트는 대부분 HTTP/HTTPS 레벨에서 동작하고, ALB는 이 레벨의 기능을 그대로 활용할 수 있다.
+웹사이트는 HTTP/HTTPS 레벨에서 동작하기 때문에 URL·호스트 기반 라우팅, WAF, 쿠키 기반 세션 유지가 필요하면 L7 로드 밸런서가 적합하다.
 
-그래서 웹 사이트에서는 주로 ALB(Appliction Load Balacncer)를 사용하는데,  
-L4 Layer인 NLB(Network Load Balancer)를 사용하면 안될까?
+하지만 모든 웹 서비스에 L7 기능이 필요한 것은 아니다. HTTP/HTTPS도 TCP 위에서 동작하므로, TLS 종료와 HTTP 처리를 백엔드가 담당할 수 있다면 L4 로드 밸런서로도 충분히 서비스할 수 있다. 특히 **L7 기능보다 지연 시간과 처리량이 중요하다면 L4가 더 적합한 선택**일 수 있다.
 
-이 글에서는 **Azure Load Balancer** 동작 알고리즘을 알아보고, **성능 테스트**를 진행한다.
+이 글에서는 Azure의 L4 서비스인 **Azure Load Balancer**의 분산 알고리즘을 알아보고, 간단한 부하 테스트를 진행한다.
 
 
 
@@ -27,8 +26,7 @@ L4 Layer인 NLB(Network Load Balancer)를 사용하면 안될까?
 
 ---
 
-AWS의 **NLB(Network Load Balancer)** 가 Azure의 **Load Balancer** 이고,  
-AWS의 **ALB(Application Load Balancer)** 는 Azure의 **Application Gateway**이다.
+서비스별 세부 기능은 다르지만, 계층과 역할을 기준으로 대략 대응시키면 AWS의 **NLB(Network Load Balancer)** 는 Azure의 **Load Balancer**에, AWS의 **ALB(Application Load Balancer)** 는 Azure의 **Application Gateway**에 해당한다.
 
 | AWS 서비스 | Azure 서비스 | 계층 |
 | :--- | :--- | :--- |
@@ -54,8 +52,9 @@ Azure Load Balancer는 **5-tuple 해시**를 사용한다.
 이 다섯 값을 해싱해 **백엔드 풀(Backend pool)** 의 VM 중 하나를 선택한다.  
 <sub> [Azure Docs: Backend pool management](https://learn.microsoft.com/ko-kr/azure/load-balancer/backend-pool-management) </sub>
 
-따라서 `Source Port`가 바뀔 때마다 다른 VM으로 라우팅되고,  
-겉보기에는 Round-Robin 스케줄링처럼 느껴질 수 있다.
+새 TCP 세션을 만들면서 `Source Port`가 바뀌면 해시 입력도 달라지고, 백엔드 VM이 다시 선택된다. 다만 **Source Port가 바뀌었다고 반드시 이전과 다른 VM이 선택되는 것은 아니며**, VM0 → VM1 → VM2와 같은 순서도 보장하지 않는다.
+
+반대로 HTTP keep-alive로 같은 TCP 연결을 재사용하면 5-tuple이 유지되므로, 해당 연결의 여러 HTTP 요청은 같은 백엔드 VM으로 전달된다. Azure Load Balancer의 기본 분산 단위는 HTTP 요청이 아니라 TCP/UDP 흐름이다.
 
 <br>
 
@@ -274,7 +273,7 @@ output "lb_public_ip" {
 
 <br>
 
-- Public IP로 여러 번 `curl`을 실행하면 `VM0 → VM1 → VM2` 순서로 응답이 돌아온다.
+- Public IP로 `curl`을 여러 번 실행하면 각 명령이 새로운 TCP 연결을 만들고, 요청이 여러 VM으로 분산되는 것을 확인할 수 있다. 아래 실행에서는 VM0, VM1, VM2가 반복해서 나타났지만 이 순서는 Azure Load Balancer가 보장하는 Round-Robin 결과가 아니다.
 
 ![](https://velog.velcdn.com/images/xxng1/post/d0690776-259f-4de9-9c77-ac4a630073f9/image.png)
 
@@ -286,12 +285,12 @@ output "lb_public_ip" {
 
 
 
-결국 5-튜플 중 source port만 계속 바뀌면, 해시 결과도 달라져서 VM2 → VM1 → VM0 처럼 Round-Robin 효과가 나는 것처럼 보이는 것이다.
+결국 5-tuple 중 Source Port가 계속 바뀌면 해시 입력도 달라진다. 이 때문에 요청이 여러 VM에 비교적 고르게 분산되어 Round-Robin처럼 보일 수 있지만, 실제 알고리즘은 연결 단위의 5-tuple 해시다.
 
 
 <br>
 
-- 각 VM에서 `tcpdump`로 캡처해 보면 Source Port가 매 요청마다 바뀌는 것을 확인할 수 있다.
+- 클라이언트에서 `tcpdump`로 캡처해 보면, 각각의 `curl`이 새 연결을 만들면서 Source Port가 바뀌는 것을 확인할 수 있다.
 
 <div align="center">
 <64352 port>
@@ -318,13 +317,15 @@ output "lb_public_ip" {
 
 <br>
 
-이에 따라 5-tuple Hash 값이 달라지고, Azure NLB가 다른 백엔드 VM으로 요청을 보내는 것이다.
+이에 따라 5-tuple 해시 입력이 달라지고, Azure Load Balancer가 각 연결에 사용할 백엔드 VM을 다시 선택한다.
 
 
 
 # ☑️ Azure Load Balancer 성능 테스트
 
-`k6`를 사용한 부하 테스트
+`k6`를 사용해 Azure Load Balancer를 거쳐 Nginx가 설치된 VM까지의 **end-to-end 성능**을 측정한다.
+
+이 테스트의 응답 시간에는 부하 발생기, 인터넷 구간, Azure Load Balancer, VM 네트워크, Nginx 처리 시간이 모두 포함된다. 따라서 아래 결과만으로 Azure Load Balancer가 추가한 지연이나 Load Balancer 자체의 최대 처리량을 분리해서 측정할 수는 없다.
 
 ### 테스트 스크립트 (nlb-test.js)
 
@@ -333,6 +334,7 @@ import http from 'k6/http';
 import { check } from 'k6';
 
 export const options = {
+  // 테스트별로 10, 100, 10000으로 변경
   vus: 10000,
   duration: '10s',
 };
@@ -504,8 +506,38 @@ default ✓ [======================================] 10000 VUs  10s
 
 <br>
 
-- 스트레스 테스트에는 버티지 못하는 모습
+- 10,000 VU에서 현재 테스트 구성의 응답 지연과 실패율이 크게 증가한 모습
 ![](https://velog.velcdn.com/images/xxng1/post/824cb09b-911d-4304-b7f3-acaef4adf0ba/image.png)
+
+
+### Stress Test 결과를 어떻게 해석해야 할까?
+
+이 결과를 곧바로 **Azure Load Balancer가 고부하를 처리하지 못했다**고 해석할 수는 없다.
+
+먼저 `vus`와 `duration`을 사용한 k6 기본 시나리오는 고정된 수의 VU가 응답을 받은 뒤 다음 요청을 보내는 **Closed Model**이다. 시스템의 응답이 느려지면 새로운 요청을 보내는 속도도 함께 감소하므로, 목표 RPS를 일정하게 유지하는 테스트가 아니다. 처리량 한계를 측정하려면 `constant-arrival-rate`와 같은 Open Model을 사용해 목표 RPS를 단계적으로 높이는 방식이 더 적합하다.
+
+<sub>[k6 Docs: Open and closed models](https://grafana.com/docs/k6/latest/using-k6/scenarios/concepts/open-vs-closed/)</sub>
+
+또한 10,000 VU 결과의 `698 req/s`는 10초만을 기준으로 계산된 값이 아니다.
+
+```text
+27,982 requests / 40.1 seconds ≈ 698 req/s
+```
+
+k6가 테스트 종료 후 진행 중인 요청을 기다리는 기본 `gracefulStop` 30초를 모두 사용했기 때문에 전체 실행 시간이 약 40.1초가 되었다. 따라서 이 값은 앞의 10 VU, 100 VU 결과와 같은 기준으로 직접 비교하기 어렵다.
+
+<sub>[k6 Docs: Graceful stop](https://grafana.com/docs/k6/latest/using-k6/scenarios/concepts/graceful-stop/)</sub>
+
+병목 후보도 Azure Load Balancer 하나가 아니다.
+
+- **부하 발생기**: 로컬 장비가 10,000 VU에 필요한 CPU, 메모리, 파일 디스크립터와 소켓을 충분히 제공했는지 확인하지 않았다.
+- **Nginx**: 기본 worker 및 동시 연결 설정을 그대로 사용했기 때문에, 10,000개의 연결을 수용하기 전에 Nginx의 연결 큐나 worker 한계에 도달했을 수 있다.
+- **백엔드 VM**: `Standard_B1s`는 1 vCPU, 1GiB 메모리의 버스터블 VM이다. 고정된 성능을 제공하는 벤치마크용 인스턴스가 아니며 CPU 크레딧과 네트워크 상태도 함께 관찰하지 않았다.
+- **실패 원인 미수집**: 실패한 7,997개 요청이 연결 타임아웃, connection reset, 로컬 소켓 부족, HTTP 5xx 중 무엇이었는지 기록하지 않았다.
+
+Microsoft 문서에 따르면 Azure Load Balancer 자체는 처리량 제한을 적용하지 않는다. 실제 처리량은 백엔드 VM과 가상 네트워크 등의 제한을 함께 받는다. 그러므로 이 실험에서 확인된 것은 **10,000 VU 스파이크에서 현재 구성 전체가 포화되었다는 사실**이며, Azure Load Balancer의 처리량 한계가 아니다.
+
+<sub>[Azure Docs: Azure subscription and service limits](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#load-balancer-limits)</sub>
 
 
 <br>
@@ -513,13 +545,17 @@ default ✓ [======================================] 10000 VUs  10s
 
 # ☑️ 결론
 
-- Azure Load Balancer 는 매우 낮은 지연을 제공하고, 단순 트래픽 분산에는 충분히 좋은 선택이다.
-- 하지만 URL 라우팅, 스티키 세션 등 L7 기능이 필요하다면 여전히 ALB가 적합하다.
-- 고부하 상황에서는 한계가 드러났다.
+- Azure Load Balancer는 HTTP를 해석하거나 TCP 연결을 프록시에서 종료하지 않고, L4에서 TCP/UDP 흐름을 분산한다. **URL 라우팅이나 WAF 같은 L7 기능보다 지연 시간과 처리량이 중요한 서비스라면 의도적으로 선택할 수 있는 구성**이다.
+- HTTP/HTTPS 서비스에서도 사용할 수 있다. 다만 TLS 종료와 HTTP 처리는 백엔드가 담당해야 하며, URL·호스트 기반 라우팅, WAF, 쿠키 기반 세션 affinity가 필요하면 Azure Application Gateway가 적합하다.
+- Azure Load Balancer도 Source IP 기반의 2-tuple 또는 3-tuple 세션 지속성을 지원한다. Application Gateway가 필요한 경우는 HTTP 쿠키를 이용한 애플리케이션 수준의 세션 affinity가 필요할 때다.
+- 이번 테스트에서는 100 VU까지 약 5,900 RPS를 오류 없이 처리했다. 그러나 이는 전체 경로의 측정값이므로 Azure Load Balancer만의 지연이나 최대 처리량을 나타내지는 않는다.
+- 10,000 VU에서 현재 테스트 구성 전체의 한계가 드러났지만, 수집한 정보만으로는 병목을 Azure Load Balancer로 특정할 수 없다.
 
-| 항목             | 10 VUs / 10s | 100 VUs / 60s | 10,000 VUs / 10s       |
-|------------------|--------------|---------------|-------------------------|
-| RPS              | ~830         | ~5,900        | ~698                    |
-| 평균 응답 시간   | ~11.7ms      | ~16.7ms       | ~3.6s                   |
-| 최대 응답 시간   | ~115ms       | ~378ms        | ~33s                    |
-| 성공률           | 100%         | 100%          | **71.4%** (28.6% 실패)  |
+| 항목             | 10 VUs / 10s | 100 VUs / 60s | 10,000 VUs / 10s                         |
+|------------------|--------------|---------------|-------------------------------------------|
+| k6 표시 RPS      | ~830         | ~5,900        | ~698 (40.1초 전체 실행 시간 기준)         |
+| 평균 응답 시간   | ~11.7ms      | ~16.7ms       | ~3.6s                                     |
+| 최대 응답 시간   | ~115ms       | ~378ms        | ~33s                                      |
+| 성공률           | 100%         | 100%          | **71.4%** (28.6% 실패)                    |
+
+L7 기능이 필요하지 않고 초저지연·고처리량이 핵심 요구사항이라면 Azure Load Balancer가 우선 선택지가 될 수 있다. 이를 성능 수치로 입증하려면 동일한 백엔드와 부하 조건에서 Azure Load Balancer, Application Gateway, Load Balancer를 우회한 직접 요청을 각각 비교하고 각 구간의 메트릭을 함께 수집해야 한다.
