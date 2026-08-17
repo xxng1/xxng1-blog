@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import { getSortedPostsData, getAllTags, getPostData } from '@/lib/posts';
+// import Link from 'next/link'; // TOP 3 활성화 시 사용
+import { getSortedPostsData, getAllTags } from '@/lib/posts';
+// import { getPostData } from '@/lib/posts'; // TOP 3 활성화 시 사용
 import HomePostsSection from '@/components/home-posts-section';
 import { Suspense } from 'react';
 
@@ -16,6 +17,7 @@ export default async function Home() {
     githubUrl,
   }));
 
+  /* TOP 3 활성화 시 사용
   const featuredPostIds = [
     '14-terraform-backend-migration',
     '11-nlb-on-website',
@@ -24,11 +26,12 @@ export default async function Home() {
   const featuredPosts = await Promise.all(
     featuredPostIds.map((id) => getPostData(id))
   );
+  */
 
   return (
     <div className="space-y-8">
       <section className="space-y-6 mb-12">
-        <div className="grid gap-8 md:grid-cols-2 md:items-center">
+        <div className="grid gap-8 md:items-center">
           <div className="text-center md:text-left">
             <h2 className="text-3xl font-bold text-foreground mb-2">
               hello woong! 👋
@@ -38,6 +41,7 @@ export default async function Home() {
             </p>
           </div>
 
+          {/* TOP 3 비활성화
           <div className="w-full hidden md:block">
             <h2 className="text-2xl font-bold text-foreground mb-4">TOP 3</h2>
             <div className="flex flex-col gap-2">
@@ -57,6 +61,7 @@ export default async function Home() {
               ))}
             </div>
           </div>
+          */}
         </div>
       </section>
 
