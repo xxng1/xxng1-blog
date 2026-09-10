@@ -13,7 +13,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
-const PDF_URL = "/portfolio.pdf";
+export type PortfolioPdfViewerProps = {
+  file?: string;
+  documentLabel?: string;
+};
 
 /** pdf.js 기본 캔버스 배경은 white — 사이트 `--background`(#fafafa)와 동일하게 맞춤 */
 const PAGE_CANVAS_BG = "#fafafa";
@@ -26,6 +29,7 @@ const PAGE_CLASS =
   "portfolio-pdf-page mx-auto shadow-none [&_.react-pdf__Page__canvas]:mx-auto [&_.react-pdf__Page__canvas]:block";
 
 type PortfolioPdfBodyProps = {
+  documentLabel: string;
   numPages: number;
   currentPage: number;
   setCurrentPage: (p: number | ((n: number) => number)) => void;
@@ -35,6 +39,7 @@ type PortfolioPdfBodyProps = {
 const WHEEL_PAGE_THRESHOLD = 52;
 
 function PortfolioPdfBody({
+  documentLabel,
   numPages,
   currentPage,
   setCurrentPage,
@@ -138,7 +143,7 @@ function PortfolioPdfBody({
           ref={areaRef}
           className="w-full min-w-0 min-[1800px]:max-w-5xl outline-none"
           role="region"
-          aria-label="포트폴리오 PDF — 휠 또는 좌우 화살표로 페이지 이동"
+          aria-label={`${documentLabel} PDF — 휠 또는 좌우 화살표로 페이지 이동`}
           tabIndex={0}
         >
           <div className="flex w-full min-w-0 justify-center">
@@ -191,7 +196,10 @@ function PortfolioPdfBody({
   );
 }
 
-export default function PortfolioPdfViewer() {
+export default function PortfolioPdfViewer({
+  file = "/portfolio.pdf",
+  documentLabel = "포트폴리오",
+}: PortfolioPdfViewerProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [loadError, setLoadError] = useState<string | null>(null);
 
@@ -213,7 +221,7 @@ export default function PortfolioPdfViewer() {
       )}
 
       <Document
-        file={PDF_URL}
+        file={file}
         onLoadSuccess={onLoadSuccess}
         onLoadError={onLoadError}
         loading={null}
@@ -221,6 +229,7 @@ export default function PortfolioPdfViewer() {
       >
         {(docRenderProps) => (
           <PortfolioPdfBody
+            documentLabel={documentLabel}
             numPages={docRenderProps.pdf.numPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
