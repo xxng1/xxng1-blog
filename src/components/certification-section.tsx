@@ -18,6 +18,14 @@ type CertificationWithImage = CertificationItem & { imageSrc: string };
 
 const certifications: CertificationItem[] = [
   {
+    date: '2026.09',
+    title: 'Certified Kubernetes Security Specialist (CKS)',
+    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    imageSrc: '/CKS_IMAGE.png',
+    imageAlt: 'Certified Kubernetes Security Specialist (CKS) Certificate',
+    credlyUrl: 'https://www.credly.com/badges/6bb730c3-cce8-4479-a707-1e8960970a94',
+  },
+  {
     date: '2026.03',
     title: 'Kubernetes and Cloud Native Security Associate (KCSA)',
     issuer: 'Cloud Native Computing Foundation (CNCF)',
@@ -162,4 +170,3 @@ export default function CertificationSection() {
     </>
   );
 }
-
