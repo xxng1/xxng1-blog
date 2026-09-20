@@ -66,9 +66,9 @@ export default function AboutPage() {
                     />
                 </div>
                 <div className="text-center md:text-left">
-                    <h2 className="text-3xl font-bold mb-2 text-foreground">@xxng1</h2>
+                    <h2 className="text-3xl font-bold mb-2 text-foreground">Sangwoong Park</h2>
                     <p className="text-muted text-lg mb-3">
-                        박상웅 | Sangwoong Park
+                        DevOps Engineer | Kubestronaut
                     </p>
                     <p className="text-muted text-base italic font-light mb-4">
                         No Silver Bullet — Exploring better ways in Cloud Native & DevOps

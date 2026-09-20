@@ -20,7 +20,7 @@ const certifications: CertificationItem[] = [
   {
     date: '2026.09',
     title: 'Certified Kubernetes Security Specialist (CKS)',
-    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    issuer: 'The Linux Foundation',
     imageSrc: '/CKS_IMAGE.png',
     imageAlt: 'Certified Kubernetes Security Specialist (CKS) Certificate',
     credlyUrl: 'https://www.credly.com/badges/6bb730c3-cce8-4479-a707-1e8960970a94',
@@ -28,7 +28,7 @@ const certifications: CertificationItem[] = [
   {
     date: '2026.03',
     title: 'Kubernetes and Cloud Native Security Associate (KCSA)',
-    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    issuer: 'The Linux Foundation',
     imageSrc: '/kcsa.png',
     imageAlt: 'Kubernetes and Cloud Native Security Associate (KCSA) Certificate',
     credlyUrl: 'https://www.credly.com/badges/df71ff4e-38eb-4029-b1f2-f5abaaae9a2c',
@@ -36,7 +36,7 @@ const certifications: CertificationItem[] = [
   {
     date: '2026.01',
     title: 'Certified Kubernetes Application Developer (CKAD)',
-    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    issuer: 'The Linux Foundation',
     imageSrc: '/CKAD_IMAGE.png',
     imageAlt: 'Certified Kubernetes Application Developer (CKAD) Certificate',
     credlyUrl: 'https://www.credly.com/badges/e8c4c4d2-b29a-45c9-9f8f-bed3244dd9a4',
@@ -44,7 +44,7 @@ const certifications: CertificationItem[] = [
   {
     date: '2025.12',
     title: 'Kubernetes and Cloud Native Associate (KCNA)',
-    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    issuer: 'The Linux Foundation',
     imageSrc: '/kcna.png',
     imageAlt: 'Kubernetes and Cloud Native Associate (KCNA) Certificate',
     credlyUrl: 'https://www.credly.com/badges/f9ec9460-6072-4427-8f36-1fdbf25ff468',
@@ -53,7 +53,7 @@ const certifications: CertificationItem[] = [
   {
     date: '2025.07',
     title: 'Certified Kubernetes Administrator (CKA)',
-    issuer: 'Cloud Native Computing Foundation (CNCF)',
+    issuer: 'The Linux Foundation',
     imageSrc: '/CKA_IMAGE.png',
     imageAlt: 'Certified Kubernetes Administrator (CKA) Certificate',
     credlyUrl: 'https://www.credly.com/badges/f7bb8e11-c6c9-493e-bb43-a4a5fe95d45a',
