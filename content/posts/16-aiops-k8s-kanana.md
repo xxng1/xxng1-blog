@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "AI Driven Kubernetes 아키텍처와 Kanana-o"
+title:        "AI Driven 아키텍처와 Kanana-o"
 date: '2026-05-28'
 section: 'infra'
 excerpt: 'Kanana-o API를 사용한 Kubernetes 장애 조치 테스트'
@@ -33,6 +33,8 @@ https://omni.kanana.ai/
 ![](/blog-images/16/3.png)
 이번 API 제공 모델은 `Kanana-1.5-o-9.8b-2602` 버전이고,  
 비교 모델은 `Google Gemini 2.5 Flash`로 선택했다.
+
+( 사실 Gemini를 많이 쓰지는 않지만, AIOps 벤치마크 사진에서 Gemini 2.5 Flash가 있기도하고, 이번 달이 Pro 구독 마지막달이라서 한번 비교해봤다.)
 
 # 테스트
 
