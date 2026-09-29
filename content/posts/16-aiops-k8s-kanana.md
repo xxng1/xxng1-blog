@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "AI Driven 아키텍처와 Kanana-o"
+title:        "AIOps Agent Benchmark 글 저장 (feat. Kanana-o)"
 date: '2026-05-28'
 section: 'infra'
 excerpt: 'Kanana-o API를 사용한 Kubernetes 장애 조치 테스트'
